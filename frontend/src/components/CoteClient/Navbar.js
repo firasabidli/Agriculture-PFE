@@ -1,0 +1,105 @@
+import React, { useState } from 'react';
+import {  Nav, Modal } from 'react-bootstrap';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+//import { Spinner } from 'react-bootstrap';
+import HeaderCarousel from './HeaderCarousel';
+import '../../assets/CoteClient/lib/animate/animate.min.css';
+import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import '../../assets/CoteClient/css/style.css';
+const MyNavbar = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalShow = () => setShowModal(true);
+  const handleModalClose = () => setShowModal(false);
+
+  return (
+    <div>
+    {/* spinner */}
+    {/* <div id="spinner" className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div className="spinner-border text-primary" role="status"></div>
+    </div> */}
+    {/* fin spinner */}
+      <div className="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+        <div className="top-bar row gx-0 align-items-center d-none d-lg-flex">
+          <div className="col-lg-6 px-5 text-start">
+            <small><FaMapMarkerAlt className="me-2" />123 Street, Jendouba, Tunis</small>
+            <small className="ms-4"><FaEnvelope className="me-2" />info@example.com</small>
+          </div>
+          <div className="col-lg-6 px-5 text-end">
+            <small>Follow us:</small>
+            <FaFacebookF className="text-body ms-3"/>
+            <FaTwitter className="text-body ms-3" />
+            <FaLinkedinIn className="text-body ms-3" />
+            <FaInstagram className="text-body ms-3"  />
+          </div>
+        </div>
+        <nav class="navbar navbar-expand-lg  navbar-light py-lg-0 px-lg-5 wow fadeIn">
+          <div class="container-fluid">
+            <h1 className="fw-bold text-primary m-0">F<span className="text-secondary">oo</span>dy</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto p-4 p-lg-0">
+                  <li class="nav-item">
+                    <Nav.Link as={Link} to="/accueil" className="nav-item nav-link ms-3 active">
+                      <FaHome /> Accueil
+                    </Nav.Link>
+                  </li>
+                  <li class="nav-item">
+                    <Nav.Link as={Link} to="/culture" className="nav-item nav-link ms-3">
+                      <FaLeaf /> Culture
+                    </Nav.Link>
+                  </li>
+                  <li>
+                    <Nav.Link as={Link} to="/betail" className="nav-item nav-link ms-3">
+                      <FaCat /> Bétail
+                    </Nav.Link>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                    </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/">Action</a></li>
+                    <li><a class="dropdown-item" href="/">Another action</a></li>
+                    <li><hr class="dropdown-divider"/></li>
+                    <li><a class="dropdown-item" href="/">Something else here</a></li>
+                  </ul>
+                  </li>
+              </ul>
+              <div className="d-none d-lg-flex ms-2">
+                <button className='rounded-circle btn-sm-square bg-white ms-3'>
+                  <FaSearch className="text-body"  onClick={handleModalShow} />
+                </button>
+                <button className='rounded-circle btn-sm-square bg-white ms-3'>
+                  <FaUser className="text-body" />
+                </button>
+                <button className='rounded-circle btn-sm-square bg-white ms-3'>
+                  <FaShoppingBag className="text-body  " />
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        {/* Search Modal */}
+        <Modal show={showModal} onHide={handleModalClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Search</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {/* Add your search form or content here */}
+          </Modal.Body>
+        </Modal>
+      </div>
+      <HeaderCarousel></HeaderCarousel>
+
+    </div>
+  );
+  };
+
+export default MyNavbar;
