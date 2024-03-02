@@ -69,15 +69,54 @@
 }
 
 /*** Navbar ***/
+
+.navbar {
+    overflow: hidden;
+    transition: White 0.3s; /* Transition fluide pour le changement de couleur */
+  }
+  
+  .navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .navbar a:hover {
+    background-color: #ddd; /* Couleur de fond au survol */
+    color: black;
+  }
+  /*  */
 .fixed-top {
     transition: .5s;
 }
-
+  
 .top-bar {
-    height: 7vh; /* Utilisation de pourcentages pour la hauteur */
-    border-bottom: 1px solid rgba(0, 0, 0, .07);
+    height: 7vh;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     font-size: 1rem;
-}
+    visibility: visible;
+    transition: visibility 0.3s ease;
+  }
+  
+  .invisible {
+    visibility: hidden;
+    height: 0vh;
+  }
+  
+  .scrolled {
+    background-color: white; 
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    height: 7vh;
+  }
+  
+  /* .navbar-nav {
+    margin-top: 10px; 
+  } */
+  
+  
 navbar-expand-lg {
     margin-top: 3vh;
 }
@@ -223,4 +262,10 @@ navbar-expand-lg {
     background-color: #F65005;
     border: none;
     font-size: 3vh;
+}
+/* Type Sol */
+.paraghraphe-Terre{
+    font-size: large;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:black;
 }

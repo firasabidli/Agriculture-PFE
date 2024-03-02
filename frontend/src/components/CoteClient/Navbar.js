@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -9,9 +9,26 @@ import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../assets/CoteClient/css/style.css';
+import TypeSol from './TypeSol';
 const MyNavbar = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Mettez à jour l'état en fonction de la position de défilement
+      const scrolled = window.scrollY > 0;
+      setIsScrolled(scrolled);
+    };
+
+    // Ajoutez un écouteur d'événements de défilement
+    window.addEventListener('scroll', handleScroll);
+
+    // Nettoyez l'écouteur d'événements lors du démontage du composant
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   const handleModalShow = () => setShowModal(true);
   const handleModalClose = () => setShowModal(false);
 
@@ -22,8 +39,8 @@ const MyNavbar = () => {
     <div className="spinner-border text-primary" role="status"></div>
     </div> */}
     {/* fin spinner */}
-      <div className="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
-        <div className="top-bar row gx-0 align-items-center d-none d-lg-flex">
+      <div className={`container-fluid fixed-top px-0 wow fadeIn ${isScrolled ? 'scrolled' : ''}`} data-wow-delay="0.1s">
+        <div className={`top-bar row gx-0 align-items-center d-none d-lg-flex ${isScrolled ? 'invisible' : ''}`}>
           <div className="col-lg-6 px-5 text-start">
             <small><FaMapMarkerAlt className="me-2" />123 Street, Jendouba, Tunis</small>
             <small className="ms-4"><FaEnvelope className="me-2" />info@example.com</small>
@@ -36,7 +53,7 @@ const MyNavbar = () => {
             <FaInstagram className="text-body ms-3"  />
           </div>
         </div>
-        <nav class="navbar navbar-expand-lg  navbar-light py-lg-0 px-lg-5 wow fadeIn">
+        <nav className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
           <div class="container-fluid">
             <h1 className="fw-bold text-primary m-0">F<span className="text-secondary">oo</span>dy</h1>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +114,7 @@ const MyNavbar = () => {
         </Modal>
       </div>
       <HeaderCarousel></HeaderCarousel>
-
+      <TypeSol/>
     </div>
   );
   };
