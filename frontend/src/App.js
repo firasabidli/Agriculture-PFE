@@ -1,10 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import Navbar from './components/CoteClient/Navbar';
 function App() {
   return (
-    <div className="App">
-     <h1>hi</h1>
+    <div>
+     <Navbar></Navbar>
     </div>
   );
 }

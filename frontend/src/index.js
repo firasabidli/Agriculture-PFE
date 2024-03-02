@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import Navbar from './components/CoteClient/Navbar';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+    <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/Navbar" element={<Navbar />} />
+        </Routes>
+    </Router>
   </React.StrictMode>
 );
 
