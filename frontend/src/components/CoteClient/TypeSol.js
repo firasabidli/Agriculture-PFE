@@ -1,60 +1,90 @@
 import React from 'react';
-import argileux from '../../assets/CoteClient/images/TypeSol/argileux.jpeg'
-import humifere from '../../assets/CoteClient/images/TypeSol/humifere.jpeg'
-import limoneux from '../../assets/CoteClient/images/TypeSol/limoneux.jpeg'
-import '../../assets/CoteClient/lib/animate/animate.min.css';
-import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card } from 'react-bootstrap';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import '../../assets/CoteClient/css/style.css';
-const TypeSol = () => {
-    return (
-        <div>
-             <div class="container-xxl py-5">
-        <div class="container">
-            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" >
-                <h1 class="display-5 mb-3">Type SOL</h1>
-                <p>Les sols en fonction des régions et de leur histoire géologique ont des natures très différentes</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <img class="img-fluid" src={argileux} alt=""/>
-                    <div class="bg-light p-4">
-                        <h1 class="d-block  h5 lh-base mb-4" >Sol argileux</h1>
-                        <div class="text-muted border-top pt-4">
-                            <p className='paraghraphe-Terre'>Un sol argileux est composé d’une grande quantité de particules fines de roches de diamètre inférieur à 2 microns. 
-                                La finesse de ces particules en fait un sol lourd et compact qui laisse difficilement passer l’eau. En période de sécheresse, 
-                                il devient très dur et laisse apparaître des crevasses.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <img class="img-fluid" src={humifere} alt=""/>
-                    <div class="bg-light p-4">
-                        <h1 class="d-block h5 lh-base mb-4">Sol humifère</h1>
-                        <div class="text-muted border-top pt-4">
-                            <p className='paraghraphe-Terre'>Un sol humifère est un sol communément appelé « terre végétale ». 
-                                Il est riche en matières organiques, de couleur brune à noire. 
-                                Il se travaille facilement et accueille une végétation spontanée.Il est spongieux, ne colle pas et s’aère facilement.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <img class="img-fluid" src={ limoneux } alt=""/>
-                    <div class="bg-light p-4">
-                        <h1 class="d-block h5 lh-base mb-4" >Sol limoneux</h1>
-                        <div class="text-muted border-top pt-4">
-                            <p className='paraghraphe-Terre'>​On appelle « sol limoneux » un sol riche en limons. C’est un sol dont les grains sont de taille intermédiaire entre les argiles et les sables. 
-                                Ce sol s’est constitué par dépôts sédimentaires le long d’un cours d’eau. 
-                                On le trouve donc à proximité des fleuves.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+import { IoIosArrowRoundForward } from 'react-icons/io';
+import { IoIosChatboxes } from 'react-icons/io';
+import argileux from '../../assets/CoteClient/images/TypeSol/argileux.jpeg';
+import humifere from '../../assets/CoteClient/images/TypeSol/humifere.jpeg';
+import limoneux from '../../assets/CoteClient/images/TypeSol/limoneux.jpeg';
+import calcaire from '../../assets/CoteClient/images/TypeSol/calcaire.jpeg';
+import sableux from '../../assets/CoteClient/images/TypeSol/sableux.jpeg';
 
-        </div>
-        );
-    };
-    
-    export default TypeSol;
+const TypeSol = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll:1,
+  };
+
+  const carouselData = [
+
+    {
+      image: humifere,
+      title: 'Sol humifère',
+      description: 'Un sol humifère est un sol communément appelé « terre végétale ». Il est riche en matières organiques, de couleur brune à noire. Il se travaille facilement et accueille une végétation spontanée.',
+    },
+    {
+      image: limoneux,
+      title: 'Sol limoneux',
+      description: 'On appelle « sol limoneux » un sol riche en limons. C’est un sol dont les grains sont de taille intermédiaire entre les argiles et les sables. Ce sol s’est constitué par dépôts sédimentaires le long d’un cours d’eau.',
+    },
+    {
+      image: calcaire,
+      title: 'Sol Calcaire',
+      description: 'Un sol calcaire se reconnaît à sa couleur blanchâtre. Il est principalement composé de carbonate de calcium [CaCO3] qui provient de l’accumulation de dépôts marins lors des périodes géologiques.',
+    },
+    {
+      image: sableux,
+      title: 'Sol Sableux',
+      description: 'Les sols sableux sont souvent secs, pauvres en matières organiques, aérés et très drainants. Ils ne sont pas aptes à transporter l’eau par capillarité jusqu’aux couches profondes ce qui les rend instables.',
+    },
+    {
+      image: argileux,
+      title: 'Sol argileux',
+      description: 'Un sol argileux est composé d’une grande quantité de particules fines de roches de diamètre inférieur à 2 microns. La finesse de ces particules en fait un sol lourd et compact qui laisse difficilement passer l’eau.',
+    },
+  ];
+
+  return (
+    <div>
+      <div className="container">
+      <div class="red-line"></div>
+  <div class="green-line"></div>
+        <h1>Type Sol</h1>
+        <p>Le sol est la partie superficielle de l’écorce terrestre</p>
+      </div>
+      
+      <Slider className="slider carousel-indicators" {...settings}>
+        {carouselData.map((item, index) => (
+          <div >
+          <Card className='card' key={index}>
+            
+            <Card.Img variant="top" src={item.image} />
+            <Card.Body>
+              <Card.Title className="Title">{item.title}</Card.Title>
+              <Card.Text className='description'>{item.description}</Card.Text>
+              <div class="d-flex align-items-center mt-4">
+			                <p class="mb-0"><a href="/" class="btn btn-Read">En savoir plus <span>
+                      <IoIosArrowRoundForward /></span></a></p>
+			                <p class="ml-auto meta2 mb-0">
+			                	<a href="/" class="mr-2">Admin</a>
+			                	<a href="/" class="meta-chat"><span>
+                          <IoIosChatboxes></IoIosChatboxes></span> 3</a>
+			                </p>
+		                </div>
+            </Card.Body>
+            
+          </Card>
+          </div>
+        ))}
+      </Slider>
+     </div>
+  );
+};
+
+export default TypeSol;
