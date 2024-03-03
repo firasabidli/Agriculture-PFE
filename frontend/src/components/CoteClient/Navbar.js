@@ -8,6 +8,7 @@ import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../assets/CoteClient/css/style.css';
+import logo from "../../assets/CoteClient/images/logo.png"
 const MyNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -53,7 +54,8 @@ const MyNavbar = () => {
         </div>
         <nav className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
           <div class="container-fluid">
-            <h1 className="fw-bold text-primary m-0">F<span className="text-secondary">oo</span>dy</h1>
+             <img className='logo' src={ logo} alt=""/>
+            {/* <h1 className="fw-bold text-primary m-0">F<span className="text-secondary">oo</span>dy</h1> */}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
