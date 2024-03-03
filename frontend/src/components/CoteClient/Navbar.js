@@ -3,13 +3,11 @@ import {  Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 //import { Spinner } from 'react-bootstrap';
-import HeaderCarousel from './HeaderCarousel';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../assets/CoteClient/css/style.css';
-import TypeSol from './TypeSol';
 const MyNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -113,8 +111,8 @@ const MyNavbar = () => {
           </Modal.Body>
         </Modal>
       </div>
-      <HeaderCarousel></HeaderCarousel>
-      <TypeSol/>
+      {/* <HeaderCarousel></HeaderCarousel>
+      <TypeSol/> */}
     </div>
   );
   };

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import Navbar from './components/CoteClient/Navbar';
+import Accueil from './components/CoteClient/PageAccueil.jsx';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -14,7 +14,7 @@ root.render(
     <Router>
     <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/Navbar" element={<Navbar />} />
+          <Route path="/accueil" element={<Accueil />} />
         </Routes>
     </Router>
   </React.StrictMode>

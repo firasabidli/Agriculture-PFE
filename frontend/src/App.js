@@ -1,10 +1,10 @@
 
 import './App.css';
-import Navbar from './components/CoteClient/Navbar';
+import Accueil from './components/CoteClient/PageAccueil.jsx';
 function App() {
   return (
     <div>
-     <Navbar></Navbar>
+     <Accueil></Accueil>
     </div>
   );
 }
