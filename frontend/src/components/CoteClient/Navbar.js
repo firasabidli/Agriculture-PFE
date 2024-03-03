@@ -3,13 +3,11 @@ import {  Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 //import { Spinner } from 'react-bootstrap';
-import HeaderCarousel from './HeaderCarousel';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../assets/CoteClient/css/style.css';
-import TypeSol from './TypeSol';
 const MyNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,31 +60,31 @@ const MyNavbar = () => {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto p-4 p-lg-0">
                   <li class="nav-item">
-                    <Nav.Link as={Link} to="/accueil" className="nav-item nav-link ms-3 active">
+                    <Nav.Link as={Link} to="/accueil" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`}>
                       <FaHome /> Accueil
                     </Nav.Link>
                   </li>
                   <li class="nav-item">
-                    <Nav.Link as={Link} to="/culture" className="nav-item nav-link ms-3">
+                    <Nav.Link as={Link} to="/culture" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`}>
                       <FaLeaf /> Culture
                     </Nav.Link>
                   </li>
                   <li>
-                    <Nav.Link as={Link} to="/betail" className="nav-item nav-link ms-3">
+                    <Nav.Link as={Link} to="/betail" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`}>
                       <FaCat /> Bétail
                     </Nav.Link>
                   </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                    </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/">Action</a></li>
-                    <li><a class="dropdown-item" href="/">Another action</a></li>
-                    <li><hr class="dropdown-divider"/></li>
-                    <li><a class="dropdown-item" href="/">Something else here</a></li>
-                  </ul>
-                  </li>
+                  <li className="nav-item dropdown">
+            <a className={`nav-link dropdown-toggle ${isScrolled ? 'text-black' : ''}`} href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul className="dropdown-menu">
+              <li><a className="dropdown-item" href="/">Action</a></li>
+              <li><a className="dropdown-item" href="/">Another action</a></li>
+              <li><hr className="dropdown-divider"/></li>
+              <li><a className="dropdown-item" href="/">Something else here</a></li>
+            </ul>
+          </li>
               </ul>
               <div className="d-none d-lg-flex ms-2">
                 <button className='rounded-circle btn-sm-square bg-white ms-3'>
@@ -113,8 +111,8 @@ const MyNavbar = () => {
           </Modal.Body>
         </Modal>
       </div>
-      <HeaderCarousel></HeaderCarousel>
-      <TypeSol/>
+      {/* <HeaderCarousel></HeaderCarousel>
+      <TypeSol/> */}
     </div>
   );
   };
