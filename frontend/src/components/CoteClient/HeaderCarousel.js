@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Carousel } from 'react-bootstrap';
-import Carousel1 from '../../assets/CoteClient/images/carousel-1.jpg';
-import Carousel2 from '../../assets/CoteClient/images/carousel-2.jpg';
+import Carousel1 from '../../assets/CoteClient/images/agriculture1.jpg';
+import Carousel2 from '../../assets/CoteClient/images/agriculture3.jpg';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,7 +31,7 @@ const HeaderCarousel = () => {
               <div className="row justify-content-start">
                 <div className="col-lg-7">
                   <h1 className="display-2 mb-5 animated slideInDown">Au Cœur de la Nature, Pour une Alimentation Saine</h1>
-                  <Button className="btn btn-primary-carsoul rounded-pill py-sm-3 px-sm-5">Products</Button>
+                  <Button className="btn btn-primary-carsoul rounded-pill py-sm-3 px-sm-5">Production</Button>
                   <Button className="btn btn-secondary-carsoul  rounded-pill py-sm-3 px-sm-5 ms-3">Services</Button>
                 </div>
               </div>
