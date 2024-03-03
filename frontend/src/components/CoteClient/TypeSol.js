@@ -54,7 +54,7 @@ const TypeSol = () => {
     <div>
       <div className="container">
       <div class="red-line"></div>
-  <div class="green-line"></div>
+      <div class="green-line"></div>
         <h1>Type Sol</h1>
         <p>Le sol est la partie superficielle de l’écorce terrestre</p>
       </div>

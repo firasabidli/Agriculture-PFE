@@ -335,7 +335,7 @@ navbar-expand-lg {
     border-top: 0;
     border-radius: 2px;
     text-decoration: none;
-    font-family: "Poppins", Arial, sans-serif;;
+    font-family: "Poppins", Arial, sans-serif;
 }
 .Title:hover {
     color:#3CB815;
@@ -425,4 +425,28 @@ navbar-expand-lg {
   .container p{
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
+  }
+/* BandeRoulante */
+.Entreprise {
+     flex: 1;
+     font-size: 30px;
+     font-family: "Times New Roman", Times, serif;
+     font-style:var(--dark);
+     font-weight: bold;
+     margin-right: 40px;
+}
+.equal-height-image{
+    margin-bottom: 30px;
+    height: auto;
+    filter: grayscale(100%);
+    object-Fit: cover;
+    border-Radius: 8px;
+
+    
+  }
+  .equal-height-image:hover{
+    filter: none;
+  }
+  .Line {
+   margin-right: 70%;
   }
