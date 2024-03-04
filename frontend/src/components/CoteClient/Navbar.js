@@ -8,7 +8,7 @@ import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../assets/CoteClient/css/style.css';
-import logo from "../../assets/CoteClient/images/logo.png"
+import logo from "../../assets/images/logo.png"
 const MyNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
