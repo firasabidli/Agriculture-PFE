@@ -19,49 +19,49 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
         </div>
 
         <ul className='sidebar-list'>
-        <Link to="/home" className='link'>
+        <Link to="/admin/dashboard" className='link'>
             <li className='sidebar-list-item'>
                 
                     <BsGrid1X2Fill className='icon'/> Dashboard
                 
             </li>
             </Link>
-            <Link to="/culture" className='link'>
+            <Link to="/admin/culture" className='link'>
             <li className='sidebar-list-item'>
                 
                 <MdAgriculture className='icon2'/> Culture
                 
             </li>
             </Link>
-            <Link to="/betail" className='link'>
+            <Link to="/admin/betail" className='link'>
             <li className='sidebar-list-item'>
                
                     <GiCow className='icon2'/> Betail
                 
             </li>
             </Link>
-            <Link to="/Agriculteurs" className='link'>
+            <Link to="/admin/Agriculteurs" className='link'>
             <li className='sidebar-list-item'>
                 
                 <GiFarmer  className='icon2'/> Agriculteurs
                 
             </li>
             </Link>
-            <Link to="/stock" className='link'>
+            <Link to="/admin/stock" className='link'>
             <li className='sidebar-list-item'>
                 
                     <BsListCheck className='icon' style={{fontSize:'28px'}}/> Stock
                 
             </li>
             </Link>
-            <Link to="/facture" className='link'>
+            <Link to="/admin/facture" className='link'>
             <li className='sidebar-list-item'>
                 
                 <FaFileInvoiceDollar  className='icon'/> Facture
                 
             </li>
             </Link>
-            <Link to="/profile" className='link'>
+            <Link to="/admin/profile" className='link'>
             <li className='sidebar-list-item'>
                 
                     <BsFillGearFill className='icon'/> Profile
