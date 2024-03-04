@@ -23,13 +23,13 @@ root.render(
           <Route path="/" element={<App />} />
           <Route path="/accueil" element={<Accueil />} />
                 {/* Admin Routes */}
-          <Route path="/home" element={<Home/>} />
-          <Route path="/culture" element={<Culture/>} />
-          <Route path="/betail" element={<Betail />} />
-          <Route path="/agriculteurs" element={<Agriculteurs />} />
-          <Route path="/stock" element={<Stock />} />
-          <Route path="/facture" element={<Facture />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin/dashboard" element={<Home/>} />
+          <Route path="/admin/culture" element={<Culture/>} />
+          <Route path="/admin/betail" element={<Betail />} />
+          <Route path="/admin/agriculteurs" element={<Agriculteurs />} />
+          <Route path="/admin/stock" element={<Stock />} />
+          <Route path="/admin/facture" element={<Facture />} />
+          <Route path="/admin/profile" element={<Profile />} />
         </Routes>
     </Router>
   </React.StrictMode>
