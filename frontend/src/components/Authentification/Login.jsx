@@ -1,62 +1,119 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'font-awesome/css/font-awesome.min.css';
-import { Tilt } from 'react-tilt';
-import '../../assets/Authentification/main.css';
-import '../../assets/Authentification/util.css';
-import image from '../../assets/Authentification/image/img-01.png';
+import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import './Auth.css'
+import LogoSignIn from '../../assets/images/log.png'
+import LogoSignUp from '../../assets/images/register.png'
+import { FaLock } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 const LoginForm = () => {
 
+	const [isSignUpMode, setIsSignUpMode] = useState(false);
 
+	const handleSignInClick = () => {
+	  setIsSignUpMode(false);
+	};
+  
+	const handleSignUpClick = () => {
+	  setIsSignUpMode(true);
+	};
   return (
-    <div className="limiter">
-      <div className="container-login100">
-        <div className="wrap-login100">
-          <Tilt className="login100-pic js-tilt" options={{ scale: 1.2 }}>
-            <img src={image} alt="IMG" />
-          </Tilt>
-          {/* <span className="login100-form-title">Member Login</span> */}
-         <form class=" row login100-form validate-form">
-					<span class="login100-form-title">
-						Se Connecter
-					</span>
-          <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email"/>
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
-					</div>
-          <div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password"/>
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Login
-						</button>
-					</div>
+    <div className={`container ${isSignUpMode ? 'sign-up-mode' : ''}`}>
+      <div className="forms-container">
+        <div className="signin-signup">
+          <form action="#" className="sign-in-form">
+            <h2 className="title">Sign in</h2>
+            
+			<Form.Floating className='mb-4 mt-3 input' >
+        	<Form.Control
+          id="floatingInputCustom"
+          type="email"
+          placeholder="name@example.com"
+        />
+        <label htmlFor="floatingInputCustom"><MdEmail /> Email address</label>
+      </Form.Floating>
+            
+           
 
-					<div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
-						<a class="txt2" href="/">
-							Username / Password?
-						</a>
-					</div>
+			
+      <Form.Floating className='mb-4 input'>
+        <Form.Control
+          id="floatingPasswordCustom"
+          type="password"
+          placeholder="Password"
+        />
+        <label htmlFor="floatingPasswordCustom"><FaLock /> Password</label>
+      </Form.Floating>
+            <input type="submit" value="Login" className="btnn solid" />
+            
+            
+          </form>
+          <form action="#" className="sign-up-form">
+            <h2 className="title">Sign up</h2>
+            <Form.Floating className='mb-4 mt-3 input' >
+        	<Form.Control
+          id="floatingInputCustom"
+          type="text"
+          placeholder="name@example.com"
+        />
+        <label htmlFor="floatingInputCustom"><FaUser /> Nom d'utilisateur</label>
+      </Form.Floating>
+			
+			<Form.Floating className='mb-4  input' >
+        	<Form.Control
+          id="floatingInputCustom"
+          type="email"
+          placeholder="name@example.com"
+        />
+        <label htmlFor="floatingInputCustom"><MdEmail /> Email address</label>
+      </Form.Floating>
+            
+           
 
-					<div class="text-center p-t-136">
-						<a class="txt3" href="/">
-							Create your Account
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
-				</form>
+			
+      <Form.Floating className='mb-4 input'>
+        <Form.Control
+          id="floatingPasswordCustom"
+          type="password"
+          placeholder="Password"
+        />
+        <label htmlFor="floatingPasswordCustom"><FaLock /> Password</label>
+      </Form.Floating>
+			
+            <input type="submit" className="btnn" value="Sign up" />
+            
+            
+          </form>
+        </div>
+      </div>
+
+      <div className="panels-container">
+        <div className="panel left-panel">
+          <div className="content">
+            <h3>New here ?</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+              ex ratione. Aliquid!
+            </p>
+            <button className="btnn transparent" id="sign-up-btn" onClick={handleSignUpClick}>
+              Sign up
+            </button>
+          </div>
+          <img src={LogoSignIn} className="image" alt="" />
+        </div>
+        <div className="panel right-panel">
+          <div className="content">
+            <h3>One of us ?</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+              laboriosam ad deleniti.
+            </p>
+            <button className="btnn transparent" id="sign-in-btn" onClick={handleSignInClick}>
+              Sign in
+            </button>
+          </div>
+          <img src={LogoSignUp} className="image" alt="" />
         </div>
       </div>
     </div>
