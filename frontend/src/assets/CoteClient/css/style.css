@@ -73,7 +73,7 @@
 
 .navbar {
     overflow: hidden;
-    transition: White 0.3s; /* Transition fluide pour le changement de couleur */
+    transition: White 0.3s;
   }
   
   .navbar a {
@@ -81,12 +81,12 @@
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    /* padding: 14px 16px; */
     text-decoration: none;
   }
   
-  .navbar a:hover {
-    background-color: #ddd; /* Couleur de fond au survol */
+  .navbar .nav-link:hover {
+    background-color: #ddd;
     color: black;
   }
   /*  */
@@ -112,11 +112,11 @@
   }
   
   .scrolled {
-    background-color: white; 
+    background-color: rgb(253, 252, 252); 
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     height: 10vh;
     padding: 2vh 1.5vw;
-    color: #555555;
+    color: #000;
     font-weight: 500;
     outline: none;
     font-size: 1.2rem;
@@ -127,7 +127,7 @@
   
   .logo {
     width: 10%;
-    height: 5%;
+    height: 1%;
   }
 navbar-expand-lg {
     margin-top: 3vh;
@@ -142,7 +142,7 @@ navbar-expand-lg {
 }
 
 .navbar .navbar-nav .nav-link {
-    padding: 2vh 1.5vw;
+    
     color: white;
     font-weight: 500;
     outline: none;
@@ -153,12 +153,15 @@ navbar-expand-lg {
 .navbar .navbar-nav .nav-link.active {
     color: var(--dark);
 } */
-
+.select {
+    border: none;
+}
 @media (max-width: 991.98px) {
     .navbar .navbar-nav {
         margin-top: 1vh; /* Utilisation de pourcentages pour l'espacement */
         border-top: 1px solid rgba(0, 0, 0, .07);
-        background: #FFFFFF;
+        color: black;
+        background-color: #000;
     }
 
     .navbar .navbar-nav .nav-link {
@@ -170,7 +173,8 @@ navbar-expand-lg {
     .navbar .navbar-nav {
         margin-top: 1vh;
         border-top: 1px solid rgba(0, 0, 0, .07);
-        background: #FFFFFF;
+        color: black;
+        background-color: #000;
     }
 
     .navbar .navbar-nav .nav-link {
@@ -179,7 +183,7 @@ navbar-expand-lg {
     }
 
     .navbar .nav-item .dropdown-menu {
-        top: 100%;
+        /* top: 100%; */
         transform: rotateX(0deg);
         visibility: visible;
         transition: .5s;
@@ -198,6 +202,10 @@ navbar-expand-lg {
     .btn-secondary-carsoul {
         font-size: 2vh;
     }
+    .scrolled {
+        height: 30vh;
+        color: #fdf9f9;
+      }
 }
 
 /*** Header ***/
@@ -232,19 +240,7 @@ navbar-expand-lg {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
    
 }
-@media (max-width: 768px) {
-    .header-carousel .carousel-item {
-        position: relative;
-        min-height: 450px;
-    }
 
-    .header-carousel .carousel-item img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
 
 .page-header {
     padding-top: 12vh; /* Utilisation de pourcentages pour le rembourrage */
@@ -286,7 +282,6 @@ navbar-expand-lg {
     margin-left: 20%;
     width: 65%;
     border:none;
-       
 }
 .card {
     height: 50%;
@@ -452,3 +447,26 @@ navbar-expand-lg {
   .Line {
    margin-right: 70%;
   }
+  @media (max-width: 768px) {
+    .header-carousel .carousel-item {
+        position: relative;
+        min-height: 450px;
+    }
+
+    .header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .slider {
+        margin-right: 50%;
+        margin-left: 20%;
+        width: 100%;
+        border:none;
+    }
+    .card {
+        height: 20%;
+        width: 100%;
+    }
+}
