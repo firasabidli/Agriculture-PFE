@@ -49,7 +49,7 @@ const MyNavbar = () => {
           <div class="container-fluid">
              <img className='logo' src={ logo} alt=""/>
             {/* <h1 className="fw-bold text-primary m-0">F<span className="text-secondary">oo</span>dy</h1> */}
-            <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class={`navbar-toggler ${isScrolled ? 'text-white' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

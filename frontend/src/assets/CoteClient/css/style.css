@@ -110,13 +110,12 @@
     height: 0vh;
 
   }
-  
   .scrolled {
     background-color: rgb(253, 252, 252); 
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     height: 10vh;
     padding: 2vh 1.5vw;
-    color: #000;
+    /* color: #000; */
     font-weight: 500;
     outline: none;
     font-size: 1.2rem;
