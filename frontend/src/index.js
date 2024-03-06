@@ -16,13 +16,16 @@ import Stock from './components/CoteAdmin/pages/Stock.jsx';
 import Facture from './components/CoteAdmin/pages/Facture.jsx';
 import Profile from './components/CoteAdmin/pages/Profile.jsx';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import InfoCulture from './components/CoteClient/InfoCulture/InfoCulture.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
     <Routes>
           <Route path="/" element={<App />} />
+          {/* User Routes */}
           <Route path="/accueil" element={<Accueil />} />
+          <Route path="/culture" element={<InfoCulture />} />
                 {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<Home/>} />
           <Route path="/admin/culture" element={<Culture/>} />
