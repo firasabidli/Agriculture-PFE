@@ -6,24 +6,17 @@ import { Link } from 'react-router-dom';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../assets/CoteClient/css/style.css';
 import logo from "../../assets/images/logo.png"
 const MyNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
-      // Mettez à jour l'état en fonction de la position de défilement
       const scrolled = window.scrollY > 0;
       setIsScrolled(scrolled);
     };
-
-    // Ajoutez un écouteur d'événements de défilement
     window.addEventListener('scroll', handleScroll);
-
-    // Nettoyez l'écouteur d'événements lors du démontage du composant
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -52,11 +45,11 @@ const MyNavbar = () => {
             <FaInstagram className="text-body ms-3"  />
           </div>
         </div>
-        <nav className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
+        <nav className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5  wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
           <div class="container-fluid">
              <img className='logo' src={ logo} alt=""/>
             {/* <h1 className="fw-bold text-primary m-0">F<span className="text-secondary">oo</span>dy</h1> */}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class={`navbar-toggler ${isScrolled ? 'text-white' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -76,7 +69,7 @@ const MyNavbar = () => {
                       <FaCat /> Bétail
                     </Nav.Link>
                   </li>
-                  <li className="nav-item dropdown">
+                  {/* <li className="nav-item dropdown">
             <a className={`nav-link dropdown-toggle ${isScrolled ? 'text-black' : ''}`} href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
             </a>
@@ -86,6 +79,14 @@ const MyNavbar = () => {
               <li><hr className="dropdown-divider"/></li>
               <li><a className="dropdown-item" href="/">Something else here</a></li>
             </ul>
+          </li> */}
+          <li className="nav-item">
+          <select class={`nav-link nav-item ${isScrolled ? 'text-black' : ''}`}>
+            <option >Open this select menu</option>
+            <option  value="1">One</option>
+            <option  value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
           </li>
               </ul>
               <div className="d-none d-lg-flex ms-2">

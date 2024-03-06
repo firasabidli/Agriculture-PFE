@@ -23,7 +23,7 @@ const LoginForm = () => {
       <div className="forms-container">
         <div className="signin-signup">
           <form action="#" className="sign-in-form">
-            <h2 className="title">Connexion</h2>
+            <h2 className="title">Se Connecter</h2>
             
 			<Form.Floating className='mb-4 mt-3 input' >
         	<Form.Control
@@ -33,10 +33,6 @@ const LoginForm = () => {
         />
         <label htmlFor="floatingInputCustom"><MdEmail /> Adresse e-mail</label>
       </Form.Floating>
-            
-           
-
-			
       <Form.Floating className='mb-4 input'>
         <Form.Control
           id="floatingPasswordCustom"
@@ -45,11 +41,15 @@ const LoginForm = () => {
         />
         <label htmlFor="floatingPasswordCustom"><FaLock /> Mot de passe</label>
       </Form.Floating>
+
             <input type="submit" value="Connexion" className="btnn solid mb-4" />
             
-            
           </form>
+
+          
+          {/* Sign up */}
           <form action="#" className="sign-up-form">
+
             <h2 className="title">Inscription</h2>
             <Form.Floating className='mb-4 mt-3 input' >
         	<Form.Control

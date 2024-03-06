@@ -15,6 +15,7 @@ import Agriculteurs from './components/CoteAdmin/pages/Agriculteurs.jsx';
 import Stock from './components/CoteAdmin/pages/Stock.jsx';
 import Facture from './components/CoteAdmin/pages/Facture.jsx';
 import Profile from './components/CoteAdmin/pages/Profile.jsx';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
