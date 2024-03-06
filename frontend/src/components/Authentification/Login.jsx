@@ -31,7 +31,7 @@ const LoginForm = () => {
           type="email"
           placeholder="name@example.com"
         />
-        <label htmlFor="floatingInputCustom"><MdEmail /> Email address</label>
+        <label htmlFor="floatingInputCustom"><MdEmail /> Adresse e-mail</label>
       </Form.Floating>
       <Form.Floating className='mb-4 input'>
         <Form.Control
@@ -39,15 +39,18 @@ const LoginForm = () => {
           type="password"
           placeholder="Password"
         />
-        <label htmlFor="floatingPasswordCustom"><FaLock /> Password</label>
+        <label htmlFor="floatingPasswordCustom"><FaLock /> Mot de passe</label>
       </Form.Floating>
-            <input type="submit" value="Login" className="btnn solid" />
+
+            <input type="submit" value="Connexion" className="btnn solid mb-4" />
+            
           </form>
 
           
           {/* Sign up */}
           <form action="#" className="sign-up-form">
-            <h2 className="title">Create Compte</h2>
+
+            <h2 className="title">Inscription</h2>
             <Form.Floating className='mb-4 mt-3 input' >
         	<Form.Control
           id="floatingInputCustom"
@@ -63,7 +66,7 @@ const LoginForm = () => {
           type="email"
           placeholder="name@example.com"
         />
-        <label htmlFor="floatingInputCustom"><MdEmail /> Email address</label>
+        <label htmlFor="floatingInputCustom"><MdEmail /> Adresse e-mail</label>
       </Form.Floating>
             
            
@@ -75,10 +78,10 @@ const LoginForm = () => {
           type="password"
           placeholder="Password"
         />
-        <label htmlFor="floatingPasswordCustom"><FaLock /> Password</label>
+        <label htmlFor="floatingPasswordCustom"><FaLock /> Mot de passe</label>
       </Form.Floating>
 			
-            <input type="submit" className="btnn" value="Sign up" />
+            <input type="submit" className="btnn mb-4" value="Inscription" />
             
             
           </form>
@@ -88,12 +91,10 @@ const LoginForm = () => {
       <div className="panels-container">
         <div className="panel left-panel">
           <div className="content">
-            <h3>New here ?</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+            Vous n'avez pas de compte ? Inscrivez-vous ici !
             </p>
-            <button className="btnn transparent" id="sign-up-btn" onClick={handleSignUpClick}>
+            <button className="btnn transparent mb-3" id="sign-up-btn" onClick={handleSignUpClick}>
               Sign up
             </button>
           </div>
@@ -101,12 +102,9 @@ const LoginForm = () => {
         </div>
         <div className="panel right-panel">
           <div className="content">
-            <h3>One of us ?</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
-            </p>
-            <button className="btnn transparent" id="sign-in-btn" onClick={handleSignInClick}>
+            <p>Vous avez déjà un compte ? Connectez-vous ici !</p>
+            
+            <button className="btnn transparent mb-2" id="sign-in-btn" onClick={handleSignInClick}>
               Sign in
             </button>
           </div>
