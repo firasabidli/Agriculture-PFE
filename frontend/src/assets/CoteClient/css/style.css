@@ -259,8 +259,9 @@ navbar-expand-lg {
 }
 
 .btn-primary-carsoul {
-    background-color: #3CB815;
+    /* background-color: #3CB815; */
     border: none;
+    background: #3CB815;
     font-size: 3vh;
     margin-left: 1vh;
 }
