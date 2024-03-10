@@ -14,7 +14,7 @@
   --dark: #111111;
 }
 /*** Button ***/
-/* .btn-square {
+ .btn-square {
   width: 38px;
   height: 38px;
 }
@@ -41,7 +41,7 @@
 
 
 /*** Navbar ***/
-/* .fixed-top {
+ .fixed-top {
   transition: .5s;
 }
 
@@ -100,17 +100,16 @@
       transition: .5s;
       opacity: 1;
   }
-}  */ 
+}  
 /*** Header ***/
 
-/* 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-} */
+} 
 
-/* .App-header {
+ .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -132,4 +131,4 @@
   to {
     transform: rotate(360deg);
   }
-} */
+} 
