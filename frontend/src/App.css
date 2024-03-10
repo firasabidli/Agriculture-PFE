@@ -41,7 +41,7 @@
 
 
 /*** Navbar ***/
- .fixed-top {
+.fixed-top {
   transition: .5s;
 }
 
@@ -103,13 +103,14 @@
 }  
 /*** Header ***/
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 } 
 
- .App-header {
+.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
