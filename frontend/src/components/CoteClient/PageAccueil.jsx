@@ -34,10 +34,9 @@ const PageAccueil = () => {
       </Container>
 
       <TypeSol />
-
-      <footer className="bg-body-tertiary text-center">
-        <div className="container p-4 pb-0">
-          <section className="mb-4">
+      <footer className="bg-body-tertiary">
+        <div className="container container-footer p-4 pb-0 copiryet">
+          <section className="mb-3 text-center">
             <a data-mdb-ripple-init className="btn text-white btn-floating m-1" style={{ backgroundColor: '#3b5998' }} href="#!" role="button">
               <FaFacebookF />
             </a>
