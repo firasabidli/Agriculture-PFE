@@ -52,7 +52,7 @@ const TypeSol = () => {
 
   return (
     <div>
-      <div className="container container-TypeSole">
+      <div className="container-TypeSole">
       <div class="red-line"></div>
       <div class="green-line"></div>
         <h1>Type Sol</h1>

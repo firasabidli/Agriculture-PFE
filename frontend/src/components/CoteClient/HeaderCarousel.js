@@ -13,7 +13,7 @@ const HeaderCarousel = () => {
         <Carousel.Item>
           <img className="w-100 image" src={Carousel1} alt="Organic Food Is Good For Health" />
           <Carousel.Caption>
-            <div className="container">
+            <div className="container-Carousel">
               <div className="row justify-content-start">
                 <div className="col-lg-7">
                   <h1 className="display-2 mb-5 animated slideInDown">Cultiver la Qualité, Récolter la Santé</h1>

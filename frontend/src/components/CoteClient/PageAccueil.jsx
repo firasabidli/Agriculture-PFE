@@ -8,7 +8,7 @@ import APIA from '../../assets/CoteClient/images/Entreprise/APIA.png';
 import INRT from '../../assets/CoteClient/images/Entreprise/INRT.png';
 import STAR from '../../assets/CoteClient/images/Entreprise/star-4.png';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram ,FaGithub, FaGoogle} from 'react-icons/fa';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 const PageAccueil = () => {
   const imageUrls = [BNA, APIA, INRT, STAR];
@@ -18,7 +18,7 @@ const PageAccueil = () => {
       <Navbar />
       <HeaderCarousel />
 
-      <Container>
+      <div className='container-bande'>
         <div className="red-line Line"></div>
         <div className="green-line Line"></div>
 
@@ -31,11 +31,11 @@ const PageAccueil = () => {
             </Col>
           ))}
         </Row>
-      </Container>
+      </div>
 
       <TypeSol />
       <footer className="bg-body-tertiary">
-        <div className="container container-footer p-4 pb-0 copiryet">
+        <div className="container-footer p-4 pb-0 copiryet">
           <section className="mb-3 text-center">
             <a data-mdb-ripple-init className="btn text-white btn-floating m-1" style={{ backgroundColor: '#3b5998' }} href="#!" role="button">
               <FaFacebookF />
