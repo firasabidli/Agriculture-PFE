@@ -358,7 +358,7 @@ navbar-expand-lg {
     justify-content: center;
     padding-left: 0;
     margin-right: 15%;
-    margin-left: 15%;
+    margin-left: 17%;
     list-style: none; }
 .carousel-indicators li{
     -webkit-box-sizing: content-box;
@@ -430,7 +430,7 @@ navbar-expand-lg {
   }
 /* BandeRoulante */
 .container-bande{
-    margin-left: 8%;
+    margin-left: 5%;
 }
 .Entreprise {
      flex: 1;
