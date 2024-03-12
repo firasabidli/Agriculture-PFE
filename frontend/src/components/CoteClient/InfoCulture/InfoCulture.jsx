@@ -1,11 +1,13 @@
 import React from 'react';
 import {  Button } from 'react-bootstrap';
 import './InfoCulture.css';
+import Navbar from '../Navbar.js';
 //import { Card, Container, Row, Col } from 'react-bootstrap';
 import pommeTerre from '../../../assets/CoteClient/images/pommes-de-terre.png';
 const InfoCulture = () => {
     return (
         <div>
+          <Navbar/>
         <div className="background-container">
           <img className='image' src={pommeTerre} alt='imageBackground'/>
           <div className="mt-5 jumbotron">

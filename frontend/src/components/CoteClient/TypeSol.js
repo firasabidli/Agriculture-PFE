@@ -52,13 +52,12 @@ const TypeSol = () => {
 
   return (
     <div>
-      <div className="container">
+      <div className="container container-TypeSole">
       <div class="red-line"></div>
       <div class="green-line"></div>
         <h1>Type Sol</h1>
         <p>Le sol est la partie superficielle de l’écorce terrestre</p>
       </div>
-      
       <Slider className="slider carousel-indicators" {...settings}>
         {carouselData.map((item, index) => (
           <div >
