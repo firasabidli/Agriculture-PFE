@@ -21,10 +21,11 @@ const PageAccueil = () => {
       <div className='container-bande'>
         <div className="red-line Line"></div>
         <div className="green-line Line"></div>
-
         <Row style={{ alignItems: 'center' }}>
-          <h4 className="Entreprise">+100 Entreprises nous font confiance</h4>
-
+          <Col>
+          <h4 className='Entreprise'>+100</h4>
+          <h4 className='Entreprise'>Entreprises nous font confiance</h4>
+          </Col>
           {imageUrls.map((imageUrl, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={2} style={{ marginBottom: '10px', position: 'relative' }}>
               <img src={imageUrl} alt="" className="equal-height-image" />
