@@ -3,7 +3,7 @@ import './Dashboard.css';
 import { useState } from 'react'
 import Header from './Header.jsx'
 import Sidebar from './Sidebar.jsx'
-import Main from './pages/Main.jsx';
+ import Main from './pages/Main.jsx';
 
 function Dashboard() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -12,9 +12,10 @@ function Dashboard() {
     setOpenSidebarToggle(!openSidebarToggle)
   }
   return (
-    <div className='grid-container'>
-     <Header OpenSidebar={OpenSidebar}/>
+    // grid-container
+    <div className='grid-dashboard'> 
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+      <Header OpenSidebar={OpenSidebar}/>
       <Main/>
       
 
