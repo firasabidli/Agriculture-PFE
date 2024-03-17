@@ -53,3 +53,14 @@ exports.createStock = async (req, res) => {
   .then(() => res.status(200).json({success : true, message: 'Supprimer !'}))
   .catch(error => res.status(400).json({ error }));
 };
+
+exports.search = async (req, res) => {
+  try {
+    const query = req.query.q;
+    // Recherche dans la base de données en utilisant une expression régulière pour rechercher dans le titre
+    const results = await Stock.find({ title: { $regex: query, $options: 'i' } });
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
