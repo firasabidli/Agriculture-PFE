@@ -35,4 +35,4 @@ function Header({OpenSidebar}) {
   )
 }
 
-export default Header
+export default Header;

@@ -5,10 +5,16 @@ body {
   color: #000000;
   font-family: 'Montserrat', sans-serif;
 }
+<<<<<<< HEAD
 .logo {
   width: 93%;
   height: 1%;
 }
+=======
+ /* .logo{
+  width: 110%;
+} */
+>>>>>>> 03a8d329d00de439c49d19af1209b5a97224ee03
 .icon {
   vertical-align: middle;
   line-height: 1px;
@@ -35,7 +41,7 @@ body {
   font-weight: bold;
 }
 
-.grid-container-dashboard {
+.grid-dashboard {
   display: grid;
   grid-template-columns: 260px 1fr 1fr 1fr;
   grid-template-rows: 0.2fr 3fr;
@@ -123,6 +129,7 @@ body {
   background-color: #ffffff;
 }
 
+<<<<<<< HEAD
 .icon-square-stock {
 width: 50px;
 height: 50px;
@@ -132,6 +139,8 @@ justify-content: center; */
 margin-left: 20px;
 background-color: #ffffff;
 }
+=======
+>>>>>>> 03a8d329d00de439c49d19af1209b5a97224ee03
 
 .icon-blue {
 color: rgb(120, 165, 194); /* Couleur de l'icône bleue */
@@ -145,11 +154,14 @@ color: rgb(120, 165, 194); /* Couleur de l'icône bleue */
   font-weight: 550;
   font-family: sans-serif;
 }
+<<<<<<< HEAD
 .sidebar-list-item .title-stock{
   font-weight: 500;
   font-family: sans-serif;
   font-size: 90%;
 }
+=======
+>>>>>>> 03a8d329d00de439c49d19af1209b5a97224ee03
 .sidebar-list-item:hover {
   background-color: #ffffff;
   
@@ -257,7 +269,11 @@ color: rgb(120, 165, 194); /* Couleur de l'icône bleue */
 /* Medium <= 992px */
   
 @media screen and (max-width: 992px) {
+<<<<<<< HEAD
   .grid-container {
+=======
+  .grid-dashboard {
+>>>>>>> 03a8d329d00de439c49d19af1209b5a97224ee03
     grid-template-columns: 1fr;
     grid-template-rows: 0.2fr 3fr;
     grid-template-areas:
