@@ -14,7 +14,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebar }) {
       <div className='sidebar-title'>
         <div className='sidebar-brand'>
           <Link to="/">
-            <img className='logo' src={logo} alt="" />
+            <img className='logo-Admin' src={logo} alt="" />
           </Link>
         </div>
         <div className="close-button-small-screen">
