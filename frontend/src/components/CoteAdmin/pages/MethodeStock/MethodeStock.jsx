@@ -61,7 +61,7 @@ const MethodeStock = () => {
     }
 
     return (
-        <div className='grid-container-dashboard'>
+        <div className='grid-dashboard'>
         
         <Header OpenSidebar={OpenSidebar}/>
          <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
