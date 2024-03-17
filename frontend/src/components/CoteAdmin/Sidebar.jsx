@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsGrid1X2Fill } from 'react-icons/bs';
-import { FcMoneyTransfer, FcSettings, FcCloseUpMode, FcTodoList } from 'react-icons/fc';
+import { FcMoneyTransfer, FcSettings, FcCloseUpMode} from 'react-icons/fc';
 import { GiCow, GiFarmer } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
-import { FcAcceptDatabase,FcAddDatabase } from "react-icons/fc";
+import { FcAcceptDatabase } from "react-icons/fc";
 import logo from '../../assets/images/logo.jpg';
 import './Dashboard.css';
 
@@ -56,37 +56,15 @@ function Sidebar({ openSidebarToggle, setOpenSidebar }) {
             <span className='title'>Agriculteurs</span>
           </li>
         </Link>
-        <li className="mb-1">
-            <div className='sidebar-list-item' >
+
+        <Link to="/admin/MethodeStock" className='link'>
+          <li className='sidebar-list-item'>
             <div className="icon-square">
-              <FcAcceptDatabase className='icon2' />
-            </div><button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed title"
-            data-bs-toggle="collapse" data-bs-target="#stock-collapse" aria-expanded="false">
-            Stock
-          </button>
+              <FcAcceptDatabase className='icon' />
             </div>
-          
-          <div className="collapse" id="stock-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li>
-                <Link to="/admin/MethodeStock" className='link sidebar-list-item' >
-                  <div className="icon-square-stock">
-                    <FcTodoList className='icon' style={{ fontSize: '20px' }} />
-                  </div>
-                  <span className='title-stock'>Liste Stock</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/admin/AjouterStock" className='link sidebar-list-item'>
-                  <div className="icon-square-stock">
-                    <FcAddDatabase className='icon' style={{ fontSize: '20px' }} />
-                  </div>
-                  <span className='title-stock'>Ajouter Stock</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </li>
+            <span className='title'>Methode de Stock</span>
+          </li>
+        </Link>
         <Link to="/" className='link'>
           <li className='sidebar-list-item'>
             <div className="icon-square">
