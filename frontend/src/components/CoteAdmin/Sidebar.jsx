@@ -61,6 +61,14 @@ function Sidebar({ openSidebarToggle, setOpenSidebar }) {
               </Link>
             </li>
             <li>
+              <Link to="/admin/Materiel" className='link sidebar-list-item' >
+                <div className="icon-square-stock">
+                  <FcAcceptDatabase className='icon' style={{ fontSize: '30px' }} />
+                </div>
+                <span className='title-stock'>Materiel</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/admin/MedicamentCulture" className='link sidebar-list-item'>
                 <div className="icon-square-stock">
                   <FcMindMap className='icon' style={{ fontSize: '30px' }} />
