@@ -1,0 +1,132 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Sidebar from '../../../Sidebar';
+import Header from '../../../Header';
+import './Materiel.css'
+import TextField from '@mui/material/TextField';
+import { FaRegEdit } from "react-icons/fa";
+import Delete from './Delete';
+
+import Add from './Add';
+
+
+const Materiel = () => {
+    const [data, setData] = useState([]);
+    const [formData, setFormData] = useState(null);
+    const [modalShow, setModalShow] = React.useState(false);
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
+    const [query, setQuery] = useState('');
+    //const [results, setResults] = useState([]);
+	const [displayedData, setDisplayedData] = useState([]);
+
+    const handleSearch = () => {
+        const filteredData = data.filter(item =>
+            item.name.toLowerCase().includes(query.toLowerCase()) ||
+            item.description.toLowerCase().includes(query.toLowerCase())
+        );
+        setDisplayedData(filteredData);
+    };
+
+    // fetchData function
+	const fetchData = async () => {
+		try {
+			const response = await axios.get('http://localhost:3001/Materiel');
+			if (Array.isArray(response.data.data)) {
+				setData(response.data.data);
+				setDisplayedData(response.data.data); // Afficher les données complètes initialement
+			} else {
+				console.error('La réponse de l\'API ne contient pas de tableau de données:', response.data);
+			}
+		} catch (error) {
+			console.error('Erreur lors du chargement des données:', error);
+		}
+	};
+	
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    
+
+    
+    const OpenSidebar = () => {
+        setOpenSidebarToggle(!openSidebarToggle)
+    };
+
+    return (
+		<div className='grid-dashboard'>
+		<Header OpenSidebar={OpenSidebar}/>
+		<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+		<main className='stock-container'>
+			<div className='main-ajoute'>
+				<Add/>
+				
+			</div>
+			<div className='main-title'>
+				<div className='List-title'>
+					<h5>Liste Materiel</h5>
+					<span className='style-line'></span>
+					<TextField
+						placeholder="rechercher"
+						class='rechercher'
+						type="search"
+						variant="outlined"
+						fullWidth
+						size="small"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+						onKeyPress={(e) => {
+							if (e.key === 'Enter') {
+								handleSearch();
+							}
+						}}
+					/>
+				</div>
+				<section class="ftco-section">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="table-wrap">
+									<table class="table">
+										<thead class="thead-dark">
+											<tr>
+												<th>ID no.</th>
+												<th>Image Materiel</th>
+												<th>Name</th>
+												<th>description</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											{displayedData.map((item, index) => (
+												<tr key={item._id} className="alert" role="alert">
+													<td>{index}</td>
+													<td className='td-im'>
+													{item.image_materiel && (
+               										<img src={require(`../../../../../images/${item.image_materiel}`)} className='td-image'/>)}
+													</td>
+													<td className='td-title'>{item.name}</td>
+													<td>{item.description}</td>
+													<td>
+														<div className='action'>
+															<FaRegEdit type='button' className='icon-edit'  />
+															<Delete materielId={item._id}/>
+														</div>
+													</td>
+												</tr>
+											))}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+	</div>
+    );
+};
+
+export default Materiel;
