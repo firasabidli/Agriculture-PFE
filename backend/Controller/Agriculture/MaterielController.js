@@ -35,33 +35,36 @@ exports.all = async (req, res) => {
 // Récupérer une Materiel par son ID
 exports.getMaterielById = async (req, res) => {
   try {
-    const Materiel = await Materiel.findById(req.params.id);
-    if (!Materiel) {
+    const materiel = await Materiel.findById(req.params.id);
+    if (!materiel) {
       return res.status(404).json({ success: false, message: 'Materiel not found' });
     }
-    res.status(200).json({ success: true, data: Materiel });
+    res.status(200).json({ success: true, data: materiel });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 };
 
 // Mettre à jour une Materiel par son ID
+
+;
+
+
 exports.update = async (req, res) => {
   try {
-    const { name,description } = req.body;
+    const { name, description } = req.body;
 
     let updateData = {
-     name,
-     description,
-      
+      name,
+      description,
     };
 
     // Vérifiez si une nouvelle image est téléchargée
     if (req.file) {
       // Supprimez l'ancienne image
-      const Materiel = await Materiel.findById(req.params.id);
-      if (Materiel) {
-        const imagePath = `../frontend/src/images/${Materiel.image_materiel}`;
+      const oldMateriel = await Materiel.findById(req.params.id);
+      if (oldMateriel) {
+        const imagePath = `../frontend/src/images/${oldMateriel.image_materiel}`;
         fs.unlinkSync(imagePath);
       }
 
@@ -70,17 +73,17 @@ exports.update = async (req, res) => {
       updateData.image_materiel = imageName;
     }
 
-    const updatedMateriel = await Materiel.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    // Mettez à jour les données du matériel
+    await Materiel.updateOne({ _id: req.params.id }, updateData);
 
-    if (!updatedMateriel) {
-      return res.status(404).json({ success: false, message: 'Materiel not found' });
-    }
-
-    res.status(200).json({ success: true,message: 'Materiel Updated', data: updatedMateriel });
+    // Renvoie une réponse réussie
+    res.status(200).json({ success: true, message: 'Materiel Updated' });
   } catch (error) {
+    // Renvoie une réponse d'erreur en cas de problème
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
  // Supprimer un stock par son ID
 exports.delete = (req, res) => {

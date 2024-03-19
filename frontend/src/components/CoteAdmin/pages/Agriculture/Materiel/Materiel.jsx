@@ -4,8 +4,9 @@ import Sidebar from '../../../Sidebar';
 import Header from '../../../Header';
 import './Materiel.css'
 import TextField from '@mui/material/TextField';
-import { FaRegEdit } from "react-icons/fa";
+
 import Delete from './Delete';
+import Update from './Update';
 
 import Add from './Add';
 
@@ -88,6 +89,10 @@ const Materiel = () => {
 						<div class="row">
 							<div class="col-md-12">
 								<div class="table-wrap">
+								{displayedData.length === 0 ? (
+								<p>Aucune donnée disponible</p>
+							) : (
+
 									<table class="table">
 										<thead class="thead-dark">
 											<tr>
@@ -110,7 +115,7 @@ const Materiel = () => {
 													<td>{item.description}</td>
 													<td>
 														<div className='action'>
-															<FaRegEdit type='button' className='icon-edit'  />
+															<Update materielId={item._id} />
 															<Delete materielId={item._id}/>
 														</div>
 													</td>
@@ -118,6 +123,7 @@ const Materiel = () => {
 											))}
 										</tbody>
 									</table>
+									)}
 								</div>
 							</div>
 						</div>

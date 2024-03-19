@@ -4,134 +4,118 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
-import { Button } from '@mui/material';
-import { FcPlus } from "react-icons/fc";
+import { FaRegEdit } from "react-icons/fa";
 
-function Add() {
+
+function Update({ materielId }) {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [image_culture, setImageCulture] = useState(null);
-
-
+  const [materiel, setMateriel] = useState([]);
+  const [image, setImage] = useState(null);
  
-  useEffect(() => {
-   
-    // Ajoutez des appels similaires pour les matériels et les stocks
-  }, []);
 
-  
-
-  
- 
-  
-
-  const handleClose = () => {
-    setShow(false);
-    setName('');
-    setDescription('');
-    setImageCulture(null);
-  };
-
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const submit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (show) {
+      fetchMateriel();
+    }
+  }, [show]);
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    
-    formData.append("image_materiel", image_materiel);
+  const fetchMateriel = async () => {
     try {
-      const result = await axios.post(
-        "http://localhost:3001/materiel/",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      window.location.reload();
-      console.log(result);
-      // Refresh Culture after successful upload
-      if (result.data.success) {
-        
-        handleClose(); 
-        alert(result.data.message);
-      }
+      const response = await axios.get(`http://localhost:3001/Materiel/${materielId}`);
+      const data = response.data.data;
+      setMateriel(data);
+      console.log(data);
     } catch (error) {
-      console.error("Error uploading Culture:", error);
+      console.error('Error fetching materiel:', error);
     }
   };
-  const onInputChange = (e) => {
-    console.log(e.target.files[0]);
-    setImageCulture(e.target.files[0]);
+
+  
+
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData(e.target);
+      
+      formData.append('image_materiel', image);
+      const result = await axios.put(`http://localhost:3001/Materiel/${materielId}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      window.location.reload();
+      handleClose();
+      alert(result.data.message);
+    } catch (error) {
+      console.error('Error updating materiel:', error);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
   };
 
 
   return (
     <>
       
-      <Button className='btn-plus'onClick={handleShow}>
-		<FcPlus className='icon-plus'/>
-		<span className='btn-title'>Ajouter</span>
-	    </Button>
+      <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Ajouter un materiel</Modal.Title>
+          <Modal.Title>Modifier Culture</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-       
-          <Form onSubmit={submit} id="form">
-            <Form.Group className="mb-3" controlId="name">
-              <FloatingLabel controlId="floatingTextarea2" label="Nom du materiel:">
-                <Form.Control
-                  type="text"
-                  placeholder="Nom du materiel:"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-           
-            <Form.Group className="mb-3" controlId="description">
+          {materiel && (
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="name">
+                <FloatingLabel controlId="floatingTextarea2" label="Nom du materiel:">
+                  <Form.Control
+                    type="text"
+                    placeholder="Nom du materiel"
+                    defaultValue={materiel.name}
+                    name="name"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+              
 
+              <Form.Group className="mb-3" controlId="image_culture">
+                <Form.Label>Image Culture:</Form.Label>
+                <Form.Control type="file" onChange={handleImageChange} />
+              </Form.Group>
+
+             
+
+              <Form.Group className="mb-3" controlId="description">
             <FloatingLabel controlId="floatingTextarea2" label="Description">
             <Form.Control
             as="textarea"
             placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            defaultValue={materiel.description}
+            name="description"
           style={{ height: '100px' }}
         />
       </FloatingLabel>
             </Form.Group>
 
-            
-            
-            
+              
 
-            
 
-            
-            <Form.Group className="mb-3" controlId="image">
-              <FloatingLabel controlId="floatingTextarea2" label="Image Culture:">
-                <Form.Control
-                  type="file"
-                  onChange={onInputChange}
-                />
-              </FloatingLabel>
-            </Form.Group>
-          </Form>
+
+
+              <Button variant="primary" type="submit">
+                Enregistrer
+              </Button>
+            </Form>
+          )}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Close</Button>
-          <Button variant="primary" type="submit" form="form"> Submit </Button>
-        </Modal.Footer>
       </Modal>
-   
     </>
   );
 }
 
-export default Add;
+export default Update;
