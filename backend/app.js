@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const AuthRouter = require('./Router/Authentification');
-const MethRouter =require('./Router/MethodeStock');
+const MethRouter =require('./Router/Agriculture/MethodeStock');
 const app = express();
 
 app.use(bodyParser.json());

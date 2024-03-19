@@ -27,9 +27,11 @@ function MyModelAjouterStock(props) {
             if (props.formData) {
                 // Modifier
                 await axios.put(`http://localhost:3001/MethodeStock/UpdateStock/${props.formData._id}`, { title, description, image_MethodStock });
+                alert(" Stock Modifier avec succès");
             } else {
                 // Ajouter
                 await axios.post('http://localhost:3001/MethodeStock/AjouterStock', { title, description, image_MethodStock });
+                alert(" Stock Ajouté avec succès");
             }
             // Réinitialiser les champs après la soumission
             setTitle('');
@@ -58,7 +60,7 @@ function MyModelAjouterStock(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form className="form-container" onSubmit={handleSubmit}>
+                <form className="form-container">
                     <div>
                         <label htmlFor="title">Titre :</label>
                         <input
@@ -91,13 +93,14 @@ function MyModelAjouterStock(props) {
                             required
                         />
                     </div>
-                    <Button type="submit" className="form-button">
+                    {/* <Button type="submit" className="form-button">
                         {props.editMode ? 'Modifier' : 'Ajouter'}
-                    </Button>
+                    </Button> */}
                 </form>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide} className="submit-button">Close</Button>
+                <Button type="submit" className="form-button" onClick={handleSubmit}>{props.editMode ? 'Modifier' : 'Ajouter'}</Button>
             </Modal.Footer>
         </Modal>
     );

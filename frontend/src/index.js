@@ -12,7 +12,7 @@ import Home from './components/CoteAdmin/pages/Home.jsx';
 import Culture from './components/CoteAdmin/pages/Culture.jsx';
 import Betail from './components/CoteAdmin/pages/Betail.jsx';
 import Agriculteurs from './components/CoteAdmin/pages/Agriculteurs.jsx';
-import MethodeStock from './components/CoteAdmin/pages/MethodeStock/MethodeStock.jsx';
+import MethodeStock from './components/CoteAdmin/pages/Agriculture/MethodeStock/MethodeStock.jsx';
 import Facture from './components/CoteAdmin/pages/Facture.jsx';
 import Profile from './components/CoteAdmin/pages/Profile.jsx';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
