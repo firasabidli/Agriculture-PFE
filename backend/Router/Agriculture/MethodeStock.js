@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const MethodeStockController = require('../Controller/MethodeStock')
+const MethodeStockController = require('../../Controller/Agriculture/MethodeStock')
 router.post('/AjouterStock', MethodeStockController.createStock);
 router.get ('/ListStock', MethodeStockController.getStocks);
 router.get('/StockId/:id', MethodeStockController.getStockById);

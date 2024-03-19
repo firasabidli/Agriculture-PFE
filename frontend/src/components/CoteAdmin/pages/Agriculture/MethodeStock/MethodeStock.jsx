@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from '../../Sidebar';
-import Header from '../../Header';
+import Sidebar from '../../../Sidebar';
+import Header from '../../../Header';
 import './Stock.css'
 import TextField from '@mui/material/TextField';
 import { FaRegEdit } from "react-icons/fa";

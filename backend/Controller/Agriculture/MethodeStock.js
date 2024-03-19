@@ -1,4 +1,4 @@
-const Stock = require('./../Model/MethodeStock');
+const Stock = require('../../Model/Agriculture/MethodeStock');
 // Créer un nouveau stock
 exports.createStock = async (req, res) => {
   const { title, description, image_MethodStock } = req.body;
