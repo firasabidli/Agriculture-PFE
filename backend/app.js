@@ -12,6 +12,7 @@ const MedicamentRouter = require('./Router/Agriculture/Medicament');
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.json());
 // app.use(bodyParser.json());
 // Connexion à la base de données MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/Agriculture', {
