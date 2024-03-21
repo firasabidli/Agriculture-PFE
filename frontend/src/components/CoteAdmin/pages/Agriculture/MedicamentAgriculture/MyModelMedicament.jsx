@@ -27,16 +27,19 @@ function MyModelMedicament(props) {
             const formData = new FormData();
             formData.append('nomMedicament', nomMedicament);
             formData.append('description', description);
-            //formData.append('image', image);
             formData.append('image', newImage || image);
             if (props.formData) {
                 // Modifier
-                console.log(formData)
-                await axios.put(`http://localhost:3001/MedicamentCulture/UpdateMedicament/${props.formData._id}`, { nomMedicament, description, image });
+                console.log(newImage)
+                await axios.put(`http://localhost:3001/MedicamentCulture/UpdateMedicament/${props.formData._id}`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                  });
+                  window.location.reload();
             } else {
                 // Ajouter
                 await axios.post('http://localhost:3001/MedicamentCulture/AjouterMedicament', formData);
                 alert('Médicament ajouté avec succès');
+                window.location.reload();
             }
 
             setNomMedicament('');
@@ -47,7 +50,7 @@ function MyModelMedicament(props) {
             props.fetchData();
         } catch (error) {
             console.error('Erreur lors de la soumission du formulaire :', error);
-            // Afficher les messages d'erreur ici si nécessaire
+            console.log(error.response.data.error);
         }
     };
 

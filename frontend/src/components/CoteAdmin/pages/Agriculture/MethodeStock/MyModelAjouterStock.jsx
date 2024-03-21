@@ -37,9 +37,7 @@ function MyModelAjouterStock(props) {
             setTitle('');
             setDescription('');
             setImage_MethodStock('');
-            // Appeler la fonction onHide pour fermer la modal
             props.onHide();
-            // Mettre à jour les données après la modification ou l'ajout
             props.fetchData();
         } catch (error) {
             console.error('Erreur lors de la soumission du formulaire :', error);
