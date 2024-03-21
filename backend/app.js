@@ -4,7 +4,12 @@ const bodyParser = require('body-parser');
 const AuthRouter = require('./Router/Authentification');
 const MethRouter =require('./Router/Agriculture/MethodeStock');
 const MaterielRouter = require('./Router/Agriculture/MaterielRouter');
+
+const Saison = require('./Model/Agriculture/SaisonModel');
+
+
 const MedicamentRouter = require('./Router/Agriculture/Medicament');
+
 const app = express();
 app.use(express.json());
 // app.use(bodyParser.json());
@@ -15,6 +20,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Agriculture', {
 })
 .then(() => {
     console.log('Connecté à la base de données MongoDB');
+    Saison.creerSaisonsSiNonExistantes();
 })
 .catch(err => {
     console.error('Erreur de connexion à la base de données :', err);
