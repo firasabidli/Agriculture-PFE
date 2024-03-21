@@ -14,28 +14,28 @@ const userSchema = new mongoose.Schema({
 });
 
 const UserModel = mongoose.model('Utilisateur', userSchema);
-const newUser = new UserModel({
-    cin: '123456',
-    nom: 'Doe',
-    prenom: 'John',
-    adresse: '123 Main St',
-    email: 'john.doe@example.com',
-    dateNaissance: '01/01/1990',
-    role: 'admin',
-    accepte:'1',
-    numeroTelephone:'25803695',
-    password: '123',
-  });
+// const newUser = new UserModel({
+//     cin: '123456',
+//     nom: 'Doe',
+//     prenom: 'John',
+//     adresse: '123 Main St',
+//     email: 'john.doe@example.com',
+//     dateNaissance: '01/01/1990',
+//     role: 'admin',
+//     accepte:'1',
+//     numeroTelephone:'25803695',
+//     password: '123',
+//   });
   
-  argon2.hash(newUser.password)
-  .then(hashedPassword => {
-    newUser.password = hashedPassword; // Set the hashed password
-    return newUser.save();
-  })
-  .then(() => {
-    console.log('Utilisateur enregistré avec succès.');
-  })
-  .catch((error) => {
-    console.error('Erreur lors de l\'enregistrement de l\'utilisateur :', error);
-  });
+//   argon2.hash(newUser.password)
+//   .then(hashedPassword => {
+//     newUser.password = hashedPassword; // Set the hashed password
+//     return newUser.save();
+//   })
+//   .then(() => {
+//     console.log('Utilisateur enregistré avec succès.');
+//   })
+//   .catch((error) => {
+//     console.error('Erreur lors de l\'enregistrement de l\'utilisateur :', error);
+//   });
 module.exports = UserModel;
