@@ -4,10 +4,15 @@ const bodyParser = require('body-parser');
 const AuthRouter = require('./Router/Authentification');
 const MethRouter =require('./Router/Agriculture/MethodeStock');
 const MaterielRouter = require('./Router/Agriculture/MaterielRouter');
-const Saison = require('./Model/Agriculture/SaisonModel');
-const app = express();
 
-app.use(bodyParser.json());
+const Saison = require('./Model/Agriculture/SaisonModel');
+
+
+const MedicamentRouter = require('./Router/Agriculture/Medicament');
+
+const app = express();
+app.use(express.json());
+// app.use(bodyParser.json());
 // Connexion à la base de données MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/Agriculture', {
     useNewUrlParser: true,
@@ -34,4 +39,6 @@ app.use((req, res, next) => {
 app.use('/authentification', AuthRouter);
 app.use('/MethodeStock', MethRouter);
 app.use('/Materiel', MaterielRouter);
+app.use('/MedicamentCulture', MedicamentRouter);
+app.use('/images', express.static('./src/assets/images'));
 module.exports = app;
