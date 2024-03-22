@@ -11,6 +11,8 @@ import MyModelMedicament from './MyModelMedicament';
 import { Button } from '@mui/material';
 //import image from '.../../../src/assets/images/Medicaments'
 const Medicament = () => {
+	const [editMode, setEditMode] = useState(false);
+
 	const [data, setData] = useState([]);
 	const [formData, setFormData] = useState(null);
 	const [modalShow, setModalShow] = React.useState(false);
@@ -61,6 +63,7 @@ const Medicament = () => {
 	const handleModifier = (item) => {
 		setFormData(item);
 		setModalShow(true);
+		setEditMode(true);
 	};
 	
 	
@@ -85,11 +88,12 @@ const Medicament = () => {
 					<span className='btn-title'>Ajouter</span>
 				</Button>
 				<MyModelMedicament
-					show={modalShow}
-					onHide={() => setModalShow(false)}
-					formData={formData}
-					setFormData={setFormData}
-					fetchData={fetchData}
+   show={modalShow}
+   onHide={() => setModalShow(false)}
+   formData={formData}
+   setFormData={setFormData}
+   fetchData={fetchData}
+   editMode={editMode}
 				/>
 			</div>
 			<div className='main-title'>
@@ -112,44 +116,37 @@ const Medicament = () => {
 						}}
 					/>
 				</div>
-				<section class="ftco-section">
-					<div class="container-table">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="table-wrap">
-									<table class="table">
-										<thead class="thead-dark">
-											<tr>
-												<th>ID no.</th>
-												<th>Image</th>
-												<th>NomMedicament</th>
-												<th>Description</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody>
-										{Array.isArray(displayedData) && displayedData.map((item, index) => (
-												<tr key={item._id} className="alert" role="alert">
-													<td>{index}</td>
-													<td className='td-im'><img  className='td-image' src={item.image} alt="Méthode Stock" /></td>
-													{/* <td className='td-im'><img  className='td-image' src={require(`../../../../../assets/Medicaments/${item.image}`)} alt="Medicament" /></td> */}
-													<td className='td-title'>{item.nomMedicament}</td>
-													<td>{item.description}</td>
-													<td>
-														<div className='action'>
-															<FaRegEdit type='button' className='icon-edit' onClick={()=> handleModifier(item)} />
-															<FcFullTrash type='button' className='icon-trash' onClick={() => handleDelete(item._id)}  />
-														</div>
-													</td>
-												</tr>
-											))}
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
+				<div class="table100 ver2 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">Image Medicament</th>
+									<th class="cell100 column2">Nom</th>
+									<th class="cell100 column3">Description</th>
+									<th class="cell100 column4">modifier</th>
+									<th class="cell100 column5">Supprimer</th>
+								</tr>
+							</thead>
+						</table>
 					</div>
-				</section>
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+								{Array.isArray(displayedData) && displayedData.map((item, index) => (
+									<tr key={item._id} class="row100 body">
+										<td class="cell100 column1"><img  className='td-image' src={item.image} alt="Méthode Stock" /></td>
+										<td class="cell100 column2">{item.nomMedicament}</td>
+										<td class="cell100 column3">{item.description}</td>
+										<td class="cell100 column4"><FaRegEdit className='icon-edit' onClick={()=> handleModifier(item)}></FaRegEdit></td>
+										<td class="cell100 column5"><FcFullTrash className='icon-trash' onClick={() => handleDelete(item._id)}></FcFullTrash></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				</div>
+{/*  */}
 			</div>
 		</main>
 	</div>

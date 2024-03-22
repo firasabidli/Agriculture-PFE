@@ -1,23 +1,15 @@
 const Medicament = require('../../Model/Agriculture/Medicament');
 const multer = require('multer');
-
+const fs = require('fs');
 // Configuration de Multer pour gérer le téléchargement d'images
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'src/assets/images');
+    cb(null, 'src/assets/images/MedicamentsAgriculture');
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);
   }
 });
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, '../frontend/src/assets/Medicaments');
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + '-' + file.originalname);
-//   }
-// });
 const upload = multer({ storage: storage }).single('image');
 
 // Méthode pour créer un nouveau médicament
@@ -56,7 +48,7 @@ exports.getMedicament = async (req, res) => {
     const medicaments = await Medicament.find();
     const medicamentsWithImagePaths = medicaments.map(medicament => ({
       ...medicament._doc,
-      image: medicament.image ? `http://localhost:3001/images/${medicament.image}` : null // Ajouter le chemin d'accès complet au dossier images
+      image: medicament.image ? `http://localhost:3001/images/MedicamentsAgriculture/${medicament.image}` : null // Ajouter le chemin d'accès complet au dossier images
     }));
     res.status(200).json(medicamentsWithImagePaths);
   } catch (err) {
@@ -71,57 +63,81 @@ exports.getMedicament = async (req, res) => {
 //updateMedicament
 exports.updateMedicament = async (req, res) => {
   try {
-    const { nomMedicament, description } = req.body;
-
-    let updateData = {
-      nomMedicament,
-      description,
-    };
-
-    // Vérifiez si une nouvelle image est téléchargée
-    if (req.file) {
-      // Supprimez l'ancienne image
-      const oldMateriel = await Medicament.findById(req.params.id);
-      if (oldMateriel) {
-        const imagePath = `src/assets/images/${oldMateriel.image}`;
-        fs.unlinkSync(imagePath);
+    upload(req, res, async function (err) {
+      if (err) {
+        return res.status(400).json({ error: err.message });
       }
+      console.log(req.body)
+      const { nomMedicament, description } = req.body;
+      let updateData = { nomMedicament, description };
+      console.log(req.file)
+      if (req.file) {
+        // Supprimer l'ancienne image si elle existe
+        const oldMedicament = await Medicament.findById(req.params.id);
+        if (oldMedicament && oldMedicament.image) {
+          const imagePath = `src/assets/images/MedicamentsAgriculture/${oldMedicament.image}`;
+          fs.unlinkSync(imagePath);
+        }
 
-      // Mettez à jour le nom de l'image dans la base de données
-      const imageName = req.file.filename;
-      updateData.image = imageName;
-    }
-
-    // Mettez à jour les données du matériel
-    await Medicament.updateOne({ _id: req.params.id }, updateData);
-
-    // Renvoie une réponse réussie
-    res.status(200).json({ success: true, message: 'Materiel Updated' });
+        // Mettre à jour le nom de la nouvelle image
+        const imageName = req.file.filename;
+        updateData.image = imageName;
+      }
+      await Medicament.updateOne({ _id: req.params.id }, updateData);
+      res.status(200).json({ success: true, message: 'Medicament Updated' });
+    });
   } catch (error) {
-    // Renvoie une réponse d'erreur en cas de problème
     res.status(500).json({ success: false, message: error.message });
   }
 };
 
-
-
-//delete
-exports.deleteMedicament = async (req, res, next) => {
-  try {
-    await Medicament.findByIdAndDelete(req.params.id);
-    res.status(200).json({ success: true, message: 'Médicament supprimé!' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+// exports.deleteMedicament = async (req, res, next) => {
+//   try {
+//     await Medicament.findByIdAndDelete(req.params.id);
+//     res.status(200).json({ success: true, message: 'Médicament supprimé!' });
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 //search
 exports.search = async (req, res) => {
   try {
     const query = req.query.q;
-    // Recherche dans la base de données en utilisant une expression régulière pour rechercher dans le titre
     const results = await Medicament.find({ title: { $regex: query, $options: 'i' } });
     res.json(results);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 }
+//delete
+exports.deleteMedicament = (req, res, next) => {
+  Medicament.findByIdAndDelete(req.params.id)
+    .then((deletedMedicament) => {
+      if (!deletedMedicament) {
+        return res.status(404).json({ success: false, message: 'Medicament not found' });
+      }
+
+      // Supprimer l'image associée
+      if (deletedMedicament.image) {
+        const imageName = decodeURIComponent(deletedMedicament.image);
+        const imagePath = `src/assets/images/MedicamentsAgriculture/${imageName}`;
+        try {
+          if (fs.existsSync(imagePath)) {
+            fs.unlinkSync(imagePath);
+            return res.status(200).json({ success: true, message: 'Medicament and associated image deleted successfully' });
+          } else {
+            console.log('Image not found:', imagePath);
+            return res.status(404).json({ success: false, message: 'Image not found' });
+          }
+        } catch (error) {
+          console.error('Error while deleting image:', error);
+          return res.status(500).json({ success: false, message: 'Error while deleting image' });
+        }
+      } else {
+        return res.status(200).json({ success: true, message: 'Medicament deleted successfully, no associated image' });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, message: error.message });
+    });
+};

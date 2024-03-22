@@ -5,6 +5,7 @@ import axios from 'axios';
 import './Medicament.css';
 
 function MyModelMedicament(props) {
+    const { editMode } = props;
     const [nomMedicament, setNomMedicament] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
@@ -32,7 +33,10 @@ function MyModelMedicament(props) {
             if (props.formData) {
                 // Modifier
                 console.log(formData)
-                await axios.put(`http://localhost:3001/MedicamentCulture/UpdateMedicament/${props.formData._id}`, { nomMedicament, description, image });
+                // await axios.put(`http://localhost:3001/MedicamentCulture/UpdateMedicament/${props.formData._id}`, { nomMedicament, description, image });
+                     await axios.put(`http://localhost:3001/MedicamentCulture/UpdateMedicament/${props.formData._id}`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                  });
             } else {
                 // Ajouter
                 await axios.post('http://localhost:3001/MedicamentCulture/AjouterMedicament', formData);
@@ -54,9 +58,10 @@ function MyModelMedicament(props) {
     return (
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    {props.editMode ? 'Modifier données' : 'Ajouter données'}
-                </Modal.Title>
+            <Modal.Title id="contained-modal-title-vcenter">
+                {props.editMode ? 'Modifier données' : 'Ajouter données'}
+            </Modal.Title>
+
             </Modal.Header>
             <Modal.Body>
                 <form className="form-container">
@@ -76,8 +81,8 @@ function MyModelMedicament(props) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide} className="submit-button">Fermer</Button>
-                <Button type="submit" className="form-button" onClick={handleSubmit}>{props.editMode ? 'Modifier' : 'Ajouter'}</Button>
+                <Button onClick={props.onHide} className="submit-button" style={{backgroundColor:'#b4afaf'}}>Fermer</Button>
+                <Button type="submit" className="form-button" style={{fontSize:'14px'}} onClick={handleSubmit}>{editMode ? 'Modifier' : 'Ajouter'}</Button>
             </Modal.Footer>
         </Modal>
     );
