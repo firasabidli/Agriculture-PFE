@@ -28,7 +28,6 @@ function MyModelMedicament(props) {
             const formData = new FormData();
             formData.append('nomMedicament', nomMedicament);
             formData.append('description', description);
-            //formData.append('image', image);
             formData.append('image', newImage || image);
             if (props.formData) {
                 // Modifier
@@ -51,7 +50,7 @@ function MyModelMedicament(props) {
             props.fetchData();
         } catch (error) {
             console.error('Erreur lors de la soumission du formulaire :', error);
-            // Afficher les messages d'erreur ici si nécessaire
+            console.log(error.response.data.error);
         }
     };
 

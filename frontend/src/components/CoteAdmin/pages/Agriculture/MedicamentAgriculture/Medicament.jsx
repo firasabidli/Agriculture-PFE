@@ -46,11 +46,11 @@ const Medicament = () => {
 			// Afficher une alerte pour demander confirmation
 			const confirmDelete = window.confirm("Voulez-vous vraiment supprimer cet élément ?");
 			if (!confirmDelete) {
-				return; // Annuler la suppression si l'utilisateur a cliqué sur "Annuler" dans l'alerte
+				return;
 			}
 	
 			const updatedData = data.filter(item => item._id !== id);
-        setData(updatedData);
+            setData(updatedData);
 	
 			await axios.delete(`http://localhost:3001/MedicamentCulture/delete/${id}`);
 				fetchData();
@@ -71,11 +71,6 @@ const Medicament = () => {
 	const OpenSidebar = () => {
       setOpenSidebarToggle(!openSidebarToggle)
     }
-// Ajoutez cette fonction pour récupérer les images
-// const fetchImage = (imageName) => {
-//     return `http://localhost:3001/images/${imageName}`; // Construire correctement l'URL de l'image
-// }
-
     return (
         <div className='grid-dashboard'>
         
