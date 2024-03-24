@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { FcFullTrash } from "react-icons/fc";
 
-function Delete({ materielId  }) {
+function Delete({ materielId, onDelete  }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -13,7 +13,7 @@ function Delete({ materielId  }) {
   const confirmDelete = async () => {
     try {
       await axios.delete(`http://localhost:3001/Materiel/${materielId}`);
-      window.location.reload();
+      onDelete();
       handleClose(); 
     } catch (error) {
       console.error('Erreur lors de la suppression du Materiel', error);

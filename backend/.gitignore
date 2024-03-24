@@ -1,1 +1,5 @@
 node_modules
+src/assets/images/MaterielsAgriculture/
+!src/assets/images/MaterielsAgriculture/README.md
+src/assets/images/MedicamentsAgriculture/
+!src/assets/images/MedicamentsAgriculture/README.md

@@ -68,10 +68,12 @@
   }*/
   .action {
     vertical-align: middle;
+    margin-left: 30px;
     line-height: 1px;
     font-size: 29px;
     display: flex;
   }
+  
   .icon-trash{
     margin-left: 15%;
   }
@@ -182,14 +184,8 @@
     font-weight: bold;
     margin-left: 4%;
   }
-  .td-image{
-    width: 70%;
-    height: 50%;
-    border-radius: 10%;
-  }
-  td.td-im {
-    width: 200px;
-  }
+ 
+
   /* form */
   .form-container {
     max-width: 500px;

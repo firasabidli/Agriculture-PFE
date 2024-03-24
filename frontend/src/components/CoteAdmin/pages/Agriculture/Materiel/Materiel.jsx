@@ -61,7 +61,7 @@ const Materiel = () => {
 		<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
 		<main className='stock-container'>
 			<div className='main-ajoute'>
-				<Add/>
+				<Add onCreate={fetchData()}/>
 				
 			</div>
 			<div className='main-title'>
@@ -93,8 +93,8 @@ const Materiel = () => {
 								<p>Aucune donnée disponible</p>
 							) : (
 
-									<table class="table">
-										<thead class="thead-dark">
+									<table className="table text-center">
+										<thead className="thead-dark">
 											<tr>
 												<th>ID no.</th>
 												<th>Image Materiel</th>
@@ -107,16 +107,16 @@ const Materiel = () => {
 											{displayedData.map((item, index) => (
 												<tr key={item._id} className="alert" role="alert">
 													<td>{index}</td>
-													<td className='td-im'>
+													<td className='td-im' >
 													{item.image_materiel && (
-               										<img src={require(`../../../../../images/${item.image_materiel}`)} className='td-image'/>)}
+               										<img src={item.image_materiel} className='td-image' style={{width:'120px',textAlign:'center'}}/>)}
 													</td>
 													<td className='td-title'>{item.name}</td>
 													<td>{item.description}</td>
-													<td>
-														<div className='action'>
-															<Update materielId={item._id} />
-															<Delete materielId={item._id}/>
+													<td >
+														<div className='action ' style={{marginLeft:'100px'}}>
+															<Update materielId={item._id} onUpdate={fetchData()}/>
+															<Delete materielId={item._id} onDelete={fetchData()}/>
 														</div>
 													</td>
 												</tr>

@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
 import { FcPlus } from "react-icons/fc";
-function Add() {
+function Add({onCreate}) {
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -41,9 +41,10 @@ function Add() {
       console.log(result);
       // Refresh materiel after successful upload
       if (result.data.success) {
-        
+       
         handleClose(); 
         alert(result.data.message);
+        onCreate();
       }
     } catch (error) {
       console.error("Error uploading materiel:", error);
