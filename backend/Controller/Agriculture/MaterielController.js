@@ -26,7 +26,11 @@ exports.create = async (req, res) => {
 exports.all = async (req, res) => {
   try {
     const Materiels = await Materiel.find();
-    res.status(200).json({ success: true, data: Materiels });
+    const MaterielsWithImagePaths = Materiels.map(Materiel => ({
+      ...Materiel._doc,
+      image_materiel: Materiel.image_materiel ? `http://localhost:3001/images/MaterielsAgriculture/${Materiel.image_materiel}` : null // Ajouter le chemin d'accès complet au dossier images
+    }));
+    res.status(200).json({ success: true, data: MaterielsWithImagePaths });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -64,7 +68,7 @@ exports.update = async (req, res) => {
       // Supprimez l'ancienne image
       const oldMateriel = await Materiel.findById(req.params.id);
       if (oldMateriel) {
-        const imagePath = `../frontend/src/images/${oldMateriel.image_materiel}`;
+        const imagePath = `src/assets/images/MaterielsAgriculture/${oldMateriel.image_materiel}`;
         fs.unlinkSync(imagePath);
       }
 
@@ -94,7 +98,7 @@ exports.delete = (req, res) => {
       }
 
       // Supprimer l'image associée
-      const imagePath = `../frontend/src/images/${deletedMateriel.image_materiel}`;
+      const imagePath = `src/assets/images/MaterielsAgriculture/${deletedMateriel.image_materiel}`;
       fs.unlinkSync(imagePath);
 
       res.status(200).json({ success: true, message: 'Materiel deleted successfully' });

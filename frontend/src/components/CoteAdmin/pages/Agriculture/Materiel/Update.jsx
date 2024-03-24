@@ -7,7 +7,7 @@ import axios from 'axios';
 import { FaRegEdit } from "react-icons/fa";
 
 
-function Update({ materielId }) {
+function Update({ materielId, onUpdate }) {
   const [show, setShow] = useState(false);
   const [materiel, setMateriel] = useState([]);
   const [image, setImage] = useState(null);
@@ -47,9 +47,10 @@ function Update({ materielId }) {
       const result = await axios.put(`http://localhost:3001/Materiel/${materielId}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      window.location.reload();
+      
       handleClose();
       alert(result.data.message);
+      onUpdate();
     } catch (error) {
       console.error('Error updating materiel:', error);
     }
