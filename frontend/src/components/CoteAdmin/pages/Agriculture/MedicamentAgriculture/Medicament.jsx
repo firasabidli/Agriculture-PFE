@@ -116,6 +116,7 @@ const Medicament = () => {
 						<table>
 							<thead>
 								<tr class="row100 head">
+									<th class="cell100 column0">ID</th>
 									<th class="cell100 column1">Image Medicament</th>
 									<th class="cell100 column2">Nom</th>
 									<th class="cell100 column3">Description</th>
@@ -130,6 +131,7 @@ const Medicament = () => {
 							<tbody>
 								{Array.isArray(displayedData) && displayedData.map((item, index) => (
 									<tr key={item._id} class="row100 body">
+										<td class="cell100 column0" >{index}</td>
 										<td class="cell100 column1"><img  className='imagetd-' src={item.image} alt="Méthode Stock" /></td>
 										<td class="cell100 column2">{item.nomMedicament}</td>
 										<td class="cell100 column3">{item.description}</td>
