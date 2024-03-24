@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const AuthRouter = require('./Router/Authentification');
 const MethRouter =require('./Router/Agriculture/MethodeStock');
 const MaterielRouter = require('./Router/Agriculture/MaterielRouter');
+const CategorieRouter = require('./Router/Agriculture/CategorieRouter');
 
 const Saison = require('./Model/Agriculture/SaisonModel');
 
@@ -41,5 +42,6 @@ app.use('/authentification', AuthRouter);
 app.use('/MethodeStock', MethRouter);
 app.use('/Materiel', MaterielRouter);
 app.use('/MedicamentCulture', MedicamentRouter);
+app.use('/Categorie', CategorieRouter);
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;
