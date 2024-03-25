@@ -46,12 +46,20 @@ function Sidebar({ openSidebarToggle, setOpenSidebar }) {
             <FcCloseUpMode className='icon2' />
           </div><button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed title"
           data-bs-toggle="collapse" data-bs-target="#stock-collapse" aria-expanded="false">
-          <span className='title' style={{ fontSize:'120%' }}>Culture</span>
+          <span className='title' style={{ fontSize:'120%' }}>Agriculture</span>
         </button>
           </div>
         
         <div className="collapse" id="stock-collapse">
           <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li>
+              <Link to="/admin/Categories" className='link sidebar-list-item' >
+                <div className="icon-square-stock">
+                  <FcAcceptDatabase className='icon' style={{ fontSize: '30px' }} />
+                </div>
+                <span className='title-stock'>Categoris Agriculture</span>
+              </Link>
+            </li>
             <li>
               <Link to="/admin/MethodeStock" className='link sidebar-list-item' >
                 <div className="icon-square-stock">
@@ -65,7 +73,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebar }) {
                 <div className="icon-square-stock">
                   <FcAcceptDatabase className='icon' style={{ fontSize: '30px' }} />
                 </div>
-                <span className='title-stock'>Materiel</span>
+                <span className='title-stock'>Materiel Agriculture</span>
               </Link>
             </li>
             <li>
@@ -73,7 +81,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebar }) {
                 <div className="icon-square-stock">
                   <FcMindMap className='icon' style={{ fontSize: '30px' }} />
                 </div>
-                <span className='title-stock'>Médicament</span>
+                <span className='title-stock'>Médicament Agriculture</span>
               </Link>
             </li>
           </ul>
