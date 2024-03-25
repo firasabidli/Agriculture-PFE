@@ -4,7 +4,7 @@ const Categorie = require('../../Model/Agriculture/CategorieModel');
 exports.create = async (req, res) => {
   try {
     const categorie = await Categorie.create(req.body);
-    res.status(201).json({ success: true, data: categorie });
+    res.status(201).json({ success: true, message: 'Categorie created successfully', data: categorie });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }
@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
 // Récupérer toutes les catégories
 exports.all = async (req, res) => {
   try {
-    const categories = await Categorie.find().populate('cultures');
+    const categories = await Categorie.find()
     res.status(200).json({ success: true, data: categories });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -40,7 +40,7 @@ exports.update = async (req, res) => {
     if (!categorie) {
       return res.status(404).json({ success: false, message: 'Categorie not found' });
     }
-    res.status(200).json({ success: true, data: categorie });
+    res.status(200).json({ success: true, message: 'Categorie updated successfully', data: categorie });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

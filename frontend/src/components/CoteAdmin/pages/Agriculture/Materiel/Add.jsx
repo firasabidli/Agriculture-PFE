@@ -94,13 +94,6 @@ function Add({onCreate}) {
       </FloatingLabel>
             </Form.Group>
 
-            
-            
-            
-
-            
-
-            
             <Form.Group className="mb-3" controlId="image">
               <FloatingLabel controlId="floatingTextarea2" label="Image Materiel:">
                 <Form.Control
