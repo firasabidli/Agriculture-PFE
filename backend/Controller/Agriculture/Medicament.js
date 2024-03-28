@@ -43,7 +43,7 @@ exports.createMedicament = async (req, res) => {
 //affichage
 exports.getMedicament = async (req, res) => {
   try {
-    const medicaments = await Medicament.find();
+    const medicaments = await Medicament.find().populate('Agricultures');
     const medicamentsWithImagePaths = medicaments.map(medicament => ({
       ...medicament._doc,
       image: medicament.image ? `http://localhost:3001/images/MedicamentsAgriculture/${medicament.image}` : null // Ajouter le chemin d'accès complet au dossier images

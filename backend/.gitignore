@@ -3,3 +3,5 @@ src/assets/images/MaterielsAgriculture/*
 !src/assets/images/MaterielsAgriculture/README.md
 src/assets/images/MedicamentsAgriculture/*
 !src/assets/images/MedicamentsAgriculture/README.md
+src/assets/images/Agricultures/*
+!src/assets/images/Agricultures/README.md

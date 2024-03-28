@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
 // Récupérer toutes les catégories
 exports.all = async (req, res) => {
   try {
-    const categories = await Categorie.find()
+    const categories = await Categorie.find().populate('Agricultures');
     res.status(200).json({ success: true, data: categories });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -23,7 +23,7 @@ exports.all = async (req, res) => {
 // Récupérer une catégorie par son ID
 exports.getCategorieById = async (req, res) => {
   try {
-    const categorie = await Categorie.findById(req.params.id)
+    const categorie = await Categorie.findById(req.params.id).populate('Agricultures');;
     if (!categorie) {
       return res.status(404).json({ success: false, message: 'Categorie not found' });
     }
@@ -56,6 +56,16 @@ exports.delete = async (req, res) => {
     res.status(200).json({ success: true, message: 'Categorie deleted successfully' });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
+  }
+};
+exports.search = async (req, res) => {
+  try {
+    const query = req.query.q;
+    // Recherche dans la base de données en utilisant une expression régulière pour rechercher dans le nom
+    const results = await Categorie.find({ name: { $regex: query, $options: 'i' } });
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

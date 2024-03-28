@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const saisonSchema = new mongoose.Schema({
-  nom_saison: String
+  nom_saison: String,
+  Agricultures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Agriculture' }]
+
 });
 
 // Méthode statique pour créer les saisons si elles n'existent pas déjà

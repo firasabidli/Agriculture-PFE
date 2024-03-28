@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
 // Récupérer toutes les Materiels
 exports.all = async (req, res) => {
   try {
-    const Materiels = await Materiel.find();
+    const Materiels = await Materiel.find().populate('Agricultures');
     const MaterielsWithImagePaths = Materiels.map(Materiel => ({
       ...Materiel._doc,
       image_materiel: Materiel.image_materiel ? `http://localhost:3001/images/MaterielsAgriculture/${Materiel.image_materiel}` : null // Ajouter le chemin d'accès complet au dossier images
@@ -39,7 +39,7 @@ exports.all = async (req, res) => {
 // Récupérer une Materiel par son ID
 exports.getMaterielById = async (req, res) => {
   try {
-    const materiel = await Materiel.findById(req.params.id);
+    const materiel = await Materiel.findById(req.params.id).populate('Agricultures');
     if (!materiel) {
       return res.status(404).json({ success: false, message: 'Materiel not found' });
     }
