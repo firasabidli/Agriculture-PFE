@@ -98,7 +98,8 @@ const Agricultures = () => {
 												<th>ID no.</th>
 												
 												<th>Nom du Agriculture</th>
-												{/* <th>description</th> */}
+												 <th>Date Plantation</th> 
+												 <th>Date Recolte </th> 
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -108,7 +109,8 @@ const Agricultures = () => {
 													<td>{index}</td>
 													
 													<td className='td-title'>{item.nom_agriculture}</td>
-													{/* <td>{item.description}</td> */}
+													 <td>{item.date_plantation}</td> 
+													 <td>{item.date_recolte}</td> 
 													<td >
 														<div className='action ' style={{marginLeft:'100px'}}>
 															{/* <Update categorieId={item._id} nomCategorie={item.nom_categorie} Description={item.description}  onUpdate={fetchData()}/>
