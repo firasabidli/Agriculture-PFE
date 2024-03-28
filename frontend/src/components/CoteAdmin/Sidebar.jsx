@@ -53,6 +53,14 @@ function Sidebar({ openSidebarToggle, setOpenSidebar }) {
         <div className="collapse" id="stock-collapse">
           <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li>
+              <Link to="/admin/Agricultures" className='link sidebar-list-item' >
+                <div className="icon-square-stock">
+                  <FcAcceptDatabase className='icon' style={{ fontSize: '30px' }} />
+                </div>
+                <span className='title-stock'> Agricultures</span>
+              </Link>
+            </li>
+          <li>
               <Link to="/admin/Categories" className='link sidebar-list-item' >
                 <div className="icon-square-stock">
                   <FcAcceptDatabase className='icon' style={{ fontSize: '30px' }} />

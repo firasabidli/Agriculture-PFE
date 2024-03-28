@@ -21,7 +21,7 @@ exports.createStock = async (req, res) => {
   
   // Récupérer tous les stocks
   exports.getStocks  = (req, res) => {
-    Stock.find()
+    Stock.find().populate('Agricultures')
       .then(Stocks => res.status(200).json(Stocks))
       .catch(err => res.status(400).json({error: err.message}));
 

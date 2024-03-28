@@ -20,6 +20,7 @@ import Profile from './components/CoteAdmin/pages/Profile.jsx';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import InfoCulture from './components/CoteClient/InfoCulture/InfoCulture.jsx';
 import Categories from './components/CoteAdmin/pages/Agriculture/CategoriesAgriculture/Categories.jsx';
+import Agricultures from './components/CoteAdmin/pages/Agriculture/Agricultures.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -41,6 +42,7 @@ root.render(
           <Route path="/admin/MedicamentCulture" element={<Medicament />} />
           <Route path="/admin/Materiel" element={<Materiel />} />
           <Route path="/admin/Categories" element={<Categories />} />
+          <Route path="/admin/Agricultures" element={<Agricultures />} />
  
         </Routes>
     </Router>
