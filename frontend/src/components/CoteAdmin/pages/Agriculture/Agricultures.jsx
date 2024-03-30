@@ -5,7 +5,7 @@ import Header from '../../Header';
 import './Agriculture.css'
 import TextField from '@mui/material/TextField';
 
-// import Delete from './Delete';
+ import Delete from './Delete';
  import Update from './Update';
 
  import Add from './Add';
@@ -114,7 +114,7 @@ const Agricultures = () => {
 													<td >
 														<div className='action ' style={{marginLeft:'100px'}}>
 															 <Update agricultureId={item._id}  onUpdate={fetchData()}/>
-															{/* <Delete agricultureId={item._id} onDelete={fetchData()}/>  */}
+															 <Delete agricultureId={item._id} onDelete={fetchData()}/>  
 														</div>
 													</td>
 												</tr>

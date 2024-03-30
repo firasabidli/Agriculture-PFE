@@ -141,7 +141,7 @@ exports.update = async (req, res) => {
 
 
 // Supprimer une Agriculture par son ID
-// Supprimer une Agriculture par son ID
+
 exports.delete = async (req, res) => {
   try {
     const agriculture = await Agriculture.findByIdAndDelete(req.params.id);
@@ -150,14 +150,17 @@ exports.delete = async (req, res) => {
     }
     
     // Supprimer l'image associée
-    const imagePath = `src/assets/images/Agricultures/${agriculture.image_Agriculture}`;
+    const imagePath = `src/assets/images/Agricultures/${agriculture.image_agriculture}`;
     fs.unlinkSync(imagePath);
+
+    // Supprimer l'ID de l'agriculture des tableaux Materiel, MethodesStock et MedicamentCulture
+    await Materiel.updateMany({ Agricultures: agriculture._id }, { $pull: { Agricultures: agriculture._id } });
+    await MethodeStock.updateMany({ Agricultures: agriculture._id }, { $pull: { Agricultures: agriculture._id } });
+    await Medicament.updateMany({ Agricultures: agriculture._id }, { $pull: { Agricultures: agriculture._id } });
 
     res.status(200).json({ success: true, message: 'Agriculture deleted successfully' });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
-
-
-
