@@ -147,7 +147,9 @@ function Add({ onCreate }) {
       if (result.data.success) {
         handleClose();
         alert(result.data.message);
+        window.location.reload()
         onCreate();
+
       }
     } catch (error) {
       console.error("Error uploading agriculture:", error);

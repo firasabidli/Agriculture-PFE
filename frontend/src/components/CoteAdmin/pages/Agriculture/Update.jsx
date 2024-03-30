@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
-
+import { FaRegEdit } from "react-icons/fa";
 function Update({ onUpdate, agricultureId }) {
   const [show, setShow] = useState(false);
   const [agriculture, setAgriculture] = useState([]);
@@ -118,13 +118,15 @@ function Update({ onUpdate, agricultureId }) {
         formData.append('MethodesStock', stock);
       });
       formData.append('image_agriculture', image);
-      const result = await axios.put(`http://localhost:3001/Agriculture/${agricultureId}`, formData, {
+      const result = await axios.put(`http://localhost:3001/Agriculture/${agricultureId}`,
+       formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       
       handleClose();
       alert(result.data.message);
       onUpdate();
+      
     } catch (error) {
       console.error('Error updating culture:', error);
     }
@@ -137,9 +139,7 @@ function Update({ onUpdate, agricultureId }) {
 
   return (
     <>
-      <button type="button" className="btn btn-primary" onClick={handleShow}>
-        Modifier
-      </button>
+      <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -147,7 +147,7 @@ function Update({ onUpdate, agricultureId }) {
         </Modal.Header>
         <Modal.Body>
           {agriculture && (
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} id="updateForm">
              <Form.Group className="mb-3" controlId="nom_culture">
                 <FloatingLabel controlId="floatingTextarea2" label="Nom Culture:">
                   <Form.Control
@@ -293,12 +293,14 @@ function Update({ onUpdate, agricultureId }) {
 
               
 
-              <Button variant="primary" type="submit">
-                Enregistrer
-              </Button>
+              
             </Form>
           )}
         </Modal.Body>
+        <Modal.Footer>
+          <Button className="bg-secondary" onClick={handleClose}>Close</Button>
+          <Button className="btn" type="submit" form="updateForm"> Submit </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );
