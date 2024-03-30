@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import './Medicament.css';
+// import { Alert } from '@mui/material';
 
 function MyModelMedicament(props) {
     const { editMode } = props;
@@ -51,6 +52,7 @@ function MyModelMedicament(props) {
         } catch (error) {
             console.error('Erreur lors de la soumission du formulaire :', error);
             console.log(error.response.data.error);
+            alert(error.response.data.error);
         }
     };
 

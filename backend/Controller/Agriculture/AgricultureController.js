@@ -3,7 +3,7 @@ const Agriculture = require('../../Model/Agriculture/Agriculture');
 const Materiel = require('../../Model/Agriculture/MaterielModel');
 const MethodeStock = require('../../Model/Agriculture/MethodeStock');
 const Medicament = require('../../Model/Agriculture/Medicament');
-
+//const Categorie = require('../../Model/Agriculture/CategorieModel');
 const fs = require('fs');
 
 
@@ -162,5 +162,28 @@ exports.delete = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+// afficher agriculture selon categorie
+exports.categorieAgriculture = async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    const cultures = await Agriculture.find({ categorie: categoryId }).populate('categorie');
+    res.json(cultures);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des cultures par catégorie :', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des cultures par catégorie.' });
+  }
+};
+//Afficher agriculture selon saison
+exports.saisonAgriculture = async (req, res) => {
+  try {
+    const saisonId = req.params.id;
+    const cultures = await Agriculture.find({ saison: saisonId }).populate('saison');
+    res.json(cultures);
+  } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+      res.status(500).json({ error: 'Erreur lors de la récupération des cultures.' });
   }
 };

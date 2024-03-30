@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import {  Nav, Modal } from 'react-bootstrap';
+import { Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-//import { Spinner } from 'react-bootstrap';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/CoteClient/css/style.css';
-import logo from "../../assets/images/logo.jpg"
+import logo from "../../assets/images/logo.jpg";
+import axios from 'axios';
 const MyNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [displayedData, setDisplayedData] = useState([]);
+  const [cultures, setCultures] = useState([]);
+  const [showList, setShowList] = useState(false);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const handleModalShow = () => setShowModal(true);
+  const handleModalClose = () => setShowModal(false);
+  
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 0;
@@ -21,16 +28,56 @@ const MyNavbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  const handleModalShow = () => setShowModal(true);
-  const handleModalClose = () => setShowModal(false);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/Categorie');
+      setDisplayedData(response.data.categories);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des catégories :', error);
+    }
+  };
+
+  const fetchCulturesByCategory = async (categoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/Agriculture/categorieAgriculture/${categoryId}`);
+      setCultures(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+    }
+  };
+
+  const handleTitleClick = () => {
+    setShowList(!showList);
+  };
+
+  const handleCategoryChange = async (categoryId) => {
+    try {
+      await fetchCulturesByCategory(categoryId);
+      setHoveredCategory(categoryId);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+    }
+  };
+
+  // const handleHoverCategory = async (categoryId) => {
+  //   setHoveredCategory(categoryId);
+  //   if (categoryId) {
+  //     await fetchCulturesByCategory(categoryId);
+  //   }
+  // };
+
 
   return (
     <div>
-    {/* spinner */}
-    {/* <div id="spinner" className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div className="spinner-border text-primary" role="status"></div>
-    </div> */}
-    {/* fin spinner */}
       <div className={`container-fluid fixed-top px-0 wow fadeIn ${isScrolled ? 'scrolled' : ''}`} data-wow-delay="0.1s">
         <div className={`top-bar row gx-0 align-items-center d-none d-lg-flex ${isScrolled ? 'invisible' : ''}`}>
           <div className="col-lg-6 px-5 text-start">
@@ -48,7 +95,6 @@ const MyNavbar = () => {
         <nav className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5  wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
           <div class="container-fluid">
              <img className='logo' src={ logo} alt=""/>
-            {/* <h1 className="fw-bold text-primary m-0">F<span className="text-secondary">oo</span>dy</h1> */}
             <button class={`navbar-toggler ${isScrolled ? 'text-white' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -59,35 +105,37 @@ const MyNavbar = () => {
                       <FaHome /> Accueil
                     </Nav.Link>
                   </li>
-                  <li class="nav-item">
-                    <Nav.Link as={Link} to="/culture" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`}>
-                      <FaLeaf /> Culture
-                    </Nav.Link>
-                  </li>
+                  <li className="nav-item">
+                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick}>
+                    <FaLeaf /><span>Agriculture</span>
+                  </div>
+                {/* <div style={{position:'relative'}}> */}
+                  {showList && (
+                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
+                      {displayedData.map((item) => (
+                        <li key={item._id}>
+                          <button value={item._id} onClick={() => handleCategoryChange(item._id)} className="dropdown-item rounded-2">
+                            {item.nom_categorie}
+                          </button>
+                          {/* onMouseEnter={() => handleHoverCategory(item._id)} */}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {hoveredCategory && (
+                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2,right:'39%' }}>
+                      {cultures.map((culture) => (
+                        <li key={culture._id} className="dropdown-item rounded-2">{culture.nom_agriculture}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {/* </div> */}
+                </li>
                   <li>
                     <Nav.Link as={Link} to="/betail" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`}>
                       <FaCat /> Bétail
                     </Nav.Link>
                   </li>
-                  {/* <li className="nav-item dropdown">
-            <a className={`nav-link dropdown-toggle ${isScrolled ? 'text-black' : ''}`} href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href="/">Action</a></li>
-              <li><a className="dropdown-item" href="/">Another action</a></li>
-              <li><hr className="dropdown-divider"/></li>
-              <li><a className="dropdown-item" href="/">Something else here</a></li>
-            </ul>
-          </li> */}
-          <li className="nav-item">
-          <select class={`nav-link nav-item ${isScrolled ? 'text-black' : ''}`}>
-            <option >Open this select menu</option>
-            <option  value="1">One</option>
-            <option  value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          </li>
               </ul>
               <div className="d-none d-lg-flex ms-2">
                 <button className='rounded-circle btn-sm-square bg-white ms-3'>
@@ -114,10 +162,8 @@ const MyNavbar = () => {
           </Modal.Body>
         </Modal>
       </div>
-      {/* <HeaderCarousel></HeaderCarousel>
-      <TypeSol/> */}
     </div>
   );
-  };
+};
 
 export default MyNavbar;

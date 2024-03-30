@@ -1,5 +1,5 @@
 const Categorie = require('../../Model/Agriculture/CategorieModel');
-
+const Agriculture=require('../../Model/Agriculture/Agriculture')
 // Créer une nouvelle catégorie
 exports.create = async (req, res) => {
   try {
@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
 exports.all = async (req, res) => {
   try {
     const categories = await Categorie.find().populate('Agricultures');
-    res.status(200).json({ success: true, data: categories });
+    res.status(200).json({ categories });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -68,5 +68,4 @@ exports.search = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
-
-
+//
