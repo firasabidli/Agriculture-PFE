@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
 exports.all = async (req, res) => {
   try {
     const categories = await Categorie.find().populate('Agricultures');
-    res.status(200).json({ success: true, data: categories });
+    res.status(200).json({ categories });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

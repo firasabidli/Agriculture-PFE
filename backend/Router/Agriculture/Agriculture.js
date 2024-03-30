@@ -20,4 +20,6 @@ router.get('/', agricultureController.all);
 router.get('/:id', agricultureController.getAgricultureById);
 router.put('/:id',upload.single("image_agriculture"), agricultureController.update);
 router.delete('/:id', agricultureController.delete);
+router.get('/categorieAgriculture/:id',agricultureController.categorieAgriculture);
+router.get('/saisonAgriculture/:id',agricultureController.saisonAgriculture);
 module.exports = router;

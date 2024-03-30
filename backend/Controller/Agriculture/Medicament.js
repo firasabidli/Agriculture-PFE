@@ -17,16 +17,28 @@ exports.createMedicament = async (req, res) => {
     // Télécharger l'image avec Multer
     upload(req, res, async function (err) {
       if (err) {
-        return res.status(400).json({ error: err.message });
+        return res.status(400).json({ error: 'pas du image' });
       }
 
       const { nomMedicament, description } = req.body;
-
+      const imageM = req.file ? req.file.filename : null;
+      if (!nomMedicament ) {
+        return res.status(400).json({ error: 'nom du medicament est vide.' });
+      }
+      if (!description ) {
+        return res.status(400).json({ error: 'description du medicament est vide.' });
+      }
+      if(!imageM){
+        return res.status(400).json({ error: 'choisir un image.' });
+      }
+      if (typeof nomMedicament !== 'string' || typeof description !== 'string') {
+        return res.status(400).json({ error: 'Le titre et la description doivent être des chaînes de caractères.' });
+      }
       // Créer un nouvel objet Medicament
       const newMedicament = new Medicament({
         nomMedicament,
         description,
-        image: req.file ? req.file.filename : null
+        image: imageM
       });
 
       // Enregistrer le nouvel objet Medicament dans la base de données

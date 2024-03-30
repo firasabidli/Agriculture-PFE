@@ -3,7 +3,19 @@ const Stock = require('../../Model/Agriculture/MethodeStock');
 exports.createStock = async (req, res) => {
   const { title, description, image_MethodStock } = req.body;
 
-  // Créer une nouvelle instance de la culture
+    if (!title) {
+      return res.status(400).json({ error: 'Le titre est vide' });
+    }
+    if (!description) {
+      return res.status(400).json({ error: 'description est vide' });
+    }
+    if (!image_MethodStock) {
+      return res.status(400).json({ error: 'image du stock est vide' });
+    }
+    if (typeof title !== 'string' || typeof description !== 'string') {
+      return res.status(400).json({ error: 'Le titre et la description doivent être des chaînes de caractères.' });
+    }
+  // Créer
   const nouvelleStock = new Stock({
     title:title,
     description: description,
