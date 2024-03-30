@@ -61,7 +61,7 @@ const TypeSol = () => {
       <Slider className="slider carousel-indicators" {...settings}>
         {carouselData.map((item, index) => (
           <div >
-          <Card className='card' key={index}>
+          <Card className='card-carousel' key={index}>
             
             <Card.Img variant="top" src={item.image} />
             <Card.Body>

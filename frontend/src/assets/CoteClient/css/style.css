@@ -286,7 +286,10 @@ navbar-expand-lg {
     width: 65%;
     border:none;
 }
-.card {
+.slider .card:first-child {
+    background-color: #fff;
+}
+.card-carousel {
     height: 50%;
     margin-right: 20px;
     border-style: outset;
@@ -294,7 +297,7 @@ navbar-expand-lg {
     background: #fff;
     margin-bottom: 10%;
 }
-.card:not(:last-child) {
+.card-carousel:not(:last-child) {
     margin-right: 20px;
   }
   .align-items-center {

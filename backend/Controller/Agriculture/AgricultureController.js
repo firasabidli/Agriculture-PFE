@@ -3,7 +3,7 @@ const Agriculture = require('../../Model/Agriculture/Agriculture');
 const Materiel = require('../../Model/Agriculture/MaterielModel');
 const MethodeStock = require('../../Model/Agriculture/MethodeStock');
 const Medicament = require('../../Model/Agriculture/Medicament');
-
+//const Categorie = require('../../Model/Agriculture/CategorieModel');
 const fs = require('fs');
 
 
@@ -159,5 +159,24 @@ exports.delete = async (req, res) => {
   }
 };
 
-
-
+// afficher agriculture selon categorie
+exports.categorieAgriculture = async (req, res) => {
+  try {
+    const culturesFiltrees = await Agriculture.find({ categorie: req.params._id }).populate('categorie');
+    res.json(culturesFiltrees);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des cultures :', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des cultures.' });
+  }
+};
+//Afficher agriculture selon saison
+exports.saisonAgriculture = async (req, res) => {
+  try {
+      const cultures = await Agriculture.find().populate('saison');
+      const culturesFiltrees = cultures.filter(agriculture => agriculture.saison && agriculture.saison.$oid === req.params._id);
+      res.json(culturesFiltrees);
+  } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+      res.status(500).json({ error: 'Erreur lors de la récupération des cultures.' });
+  }
+};
