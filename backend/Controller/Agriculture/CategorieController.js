@@ -1,5 +1,5 @@
 const Categorie = require('../../Model/Agriculture/CategorieModel');
-
+const Agriculture=require('../../Model/Agriculture/Agriculture')
 // Créer une nouvelle catégorie
 exports.create = async (req, res) => {
   try {
@@ -68,5 +68,4 @@ exports.search = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
-
-
+//

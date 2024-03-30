@@ -162,19 +162,20 @@ exports.delete = async (req, res) => {
 // afficher agriculture selon categorie
 exports.categorieAgriculture = async (req, res) => {
   try {
-    const culturesFiltrees = await Agriculture.find({ categorie: req.params._id }).populate('categorie');
-    res.json(culturesFiltrees);
+    const categoryId = req.params.id;
+    const cultures = await Agriculture.find({ categorie: categoryId }).populate('categorie');
+    res.json(cultures);
   } catch (error) {
-    console.error('Erreur lors de la récupération des cultures :', error);
-    res.status(500).json({ error: 'Erreur lors de la récupération des cultures.' });
+    console.error('Erreur lors de la récupération des cultures par catégorie :', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des cultures par catégorie.' });
   }
 };
 //Afficher agriculture selon saison
 exports.saisonAgriculture = async (req, res) => {
   try {
-      const cultures = await Agriculture.find().populate('saison');
-      const culturesFiltrees = cultures.filter(agriculture => agriculture.saison && agriculture.saison.$oid === req.params._id);
-      res.json(culturesFiltrees);
+    const saisonId = req.params.id;
+    const cultures = await Agriculture.find({ saison: saisonId }).populate('saison');
+    res.json(cultures);
   } catch (error) {
       console.error('Erreur lors de la récupération des cultures :', error);
       res.status(500).json({ error: 'Erreur lors de la récupération des cultures.' });
