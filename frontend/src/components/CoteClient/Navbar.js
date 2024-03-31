@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navbar as BootstrapNavbar } from 'react-bootstrap';
 import { Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -8,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/CoteClient/css/style.css';
 import logo from "../../assets/images/logo.jpg";
 import axios from 'axios';
-const MyNavbar = () => {
+const MyNavbar = ({ textColor }) => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
@@ -67,15 +68,6 @@ const MyNavbar = () => {
       console.error('Erreur lors de la récupération des cultures :', error);
     }
   };
-
-  // const handleHoverCategory = async (categoryId) => {
-  //   setHoveredCategory(categoryId);
-  //   if (categoryId) {
-  //     await fetchCulturesByCategory(categoryId);
-  //   }
-  // };
-
-
   return (
     <div>
       <div className={`container-fluid fixed-top px-0 wow fadeIn ${isScrolled ? 'scrolled' : ''}`} data-wow-delay="0.1s">
@@ -92,7 +84,7 @@ const MyNavbar = () => {
             <FaInstagram className="text-body ms-3"  />
           </div>
         </div>
-        <nav className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5  wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
+        <BootstrapNavbar className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5  wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
           <div class="container-fluid">
              <img className='logo' src={ logo} alt=""/>
             <button class={`navbar-toggler ${isScrolled ? 'text-white' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,12 +93,12 @@ const MyNavbar = () => {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto p-4 p-lg-0">
                   <li class="nav-item">
-                    <Nav.Link as={Link} to="/accueil" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`}>
+                    <Nav.Link as={Link} to="/accueil" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor }}>
                       <FaHome /> Accueil
                     </Nav.Link>
                   </li>
                   <li className="nav-item">
-                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick}>
+                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick} style={{ color: textColor }}>
                     <FaLeaf /><span>Agriculture</span>
                   </div>
                 {/* <div style={{position:'relative'}}> */}
@@ -125,14 +117,15 @@ const MyNavbar = () => {
                   {hoveredCategory && (
                     <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2,right:'39%' }}>
                       {cultures.map((culture) => (
-                        <li key={culture._id} className="dropdown-item rounded-2">{culture.nom_agriculture}</li>
+                       <Link to={`/culture/${culture._id}`}> <li key={culture._id} className="dropdown-item rounded-2">{culture.nom_agriculture}</li>
+                       </Link>
                       ))}
                     </ul>
                   )}
                   {/* </div> */}
                 </li>
                   <li>
-                    <Nav.Link as={Link} to="/betail" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`}>
+                    <Nav.Link as={Link} to="/betail" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor }}>
                       <FaCat /> Bétail
                     </Nav.Link>
                   </li>
@@ -150,7 +143,7 @@ const MyNavbar = () => {
               </div>
             </div>
           </div>
-        </nav>
+        </BootstrapNavbar>
 
         {/* Search Modal */}
         <Modal show={showModal} onHide={handleModalClose}>

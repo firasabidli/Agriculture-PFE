@@ -11,6 +11,7 @@ const fs = require('fs');
 exports.create = async (req, res) => {
   const {
     nom_agriculture,
+    description,
     date_plantation,
     date_recolte,
     methode_irrigation,
@@ -31,6 +32,7 @@ exports.create = async (req, res) => {
     // Create the Agriculture entry
     const newAgriculture = await Agriculture.create({
       nom_agriculture,
+      description,
       date_plantation,
       date_recolte,
       methode_irrigation,
@@ -73,22 +75,39 @@ exports.all = async (req, res) => {
 exports.getAgricultureById = async (req, res) => {
   try {
     const agriculture = await Agriculture.findById(req.params.id).populate('saison categorie materiels MethodesStock MedicamentsCulture');
+    
     if (!agriculture) {
       return res.status(404).json({ success: false, message: 'Agriculture not found' });
     }
-    res.status(200).json({ success: true, data: agriculture });
+
+    const AgriculturesWithImagePaths = {
+      ...agriculture._doc,
+      image_agriculture: agriculture.image_agriculture ? `http://localhost:3001/images/Agricultures/${agriculture.image_agriculture}` : null,
+      materiels: agriculture.materiels.map(materiel => ({
+        ...materiel._doc,
+        image_materiel: materiel.image_materiel ? `http://localhost:3001/images/MaterielsAgriculture/${materiel.image_materiel}` : null 
+      })),
+      MedicamentsCulture: agriculture.MedicamentsCulture.map(medicament => ({
+        ...medicament._doc,
+        image: medicament.image ? `http://localhost:3001/images/MedicamentsAgriculture/${medicament.image}` : null 
+      }))
+    };
+
+    res.status(200).json({ success: true, data: AgriculturesWithImagePaths });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
+
 // Mettre à jour une Agriculture par son ID
 exports.update = async (req, res) => {
   try {
-    const { nom_agriculture, date_plantation, date_recolte, methode_irrigation, quantite_eau_irrigation, frequence_surveillance, date_derniere_surveillance, remarques, saisonId, categorieId, materials, MethodesStock, MedicamentCulture } = req.body;
+    const { nom_agriculture,description, date_plantation, date_recolte, methode_irrigation, quantite_eau_irrigation, frequence_surveillance, date_derniere_surveillance, remarques, saisonId, categorieId, materials, MethodesStock, MedicamentCulture } = req.body;
 
     let updateData = {
       nom_agriculture,
+      description,
       date_plantation,
       date_recolte,
       methode_irrigation,

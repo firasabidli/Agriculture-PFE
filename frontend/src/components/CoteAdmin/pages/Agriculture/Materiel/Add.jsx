@@ -8,7 +8,7 @@ import axios from 'axios';
 import { FcPlus } from "react-icons/fc";
 function Add({onCreate}) {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState("");
+  const [nom, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image_materiel, setImageMateriel] = useState(null);
 
@@ -25,7 +25,7 @@ function Add({onCreate}) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("name", name);
+    formData.append("nom", nom);
     formData.append("description", description);
     
     formData.append("image_materiel", image_materiel);
@@ -75,7 +75,7 @@ function Add({onCreate}) {
                 <Form.Control
                   type="text"
                   placeholder="Nom du materiel:"
-                  value={name}
+                  value={nom}
                   onChange={(e) => setName(e.target.value)}
                 />
               </FloatingLabel>

@@ -29,7 +29,7 @@ root.render(
           <Route path="/" element={<App />} />
           {/* User Routes */}
           <Route path="/accueil" element={<Accueil />} />
-          <Route path="/culture" element={<InfoCulture />} />
+          <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
                 {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<Home/>} />
           <Route path="/admin/culture" element={<Culture/>} />

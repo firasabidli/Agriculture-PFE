@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const AgricultureSchema = new mongoose.Schema({
     nom_agriculture: String,
+    description:String,
     date_plantation: String,
     date_recolte: String,
     methode_irrigation: String,

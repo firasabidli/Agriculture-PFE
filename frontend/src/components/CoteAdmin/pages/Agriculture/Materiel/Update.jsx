@@ -77,7 +77,7 @@ function Update({ materielId, onUpdate }) {
                   <Form.Control
                     type="text"
                     placeholder="Nom du materiel"
-                    defaultValue={materiel.name}
+                    defaultValue={materiel.nom}
                     name="name"
                   />
                 </FloatingLabel>
