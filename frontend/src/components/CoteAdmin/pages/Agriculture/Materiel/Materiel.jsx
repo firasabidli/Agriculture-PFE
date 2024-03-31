@@ -111,7 +111,7 @@ const Materiel = () => {
 													{item.image_materiel && (
                										<img src={item.image_materiel} className='td-image' style={{width:'120px',textAlign:'center'}}/>)}
 													</td>
-													<td className='td-title'>{item.name}</td>
+													<td className='td-title'>{item.nom}</td>
 													<td>{item.description}</td>
 													<td >
 														<div className='action ' style={{marginLeft:'100px'}}>

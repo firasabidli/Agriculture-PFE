@@ -3,14 +3,14 @@ const fs = require('fs');
 
 //create Materiel
 exports.create = async (req, res) => {
-  const { name,description, } = req.body;
+  const { nom,description, } = req.body;
 
   const imageName = req.file.filename;
 
   try {
     
     const newMateriel = await Materiel.create({
-      name,
+      nom,
       description,
       image_materiel: imageName,
       
@@ -56,10 +56,10 @@ exports.getMaterielById = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { nom, description } = req.body;
 
     let updateData = {
-      name,
+      nom,
       description,
     };
 
@@ -114,7 +114,7 @@ exports.search = async (req, res) => {
     try {
       const query = req.query.q;
       // Recherche dans la base de données en utilisant une expression régulière pour rechercher dans le nom
-      const results = await Materiel.find({ name: { $regex: query, $options: 'i' } });
+      const results = await Materiel.find({ nom: { $regex: query, $options: 'i' } });
       res.json(results);
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
