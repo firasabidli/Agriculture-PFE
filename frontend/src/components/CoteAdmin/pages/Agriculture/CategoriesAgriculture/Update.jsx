@@ -6,7 +6,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
 import { FaRegEdit } from "react-icons/fa";
 
-function UpdateTodo({ categorieId, nomCategorie, Description, onUpdate }) {
+function Update({ categorieId, nomCategorie, Description, onUpdate }) {
   const [show, setShow] = useState(false);
   const [nom_categorie, setNomCategorie] = useState(nomCategorie);
   const [description, setDescription] = useState(Description);
@@ -78,4 +78,4 @@ function UpdateTodo({ categorieId, nomCategorie, Description, onUpdate }) {
   );
 }
 
-export default UpdateTodo;
+export default Update;
