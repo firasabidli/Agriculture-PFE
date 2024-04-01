@@ -14,10 +14,11 @@ function Update({ onUpdate, agricultureId }) {
   const [selectedCategorie, setSelectedCategorie] = useState('');
   const [selectedMaterials, setSelectedMaterials] = useState([]);
   const [selectedStocks, setSelectedStocks] = useState([]);
+  const [selectedMedicaments, setSelectedMedicaments] = useState([]);
   const [image, setImage] = useState(null);
   const [materials, setMaterials] = useState([]);
   const [stocks, setStocks] = useState([]);
-
+  const [medicaments, setMedicaments] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const fetchAgriculture = async () => {
@@ -29,6 +30,7 @@ function Update({ onUpdate, agricultureId }) {
       setSelectedCategorie(data.categorie._id);
       setSelectedMaterials(data.materiels.map(material => material._id));
       setSelectedStocks(data.MethodesStock.map(stock => stock._id));
+      setSelectedMedicaments(data.MedicamentsCulture.map(medicament => medicament._id));
     } catch (error) {
       console.error('Error fetching culture:', error);
     }
@@ -70,6 +72,15 @@ function Update({ onUpdate, agricultureId }) {
       console.error("Error fetching stocks:", error);
     }
   };
+  const fetchMedicaments = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/MedicamentCulture/ListMedicament");
+      setMedicaments(response.data);
+      
+    } catch (error) {
+      console.error("Error fetching stocks:", error);
+    }
+  };
   useEffect(() => {
     
       fetchAgriculture();
@@ -77,6 +88,7 @@ function Update({ onUpdate, agricultureId }) {
       fetchCategories();
       fetchMaterials();
       fetchStocks();
+      fetchMedicaments();
    
   }, []);
 
@@ -104,6 +116,17 @@ function Update({ onUpdate, agricultureId }) {
       }
     });
   };
+
+  const handleMedicamentChange = (e, medicamentId) => {
+    const isChecked = e.target.checked;
+    setSelectedMedicaments(prevSelectedMedicaments => {
+      if (isChecked) {
+        return [...prevSelectedMedicaments, medicamentId];
+      } else {
+        return prevSelectedMedicaments.filter(id => id !== medicamentId);
+      }
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -116,6 +139,9 @@ function Update({ onUpdate, agricultureId }) {
       });
       selectedStocks.forEach(stock => {
         formData.append('MethodesStock', stock);
+      });
+      selectedMedicaments.forEach(medicament => {
+        formData.append('MedicamentsCulture', medicament);
       });
       formData.append('image_agriculture', image);
       const result = await axios.put(`http://localhost:3001/Agriculture/${agricultureId}`,
@@ -155,6 +181,19 @@ function Update({ onUpdate, agricultureId }) {
                     placeholder="Nom Culture"
                     defaultValue={agriculture.nom_agriculture}
                     name="nom_culture"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+
+
+              <Form.Group className="mb-3" controlId="description">
+                <FloatingLabel controlId="floatingTextarea2" label="Description">
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Description"
+                    defaultValue={agriculture.description}
+                    style={{ height: '100px' }}
+                    name="description"
                   />
                 </FloatingLabel>
               </Form.Group>
@@ -246,7 +285,7 @@ function Update({ onUpdate, agricultureId }) {
                 <Form.Label>Saison</Form.Label>
                 <Form.Control as="select" value={selectedSaison} onChange={(e) => setSelectedSaison(e.target.value)}>
                   <option value="">Sélectionnez une saison</option>
-                  {saisons.map(saison => (
+                  {saisons && saisons.map(saison => (
                     <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
                   ))}
                 </Form.Control>
@@ -256,42 +295,54 @@ function Update({ onUpdate, agricultureId }) {
                 <Form.Label>Catégorie</Form.Label>
                 <Form.Control as="select" value={selectedCategorie} onChange={(e) => setSelectedCategorie(e.target.value)}>
                   <option value="">Sélectionnez une catégorie</option>
-                  {categories.map(categorie => (
+                  {categories && categories.map(categorie => (
                     <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
                   ))}
                 </Form.Control>
               </Form.Group>
               
               <Form.Group className="mb-3" controlId="materiels">
-  <Form.Label>Matériaux</Form.Label>
-  {materials.map(material => (
-    <Form.Check
-      key={material._id}
-      type="checkbox"
-      id={material._id}
-      label={material.name}
-      checked={selectedMaterials.includes(material._id)}
-      onChange={(e) => handleMaterialChange(e, material._id)}
-    />
-  ))}
-</Form.Group>
+              <Form.Label>Matériaux</Form.Label>
+              {materials && materials.map(material => (
+                <Form.Check
+                  key={material._id}
+                  type="checkbox"
+                  id={material._id}
+                  label={material.name}
+                  checked={selectedMaterials.includes(material._id)}
+                  onChange={(e) => handleMaterialChange(e, material._id)}
+                />
+              ))}
+            </Form.Group>
 
-<Form.Group className="mb-3" controlId="stocks">
-  <Form.Label>Stocks</Form.Label>
-  {stocks.map(stock => (
-    <Form.Check
-      key={stock._id}
-      type="checkbox"
-      id={stock._id}
-      label={stock.title}
-      checked={selectedStocks.includes(stock._id)}
-      onChange={(e) => handleStockChange(e, stock._id)}
-    />
-  ))}
-</Form.Group>
+            <Form.Group className="mb-3" controlId="stocks">
+              <Form.Label>Stocks</Form.Label>
+              {stocks && stocks.map(stock => (
+                <Form.Check
+                  key={stock._id}
+                  type="checkbox"
+                  id={stock._id}
+                  label={stock.title}
+                  checked={selectedStocks.includes(stock._id)}
+                  onChange={(e) => handleStockChange(e, stock._id)}
+                />
+              ))}
+            </Form.Group>
 
 
-              
+            <Form.Group className="mb-3" controlId="stocks">
+              <Form.Label>Medicaments</Form.Label>
+              {medicaments && medicaments.map(medicament => (
+                <Form.Check
+                  key={medicament._id}
+                  type="checkbox"
+                  id={medicament._id}
+                  label={medicament.nomMedicament}
+                  checked={selectedMedicaments.includes(medicament._id)}
+                  onChange={(e) => handleMedicamentChange(e, medicament._id)}
+                />
+              ))}
+            </Form.Group>
 
               
             </Form>
