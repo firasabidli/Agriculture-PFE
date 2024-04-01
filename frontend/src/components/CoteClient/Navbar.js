@@ -15,6 +15,7 @@ const MyNavbar = ({ textColor }) => {
   const [displayedData, setDisplayedData] = useState([]);
   const [cultures, setCultures] = useState([]);
   const [showList, setShowList] = useState(false);
+  const [categorieList,setCategorieList]=useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const handleModalShow = () => setShowModal(true);
   const handleModalClose = () => setShowModal(false);
@@ -37,7 +38,6 @@ const MyNavbar = ({ textColor }) => {
   useEffect(() => {
     fetchCategories();
   }, []);
-
   const fetchCategories = async () => {
     try {
       const response = await axios.get('http://localhost:3001/Categorie');
@@ -55,15 +55,20 @@ const MyNavbar = ({ textColor }) => {
       console.error('Erreur lors de la récupération des cultures :', error);
     }
   };
-
   const handleTitleClick = () => {
     setShowList(!showList);
+    if (!showList) {
+      fetchCategories(); // Fetch categories only when the dropdown is opened
+    }
   };
-
+const handleCategorieClick =()=>{
+  setCategorieList(!categorieList);
+}
   const handleCategoryChange = async (categoryId) => {
     try {
       await fetchCulturesByCategory(categoryId);
       setHoveredCategory(categoryId);
+  
     } catch (error) {
       console.error('Erreur lors de la récupération des cultures :', error);
     }
@@ -104,14 +109,35 @@ const MyNavbar = ({ textColor }) => {
                 {/* <div style={{position:'relative'}}> */}
                   {showList && (
                     <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
-                      {displayedData.map((item) => (
-                        <li key={item._id}>
-                          <button value={item._id} onClick={() => handleCategoryChange(item._id)} className="dropdown-item rounded-2">
-                            {item.nom_categorie}
-                          </button>
-                          {/* onMouseEnter={() => handleHoverCategory(item._id)} */}
-                        </li>
-                      ))}
+                      <li>
+                      <span className="dropdown-item-title">Filtrer par</span>
+                    </li>
+                  <li>
+                    <span className="dropdown-item-title" onClick={handleCategorieClick}>Catégorie</span>
+                  </li>
+                  {categorieList && (
+                  <ul className="dropdown-menu" style={{ top: isScrolled ? '70px' : '120px', zIndex: 1 }}>
+                    {displayedData.map((item) => (
+                      <li key={item._id}>
+                        <button value={item._id} onClick={() => handleCategoryChange(item._id)} className="dropdown-item rounded-2">
+                          {item.nom_categorie}
+                        </button>
+                        {/* onMouseEnter={() => handleHoverCategory(item._id)} */}
+                      </li>
+                    ))}
+                  </ul>
+)}
+                       <li>
+                        <span className="dropdown-item-title">Saison</span>
+                      </li>
+                      {/* Add your seasons here */}
+                      <li>
+                        <button className="dropdown-item rounded-2" onClick={() => handleCategoryChange('season1')}>Season 1</button>
+                      </li>
+                      <li>
+                        <button className="dropdown-item rounded-2" onClick={() => handleCategoryChange('season2')}>Season 2</button>
+                      </li>
+                    
                     </ul>
                   )}
                   {hoveredCategory && (
