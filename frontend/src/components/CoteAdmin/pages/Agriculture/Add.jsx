@@ -10,6 +10,7 @@ import { FcPlus } from "react-icons/fc";
 function Add({ onCreate }) {
   const [show, setShow] = useState(false);
   const [nom_agriculture, setNomAgriculture] = useState("");
+  const [description, setDescription] = useState("");
   const [date_plantation, setDatePlantation] = useState("");
   const [date_recolte, setDateRecolte] = useState("");
   const [methode_irrigation, setMethodeIrrigation] = useState("");
@@ -49,7 +50,10 @@ function Add({ onCreate }) {
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:3001/Categorie");
+      
       setCategories(response.data.data);
+     
+     
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -91,6 +95,7 @@ function Add({ onCreate }) {
 
   const resetForm = () => {
     setNomAgriculture('');
+    setDescription('');
     setDatePlantation('');
     setDateRecolte('');
     setMethodeIrrigation('');
@@ -111,6 +116,7 @@ function Add({ onCreate }) {
 
     const formData = new FormData();
     formData.append("nom_agriculture", nom_agriculture);
+    formData.append("description", description);
     formData.append("date_plantation", date_plantation);
     formData.append("date_recolte", date_recolte);
     formData.append("methode_irrigation", methode_irrigation);
@@ -198,6 +204,18 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
 
+            <Form.Group className="mb-3" controlId="Description">
+                <FloatingLabel controlId="floatingTextarea2" label="Description">
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Description"
+                    value={description}
+                    style={{ height: '100px' }}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+
             <Form.Group className="mb-3" controlId="date_plantation">
               <FloatingLabel controlId="floatingTextarea2" label="Date Plantation">
                 <Form.Control
@@ -271,23 +289,24 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
 
+          
             <Form.Group className="mb-3" controlId="remarques">
-              <FloatingLabel controlId="floatingTextarea2" label="Remarquese:">
-                <Form.Control
-                  type="text"
-                  placeholder="Remarques"
-                  value={remarques}
-                  onChange={(e) => setRemarques(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-
+                <FloatingLabel controlId="floatingTextarea2" label="Remarques:">
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Remarques"
+                    value={remarques}
+                    style={{ height: '100px' }}
+                    onChange={(e) => setRemarques(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Form.Group>
 
             <Form.Group className="mb-3" controlId="saison">
               <Form.Label>Saison</Form.Label>
               <Form.Control as="select" value={selectedSaison} onChange={(e) => setSelectedSaison(e.target.value)}>
                 <option value="">Sélectionnez une saison</option>
-                {saisons.map(saison => (
+                {saisons && saisons.map(saison => (
                   <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
                 ))}
               </Form.Control>
@@ -297,14 +316,14 @@ function Add({ onCreate }) {
               <Form.Label>Catégorie</Form.Label>
               <Form.Control as="select" value={selectedCategorie} onChange={(e) => setSelectedCategorie(e.target.value)}>
                 <option value="">Sélectionnez une catégorie</option>
-                {categories.map(categorie => (
+                {categories && categories.map(categorie => (
                   <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
                 ))}
               </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="materials">
               <Form.Label>Matériaux</Form.Label>
-              {materials.map(material => (
+              {materials && materials.map(material => (
                 <Form.Check
                   key={material._id}
                   type="checkbox"
@@ -318,7 +337,7 @@ function Add({ onCreate }) {
 
             <Form.Group className="mb-3" controlId="stocks">
               <Form.Label>Methode du Stocks</Form.Label>
-              {stocks.map(stock => (
+              {stocks && stocks.map(stock => (
                 <Form.Check
                   key={stock._id}
                   type="checkbox"
@@ -332,7 +351,7 @@ function Add({ onCreate }) {
 
             <Form.Group className="mb-3" controlId="medicaments">
               <Form.Label>Medicaments d'Agriculture</Form.Label>
-              {medicaments.map(medicament => (
+              {medicaments && medicaments.map(medicament => (
                 <Form.Check
                   key={medicament._id}
                   type="checkbox"
