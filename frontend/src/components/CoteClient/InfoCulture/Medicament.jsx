@@ -1,28 +1,30 @@
 import React from 'react';
 const Medicament = ({ cultureData }) => {
   if (!cultureData || !cultureData.MedicamentsCulture|| cultureData.MedicamentsCulture.length === 0) {
-    return null; 
+    return <p>Aucune donnée à afficher.</p>
   }
   const MedicamentsCulture = cultureData.MedicamentsCulture;
     return(
         <div>
-            {/* <div>
-            <h1 className='title-stock'>Medicment</h1>
-            </div> */}
- <div class="px-4 py-5" id="featured-3">
- <h1 className='title-stock'>Medicment</h1>
-<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-{MedicamentsCulture.map((medicament, index) => (
-  <div key={index} class="feature col">
-    <div class="feature-icon d-inline-flex align-items-center justify-content-left bg-gradient fs-2 mb-3">
-      <img src={medicament.image} alt='...' style={{width:'40%'}} />
-    </div>
-    <h3 class="fs-2">{medicament.nomMedicament}</h3>
-    <p>{medicament.description}</p>
-  </div>
-))}
-</div>
-</div>
+          <div class="p-4">
+            <h3 class="fs-italic mb-4">Articles de soins pour les végétaux et substances nourrissantes</h3>
+            <p className='mb-0'>Produits de santé et nutrition pour les plantes, favorisant leur croissance et leur vitalité.</p>
+              <div class="list-group w-auto">
+                {MedicamentsCulture.map((medicament, index) => (
+                  <div key={index} class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                    <img src={medicament.image} alt="twbs" width="65" height="65" class="rounded-circle flex-shrink-0"/>
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                      <div>
+                        <h6 class="mb-0">{medicament.nomMedicament}</h6>
+                        <p class="mb-0 opacity-75">{medicament.description}</p>
+                      </div>
+                      <small class="opacity-50 text-nowrap">1 ans</small>
+                    </div>
+                  </div>
+                  ))}
+            </div>
+
+        </div>
         </div>
     );
 
