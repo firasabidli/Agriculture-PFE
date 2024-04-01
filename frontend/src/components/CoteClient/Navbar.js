@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar as BootstrapNavbar } from 'react-bootstrap';
+//import { Navbar as BootstrapNavbar } from 'react-bootstrap';
 import { Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -84,7 +84,7 @@ const MyNavbar = ({ textColor }) => {
             <FaInstagram className="text-body ms-3"  />
           </div>
         </div>
-        <BootstrapNavbar className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5  wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
+        <nav className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5  wow fadeIn ${isScrolled ? 'scrolled' : ''} `}>
           <div class="container-fluid">
              <img className='logo' src={ logo} alt=""/>
             <button class={`navbar-toggler ${isScrolled ? 'text-white' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,7 +143,7 @@ const MyNavbar = ({ textColor }) => {
               </div>
             </div>
           </div>
-        </BootstrapNavbar>
+        </nav>
 
         {/* Search Modal */}
         <Modal show={showModal} onHide={handleModalClose}>

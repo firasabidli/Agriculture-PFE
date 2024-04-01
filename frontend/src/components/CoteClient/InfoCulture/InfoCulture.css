@@ -231,12 +231,14 @@
 }
 /* stockage */
 .title-stock{
-  margin-top: 6%;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #010101a0;
+  margin-left: 2%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  font-style: italic;
+  font-family:Arial, Helvetica, sans-serif;
+  color: rgb(69, 69, 68);
 }
-.cader-col{
+/* .cader-col{
   margin-top: 6%;
 }
 .cader-featurette {
@@ -255,4 +257,4 @@
 }
 .image-left{
  margin-left: 50%;
-}
+} */
