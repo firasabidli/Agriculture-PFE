@@ -1,45 +1,69 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-const RemarqueCulture = () => {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    
-  
-    return(
-        <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="name@example.com"
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+import axios from 'axios';
+
+const RemarqueCulture = ({ show, onHide, cultureName }) => {
+    const [optionRemarque, setOptionRemarque] = useState('');
+    const [remarque, setRemarque] = useState('');
+
+    const enregistrerRemarque = async () => {
+        try {
+            const formData = {
+                nom_culture: cultureName,
+                option_Remarque: optionRemarque,
+                Remarque: remarque
+            };
+            await axios.post('http://localhost:3001/RemarqueAgriculture/', formData);
+            alert('Remarque ajoutée avec succès');
+            setOptionRemarque('');
+            setRemarque('');
+            onHide();
+        } catch (error) {
+            console.error('Erreur lors de la soumission du formulaire :', error);
+            alert(error.response.data.error);
+        }
+    };
+
+    return (
+        <Modal show={show} onHide={onHide}>
+            <Modal.Header closeButton>
+                <Modal.Title>{cultureName}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <Form.Group className="mb-3" controlId="exampleForm.SelectCustom">
+                        <Form.Label>Sélectionnez une option</Form.Label>
+                        <Form.Control as="select" custom value={optionRemarque} onChange={(e) => {
+                            if (e.target.value !== "Sélectionnez une option") {
+                                setOptionRemarque(e.target.value);
+                            }
+                        }}>
+                            <option>Sélectionnez une option</option>
+                            <option>Planification et suivi</option>
+                            <option>Techniques de gestion des stocks agriculture</option>
+                            <option>Articles de soins pour les végétaux et substances nourrissantes</option>
+                            <option>Équipements pour l'agriculture</option>
+                            <option>Tous</option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Nous Remarque</Form.Label>
+                        <Form.Control as="textarea" rows={3} placeholder="Saisissez votre remarque ici..." value={remarque} onChange={(e) => setRemarque(e.target.value)} />
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onHide}>
+                    Fermer
+                </Button>
+                <Button variant="primary" onClick={enregistrerRemarque} style={{ marginTop: "1%" }}>
+                    Enregistrer
+                </Button>
+            </Modal.Footer>
+        </Modal>
     );
-}
+};
+
 export default RemarqueCulture;

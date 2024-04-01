@@ -42,11 +42,13 @@ const InfoCulture = () => {
               </p>
               <p>
               <Button variant="primary" onClick={() => setModalShow(true)}>
-                NOUS CONTACTER
+                NOUS REMARQUE
               </Button>
               <RemarqueCulture
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                cultureName={cultureData.nom_agriculture}
+                
               />
               </p>
             </div>
