@@ -116,7 +116,7 @@ const handleCategorieClick =()=>{
                     <span className="dropdown-item-title" onClick={handleCategorieClick}>Catégorie</span>
                   </li>
                   {categorieList && (
-                  <ul className="dropdown-menu" style={{ top: isScrolled ? '70px' : '120px', zIndex: 1 }}>
+                  <ul  style={{ top: isScrolled ? '70px' : '120px', zIndex: 1 }}>
                     {displayedData.map((item) => (
                       <li key={item._id}>
                         <button value={item._id} onClick={() => handleCategoryChange(item._id)} className="dropdown-item rounded-2">

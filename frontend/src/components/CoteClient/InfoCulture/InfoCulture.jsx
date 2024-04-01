@@ -7,9 +7,11 @@ import Materiel from './Materiel.jsx';
 import Medicament from './Medicament.jsx';
 import TableCulture from './TableCuture.jsx';
 import { useParams } from 'react-router-dom';
+import RemarqueCulture from './Remarque.jsx';
 import axios from 'axios';
 
 const InfoCulture = () => {
+  const [modalShow, setModalShow] = React.useState(false);
   const [cultureData, setCultureData] = useState(null);
   const { cultureId } = useParams();
   useEffect(() => {
@@ -39,9 +41,13 @@ const InfoCulture = () => {
                 {cultureData.description}
               </p>
               <p>
-                <Button variant="primary" href={`mailto:contact@fruitsfarm.com`}>
-                  NOUS CONTACTER
-                </Button>
+              <Button variant="primary" onClick={() => setModalShow(true)}>
+                NOUS CONTACTER
+              </Button>
+              <RemarqueCulture
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
               </p>
             </div>
           </div>
