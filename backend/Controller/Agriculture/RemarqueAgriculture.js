@@ -23,3 +23,19 @@ exports.create=async(req,res)=>{
         res.status(400).json({ error: error.message });
     }
 }
+exports.getByDate = async (req, res) => {
+    try {
+        const remarques = await RemarqueAgriculture.find({})
+            .sort({ date_enregistrement:-1 });
+        res.status(200).json(remarques); 
+        console.log(remarques)
+        
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+exports.delete= (req, res) => {
+    RemarqueAgriculture.deleteOne({ _id: req.params.id })
+  .then(() => res.status(200).json({success : true, message: 'Supprimer !'}))
+  .catch(error => res.status(400).json({ error }));
+};

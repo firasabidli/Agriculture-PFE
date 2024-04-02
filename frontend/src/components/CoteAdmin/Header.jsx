@@ -1,9 +1,9 @@
 import React from 'react'
 import { BsJustify}from 'react-icons/bs';
-import { MdNotifications } from "react-icons/md";
 import { FcSearch,FcPortraitMode } from "react-icons/fc";
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import NotifCulture from './pages/Agriculture/NotifCulture';
 function Header({OpenSidebar}) {
   return (
     <header className='header'>
@@ -28,7 +28,8 @@ function Header({OpenSidebar}) {
         />
         </div>
         <div className='header-right'>
-            <MdNotifications className='icon icon-header-notif'/>
+          <NotifCulture className="icon-header-notif"/>
+            {/* <MdNotifications className='icon icon-header-notif'/> */}
             <FcPortraitMode className='icon icon-header-portrait'/>
         </div>
     </header>
