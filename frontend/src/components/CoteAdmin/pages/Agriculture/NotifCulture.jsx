@@ -19,7 +19,7 @@ const NotifCulture = () => {
     useEffect(() => {
         fetchRemarques();
     }, []);
-    const supprimer= async (id)=>{
+    const Supprimer= async (id)=>{
         try {
 			// Afficher une alerte pour demander confirmation
 			const confirmDelete = window.confirm("Voulez-vous vraiment supprimer cet élément ?");
