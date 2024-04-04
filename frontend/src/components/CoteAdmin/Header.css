@@ -1,0 +1,32 @@
+.header .burger{
+    font-size: 30px;
+   margin-top: -10px;
+   margin-left: 10px;
+   margin-right: 70px;
+}
+.header{
+    transition: all 0.35s ease-in-out;
+    box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
+    height: 60px;
+}
+
+.search-container {
+    width: 450px;
+    
+    
+    
+  }
+  .header-right{
+    gap: 60px;
+  }
+
+  .header-right .dropdown{
+    margin-right: 100px;
+  }
+  @media (max-width: 767.98px) {
+    .search-container {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
