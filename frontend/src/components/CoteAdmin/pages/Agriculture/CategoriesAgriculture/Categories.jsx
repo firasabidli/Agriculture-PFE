@@ -13,9 +13,10 @@ import Add from './Add';
 
 const Categories = () => {
     const [data, setData] = useState([]);
-
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
-    const [query, setQuery] = useState('');
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+    const [page, setPage] = useState('Categories');
+	const [isActive, setIsActive] = useState(true);
+	const [query, setQuery] = useState('');
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);
 
@@ -50,14 +51,18 @@ const Categories = () => {
     
 
     
-    const OpenSidebar = () => {
-        setOpenSidebarToggle(!openSidebarToggle)
+   
+
+    const toggleSidebar = () => {
+        setIsSidebarCollapsed(!isSidebarCollapsed);
     };
 
     return (
-		<div className='grid-dashboard'>
-		<Header OpenSidebar={OpenSidebar}/>
-		<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+		<div className='wrapper'>
+		
+		<Sidebar isSidebarCollapsed={isSidebarCollapsed}  page={page} isActive={isActive}/>
+		<div className="flex-grow-1">
+		<Header toggleSidebar={toggleSidebar}/>
 		<main className='stock-container'>
 			<div className='main-ajoute'>
 				<Add onCreate={fetchData()}/>
@@ -127,6 +132,7 @@ const Categories = () => {
 				</section>
 			</div>
 		</main>
+		</div>
 	</div>
     );
 };

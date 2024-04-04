@@ -14,7 +14,9 @@ import TextField from '@mui/material/TextField';
 const Agricultures = () => {
     const [data, setData] = useState([]);
 
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
+	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+	const [page, setPage] = useState('Agriculture');
+	const [isActive, setIsActive] = useState(true);
     const [query, setQuery] = useState('');
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);
@@ -50,14 +52,18 @@ const Agricultures = () => {
     
 
     
-    const OpenSidebar = () => {
-        setOpenSidebarToggle(!openSidebarToggle)
+    
+
+    const toggleSidebar = () => {
+        setIsSidebarCollapsed(!isSidebarCollapsed);
     };
 
     return (
-		<div className='grid-dashboard'>
-		<Header OpenSidebar={OpenSidebar}/>
-		<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+		<div className='wrapper'>
+		
+		<Sidebar isSidebarCollapsed={isSidebarCollapsed} page={page} isActive={isActive}/>
+		<div className="flex-grow-1">
+		<Header toggleSidebar={toggleSidebar}/>
 		<main className='stock-container'>
 			<div className='main-ajoute'>
 				 <Add onCreate={fetchData()}/>
@@ -129,6 +135,7 @@ const Agricultures = () => {
 				</section>
 			</div>
 		</main>
+		</div>
 	</div>
     );
 };

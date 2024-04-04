@@ -16,7 +16,10 @@ const Medicament = () => {
 	const [data, setData] = useState([]);
 	const [formData, setFormData] = useState(null);
 	const [modalShow, setModalShow] = React.useState(false);
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+	const [page, setPage] = useState('Medicament');
+	const [isActive, setIsActive] = useState(true);
+    
     const [query, setQuery] = useState('');
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);
@@ -68,14 +71,16 @@ const Medicament = () => {
 	
 	
 	
-	const OpenSidebar = () => {
-      setOpenSidebarToggle(!openSidebarToggle)
-    }
+	const toggleSidebar = () => {
+        setIsSidebarCollapsed(!isSidebarCollapsed);
+    };
     return (
-        <div className='grid-dashboard'>
+        <div className='wrapper'>
         
-        <Header OpenSidebar={OpenSidebar}/>
-         <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+        
+         <Sidebar isSidebarCollapsed={isSidebarCollapsed}  page={page} isActive={isActive}/>
+		 <div className="flex-grow-1"> 
+		 <Header toggleSidebar={toggleSidebar}/>
 		<main className='stock-container'>
 			<div className='main-ajoute'>
 				<Button className='btn-plus' onClick={() => setModalShow(true)}>
@@ -146,6 +151,7 @@ const Medicament = () => {
 {/*  */}
 			</div>
 		</main>
+		</div>
 	</div>
     );
 };
