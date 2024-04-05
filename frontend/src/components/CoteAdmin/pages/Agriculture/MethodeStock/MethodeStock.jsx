@@ -112,7 +112,7 @@ const MethodeStock = () => {
 					/>
 				</div>
 				<section class="ftco-section">
-					<div class="container">
+					<div class="container-stock">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="table-wrap">

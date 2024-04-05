@@ -2,6 +2,18 @@ const argon2 = require('argon2');
 const Utilisateur = require('../../Model/Authentification/Utilisateur'); // Importer le modèle Utilisateur approprié
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const multer = require('multer');
+const path = require('path');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'src/assets/images/Utilisateur/Admin'); // Répertoire de destination des fichiers
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+  }
+});
+
+const upload = multer({ storage: storage }).single('image');
 exports.get  = (req, res) => {
   Utilisateur.find()
     .then(Utilisateurs => res.status(200).json(Utilisateurs))
@@ -10,7 +22,7 @@ exports.get  = (req, res) => {
 };
 exports.create = async (req, res) => {
   const { cin, nom, adresse, email, dateNaissance, numeroTelephone, password } = req.body;
-  const accepte = '1';
+  const accepte = '0';
 
   try {
       // Vérifier si l'email ou le CIN existe déjà dans la base de données
@@ -42,29 +54,6 @@ exports.create = async (req, res) => {
       return res.status(500).json({ error: 'Erreur interne du serveur lors de la création de l\'utilisateur agricole. Veuillez réessayer plus tard.' });
   }
 };
-// exports.login = async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//       const user = await Utilisateur.findOne({ email });
-//       if (!user) {
-//           return res.status(400).json({ error: 'Adresse e-mail ou mot de passe incorrect.' });
-//       }
-//       if (user.accepte !== '1') {
-//           return res.status(400).json({ error: 'Votre compte n\'a pas encore été accepté.' });
-//       }
-//       const passwordValid = await argon2.verify(user.password, password);
-//       if (!passwordValid) {
-//           return res.status(400).json({ error: 'Adresse e-mail ou mot de passe incorrect.' });
-//       }
-
-//       const authToken = generateAuthToken();
-//       return res.status(200).json({ message: 'Connexion réussie', authToken,user });
-//   } catch (error) {
-//       console.error('Erreur lors de la connexion de l\'utilisateur :', error);
-//       return res.status(500).json({ error: 'Erreur interne du serveur lors de la connexion de l\'utilisateur. Veuillez réessayer plus tard.' });
-//   }
-// };
 exports.login = async (req, res) => {
     const { email, password } = req.body;
   
@@ -153,4 +142,32 @@ exports.verifyAuthToken = (req, res, next) => {
             next();
         }
     });
+};
+//modifier image Admin
+exports.updateImageAdmin = async (req, res, next) => {
+  upload(req, res, async function (err) {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  try {
+    // Vérifier si un fichier a été téléchargé
+    if (!req.file) {
+      return res.status(400).json({ message: "Aucun fichier n'a été téléchargé" });
+    }
+
+    const newImage = req.file.filename;
+
+    // Mettre à jour l'image de l'utilisateur administrateur dans la base de données
+    const admin = await Utilisateur.Admin.findByIdAndUpdate({ _id: req.params.id }, { image: newImage }, { new: true });
+
+    if (!admin) {
+      return res.status(404).json({ message: "Utilisateur administrateur non trouvé" });
+    }
+
+    res.status(200).json(admin);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de l'image de l'utilisateur administrateur :", error);
+    res.status(500).json({ message: "Erreur lors de la mise à jour de l'image de l'utilisateur administrateur" });
+  }
+})
 };

@@ -100,7 +100,7 @@ const LoginForm = () => {
   // };
   
   return (
-    <div className={`container${isSignUpMode ? 'sign-up-mode' : ''}`}>
+    <div className={`container ${isSignUpMode ? 'sign-up-mode' : ''}`}>
       <div className="forms-container">
         <div className="signin-signup">
           <form className="sign-in-form" onSubmit={handleSubmit}>
