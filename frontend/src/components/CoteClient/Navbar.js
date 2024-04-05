@@ -14,9 +14,13 @@ const MyNavbar = ({ textColor }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
   const [cultures, setCultures] = useState([]);
+  const [SaisonData, setSaisonData] = useState([]);
+  const [culturesSaison, setCulturesSaison] = useState([]);
   const [showList, setShowList] = useState(false);
   const [categorieList,setCategorieList]=useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [saisonList,setSaisonList]=useState(false);
+  const [hoveredSaison, setHoveredSaison] = useState(null);
   const handleModalShow = () => setShowModal(true);
   const handleModalClose = () => setShowModal(false);
   
@@ -33,15 +37,18 @@ const MyNavbar = ({ textColor }) => {
 
   useEffect(() => {
     fetchCategories();
+    fetchSaison();
   }, []);
 
   useEffect(() => {
     fetchCategories();
+    fetchSaison();
   }, []);
   const fetchCategories = async () => {
     try {
       const response = await axios.get('http://localhost:3001/Categorie');
-      setDisplayedData(response.data.categories);
+      setDisplayedData(response.data.data);
+      console.log(response.data.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories :', error);
     }
@@ -68,6 +75,36 @@ const handleCategorieClick =()=>{
     try {
       await fetchCulturesByCategory(categoryId);
       setHoveredCategory(categoryId);
+  
+    } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+    }
+  };
+  //saison
+  const handleSaisonClick =()=>{
+    setSaisonList(!saisonList);
+  }
+  const fetchSaison = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/Saison');
+      setSaisonData(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des catégories :', error);
+    }
+  };
+  const fetchCulturesBySaison = async (categoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/Agriculture/saisonAgriculture/${categoryId}`);
+      setCulturesSaison(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+    }
+  };
+  const handleSaisonChange = async (SaisonId) => {
+    try {
+      await fetchCulturesBySaison(SaisonId);
+      setHoveredSaison(SaisonId);
   
     } catch (error) {
       console.error('Erreur lors de la récupération des cultures :', error);
@@ -110,14 +147,14 @@ const handleCategorieClick =()=>{
                   {showList && (
                     <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
                       <li>
-                      <span className="dropdown-item-title">Filtrer par</span>
+                      <span className="dropdown-item-title" style={{fontWeight:"bold"}}>Filtrer par</span>
                     </li>
                   <li>
-                    <span className="dropdown-item-title" onClick={handleCategorieClick}>Catégorie</span>
+                    <span className="dropdown-item-title" style={{fontWeight:"bold"}} onClick={handleCategorieClick}>Catégorie</span>
                   </li>
                   {categorieList && (
-                  <ul  style={{ top: isScrolled ? '70px' : '120px', zIndex: 1 }}>
-                    {displayedData.map((item) => (
+                  <ul  style={{ top: isScrolled ? '70px' : '120px',zIndex: 1 }}>
+                    {displayedData && displayedData.map((item) => (
                       <li key={item._id}>
                         <button value={item._id} onClick={() => handleCategoryChange(item._id)} className="dropdown-item rounded-2">
                           {item.nom_categorie}
@@ -126,23 +163,37 @@ const handleCategorieClick =()=>{
                       </li>
                     ))}
                   </ul>
-)}
+                  )}
                        <li>
-                        <span className="dropdown-item-title">Saison</span>
+                        <span className="dropdown-item-title" onClick={handleSaisonClick} style={{fontWeight:"bold"}}>Saison</span>
                       </li>
-                      {/* Add your seasons here */}
-                      <li>
-                        <button className="dropdown-item rounded-2" onClick={() => handleCategoryChange('season1')}>Season 1</button>
+                      {saisonList && (
+                  <ul  style={{ top: isScrolled ? '70px' : '120px',zIndex: 1 }}>
+                    {SaisonData && SaisonData.map((item) => (
+                      <li key={item._id}>
+                        <button value={item._id} onClick={() => handleSaisonChange(item._id)}  className="dropdown-item rounded-2">
+                          {item.nom_saison}
+                        </button>
+                        {/* onMouseEnter={() => handleHoverCategory(item._id)} */}
                       </li>
-                      <li>
-                        <button className="dropdown-item rounded-2" onClick={() => handleCategoryChange('season2')}>Season 2</button>
-                      </li>
-                    
+                    ))}
+                  </ul>
+                  )}
                     </ul>
                   )}
+                  {/* CultureCategorie */}
+                  {hoveredSaison && (
+                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2, right:'36%' }}>
+                      {culturesSaison && culturesSaison.map((culture) => (
+                       <Link to={`/culture/${culture._id}`}> <li key={culture._id} className="dropdown-item rounded-2">{culture.nom_agriculture}</li>
+                       </Link>
+                      ))}
+                    </ul>
+                  )}
+                  {/* Culturesaison */}
                   {hoveredCategory && (
-                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2,right:'39%' }}>
-                      {cultures.map((culture) => (
+                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2, right:'36%' }}>
+                      {cultures && cultures.map((culture) => (
                        <Link to={`/culture/${culture._id}`}> <li key={culture._id} className="dropdown-item rounded-2">{culture.nom_agriculture}</li>
                        </Link>
                       ))}

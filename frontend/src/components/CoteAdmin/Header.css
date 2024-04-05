@@ -17,11 +17,44 @@
     
   }
   .header-right{
-    gap: 60px;
+    gap: 227px;
   }
 
   .header-right .dropdown{
     margin-right: 100px;
+  }
+
+  .notification_nombre{
+    position: relative;
+    display: inline-block;
+  }
+  .notification_nombre .badge {
+    position: absolute;
+    top: -9px;
+    right: 8px;
+    padding: 3px 8px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+  }
+  .button-notif{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 5%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    background-color: white;
+    border:none;
+    color: rgba(0, 0, 0, 0.678);
+  }
+  .button-notif:hover{
+    margin-bottom: 3%;
+    color:white;
+    background-color: rgb(74, 114, 207);
+    border-radius: 8%;
+    width: 23%;
+    height: 65%;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    /* box-shadow: 3px 3px 3px 2px rgb(109, 145, 200); */
   }
   @media (max-width: 767.98px) {
     .search-container {

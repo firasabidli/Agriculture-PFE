@@ -80,11 +80,52 @@ exports.getAgricultureById = async (req, res) => {
     if (!agriculture) {
       return res.status(404).json({ success: false, message: 'Agriculture not found' });
     }
-    res.status(200).json({ success: true, data: agriculture });
+    
+    // Manipuler l'image de l'agriculture pour inclure le chemin d'accès complet
+    const agricultureWithImagePath = {
+      ...agriculture._doc,
+      image_agriculture: agriculture.image_agriculture ? `http://localhost:3001/images/Agricultures/${agriculture.image_agriculture}` : null
+    };
+// Manipuler les images des médicaments pour inclure le chemin d'accès complet
+    const medicamentsWithImagePaths = agricultureWithImagePath.MedicamentsCulture.map(medicament => ({
+      ...medicament._doc,
+      image: medicament.image ? `http://localhost:3001/images/MedicamentsAgriculture/${medicament.image}` : null
+    }));
+    agricultureWithImagePath.MedicamentsCulture = medicamentsWithImagePaths;
+    // Manipuler les images des stocks pour inclure le chemin d'accès complet
+    const stocksWithImagePaths = agricultureWithImagePath.MethodesStock.map(stock => ({
+      ...stock._doc,
+      image_MethodStock: stock.image_MethodStock ? `http://localhost:3001/images/StockageAgriculture/${stock.image_MethodStock}` : null
+    }));
+
+    agricultureWithImagePath.MethodesStock = stocksWithImagePaths;
+
+    // Manipuler les images des matériels pour inclure le chemin d'accès complet
+    const materielsWithImagePaths = agricultureWithImagePath.materiels.map(materiel => ({
+      ...materiel._doc,
+      image_materiel: materiel.image_materiel ? `http://localhost:3001/images/MaterielsAgriculture/${materiel.image_materiel}` : null
+    }));
+
+    agricultureWithImagePath.materiels = materielsWithImagePaths;
+
+    res.status(200).json({ success: true, data: agricultureWithImagePath });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
+
+// exports.getAgricultureById = async (req, res) => {
+//   try {
+//     const agriculture = await Agriculture.findById(req.params.id).populate('saison categorie materiels MethodesStock MedicamentsCulture');
+//     if (!agriculture) {
+//       return res.status(404).json({ success: false, message: 'Agriculture not found' });
+//     }
+//     res.status(200).json({ success: true, data: agriculture });
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
 
 // Mettre à jour une Agriculture par son ID
 exports.update = async (req, res) => {

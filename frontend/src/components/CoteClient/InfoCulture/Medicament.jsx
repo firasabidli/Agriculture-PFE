@@ -7,7 +7,7 @@ const Medicament = ({ cultureData }) => {
     return(
         <div>
           <div class="p-4">
-            <h3 class="fs-italic mb-4">Articles de soins pour les végétaux et substances nourrissantes</h3>
+            <h3 class="fs-italic mb-4" style={{color:"black"}}>Articles de soins pour les végétaux et substances nourrissantes</h3>
             <p className='mb-0'>Produits de santé et nutrition pour les plantes, favorisant leur croissance et leur vitalité.</p>
               <div class="list-group w-auto">
                 {MedicamentsCulture.map((medicament, index) => (
