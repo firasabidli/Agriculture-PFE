@@ -61,7 +61,7 @@ const NotifCulture = () => {
         <div>
             <div className='notification_nombre'>
                 <div>
-                    <MdNotifications className='icon icon-header-notif notification' onClick={handleNotificationClick} />
+                    <MdNotifications className='icon icon-header-notif notification' style={{marginLeft:"-70%",marginRight:"61%"}} onClick={handleNotificationClick} />
                 </div>
             
             {remarques.length > 0 && (
@@ -69,7 +69,7 @@ const NotifCulture = () => {
             )}
             </div>
             {showAlerts && (
-                <ul className="dropdown-menu position-fixed d-grid gap-1 p-2  mx-0 shadow" style={{ marginTop: "9px", width: " 20rem" }}>
+                <ul className="dropdown-menu position-fixed d-grid gap-1 p-2  mx-0 shadow" style={{ marginTop: "9px", width: " 28rem" }}>
                     <li style={{ backgroundColor: "rgb(231, 212, 212)", height: "50px" }}>
                         <h5 style={{ textAlign: "center", marginTop: "10px" }}>Notifications</h5>
                     </li>

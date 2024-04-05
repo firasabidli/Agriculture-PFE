@@ -21,7 +21,7 @@ const MethodeStock = () => {
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);
 
-    const handleSearch = () => {
+	const handleSearch = () => {
         const filteredData = data.filter(item =>
             item.title.toLowerCase().includes(query.toLowerCase()) ||
             item.description.toLowerCase().includes(query.toLowerCase())
@@ -51,6 +51,8 @@ const MethodeStock = () => {
             if (!confirmDelete) {
                 return;
             }
+			const updatedData = data.filter(item => item._id !== id);
+            setData(updatedData);
             await axios.delete(`http://localhost:3001/MethodeStock/deletStock/${id}`);
             fetchData();
         } catch (error) {
@@ -91,7 +93,7 @@ const MethodeStock = () => {
 			</div>
 			<div className='main-title'>
 				<div className='List-title'>
-					<h5>Liste Methode du Stock</h5>
+					<h5>Liste de Gestion de Stock</h5>
 					<span className='style-line'></span>
 					<TextField
 						placeholder="rechercher"

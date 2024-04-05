@@ -7,8 +7,9 @@ import './Stock.css';
 function MyModelAjouterStock(props) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [image_MethodStock, setImage_MethodStock] = useState('');
-
+    //const [image_MethodStock, setImage_MethodStock] = useState('');
+    const [image_MethodStock, setImage] = useState(null);
+    const [newImage, setNewImage] = useState(null);
     // Effet pour préremplir les champs lors de la modification
     useEffect(() => {
         // Vérifie si des données de formulaire ont été passées en tant que props
@@ -16,31 +17,46 @@ function MyModelAjouterStock(props) {
             // Préremplit les champs avec les données existantes
             setTitle(props.formData.title || '');
             setDescription(props.formData.description || '');
-            setImage_MethodStock(props.formData.image_MethodStock || '');
+            setImage(props.formData.image || '');
         }
     }, [props.formData]);
-
+    const handleImageChange = (e) => {
+        setNewImage(e.target.files[0]);
+    };
     // Fonction pour soumettre le formulaire
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+            if (!newImage || !newImage.type.startsWith('image')) {
+                alert("Veuillez sélectionner une image valide.");
+                return;
+            }
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('image_MethodStock', newImage || image_MethodStock);
             if (props.formData) {
                 // Modifier
-                await axios.put(`http://localhost:3001/MethodeStock/UpdateStock/${props.formData._id}`, { title, description, image_MethodStock });
-                alert(" Stock Modifier avec succès");
+                await axios.put(`http://localhost:3001/MethodeStock/UpdateStock/${props.formData._id}`,formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                  });
+                alert("Stock Modifier avec succès");
             } else {
                 // Ajouter
-                await axios.post('http://localhost:3001/MethodeStock/AjouterStock', { title, description, image_MethodStock });
-                alert(" Stock Ajouté avec succès");
+                await axios.post('http://localhost:3001/MethodeStock/AjouterStock', formData);
+                alert('Stock ajouté avec succès');
             }
             // Réinitialiser les champs après la soumission
             setTitle('');
             setDescription('');
-            setImage_MethodStock('');
+            //setImage_MethodStock('');
+            setImage(null);
+            setNewImage(null);
             props.onHide();
             props.fetchData();
         } catch (error) {
             console.error('Erreur lors de la soumission du formulaire :', error);
+            alert(error.response.data.error);
         }
     };
     
@@ -81,19 +97,10 @@ function MyModelAjouterStock(props) {
                         />
                     </div>
                     <div>
-                        <label htmlFor="image">Image (URL) :</label>
-                        <input
-                            type="text"
-                            id="image"
-                            value={image_MethodStock}
-                            onChange={(e) => setImage_MethodStock(e.target.value)}
-                            className="form-input"
-                            required
-                        />
+                        <label htmlFor="image">Image:</label>
+                        {image_MethodStock && <img src={image_MethodStock} alt="" className="current-image" />} 
+                        <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
                     </div>
-                    {/* <Button type="submit" className="form-button">
-                        {props.editMode ? 'Modifier' : 'Ajouter'}
-                    </Button> */}
                 </form>
             </Modal.Body>
             <Modal.Footer>
