@@ -68,12 +68,12 @@ app.use((req, res, next) => {
     next();
   });
   app.use('/auth', AuthRouter);
-app.use('/MethodeStock',verifyAuthToken, MethRouter);
-app.use('/Materiel',verifyAuthToken, MaterielRouter);
-app.use('/MedicamentCulture',verifyAuthToken, MedicamentRouter);
-app.use('/Categorie',verifyAuthToken, CategorieRouter);
-app.use('/Agriculture',verifyAuthToken, AgricultureRouter);
+app.use('/MethodeStock', MethRouter);
+app.use('/Materiel', MaterielRouter);
+app.use('/MedicamentCulture', MedicamentRouter);
+app.use('/Categorie', CategorieRouter);
+app.use('/Agriculture', AgricultureRouter);
 app.use('/RemarqueAgriculture', RemarqueRouter);
-app.use('/Saison',verifyAuthToken, SaisonRouter);
+app.use('/Saison', SaisonRouter);
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

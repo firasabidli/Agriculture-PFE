@@ -89,7 +89,7 @@ const Categories = () => {
 					/>
 				</div>
 				<section class="ftco-section">
-					<div class="container">
+					<div class="container-categorie">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="table-wrap">

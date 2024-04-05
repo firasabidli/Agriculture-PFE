@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/CoteClient/css/style.css';
 import logo from "../../assets/images/logo.jpg";
 import axios from 'axios';
+import { useUser } from '../UserContext';
 const MyNavbar = ({ textColor }) => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,10 +18,15 @@ const MyNavbar = ({ textColor }) => {
   const [SaisonData, setSaisonData] = useState([]);
   const [culturesSaison, setCulturesSaison] = useState([]);
   const [showList, setShowList] = useState(false);
+  const [showUser, setShowUser] = useState(false);
   const [categorieList,setCategorieList]=useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [saisonList,setSaisonList]=useState(false);
   const [hoveredSaison, setHoveredSaison] = useState(null);
+
+  const userName  = useUser().user.nom;
+  const userImage=useUser().user.image;
+
   const handleModalShow = () => setShowModal(true);
   const handleModalClose = () => setShowModal(false);
   
@@ -65,7 +71,7 @@ const MyNavbar = ({ textColor }) => {
   const handleTitleClick = () => {
     setShowList(!showList);
     if (!showList) {
-      fetchCategories(); // Fetch categories only when the dropdown is opened
+      fetchCategories();
     }
   };
 const handleCategorieClick =()=>{
@@ -108,6 +114,33 @@ const handleCategorieClick =()=>{
   
     } catch (error) {
       console.error('Erreur lors de la récupération des cultures :', error);
+    }
+  };
+  //User
+  const handleProfileClick = () => {
+    setShowUser(!showUser);
+    if (!showUser) {
+      console.log('Profil cliqué !',userName,userImage)
+      
+      
+    }
+  };
+  const handleLogout = async () => {
+    localStorage.removeItem('authToken');
+    window.location.href = '/';
+  };
+  const defaultImage = 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png';
+
+  const getImageSource = () => {
+    // Vérifie si userImage est une URL HTTP
+    const isHttpUrl = userImage && userImage.startsWith('http');
+
+    if (isHttpUrl) {
+      return userImage;
+    } else if (userImage) {
+      return `http://localhost:3001/images/Utilisateur/Admin/${userImage}`;
+    } else {
+      return defaultImage;
     }
   };
   return (
@@ -211,9 +244,33 @@ const handleCategorieClick =()=>{
                 <button className='rounded-circle btn-sm-square bg-white ms-3'>
                   <FaSearch className="text-body"  onClick={handleModalShow} />
                 </button>
-                <button className='rounded-circle btn-sm-square bg-white ms-3'>
-                  <FaUser className="text-body" />
-                </button>
+                
+              <div>
+            <div className='rounded-circle btn-sm-square bg-white ms-3' onClick={handleProfileClick}>
+            <img src={getImageSource()}
+            alt={userName} width="32" height="32" class="rounded-circle" onClick={handleProfileClick}/>
+            </div>
+            {showUser && (
+        <ul className="dropdown-menu dropdown-menu-dark text-small shadow position-fixed d-grid gap-1 p-2 rounded-3 mx-0  w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
+          <li><a className="dropdown-item" href="/">{userName||'Utilisateur'}</a></li>
+          <li><a className="dropdown-item" href="/">Profil</a></li>
+          <li><hr className="dropdown-divider"/></li>
+          <li><a className="dropdown-item" href="/" onClick={handleLogout}>Se déconnecter</a></li>
+        </ul>
+      )}
+            </div>
+                {/* <button className='rounded-circle btn-sm-square bg-white ms-3'>
+                <FaUser className="text-body"  onClick={handleProfileClick}/>
+               
+      {showUser && (
+        <ul className="dropdown-menu dropdown-menu-dark text-small shadow position-fixed d-grid gap-1 p-2 rounded-3 mx-0  w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
+          <li><a className="dropdown-item" href="/">{userName||'Utilisateur'}</a></li>
+          <li><a className="dropdown-item" href="/">Profil</a></li>
+          <li><hr className="dropdown-divider"/></li>
+          <li><a className="dropdown-item" href="/" onClick={handleLogout}>Se déconnecter</a></li>
+        </ul>
+      )}
+      </button> */}
                 <button className='rounded-circle btn-sm-square bg-white ms-3'>
                   <FaShoppingBag className="text-body  " />
                 </button>

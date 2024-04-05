@@ -10,6 +10,7 @@ const userSchema = new Schema({
   dateNaissance: { type: Date, required: true },
   numeroTelephone: { type: String, required: true },
   accepte: { type: String, required: true },
+  image: { type: String, default: 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png' },
   password: { type: String, required: true },
 });
 
