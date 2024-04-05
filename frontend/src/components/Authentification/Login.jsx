@@ -100,7 +100,7 @@ const LoginForm = () => {
   // };
   
   return (
-    <div className={`container ${isSignUpMode ? 'sign-up-mode' : ''}`}>
+    <div className={`container${isSignUpMode ? 'sign-up-mode' : ''}`}>
       <div className="forms-container">
         <div className="signin-signup">
           <form className="sign-in-form" onSubmit={handleSubmit}>
@@ -143,7 +143,7 @@ const LoginForm = () => {
         <div className="panel left-panel">
           <div className="content">
             <p>Vous n'avez pas de compte ? Inscrivez-vous ici !</p>
-            <button className="btnn transparent mb-3" id="sign-up-btn" onClick={handleSignUpClick}>
+            <button className="btnn transparent mb-3" id="sign-up-btn" onClick={handleSignUpClick} style={{pointerEvents:"all"}}>
               Sign up
             </button>
           </div>
@@ -156,6 +156,7 @@ const LoginForm = () => {
               Sign in
             </button>
           </div>
+          
           <img src={LogoSignUp} className="image" alt="" style={{marginRight:"130%"}} />
         </div>
       </div>

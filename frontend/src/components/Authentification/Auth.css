@@ -167,10 +167,13 @@ form.sign-in-form {
 }
 
 .left-panel {
-  pointer-events: all;
+  
+  pointer-events: none;
   padding: 3rem 30% 2rem 12%;
 }
-
+/* .left-panel.disabled {
+  pointer-events: none;
+} */
 .right-panel {
   pointer-events: none;
   padding: 3rem 12% 2rem 17%;
