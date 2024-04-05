@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import Accueil from './components/CoteClient/PageAccueil.jsx';
+import PageAccueil from './components/CoteClient/PageAccueil.jsx';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -19,27 +19,35 @@ import InfoCulture from './components/CoteClient/InfoCulture/InfoCulture.jsx';
 import Categories from './components/CoteAdmin/pages/Agriculture/CategoriesAgriculture/Categories.jsx';
 import Agricultures from './components/CoteAdmin/pages/Agriculture/Agricultures.jsx';
 import Dashboard from './components/CoteAdmin/Dashboard.jsx';
+import PrivateRoute from './components/PrivateRoute.js';
+import { UserProvider } from './components/UserContext.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-    <Routes>
-          <Route path="/" element={<App />} />
-          {/* User Routes */}
-          <Route path="/accueil" element={<Accueil />} />
-          <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
-                {/* Admin Routes */}
-          <Route path="/admin/dashboard" element={<Dashboard/>} />
-          
-         
-          {/* Admin Routes Agriculture */}
-          <Route path="/admin/Methodestock" element={<MethodeStock />} />
-          <Route path="/admin/MedicamentCulture" element={<Medicament />} />
-          <Route path="/admin/Materiel" element={<Materiel />} />
-          <Route path="/admin/Categories" element={<Categories />} />
-          <Route path="/admin/Agricultures" element={<Agricultures />} />
- 
-        </Routes>
+      <UserProvider>
+        <Routes>
+          <Route element={<PrivateRoute />} >
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/accueil" element={<PageAccueil />} />
+          </Route>
+                <Route path="/" element={<App />} />
+                {/* User Routes */}
+                {/* <Route path="/accueil" element={<Accueil />} /> */}
+                <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
+                      {/* Admin Routes */}
+                {/* <Route path="/admin/dashboard" element={<Dashboard/>} />
+                */}
+              
+                {/* Admin Routes Agriculture */}
+                <Route path="/admin/Methodestock" element={<MethodeStock />} />
+                <Route path="/admin/MedicamentCulture" element={<Medicament />} />
+                <Route path="/admin/Materiel" element={<Materiel />} />
+                <Route path="/admin/Categories" element={<Categories />} />
+                <Route path="/admin/Agricultures" element={<Agricultures />} />
+    
+          </Routes>
+      </UserProvider>
     </Router>
   </React.StrictMode>
 );
