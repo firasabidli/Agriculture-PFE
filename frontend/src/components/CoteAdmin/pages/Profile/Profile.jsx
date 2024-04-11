@@ -19,8 +19,10 @@ function Profile() {
   }); 
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [selectedImage, setSelectedImage] = useState(''); // État local pour l'URL de l'image sélectionnée
-  const defaultImage = '"https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg"';
 
   // Fonction pour basculer la barre latérale
   const toggleSidebar = () => {
@@ -77,6 +79,49 @@ function Profile() {
       alert('Échec de la mise à jour du profil. Veuillez réessayer.');
     }
   };
+
+  const handleSubmitPassword = async (event) => {
+    event.preventDefault();
+  
+    // Vérifications des conditions
+    if (currentPassword.length < 6) {
+      alert('Le mot de passe actuel doit avoir au moins 6 caractères.');
+      return;
+    }
+  
+    if (newPassword.length < 6) {
+      alert('Le nouveau mot de passe doit avoir au moins 6 caractères.');
+      return;
+    }
+  
+    if (newPassword !== confirmPassword) {
+      alert('Le nouveau mot de passe et la confirmation ne correspondent pas.');
+      return;
+    }
+  
+    try {
+      // Envoyer la requête avec les données de mot de passe
+      const response = await axios.put(
+        `http://localhost:3001/Profile/editPassword/${user._id}`,
+        { currentPassword, newPassword, confirmPassword },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+        alert('Mot de passe mis à jour avec succès!');
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du mot de passe :', error);
+      alert('Mot de passe actuel incorrect');
+    }
+  };
+  
   
   // Gestion des changements des champs de formulaire
   const handleInputChange = (e) => {
@@ -205,40 +250,59 @@ function Profile() {
                                 </div>
                               </form>
                             ) : (
-                              <form className="form">
-                                <div className="col-6">
-                                  <div className="mb-2"><b>Changer le mot de passe</b></div>
-                                  <div className="row">
-                                    <div className="col">
-                                      <div className="form-group">
-                                        <label>Mot de passe actuel</label>
-                                        <input className="form-control" type="password" placeholder="••••••" />
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="row">
-                                    <div className="col">
-                                      <div className="form-group">
-                                        <label>Nouveau mot de passe</label>
-                                        <input className="form-control" type="password" placeholder="••••••" />
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="row">
-                                    <div className="col">
-                                      <div className="form-group">
-                                        <label>Confirmer le mot de passe</label>
-                                        <input className="form-control" type="password" placeholder="••••••" />
-                                      </div>
+                              <form className="form" onSubmit={handleSubmitPassword}>
+                              <div className="col-6">
+                                <div className="mb-2"><b>Changer le mot de passe</b></div>
+                                <div className="row">
+                                  <div className="col">
+                                    <div className="form-group">
+                                      <label>Mot de passe actuel</label>
+                                      <input
+                                        className="form-control"
+                                        type="password"
+                                        placeholder="••••••"
+                                        value={currentPassword}
+                                        onChange={(e) => setCurrentPassword(e.target.value)}
+                                      />
                                     </div>
                                   </div>
                                 </div>
                                 <div className="row">
-                                  <div className="col d-flex justify-content-end">
-                                    <button className="btn btn-primary" type="submit">Enregistrer</button>
+                                  <div className="col">
+                                    <div className="form-group">
+                                      <label>Nouveau mot de passe</label>
+                                      <input
+                                        className="form-control"
+                                        type="password"
+                                        placeholder="••••••"
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                      />
+                                    </div>
                                   </div>
                                 </div>
-                              </form>
+                                <div className="row">
+                                  <div className="col">
+                                    <div className="form-group">
+                                      <label>Confirmer le mot de passe</label>
+                                      <input
+                                        className="form-control"
+                                        type="password"
+                                        placeholder="••••••"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col d-flex justify-content-end">
+                                  <button className="btn btn-primary" type="submit">Enregistrer</button>
+                                </div>
+                              </div>
+                            </form>
+
                             )}
                           </div>
                         </div>

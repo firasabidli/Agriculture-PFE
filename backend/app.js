@@ -33,7 +33,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Agriculture', {
     if (adminCount === 0) {
         // Aucun administrateur trouvé, nous en créons un
         try {
-            const hashedPassword = await argon2.hash('123');
+            const hashedPassword = await argon2.hash('1234567');
             const newAdmin = new UserModel.Admin({
                 cin: '1234567890',
                 nom: 'Admin',

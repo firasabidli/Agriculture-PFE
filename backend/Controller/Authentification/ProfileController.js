@@ -1,4 +1,5 @@
 const Utilisateur = require('../../Model/Authentification/Utilisateur');
+const argon2 = require('argon2');
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -42,3 +43,40 @@ exports.update = async (req, res) => {
     res.status(500).json({ error: 'Erreur interne du serveur lors de la mise à jour du profil' });
   }
 };
+
+// Mettre à jour le mot de passe de l'utilisateur administrateur
+exports.updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const adminId = req.params.id;
+
+    // Vérifier que le nouveau mot de passe correspond à la confirmation
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ success: false, message: "Le nouveau mot de passe ne correspond pas à la confirmation" });
+    }
+
+    // Trouver l'utilisateur administrateur par ID
+    const admin = await Utilisateur.Admin.findById(adminId);
+    if (!admin) {
+      return res.status(404).json({ success: false, message: 'Utilisateur administrateur non trouvé' });
+    }
+
+    // Vérifier que le mot de passe actuel correspond
+    const currentPasswordValid = await argon2.verify(admin.password, currentPassword);
+    if (!currentPasswordValid) {
+      return res.status(400).json({ success: false, message: 'Mot de passe actuel incorrect' });
+    }
+
+    // Mettre à jour le mot de passe
+    const hashedNewPassword = await argon2.hash(newPassword);
+    admin.password = hashedNewPassword;
+    await admin.save();
+
+    res.status(200).json({ success: true, message: 'Mot de passe mis à jour avec succès' });
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du mot de passe :', error);
+    res.status(500).json({ success: false, error: 'Erreur interne du serveur lors de la mise à jour du mot de passe' });
+  }
+};
+
+
