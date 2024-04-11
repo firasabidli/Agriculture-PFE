@@ -10,19 +10,21 @@ const userSchema = new Schema({
   dateNaissance: { type: Date, required: true },
   numeroTelephone: { type: String, required: true },
   accepte: { type: String, required: true },
-  image: { type: String, default: 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png' },
+  image: { type: String, default: 'https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg' },
   password: { type: String, required: true },
 });
 
 // Définir un schéma pour l'administrateur en tant que sous-ensemble du schéma utilisateur de base
 const adminSchema = new Schema({
-  role: { type: String, default: 'admin' },
+  role: { type: String, default: 'Admin' },
+  username: { type: String, default: 'admin_123' },
   // Autres champs spécifiques à l'administrateur...
 });
 
 // Définir un sous-modèle pour l'agriculteur
 const agriculteurSchema = new Schema({
-  role: { type: String, default: 'agriculteur' },
+  role: { type: String, default: 'Agriculteur' },
+  username: { type: String, default: 'agriculteur_123' },
   // Autres champs spécifiques à l'agriculteur...
 });
 

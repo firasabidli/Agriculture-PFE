@@ -15,8 +15,8 @@ const MethodeStock = () => {
     const [formData, setFormData] = useState(null);
     const [modalShow, setModalShow] = React.useState(false);
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-	const [page, setPage] = useState('Stock');
-	const [isActive, setIsActive] = useState(true);
+	const [page] = useState('Stock');
+	const [isActive] = useState(true);
 	const [query, setQuery] = useState('');
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);

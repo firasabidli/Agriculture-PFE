@@ -46,10 +46,10 @@ const LoginForm = () => {
       console.log("use :", user);
       const userRole = user.role;
       //const userName = user.nom;
-        if (userRole === 'admin') {
+        if (userRole === 'Admin') {
           // Redirection pour l'administrateur
           history('/admin/dashboard');
-        } else if (userRole === 'agriculteur') {
+        } else if (userRole === 'Agriculteur') {
           // Redirection pour l'agriculteur
           history('/accueil');
         } else {
@@ -100,8 +100,8 @@ const LoginForm = () => {
   // };
   
   return (
-    <div className={`container ${isSignUpMode ? 'sign-up-mode' : ''}`}>
-      <div className="forms-container">
+    <div className={`containerr ${isSignUpMode ? 'sign-up-mode' : ''}`}>
+      <div className="forms-containerr">
         <div className="signin-signup">
           <form className="sign-in-form" onSubmit={handleSubmit}>
             <h2 className="title">Se Connecter</h2>
@@ -139,7 +139,7 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <div className="panels-container">
+      <div className="panels-containerr">
         <div className="panel left-panel">
           <div className="content">
             <p>Vous n'avez pas de compte ? Inscrivez-vous ici !</p>

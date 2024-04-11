@@ -21,6 +21,7 @@ import Agricultures from './components/CoteAdmin/pages/Agriculture/Agricultures.
 import Dashboard from './components/CoteAdmin/Dashboard.jsx';
 import PrivateRoute from './components/PrivateRoute.js';
 import { UserProvider } from './components/UserContext.js';
+import Profile from './components/CoteAdmin/pages/Profile/Profile.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -45,6 +46,7 @@ root.render(
                 <Route path="/admin/Materiel" element={<Materiel />} />
                 <Route path="/admin/Categories" element={<Categories />} />
                 <Route path="/admin/Agricultures" element={<Agricultures />} />
+                <Route path="/admin/Profile" element={<Profile />} />
     
           </Routes>
       </UserProvider>

@@ -6,7 +6,8 @@ const MaterielRouter = require('./Router/Agriculture/MaterielRouter');
 const CategorieRouter = require('./Router/Agriculture/CategorieRouter');
 const AgricultureRouter = require('./Router/Agriculture/Agriculture')
 const Saison = require('./Model/Agriculture/SaisonModel');
-const SaisonRouter = require('./Router/Agriculture/SaisonRouter')
+const SaisonRouter = require('./Router/Agriculture/SaisonRouter');
+const ProfileRouter = require('./Router/Authentification/ProfileRouter');
 const RemarqueRouter=require('./Router/Agriculture/RemarqueAgriculture');
 const MedicamentRouter = require('./Router/Agriculture/Medicament');
 const AuthRouter = require('./Router/Authentification/Authentification');
@@ -75,5 +76,6 @@ app.use('/Categorie', CategorieRouter);
 app.use('/Agriculture', AgricultureRouter);
 app.use('/RemarqueAgriculture', RemarqueRouter);
 app.use('/Saison', SaisonRouter);
+app.use('/Profile', ProfileRouter);
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

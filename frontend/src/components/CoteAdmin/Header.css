@@ -58,8 +58,10 @@
   }
   @media (max-width: 767.98px) {
     .search-container {
-      width: 100%;
+      width: 300px;
       margin-left: 0;
     }
+    
+   
   }
 

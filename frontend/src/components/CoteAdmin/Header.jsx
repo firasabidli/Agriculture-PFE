@@ -7,6 +7,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useUser } from '../UserContext';
 import './Header.css'
+import { Link } from 'react-router-dom';
 function Header({ toggleSidebar }) {
   const userName  = useUser().user.nom;
   const userImage=useUser().user.image;
@@ -32,8 +33,8 @@ function Header({ toggleSidebar }) {
   return (
     <header className='header d-flex align-items-center'>
     <span className='burger d-flex'> <GiHamburgerMenu  onClick={toggleSidebar} /></span>
-    <div className='header-left d-flex me-auto'>
-    <div className='search-container mx-auto '>
+    <div className='header-left d-flex '>
+    <div className='search-container  '>
     <TextField 
       placeholder="rechercher"
       className='search'
@@ -55,13 +56,13 @@ function Header({ toggleSidebar }) {
     <div className='header-right d-flex ms-auto '>
       <NotifCulture/>
       <div class="dropdown text-end  ">
-        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <Link class="d-block link-body-emphasis text-decoration-none dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
           <img src={getImageSource()}
             alt={userName} width="32" height="32" class="rounded-circle"/>
           <span style={{marginLeft:'5px'}}>{userName || 'User'}</span>
-        </a>
+        </Link>
         <ul class="dropdown-menu text-small">
-          <li><a class="dropdown-item" href="/"> <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"/><span style={{marginLeft:'5px'}}>Profile</span></a></li>
+          <li><Link to="/admin/Profile" class="dropdown-item" href="/"> <img src={getImageSource()} alt="mdo" width="32" height="32" class="rounded-circle"/><span style={{marginLeft:'5px'}}>Profile</span></Link></li>
           <li><hr class="dropdown-divider"/></li>
           <li><a class="dropdown-item" href="/"style={{marginLeft:'5px'}} onClick={handleLogout}>se déconnecte <FaSignOutAlt /></a></li>
         </ul>

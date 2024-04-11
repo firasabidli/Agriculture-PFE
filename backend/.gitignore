@@ -5,3 +5,9 @@ src/assets/images/MedicamentsAgriculture/*
 !src/assets/images/MedicamentsAgriculture/README.md
 src/assets/images/Agricultures/*
 !src/assets/images/Agricultures/README.md
+src/assets/images/Utilisateur/Admin/*
+!src/assets/images/Utilisateur/Admin/README.md
+!src/assets/images/Utilisateur/Admin/defaultImage.jpg
+src/assets/images/Utilisateur/Agriculteur/*
+!src/assets/images/Utilisateur/Agriculteur/README.md
+!src/assets/images/Utilisateur/Agriculteur/defaultImage.jpg

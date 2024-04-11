@@ -1,0 +1,44 @@
+const Utilisateur = require('../../Model/Authentification/Utilisateur');
+const fs = require('fs').promises;
+const path = require('path');
+
+// Modifier le profil de l'utilisateur administrateur
+exports.update = async (req, res) => {
+  try {
+    const { adresse, email, numeroTelephone } = req.body;
+
+    // Vérifier s'il y a un fichier image à mettre à jour
+    let newImageName = null;
+    if (req.file) {
+      newImageName = req.file.filename;
+    }
+
+    // Trouver l'utilisateur administrateur par ID
+    const admin = await Utilisateur.Admin.findById(req.params.id);
+    if (!admin) {
+      return res.status(404).json({ message: 'Utilisateur administrateur non trouvé' });
+    }
+
+    // Supprimer l'ancienne image si elle existe et n'est pas une URL externe
+    if (admin.image && !admin.image.startsWith('http')) {
+      const imagePath = path.join('src/assets/images/Utilisateur/Admin/', admin.image);
+      await fs.unlink(imagePath); // Supprimer l'ancienne image du système de fichiers
+    }
+
+    // Mettre à jour les champs du profil
+    admin.adresse = adresse;
+    admin.email = email;
+    admin.numeroTelephone = numeroTelephone;
+    if (newImageName) {
+      admin.image = newImageName; // Mettre à jour le nom de la nouvelle image
+    }
+
+    // Enregistrer les modifications dans la base de données
+    await admin.save();
+
+    res.status(200).json({ message: 'Profil mis à jour avec succès', admin });
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du profil :', error);
+    res.status(500).json({ error: 'Erreur interne du serveur lors de la mise à jour du profil' });
+  }
+};

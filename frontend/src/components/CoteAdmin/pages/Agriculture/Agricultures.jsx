@@ -15,8 +15,8 @@ const Agricultures = () => {
     const [data, setData] = useState([]);
 
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-	const [page, setPage] = useState('Agriculture');
-	const [isActive, setIsActive] = useState(true);
+	const [page] = useState('Agriculture');
+	const [isActive] = useState(true);
     const [query, setQuery] = useState('');
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);

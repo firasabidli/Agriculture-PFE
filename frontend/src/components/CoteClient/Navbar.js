@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 //import { Navbar as BootstrapNavbar } from 'react-bootstrap';
 import { Nav, Modal } from 'react-bootstrap';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaUser, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
