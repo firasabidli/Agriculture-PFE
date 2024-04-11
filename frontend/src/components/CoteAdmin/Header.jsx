@@ -25,7 +25,7 @@ function Header({ toggleSidebar }) {
       return defaultImage;
     }
   };
-  console.log("user",useUser().user.image)
+
   const handleLogout = async () => {
     localStorage.removeItem('authToken');
     window.location.href = '/';

@@ -4,8 +4,8 @@ import './sidebar.css';
 import { Link } from 'react-router-dom';
 import {  FcCloseUpMode} from 'react-icons/fc';
 import { GiCow, GiFarmer } from 'react-icons/gi';
-
-
+import { BsPersonCheck } from "react-icons/bs";
+import { BsPersonFillGear } from "react-icons/bs";
 import { GiWheat } from "react-icons/gi";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { SiDatabricks } from "react-icons/si";
@@ -61,12 +61,24 @@ const Sidebar = ({ isSidebarCollapsed, page, isActive }) => {
                 betail
                 </Link>
         </li>
+
         <li className="sidebar-item">
-        <Link to="/" className="sidebar-link">
-           <span className="icon"> <GiFarmer/></span>
+            <a href="#" className={`sidebar-link ${isActive  ? ' ' : 'collapsed'}`} data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-expanded="false" aria-controls="pages">
+               <span className="icon"> <GiFarmer/></span>
             Agriculteurs
-            </Link>
+            </a>
+            <ul id="pages" className={`sidebar-dropdown list-unstyled collapse ${isActive ? 'show ' : ''}`} data-bs-parent="#sidebar">
+                <li className="sidebar-item ">
+                <Link to="/admin/ActiverCompte" className={`sidebar-link ${page==="ActiverCompte" ? 'item-active' : ''}`}><span className="icon"><BsPersonCheck /></span>{ " "}Activer Compte </Link>
+                </li>
+                <li className="sidebar-item">
+                <Link to="/" className={`sidebar-link ${page==="GererAgriculteurs" ? 'item-active' : ''}`}><span className="icon"><BsPersonFillGear /></span>{ " "}Gerer Agriculteurs </Link>
+                </li>
+                
+            </ul>
         </li>
+       
         <li className="sidebar-item">
         <Link to="/" className="sidebar-link">
            <span className="icon"> <FaFileInvoiceDollar /></span>

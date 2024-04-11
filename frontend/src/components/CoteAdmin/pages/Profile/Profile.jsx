@@ -101,7 +101,7 @@ function Profile() {
   
     try {
       // Envoyer la requête avec les données de mot de passe
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:3001/Profile/editPassword/${user._id}`,
         { currentPassword, newPassword, confirmPassword },
         {
