@@ -13,11 +13,10 @@ import Add from './Add';
 
 const Materiel = () => {
     const [data, setData] = useState([]);
-    const [formData, setFormData] = useState(null);
-    const [modalShow, setModalShow] = React.useState(false);
+   
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-	const [page, setPage] = useState('Materiel');
-	const [isActive, setIsActive] = useState(true);
+	const [page] = useState('Materiel');
+	const [isActive] = useState(true);
 	const [query, setQuery] = useState('');
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);
@@ -115,7 +114,7 @@ const Materiel = () => {
 													<td>{index}</td>
 													<td className='td-im' >
 													{item.image_materiel && (
-               										<img src={item.image_materiel} className='td-image' style={{width:'120px',textAlign:'center'}}/>)}
+               										<img src={item.image_materiel} className='td-image' style={{width:'120px',textAlign:'center'}} alt='Materiel'/>)}
 													</td>
 													<td className='td-title'>{item.nom}</td>
 													<td>{item.description}</td>

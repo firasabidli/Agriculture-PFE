@@ -14,8 +14,8 @@ import Add from './Add';
 const Categories = () => {
     const [data, setData] = useState([]);
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-    const [page, setPage] = useState('Categories');
-	const [isActive, setIsActive] = useState(true);
+    const [page] = useState('Categories');
+	const [isActive] = useState(true);
 	const [query, setQuery] = useState('');
     //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);
