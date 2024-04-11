@@ -16,5 +16,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.put('/:id', upload.single('image'), ProfileController.update);
+router.put('/editPassword/:id', ProfileController.updatePassword);
 
 module.exports = router;
