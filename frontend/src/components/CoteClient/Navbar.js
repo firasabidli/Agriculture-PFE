@@ -24,9 +24,10 @@ const MyNavbar = ({ textColor }) => {
   const [saisonList,setSaisonList]=useState(false);
   const [hoveredSaison, setHoveredSaison] = useState(null);
 
-  const userName  = useUser().user.nom;
-  const userImage=useUser().user.image;
   const { user } = useUser();
+  const userName = user?.nom;
+  const userImage = user?.image;
+  //const { user } = useUser();
   const handleModalShow = () => setShowModal(true);
   const handleModalClose = () => setShowModal(false);
   
@@ -236,12 +237,19 @@ const handleCategorieClick =()=>{
                 
               <div>
             <div className='rounded-circle btn-sm-square bg-white ms-3' onClick={handleProfileClick}>
-            <img src={user.image && user.image.startsWith('http') ? user.image : `http://localhost:3001/images/Utilisateur/Agriculteur/${user.image}`}
-            alt={userName} width="32" height="32" class="rounded-circle" onClick={handleProfileClick}/>
+            <img
+                    src={userImage && userImage.startsWith('http') ? userImage : `http://localhost:3001/images/Utilisateur/Agriculteur/${userImage}`}
+                    alt={userName}
+                    width="32"
+                    height="32"
+                    className="rounded-circle"
+                    onClick={handleProfileClick}
+                  />
+      
             </div>
             {showUser && (
         <ul className="dropdown-menu dropdown-menu-dark text-small shadow position-fixed d-grid gap-1 p-2 rounded-3 mx-0  w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
-          <li><a className="dropdown-item" href="/">{userName||'Utilisateur'}</a></li>
+          <li><a className="dropdown-item" href="/">{userName ||'Utilisateur'}</a></li>
           <li><Link to="/profileAgriculteur" className="dropdown-item" >Profil</Link></li>
           <li><hr className="dropdown-divider"/></li>
           <li><a className="dropdown-item" href="/" onClick={handleLogout}>Se déconnecter</a></li>
