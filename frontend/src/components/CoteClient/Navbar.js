@@ -26,7 +26,7 @@ const MyNavbar = ({ textColor }) => {
 
   const userName  = useUser().user.nom;
   const userImage=useUser().user.image;
-
+  const { user } = useUser();
   const handleModalShow = () => setShowModal(true);
   const handleModalClose = () => setShowModal(false);
   
@@ -129,20 +129,9 @@ const handleCategorieClick =()=>{
     localStorage.removeItem('authToken');
     window.location.href = '/';
   };
-  const defaultImage = 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png';
+  
 
-  const getImageSource = () => {
-    // Vérifie si userImage est une URL HTTP
-    const isHttpUrl = userImage && userImage.startsWith('http');
-
-    if (isHttpUrl) {
-      return userImage;
-    } else if (userImage) {
-      return `http://localhost:3001/images/Utilisateur/Admin/${userImage}`;
-    } else {
-      return defaultImage;
-    }
-  };
+ 
   return (
     <div>
       <div className={`container-fluid fixed-top px-0 wow fadeIn ${isScrolled ? 'scrolled' : ''}`} data-wow-delay="0.1s">
@@ -247,13 +236,13 @@ const handleCategorieClick =()=>{
                 
               <div>
             <div className='rounded-circle btn-sm-square bg-white ms-3' onClick={handleProfileClick}>
-            <img src={getImageSource()}
+            <img src={user.image && user.image.startsWith('http') ? user.image : `http://localhost:3001/images/Utilisateur/Agriculteur/${user.image}`}
             alt={userName} width="32" height="32" class="rounded-circle" onClick={handleProfileClick}/>
             </div>
             {showUser && (
         <ul className="dropdown-menu dropdown-menu-dark text-small shadow position-fixed d-grid gap-1 p-2 rounded-3 mx-0  w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
           <li><a className="dropdown-item" href="/">{userName||'Utilisateur'}</a></li>
-          <li><a className="dropdown-item" href="/">Profil</a></li>
+          <li><Link to="/profileAgriculteur" className="dropdown-item" >Profil</Link></li>
           <li><hr className="dropdown-divider"/></li>
           <li><a className="dropdown-item" href="/" onClick={handleLogout}>Se déconnecter</a></li>
         </ul>
