@@ -23,6 +23,7 @@ import PrivateRoute from './components/PrivateRoute.js';
 import { UserProvider } from './components/UserContext.js';
 import Profile from './components/CoteAdmin/pages/Profile/Profile.jsx';
 import ActiverCompte from './components/CoteAdmin/pages/Agriculteurs/ActiverComptesAgriculteurs/ActiverCompte.jsx';
+import ProfileAgriculteur from './components/CoteClient/Profile/ProfileAgriculteur.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -38,9 +39,8 @@ root.render(
                 {/* <Route path="/accueil" element={<Accueil />} /> */}
                 <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
                       {/* Admin Routes */}
-                {/* <Route path="/admin/dashboard" element={<Dashboard/>} />
-                */}
-              
+                {/* <Route path="/admin/dashboard" element={<Dashboard/>} />*/}
+                <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
                 {/* Admin Routes Agriculture */}
                 <Route path="/admin/Methodestock" element={<MethodeStock />} />
                 <Route path="/admin/MedicamentCulture" element={<Medicament />} />
