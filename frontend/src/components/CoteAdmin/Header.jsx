@@ -9,8 +9,11 @@ import { useUser } from '../UserContext';
 import './Header.css'
 import { Link } from 'react-router-dom';
 function Header({ toggleSidebar }) {
-  const userName  = useUser().user.nom;
-  const userImage=useUser().user.image;
+  const { user } = useUser();
+  const userName = user ?.nom ;
+  const userImage = user?.image;
+  //const userName  = useUser().user.nom;
+  // const userImage=useUser().user.image;
   const defaultImage = 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png';
 
   const getImageSource = () => {

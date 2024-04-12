@@ -12,8 +12,8 @@ import AuthService from './service/AuthService';
 // Supprimez les accolades autour de `onLogin`
 const LoginForm = () => {
   const history=useNavigate()
-  // const navigate = useNavigate();
-  const { setUser} = useUser();
+  const { updateUser } = useUser();
+  // const { setUser} = useUser();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -55,7 +55,8 @@ const LoginForm = () => {
         } else {
           // Gérer les autres types d'utilisateurs ou les erreurs
         }
-        setUser(user);
+        // setUser(user);
+        updateUser(user);
       })
       .catch(error => {
               if (error.response) {

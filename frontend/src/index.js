@@ -36,10 +36,10 @@ root.render(
           </Route>
                 <Route path="/" element={<App />} />
                 {/* User Routes */}
-                {/* <Route path="/accueil" element={<Accueil />} /> */}
+                {/* <Route path="/accueil" element={<PageAccueil />} /> */}
                 <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
                       {/* Admin Routes */}
-                {/* <Route path="/admin/dashboard" element={<Dashboard/>} />*/}
+                {/* <Route path="/admin/dashboard" element={<Dashboard/>} /> */}
                 <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
                 {/* Admin Routes Agriculture */}
                 <Route path="/admin/Methodestock" element={<MethodeStock />} />

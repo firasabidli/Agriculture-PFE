@@ -10,7 +10,7 @@ const isAuthenticate = () => {
 
 const PrivateRoute = () => {
   console.log(isAuthenticate());
-  const isAuthenticated = localStorage.getItem('authToken'); // Replace with actual authentication logic
+  const isAuthenticated = localStorage.getItem('authToken'); 
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 };
