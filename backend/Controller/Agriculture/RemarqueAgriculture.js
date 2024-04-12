@@ -28,7 +28,7 @@ exports.getByDate = async (req, res) => {
         const remarques = await RemarqueAgriculture.find({})
             .sort({ date_enregistrement:-1 });
         res.status(200).json(remarques); 
-        console.log(remarques)
+        // console.log(remarques)
         
     } catch (error) {
         res.status(500).json({ error: error.message });
