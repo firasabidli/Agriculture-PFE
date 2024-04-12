@@ -77,10 +77,10 @@ exports.updateMedicament = async (req, res) => {
       if (err) {
         return res.status(400).json({ error: err.message });
       }
-      console.log(req.body)
+
       const { nomMedicament, description } = req.body;
       let updateData = { nomMedicament, description };
-      console.log(req.file)
+      // console.log(req.file)
       if (req.file) {
         // Supprimer l'ancienne image si elle existe
         const oldMedicament = await Medicament.findById(req.params.id);
@@ -128,7 +128,7 @@ exports.deleteMedicament = (req, res, next) => {
             fs.unlinkSync(imagePath);
             return res.status(200).json({ success: true, message: 'Medicament supprimer avec succès' });
           } else {
-            console.log('Image not found:', imagePath);
+            // console.log('Image not found:', imagePath);
             return res.status(404).json({ success: false, message: 'Image not found' });
           }
         } catch (error) {

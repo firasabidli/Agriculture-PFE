@@ -90,10 +90,10 @@ exports.createStock = async (req, res) => {
         if (err) {
           return res.status(400).json({ error: err.message });
         }
-        console.log(req.body)
+        // console.log(req.body)
         const { title, description } = req.body;
         let updateData = { title, description };
-        console.log(req.file)
+        // console.log(req.file)
         if (req.file) {
           // Supprimer l'ancienne image si elle existe
           const oldStock = await Stock.findById(req.params.id);
@@ -132,7 +132,7 @@ exports.createStock = async (req, res) => {
             fs.unlinkSync(imagePath);
             return res.status(200).json({ success: true, message: 'stock supprimer avec succès' });
           } else {
-            console.log('Image not found:', imagePath);
+            // console.log('Image not found:', imagePath);
             return res.status(404).json({ success: false, message: 'Image not found' });
           }
         } catch (error) {
