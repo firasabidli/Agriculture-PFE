@@ -1,4 +1,3 @@
-// routes/Categorie.js
 const express = require('express');
 const router = express.Router();
 const categorieController = require('../../Controller/Agriculture/CategorieController');

@@ -1,21 +1,27 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+//Agriculture
 const MethRouter =require('./Router/Agriculture/MethodeStock');
 const MaterielRouter = require('./Router/Agriculture/MaterielRouter');
 const CategorieRouter = require('./Router/Agriculture/CategorieRouter');
 const AgricultureRouter = require('./Router/Agriculture/Agriculture')
 const Saison = require('./Model/Agriculture/SaisonModel');
 const SaisonRouter = require('./Router/Agriculture/SaisonRouter');
+const RemarqueRouter=require('./Router/Agriculture/RemarqueAgriculture');
+const MedicamentRouter = require('./Router/Agriculture/Medicament');
+
+//Auth
 const ProfileRouter = require('./Router/Authentification/ProfileRouter');
 const UserProfileRouter = require('./Router/Authentification/userProfileRouter');
 const ActiverCompteRouter = require('./Router/Authentification/ActiverCompteRouter');
-const RemarqueRouter=require('./Router/Agriculture/RemarqueAgriculture');
-const MedicamentRouter = require('./Router/Agriculture/Medicament');
 const AuthRouter = require('./Router/Authentification/Authentification');
 const UserModel = require('./Model/Authentification/Utilisateur');
+//const verifyAuthToken = require('./Controller/Authentification/verifyAuthTokenMiddleware');
+//Bétail
+const CategorieBetailRouter = require('./Router/Betail/CategorieBetail');
+
 const cors = require('cors');
-const verifyAuthToken = require('./Controller/Authentification/verifyAuthTokenMiddleware');
 const app = express();
 const argon2 = require('argon2');
 app.use(express.json());
@@ -70,7 +76,9 @@ app.use((req, res, next) => {
     console.log(req.headers['authorization']);
     next();
   });
-  app.use('/auth', AuthRouter);
+
+  //Agriculture
+
 app.use('/MethodeStock', MethRouter);
 app.use('/Materiel', MaterielRouter);
 app.use('/MedicamentCulture', MedicamentRouter);
@@ -78,8 +86,12 @@ app.use('/Categorie', CategorieRouter);
 app.use('/Agriculture', AgricultureRouter);
 app.use('/RemarqueAgriculture', RemarqueRouter);
 app.use('/Saison', SaisonRouter);
+//Auth
+app.use('/auth', AuthRouter);
 app.use('/Profile', ProfileRouter);
 app.use('/UserProfile', UserProfileRouter);
 app.use('/ActiverCompte', ActiverCompteRouter);
+//Bétail
+app.use('/CategorieBetail', CategorieBetailRouter);
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

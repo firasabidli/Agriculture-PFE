@@ -33,7 +33,7 @@ const Sidebar = ({ isSidebarCollapsed, page, isActive }) => {
                 </Link>
         </li>
         <li className="sidebar-item">
-            <a href="#" className={`sidebar-link ${isActive  ? ' ' : 'collapsed'}`} data-bs-toggle="collapse" data-bs-target="#pages"
+            <a href="x" className={`sidebar-link ${isActive  ? ' ' : 'collapsed'}`} data-bs-toggle="collapse" data-bs-target="#pages"
                 aria-expanded="false" aria-controls="pages">
                <span className="icon"><FcCloseUpMode/></span>Agriculture
             </a>
@@ -48,7 +48,7 @@ const Sidebar = ({ isSidebarCollapsed, page, isActive }) => {
                 <Link to="/admin/MethodeStock" className={`sidebar-link ${page==="Stock" ? 'item-active' : ''}`}><span className="icon"><FaBuildingWheat /></span>{ " "}gestion des stocks </Link>
                 </li>
                 <li className="sidebar-item">
-                <Link to="/admin/Materiel" className={`sidebar-link ${page==="Materiel" ? 'item-active' : ''}`}><span className="icon "><MdAgriculture /></span>{ " "}Materiel </Link>
+                <Link to="/admin/Materiel" className={`sidebar-link ${page==="Materiel" ? 'item-active' : ''}`}><span className="icon "><MdAgriculture /></span>{ " "}Equipement </Link>
                 </li>
                 <li className="sidebar-item">
                 <Link to="/admin/MedicamentCulture" className={`sidebar-link ${page==="Medicament" ? 'item-active' : ''}`}><span ><img src={engrais} alt="" className="icon-img"/></span>Engrais agricoles </Link>
@@ -56,14 +56,19 @@ const Sidebar = ({ isSidebarCollapsed, page, isActive }) => {
             </ul>
         </li>
         <li className="sidebar-item">
-        <Link to="/" className="sidebar-link">
-           <span className="icon"> <GiCow /></span>
-                betail
-                </Link>
+        <a href="x" className={`sidebar-link ${isActive  ? ' ' : 'collapsed'}`} data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-expanded="false" aria-controls="pages">
+               <span className="icon"><GiCow/></span>Bétail
+            </a>
+            <ul id="pages" className={`sidebar-dropdown list-unstyled collapse ${isActive ? 'show ' : ''}`} data-bs-parent="#sidebar">
+                <li className="sidebar-item">
+                <Link to="/admin/CategorieBetail" className={`sidebar-link ${page==="CategoriesBetail" ? 'item-active' : ''}`}><span className="icon"><SiDatabricks /></span>{ " "}Categorie </Link>
+                </li>
+            </ul>
         </li>
 
         <li className="sidebar-item">
-            <a href="#" className={`sidebar-link ${isActive  ? ' ' : 'collapsed'}`} data-bs-toggle="collapse" data-bs-target="#pages"
+            <a href="y" className={`sidebar-link ${isActive  ? ' ' : 'collapsed'}`} data-bs-toggle="collapse" data-bs-target="#pages"
                 aria-expanded="false" aria-controls="pages">
                <span className="icon"> <GiFarmer/></span>
             Agriculteurs
