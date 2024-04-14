@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import './Auth.css'
+import userGif from '../../assets/images/User.gif'
 import LogoSignIn from '../../assets/images/log.png'
 import LogoSignUp from '../../assets/images/register.png'
 import { FaLock} from "react-icons/fa";
@@ -132,7 +133,7 @@ const LoginForm = () => {
             </Form.Floating>
 
             <input type="submit" value="Connexion" className="btnn solid mb-4" />
-            
+            <img src={userGif} alt="ImageLogin" className='ImageGif'  />
           </form>
 
           {/* Sign up */}
@@ -143,7 +144,7 @@ const LoginForm = () => {
       <div className="panels-containerr">
         <div className="panel left-panel">
           <div className="content">
-            <p>Vous n'avez pas de compte ? Inscrivez-vous ici !</p>
+            <h6 className='colorleft'>Vous n'avez pas de compte ? Inscrivez-vous ici !</h6>
             <button className="btnn transparent mb-3" id="sign-up-btn" onClick={handleSignUpClick} style={{pointerEvents:"all"}}>
               Sign up
             </button>
