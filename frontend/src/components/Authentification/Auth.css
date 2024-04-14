@@ -15,7 +15,10 @@ body,
   color: white;
 }
 .ImageGif{
-  width: 40%;
+  width: 50%;
+  margin-top: -60px;
+  padding-top: 40px;
+  display: none;
 }
 .containerr {
   position: fixed;
@@ -281,6 +284,10 @@ form.sign-in-form {
   } */
   .input {
     padding: -3px;
+  }
+  .ImageGif{
+    
+    display: block;
   }
   .containerr:before {
     content: "";
