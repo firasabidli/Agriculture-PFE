@@ -95,9 +95,7 @@ li {
     
 
 }
-.container{
-    padding-top:40px;
-}
+
 @media only screen and (max-width: 600px) {
     .resp{
     width: 440px;

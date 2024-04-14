@@ -95,15 +95,37 @@ li {
     
 
 }
-.container{
-    padding-top:200px;
+.padd{
+    padding-top:150px;
+}
+.back{
+    background: rgba(0, 0, 0, 0.419);
 }
 @media only screen and (max-width: 600px) {
-    .resp{
-    width: 440px;
-    } 
+   
 
-    .container{
-        width: 60%;
+    .padd{
+        width: 100%;
+        
+    
     }
+    .resp{
+        width: 100%;
+        
+    
+    }
+    .form .row .col .form-group label input{
+        width: 50%;
+    }
+    .form .row .col .form-group label{
+        font-size: 10px;
+        font-weight: bold;
+    }
+    
+    .size{
+        font-size: 12px;
+        font-weight: bold;
+    }
+   
+    
 } 

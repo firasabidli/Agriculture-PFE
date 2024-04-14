@@ -1,5 +1,5 @@
 import './Profile.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../Header.jsx';
 import Sidebar from '../../Sidebar.jsx';
 import { BsFillCameraFill } from 'react-icons/bs';
@@ -8,15 +8,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'; 
 
 function Profile() {
-  const { user } = useUser();
-
-  // États locaux
-  const [updatedUserData, setUpdatedUserData] = useState({
-    adresse: user.adresse,
-    email: user.email,
-    numeroTelephone: user.numeroTelephone,
-    image: user.image || '', // Initialise avec l'image actuelle de l'utilisateur
-  }); 
+  const { user, updateUser } = useUser();
+  const Name = user?.nom;
+  const userName = user?.username;
+  const userRole = user?.role;
+  const userCin = user?.cin;
+  const userDateNaissance = user?.dateNaissance;
+  const userImage = user?.image;
+  const [imageProfile, setImageProfile] = useState(null)
+  
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -24,6 +24,8 @@ function Profile() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [selectedImage, setSelectedImage] = useState(''); // État local pour l'URL de l'image sélectionnée
 
+
+  
   // Fonction pour basculer la barre latérale
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
@@ -37,14 +39,18 @@ function Profile() {
   // Gestion du changement d'image
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    setImageProfile(file);
+    console.log(imageProfile)
     const reader = new FileReader();
     reader.onloadend = () => {
-      setSelectedImage(reader.result); // Met à jour l'URL de l'image sélectionnée
+     setSelectedImage(reader.result); 
+    
     };
     if (file) {
       reader.readAsDataURL(file); // Lecture du fichier comme URL data
-      setUpdatedUserData({ ...updatedUserData, image: file }); // Met à jour les données de l'utilisateur avec le fichier image
+      
     }
+    
   };
 
   // Fonction pour formater la date de naissance
@@ -59,27 +65,37 @@ function Profile() {
     event.preventDefault();
   
     try {
-      const formData = new FormData();
-      formData.append('adresse', updatedUserData.adresse);
-      formData.append('email', updatedUserData.email);
-      formData.append('numeroTelephone', updatedUserData.numeroTelephone);
-      if (updatedUserData.image instanceof File) {
-        formData.append('image', updatedUserData.image); // Ajoute le nouveau fichier image à formData
+      const formData = new FormData(event.target); // Créez un nouveau FormData
+  
+      
+  
+      // Ajoutez l'image sélectionnée s'il y en a une
+      if (imageProfile instanceof File) {
+        formData.append('image', imageProfile);
       }
-
-      await axios.put(`http://localhost:3001/Profile/${user._id}`, formData, {
+  
+      // Envoyez la requête PUT avec formData
+    const response =  await axios.put(`http://localhost:3001/Profile/${user._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
+     
+			const updatedUser = response.data.admin;
+        updateUser(updatedUser);
+				
+      
       alert('Profil mis à jour avec succès!');
+      window.location.reload()
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil :', error);
       alert('Échec de la mise à jour du profil. Veuillez réessayer.');
     }
   };
-
+  
+  
+     
   const handleSubmitPassword = async (event) => {
     event.preventDefault();
   
@@ -122,12 +138,8 @@ function Profile() {
     }
   };
   
-  
-  // Gestion des changements des champs de formulaire
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedUserData({ ...updatedUserData, [name]: value });
-  };
+ 
+
 
   return (
     <div className="wrapper">
@@ -147,7 +159,7 @@ function Profile() {
                             <div className="mx-auto">
                               <div className="d-flex justify-content-center align-items-center rounded avatar">
                                 <div className="upload">
-                                  <img src={ selectedImage || (user.image && user.image.startsWith('http') ? user.image : `http://localhost:3001/images/Utilisateur/Admin/${user.image}`) } alt="Profil"/>
+                                  <img src={ selectedImage || (userImage && userImage.startsWith('http') ? userImage : `http://localhost:3001/images/Utilisateur/Admin/${userImage}`) } alt="Profil"/>
                                   <div className="round">
                                     <input type="file" onChange={handleImageChange} />
                                     <BsFillCameraFill className="fs-4 padding" />
@@ -158,11 +170,11 @@ function Profile() {
                           </div>
                           <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                             <div className="text-center text-sm-left mb-2 mb-sm-0">
-                              <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{user.nom}</h4>
-                              <p className="mb-0">@{user.username}</p>
+                              <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{Name}</h4>
+                              <p className="mb-0">@{userName}</p>
                             </div>
                             <div className="text-center text-sm-right">
-                              <span className="badge text-secondary">{user.role}</span>
+                              <span className="badge text-secondary">{userRole}</span>
                               <div className="text-muted">
                                 <button className="btn fs-6" onClick={togglePasswordForm}>
                                   {!showPasswordForm ? 'Changer Mot de passe' : 'Modifier profil'}
@@ -187,19 +199,19 @@ function Profile() {
                                     <div className="col">
                                       <div className="form-group">
                                         <label>Nom</label>
-                                        <div className="form-control bg-secondary text-light">{user.nom}</div>
+                                        <div className="form-control bg-secondary text-light">{Name}</div>
                                       </div>
                                     </div>
                                     <div className="col">
                                       <div className="form-group">
                                         <label>CIN</label>
-                                        <div className="form-control bg-secondary text-light">{user.cin}</div>
+                                        <div className="form-control bg-secondary text-light">{userCin}</div>
                                       </div>
                                     </div>
                                     <div className="col">
                                       <div className="form-group ">
                                         <label>Date de Naissance</label>
-                                        <div className="form-control bg-secondary text-light">{formatDateOfBirth(user.dateNaissance)}</div>
+                                        <div className="form-control bg-secondary text-light">{formatDateOfBirth(userDateNaissance)}</div>
                                       </div>
                                     </div>
                                   </div>
@@ -210,8 +222,8 @@ function Profile() {
                                         <input className="form-control" type="email"
                                           id="email"
                                           name="email"
-                                          value={updatedUserData.email}
-                                          onChange={handleInputChange}
+                                          defaultValue={ user?.email}
+                                          
                                         />
                                       </div>
                                     </div>
@@ -223,8 +235,8 @@ function Profile() {
                                         <input className="form-control" type="text" 
                                           id="numeroTelephone"
                                           name="numeroTelephone"
-                                          value={updatedUserData.numeroTelephone}
-                                          onChange={handleInputChange}
+                                          defaultValue={ user?.numeroTelephone}
+                                         
                                         />
                                       </div>
                                     </div>
@@ -236,8 +248,8 @@ function Profile() {
                                         <textarea className="form-control" rows="5"
                                           id="adresse"
                                           name="adresse"
-                                          value={updatedUserData.adresse}
-                                          onChange={handleInputChange}
+                                          defaultValue={ user?.adresse}
+                                         
                                         />
                                       </div>
                                     </div>

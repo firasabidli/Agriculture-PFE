@@ -20,18 +20,20 @@ exports.update = async (req, res) => {
       return res.status(404).json({ message: 'Utilisateur administrateur non trouvé' });
     }
 
-    // Supprimer l'ancienne image si elle existe et n'est pas une URL externe
-    if (admin.image && !admin.image.startsWith('http')) {
-      const imagePath = path.join('src/assets/images/Utilisateur/Admin/', admin.image);
-      await fs.unlink(imagePath); // Supprimer l'ancienne image du système de fichiers
-    }
-
     // Mettre à jour les champs du profil
     admin.adresse = adresse;
     admin.email = email;
     admin.numeroTelephone = numeroTelephone;
+
+    // Mettre à jour l'image seulement si une nouvelle image est envoyée
     if (newImageName) {
-      admin.image = newImageName; // Mettre à jour le nom de la nouvelle image
+      // Supprimer l'ancienne image si elle existe et n'est pas une URL externe
+      if (admin.image && !admin.image.startsWith('http')) {
+        const imagePath = path.join('src/assets/images/Utilisateur/Admin/', admin.image);
+        await fs.unlink(imagePath); // Supprimer l'ancienne image du système de fichiers
+      }
+      // Mettre à jour le nom de la nouvelle image
+      admin.image = newImageName;
     }
 
     // Enregistrer les modifications dans la base de données
@@ -43,6 +45,7 @@ exports.update = async (req, res) => {
     res.status(500).json({ error: 'Erreur interne du serveur lors de la mise à jour du profil' });
   }
 };
+
 
 // Mettre à jour le mot de passe de l'utilisateur administrateur
 exports.updatePassword = async (req, res) => {
