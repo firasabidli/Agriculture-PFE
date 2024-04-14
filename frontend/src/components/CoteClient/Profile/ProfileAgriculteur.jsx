@@ -13,134 +13,147 @@ import axios from 'axios';
 
 const ProfileAgriculteur = () => {
 
-    const { user } = useUser();
-
-    // États locaux
-    const [updatedUserData, setUpdatedUserData] = useState({
-      adresse: user.adresse,
-      email: user.email,
-      numeroTelephone: user.numeroTelephone,
-      image: user.image || '', // Initialise avec l'image actuelle de l'utilisateur
-    }); 
-
-    
-    const [showPasswordForm, setShowPasswordForm] = useState(false);
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [selectedImage, setSelectedImage] = useState(''); // État local pour l'URL de l'image sélectionnée
+  const { user, updateUser } = useUser();
+  const Name = user?.nom;
+  const userName = user?.username;
+  const userRole = user?.role;
+  const userCin = user?.cin;
+  const userDateNaissance = user?.dateNaissance;
+  const userImage = user?.image;
+  const [imageProfile, setImageProfile] = useState(null)
   
-    
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [selectedImage, setSelectedImage] = useState(''); // État local pour l'URL de l'image sélectionnée
+
+
   
-    // Fonction pour basculer le formulaire de mot de passe
-    const togglePasswordForm = () => {
-      setShowPasswordForm(!showPasswordForm);
+  // Fonction pour basculer la barre latérale
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
+
+  // Fonction pour basculer le formulaire de mot de passe
+  const togglePasswordForm = () => {
+    setShowPasswordForm(!showPasswordForm);
+  };
+
+  // Gestion du changement d'image
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImageProfile(file);
+    console.log(imageProfile)
+    const reader = new FileReader();
+    reader.onloadend = () => {
+     setSelectedImage(reader.result); 
+    
     };
+    if (file) {
+      reader.readAsDataURL(file); // Lecture du fichier comme URL data
+      
+    }
+    
+  };
+
+  // Fonction pour formater la date de naissance
+  const formatDateOfBirth = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('fr-FR', options);
+  };
+
+  // Fonction pour mettre à jour le profil
+  const EditProfil = async (event) => {
+    event.preventDefault();
   
-    // Gestion du changement d'image
-    const handleImageChange = (event) => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result); // Met à jour l'URL de l'image sélectionnée
-      };
-      if (file) {
-        reader.readAsDataURL(file); // Lecture du fichier comme URL data
-        setUpdatedUserData({ ...updatedUserData, image: file }); // Met à jour les données de l'utilisateur avec le fichier image
+    try {
+      const formData = new FormData(event.target); // Créez un nouveau FormData
+  
+      
+  
+      // Ajoutez l'image sélectionnée s'il y en a une
+      if (imageProfile instanceof File) {
+        formData.append('image', imageProfile);
       }
-    };
   
-    // Fonction pour formater la date de naissance
-    const formatDateOfBirth = (dateString) => {
-      const date = new Date(dateString);
-      const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      return date.toLocaleDateString('fr-FR', options);
-    };
+      // Envoyez la requête PUT avec formData
+    const response =  await axios.put(`http://localhost:3001/UserProfile/${user._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+     
+			const updatedUser = response.data.agriculteur;
+        updateUser(updatedUser);
+				
+      
+      alert('Profil mis à jour avec succès!');
+      window.location.reload()
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du profil :', error);
+      alert('Échec de la mise à jour du profil. Veuillez réessayer.');
+    }
+  };
   
-    // Fonction pour mettre à jour le profil
-    const EditProfil = async (event) => {
-      event.preventDefault();
-    
-      try {
-        const formData = new FormData();
-        formData.append('adresse', updatedUserData.adresse);
-        formData.append('email', updatedUserData.email);
-        formData.append('numeroTelephone', updatedUserData.numeroTelephone);
-        if (updatedUserData.image instanceof File) {
-          formData.append('image', updatedUserData.image); // Ajoute le nouveau fichier image à formData
-        }
   
-        await axios.put(`http://localhost:3001/UserProfile/${user._id}`, formData, {
+     
+  const handleSubmitPassword = async (event) => {
+    event.preventDefault();
+  
+    // Vérifications des conditions
+    if (currentPassword.length < 6) {
+      alert('Le mot de passe actuel doit avoir au moins 6 caractères.');
+      return;
+    }
+  
+    if (newPassword.length < 6) {
+      alert('Le nouveau mot de passe doit avoir au moins 6 caractères.');
+      return;
+    }
+  
+    if (newPassword !== confirmPassword) {
+      alert('Le nouveau mot de passe et la confirmation ne correspondent pas.');
+      return;
+    }
+  
+    try {
+      // Envoyer la requête avec les données de mot de passe
+      await axios.put(
+        `http://localhost:3001/UserProfile/editPassword/${user._id}`,
+        { currentPassword, newPassword, confirmPassword },
+        {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
           },
-        });
+        }
+      );
   
-        alert('Profil mis à jour avec succès!');
-      } catch (error) {
-        console.error('Erreur lors de la mise à jour du profil :', error);
-        alert('Échec de la mise à jour du profil. Veuillez réessayer.');
-      }
-    };
+        alert('Mot de passe mis à jour avec succès!');
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du mot de passe :', error);
+      alert('Mot de passe actuel incorrect');
+    }
+  };
   
-    const handleSubmitPassword = async (event) => {
-      event.preventDefault();
-    
-      // Vérifications des conditions
-      if (currentPassword.length < 6) {
-        alert('Le mot de passe actuel doit avoir au moins 6 caractères.');
-        return;
-      }
-    
-      if (newPassword.length < 6) {
-        alert('Le nouveau mot de passe doit avoir au moins 6 caractères.');
-        return;
-      }
-    
-      if (newPassword !== confirmPassword) {
-        alert('Le nouveau mot de passe et la confirmation ne correspondent pas.');
-        return;
-      }
-    
-      try {
-        // Envoyer la requête avec les données de mot de passe
-        await axios.put(
-          `http://localhost:3001/UserProfile/editPassword/${user._id}`,
-          { currentPassword, newPassword, confirmPassword },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-    
-          alert('Mot de passe mis à jour avec succès!');
-          setCurrentPassword('');
-          setNewPassword('');
-          setConfirmPassword('');
-        
-      } catch (error) {
-        console.error('Erreur lors de la mise à jour du mot de passe :', error);
-        alert('Mot de passe actuel incorrect');
-      }
-    };
-    
-    
-    // Gestion des changements des champs de formulaire
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setUpdatedUserData({ ...updatedUserData, [name]: value });
-    };
-  
+
+
 
 
   return (
-    <div className='bg-dark'>
+    <div className='back'>
    
      <Navbar />
    
      
-      <main className="container">
+     <main className="container padd">
           <div className="row flex-lg-nowrap">
             <div className="col">
               <div className="row">
@@ -153,7 +166,7 @@ const ProfileAgriculteur = () => {
                             <div className="mx-auto">
                               <div className="d-flex justify-content-center align-items-center rounded avatar">
                                 <div className="upload">
-                                  <img src={ selectedImage || (user.image && user.image.startsWith('http') ? user.image : `http://localhost:3001/images/Utilisateur/Agriculteur/${user.image}`) } alt="Profil"/>
+                                  <img src={ selectedImage || (userImage && userImage.startsWith('http') ? userImage : `http://localhost:3001/images/Utilisateur/Agriculteur/${userImage}`) } alt="Profil"/>
                                   <div className="round">
                                     <input type="file" onChange={handleImageChange} />
                                     <BsFillCameraFill className="fs-4 padding" />
@@ -164,11 +177,11 @@ const ProfileAgriculteur = () => {
                           </div>
                           <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                             <div className="text-center text-sm-left mb-2 mb-sm-0">
-                              <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{user.nom}</h4>
-                              <p className="mb-0">@{user.username}</p>
+                              <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{Name}</h4>
+                              <p className="mb-0">@{userName}</p>
                             </div>
                             <div className="text-center text-sm-right">
-                              <span className="badge text-secondary">{user.role}</span>
+                              <span className="badge text-secondary">{userRole}</span>
                               <div className="text-muted">
                                 <button className="btn fs-6" onClick={togglePasswordForm}>
                                   {!showPasswordForm ? 'Changer Mot de passe' : 'Modifier profil'}
@@ -193,19 +206,19 @@ const ProfileAgriculteur = () => {
                                     <div className="col">
                                       <div className="form-group">
                                         <label>Nom</label>
-                                        <div className="form-control bg-secondary text-light">{user.nom}</div>
+                                        <div className="form-control bg-secondary text-light size">{Name}</div>
                                       </div>
                                     </div>
                                     <div className="col">
                                       <div className="form-group">
                                         <label>CIN</label>
-                                        <div className="form-control bg-secondary text-light">{user.cin}</div>
+                                        <div className="form-control bg-secondary text-light size">{userCin}</div>
                                       </div>
                                     </div>
                                     <div className="col">
                                       <div className="form-group ">
                                         <label>Date de Naissance</label>
-                                        <div className="form-control bg-secondary text-light">{formatDateOfBirth(user.dateNaissance)}</div>
+                                        <div className="form-control bg-secondary text-light size">{formatDateOfBirth(userDateNaissance)}</div>
                                       </div>
                                     </div>
                                   </div>
@@ -216,8 +229,8 @@ const ProfileAgriculteur = () => {
                                         <input className="form-control" type="email"
                                           id="email"
                                           name="email"
-                                          value={updatedUserData.email}
-                                          onChange={handleInputChange}
+                                          defaultValue={ user?.email}
+                                          
                                         />
                                       </div>
                                     </div>
@@ -229,8 +242,8 @@ const ProfileAgriculteur = () => {
                                         <input className="form-control" type="text" 
                                           id="numeroTelephone"
                                           name="numeroTelephone"
-                                          value={updatedUserData.numeroTelephone}
-                                          onChange={handleInputChange}
+                                          defaultValue={ user?.numeroTelephone}
+                                         
                                         />
                                       </div>
                                     </div>
@@ -242,8 +255,8 @@ const ProfileAgriculteur = () => {
                                         <textarea className="form-control" rows="5"
                                           id="adresse"
                                           name="adresse"
-                                          value={updatedUserData.adresse}
-                                          onChange={handleInputChange}
+                                          defaultValue={ user?.adresse}
+                                         
                                         />
                                       </div>
                                     </div>
