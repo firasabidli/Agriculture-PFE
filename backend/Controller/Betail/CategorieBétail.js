@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
 // Récupérer toutes les catégories
 exports.all = async (req, res) => {
   
-    Categorie.find()
+    Categorie.find().populate('betails')
     .then(Categories => res.status(200).json(Categories))
       .catch(err => res.status(400).json({error: err.message}));
   
@@ -22,7 +22,7 @@ exports.all = async (req, res) => {
 // Récupérer une catégorie par son ID
 exports.getCategorieById = async (req, res) => {
   try {
-    const categorie = await Categorie.findById(req.params.id)
+    const categorie = await Categorie.findById(req.params.id).populate('betails');
     if (!categorie) {
       return res.status(404).json({ success: false, message: 'Categorie n est pas trouver' });
     }

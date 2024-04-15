@@ -20,6 +20,7 @@ const UserModel = require('./Model/Authentification/Utilisateur');
 //const verifyAuthToken = require('./Controller/Authentification/verifyAuthTokenMiddleware');
 //Bétail
 const CategorieBetailRouter = require('./Router/Betail/CategorieBetail');
+const BetailRouter = require('./Router/Betail/BetailRouter');
 
 const cors = require('cors');
 const app = express();
@@ -93,5 +94,6 @@ app.use('/UserProfile', UserProfileRouter);
 app.use('/ActiverCompte', ActiverCompteRouter);
 //Bétail
 app.use('/CategorieBetail', CategorieBetailRouter);
+app.use('/Betail', BetailRouter);
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

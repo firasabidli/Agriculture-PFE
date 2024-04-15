@@ -12,6 +12,7 @@ import { SiDatabricks } from "react-icons/si";
 import { FaBuildingWheat } from "react-icons/fa6";
 import { MdAgriculture } from "react-icons/md";
 import { FaFileInvoiceDollar } from "react-icons/fa";
+import { SiHappycow } from "react-icons/si";
 import logo from '../../assets/images/logo.jpg';
 import engrais from '../../assets/images/Engrais.png';
 const Sidebar = ({ isSidebarCollapsed, page, isActive }) => {
@@ -63,6 +64,10 @@ const Sidebar = ({ isSidebarCollapsed, page, isActive }) => {
             <ul id="pages" className={`sidebar-dropdown list-unstyled collapse ${isActive ? 'show ' : ''}`} data-bs-parent="#sidebar">
                 <li className="sidebar-item">
                 <Link to="/admin/CategorieBetail" className={`sidebar-link ${page==="CategoriesBetail" ? 'item-active' : ''}`}><span className="icon"><SiDatabricks /></span>{ " "}Categorie </Link>
+                </li>
+
+                <li className="sidebar-item">
+                <Link to="/admin/Betail" className={`sidebar-link ${page==="Betail" ? 'item-active' : ''}`}><span className="icon"><SiHappycow /></span>{ " "}Betail </Link>
                 </li>
             </ul>
         </li>
