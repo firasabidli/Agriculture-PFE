@@ -25,6 +25,7 @@ import Profile from './components/CoteAdmin/pages/Profile/Profile.jsx';
 import ActiverCompte from './components/CoteAdmin/pages/Agriculteurs/ActiverComptesAgriculteurs/ActiverCompte.jsx';
 import ProfileAgriculteur from './components/CoteClient/Profile/ProfileAgriculteur.jsx';
 import CategorieBetail from './components/CoteAdmin/pages/Bétail/CategoriesBetail/CategoriesBetail.jsx';
+import Betail from './components/CoteAdmin/pages/Bétail/GestionBetail/betail.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -52,6 +53,7 @@ root.render(
                 <Route path="/admin/ActiverCompte" element={<ActiverCompte />} />
                 {/* Admin Routes Bétail */}
                 <Route path="/admin/CategorieBetail" element={<CategorieBetail/>}></Route>
+                <Route path="/admin/Betail" element={<Betail/>}></Route>
           </Routes>
       </UserProvider>
     </Router>

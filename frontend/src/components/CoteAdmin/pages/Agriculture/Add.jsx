@@ -328,7 +328,7 @@ function Add({ onCreate }) {
                   key={material._id}
                   type="checkbox"
                   id={material._id}
-                  label={material.name}
+                  label={material.nom}
                   checked={selectedMaterials[material._id]}
                   onChange={handleMaterialChange}
                 />

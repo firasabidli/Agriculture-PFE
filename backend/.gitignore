@@ -1,4 +1,6 @@
 node_modules
+src/assets/images/StockageAgriculture/*
+!src/assets/images/StockageAgriculture/README.md
 src/assets/images/MaterielsAgriculture/*
 !src/assets/images/MaterielsAgriculture/README.md
 src/assets/images/MedicamentsAgriculture/*
@@ -9,3 +11,5 @@ src/assets/images/Utilisateur/Admin/*
 !src/assets/images/Utilisateur/Admin/README.md
 src/assets/images/Utilisateur/Agriculteur/*
 !src/assets/images/Utilisateur/Agriculteur/README.md
+src/assets/images/Betails/*
+!src/assets/images/Betails/README.md
