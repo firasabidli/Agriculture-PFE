@@ -35,6 +35,7 @@ const Betail = () => {
 			const response = await axios.get('http://localhost:3001/Betail');
 			if (Array.isArray(response.data.data)) {
 				setData(response.data.data);
+				
 				setDisplayedData(response.data.data); // Afficher les données complètes initialement
 			} else {
 				console.error('La réponse de l\'API ne contient pas de tableau de données:', response.data);
@@ -105,7 +106,7 @@ const Betail = () => {
 												<th>Idantifiants Animale</th> 
 												<th>Image Betail</th> 
 												<th>Nom du Betail</th>
-												{/* <th>Categorie Betail</th>  */}
+												<th>Categorie Betail</th> 
 												<th>sexe</th> 
 												<th>Action</th>
 											</tr>
@@ -120,7 +121,7 @@ const Betail = () => {
                										<img src={item.image_betail} className='td-image' style={{width:'120px',textAlign:'center'}} alt='image_betail'/>)}
 													</td>
 													<td className='td-title'>{item.nom_betail}</td>
-													 {/* <td>{item.categorie_betail}</td>  */}
+													 <td>{item.categorie_betail.nom_categorieBetail}</td> 
 													 <td>{item.sexe}</td> 
 													<td >
 														<div className='action ' style={{marginLeft:'100px'}}>
