@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
-function Add() {
+function Add({ onCreate }) {
   const [show, setShow] = useState(false);
   const [IdantifiantsAnimal, setIdantifiantsAnimal] = useState('');
   const [Race, setRace] = useState('');
@@ -25,7 +25,7 @@ function Add() {
     if (categoryId === 'bovin') {
       setSubcategories(['Vache', 'Taureau']);
     } else if (categoryId === 'ovin') {
-      setSubcategories(['Mouton', 'Agneau']);
+      setSubcategories(['Mouton', 'chévre']);
     } else if (categoryId === 'volailles') {
       setSubcategories(['Poulet', 'Dinde']);
     } else {
@@ -68,13 +68,10 @@ function Add() {
         setSelectedSubcategory('');
         handleClose();
         alert('Animal ajouté avec succès !');
-      } else {
-        console.error('Réponse invalide:', response);
-        alert('Une erreur s\'est produite lors de la soumission du formulaire.');
+        onCreate();
       }
     } catch (error) {
       console.error('Erreur lors de la soumission du formulaire:', error);
-      alert('Une erreur s\'est produite lors de la soumission du formulaire.');
     }
   };
 
