@@ -69,8 +69,8 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="bg-secondary" onClick={handleClose}>Close</Button>
-          <Button className="btn" type="submit" form="updateForm"> Submit </Button>
+          <Button className="bg-secondary" onClick={handleClose}>Fermer</Button>
+          <Button className="btn" type="submit" form="updateForm"> Modifier </Button>
         </Modal.Footer>
       </Modal>
       

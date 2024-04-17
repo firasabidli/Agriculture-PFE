@@ -78,8 +78,8 @@ function Add({ onCreate }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Btn className="bg-secondary" onClick={handleClose}>Close</Btn>
-          <Btn className="btn" type="submit" form="form"> Submit </Btn>
+          <Btn className="bg-secondary" onClick={handleClose}>Fermer</Btn>
+          <Btn className="btn" type="submit" form="form"> Ajouter </Btn>
         </Modal.Footer>
       </Modal>
    

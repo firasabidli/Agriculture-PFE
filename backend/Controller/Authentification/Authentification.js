@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const multer = require('multer');
 const path = require('path');
+require('dotenv').config();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'src/assets/images/Utilisateur/Admin');
@@ -20,6 +21,12 @@ exports.get  = (req, res) => {
     .catch(err => res.status(400).json({error: err.message}));
 
 };
+function generateAuthToken(userId) {
+  const authTokenLength = 64;
+  const authToken = crypto.randomBytes(authTokenLength).toString('hex');
+  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+}
+
 exports.create = async (req, res) => {
   const { cin, nom, adresse, email, dateNaissance, numeroTelephone, password } = req.body;
   const accepte = '0';
@@ -45,7 +52,7 @@ exports.create = async (req, res) => {
       await newAgriculteur.save();
 
       // Générer un jeton d'authentification aléatoire
-      const authToken = generateAuthToken();
+      const authToken = generateAuthToken(newAgriculteur._id);
 
       // Retourner le jeton d'authentification en tant que réponse
       return res.status(201).json({ message: 'Utilisateur créé avec succès', authToken });
@@ -72,7 +79,7 @@ exports.login = async (req, res) => {
   
       // Créer un token JWT
       //const authToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      const authToken = generateAuthToken();
+      const authToken = generateAuthToken(user._id);
       
       return res.status(200).json({ message: 'Connexion réussie', authToken, user });
     } catch (error) {
@@ -80,15 +87,17 @@ exports.login = async (req, res) => {
       return res.status(500).json({ error: 'Erreur interne du serveur lors de la connexion de l\'utilisateur. Veuillez réessayer plus tard.' });
     }
   };
-// Fonction pour générer un jeton d'authentification aléatoire
-function generateAuthToken() {
-  const authTokenLength = 64;
-  const authToken = crypto.randomBytes(authTokenLength).toString('hex');
-  return authToken;
-}
-
-
-
+// // Fonction pour générer un jeton d'authentification aléatoire
+//  function generateAuthToken() {
+//   const authTokenLength = 64;
+//   const authToken = crypto.randomBytes(authTokenLength).toString('hex');
+//   return authToken;
+// }
+// function generateAuthToken(userId) {
+//   const authTokenLength = 64;
+//   const authToken = crypto.randomBytes(authTokenLength).toString('hex');
+//   return jwt.sign({ userId }, authToken, { expiresIn: '1h' });
+// }
 
 
 // Fonction pour créer un compte Administrateur
