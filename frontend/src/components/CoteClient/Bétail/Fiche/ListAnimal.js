@@ -1,13 +1,51 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ListAnimal.css'
-import { AccordionButton, Dropdown } from 'react-bootstrap';
+import {  Dropdown } from 'react-bootstrap';
 import Navbar from '../../Navbar';
 import CarouselBetail from './CarouselBetail.jsx';
 import Filtre from './Filtre.jsx';
 import Activity from './Activity.jsx';
+import axios from 'axios';
+import Add from './Add';
 //import $ from 'jquery';
 const ListAnimal = () => {
+  
+  const [animaux, setAnimaux] = useState([]);
+  const [filteredAnimals, setFilteredAnimals] = useState([]);
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const [selectedCategory, setSelectedCategory] = useState('');
 
+  useEffect(() => {
+    fetchAnimauxByAgriculteur(); // Appel initial pour charger les animaux
+  }, []);
+
+  // Fonction pour charger les animaux depuis l'API
+  const fetchAnimauxByAgriculteur = async () => {
+    try {
+      const authToken = localStorage.getItem('authToken');
+      const response = await axios.get('http://localhost:3001/FicheAnimal/', {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      setAnimaux(response.data);
+      setFilteredAnimals(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des animaux de l\'agriculteur:', error);
+    }
+  };
+
+  // Fonction pour mettre à jour les animaux filtrés en fonction de la catégorie sélectionnée
+  const handleCategoryFilter = (category) => {
+    setSelectedCategory(category); // Mettre à jour la catégorie sélectionnée
+    if (category  !== '') {
+      const filtered = animaux.filter((animal) => animal.categorieBetail === category);
+      setFilteredAnimals(filtered);
+      
+    } else {
+      setFilteredAnimals(animaux);
+    }
+  };
 
   return (
     <div>
@@ -18,75 +56,97 @@ const ListAnimal = () => {
       
     {/* <!-- Main content --> */}
         <div class="col-lg-9 mb-3">
-          <Filtre/>
-          
+          {/* {animaux && <Filtre animaux={animaux}/>} */}
+          <Filtre onCategoryChange={handleCategoryFilter}/>
           {/* <!-- Main content --> */}
-    <div className="page-content page-container" id="page-content">
-      <div className="padding">
-        <div className="row" style={{marginLeft:"-15%"}}>
-          <div className="col-sm-8">
-            <div className="container-fluid d-flex justify-content-center">
-              <div className="list list-row card" style={{width:"75%"}}>
-                  <div className="list-item"  data-id="">
-                    <div><a href="x"><span className="w-40 avatar gd-primary">A</span></a></div>
-                    <div className="flex">
-                      <a href="x" className="item-author text-color">Num:</a>
-                      <div className="item-except text-muted text-sm h-1x">Date de Naissanc</div>
-                    </div>
-                    <div className="no-wrap">
-                      <div className="item-date text-muted text-sm d-none d-md-block"></div>
+        {/* {animaux.length === 0 ? (
+				  <p style={{fontFamily:" arial",fontSize: "x-large",marginLeft: "10%"}}>Aucune bétail disponible</p>
+				) : ( */}
+        <div className="page-content page-container" id="page-content">
+          <div className="padding">
+            <div className="row" style={{marginLeft:"-15%"}}>
+              <div className="col-sm-8">
+              <div className="animal-list">
+            {filteredAnimals.length > 0 ? (
+              filteredAnimals.map((animal) => (
+              
+                <div className="container-fluid d-flex justify-content-center" key={animal._id}>
+                
+                  <div className="list list-row card" style={{width:"75%"}} >
+                      <div className="list-item"  data-id="">
+                        <div><a href="x"><span className="w-40 avatar gd-primary">A</span></a></div>
+                        <div className="flex">
+                          <a href="x" className="item-author text-color">Identifiant: {animal.IdantifiantsAnimal}</a>
+                          <div className="item-except text-muted text-sm h-1x">Date de Naissance: {new Date(animal.date_naissance).toLocaleDateString('fr-FR', options)}</div>
+                        </div>
+                        <div className="no-wrap">
+                          <div className="item-date text-muted text-sm d-none d-md-block"></div>
+                          </div>
+                          <div>
+            <Dropdown align="end">
+              <Dropdown.Toggle variant="link" id="dropdown-basic">
+                {/* <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-more-vertical"
+                >
+                  <circle cx="12" cy="12" r="1"></circle>
+                  <circle cx="12" cy="5" r="1"></circle>
+                  <circle cx="12" cy="19" r="1"></circle>
+                </svg> */}
+              
+              <Dropdown.Menu>
+                <Dropdown.Item href="x">Suivi Sante</Dropdown.Item>
+                <Dropdown.Item href="x">Suivi Mouvement</Dropdown.Item>
+                <Dropdown.Item href="x">Edit</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="x" className="text-danger">
+                  Delete item
+                </Dropdown.Item>
+              </Dropdown.Menu>
+              </Dropdown.Toggle>
+            </Dropdown>
+          </div>
+                        
                       </div>
-                      <div>
-         <Dropdown align="end">
-          <Dropdown.Toggle variant="link" id="dropdown-basic">
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-more-vertical"
-            >
-              <circle cx="12" cy="12" r="1"></circle>
-              <circle cx="12" cy="5" r="1"></circle>
-              <circle cx="12" cy="19" r="1"></circle>
-            </svg> */}
-          
-          <Dropdown.Menu>
-            <Dropdown.Item href="x">Suivi Sante</Dropdown.Item>
-            <Dropdown.Item href="x">Suivi Mouvement</Dropdown.Item>
-            <Dropdown.Item href="x">Edit</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item href="x" className="text-danger">
-              Delete item
-            </Dropdown.Item>
-          </Dropdown.Menu>
-          </Dropdown.Toggle>
-        </Dropdown>
-      </div>
-                    
+                  
                   </div>
-               
+                
+             
+                </div>
+              ))): (
+                <p style={{fontFamily:" arial",fontSize: "x-large",marginLeft: "15%"}}>Aucun animal trouvé pour la catégorie sélectionnée.</p>
+                  )}
+                  </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+     
     </div>
     {/*  */}
     {/* <!-- Sidebar content --> */}
         <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0" style={{marginLeft:"-3%"}}>
-          <Activity/>
+        <div style={{ visibility: 'hidden', display: 'none', width: '285px', height: '801px', margin: '0px', float: 'none', position: 'static', inset: '85px auto auto' }}></div>
+          <div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" class="sticky" style={{top: "85px"}}>
+            <div class="sticky-inner">
+            <Add onCreate={fetchAnimauxByAgriculteur}/>
+          <Activity animaux={animaux}/>
+          </div>
+          </div>
     </div>
     {/*  */}
     </div>
     </div>
     </div>
+    
   );
 };
 

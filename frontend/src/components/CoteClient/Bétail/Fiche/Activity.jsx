@@ -1,46 +1,67 @@
 import React from 'react';
 import './ListAnimal.css'
-import Add from './Add';
-const Activity = () => {
 
+const Activity = ({ animaux }) => {
+  let countVaches = 0;
+  let countMoutons = 0;
+  let countChevres = 0;
+  let countVolailles = 0;
+  let countTaureau =0;
+  let countDinde=0;
 
+  // Parcourir les animaux pour compter chaque espèce
+  animaux.forEach((animal) => {
+    switch (animal.subCategorieBetail) {
+      case 'Vache':
+        countVaches++;
+        break;
+      case 'Mouton':
+        countMoutons++;
+        break;
+      case 'chévre':
+        countChevres++;
+        break;
+      case 'Poulet':
+        countVolailles++;
+        break;
+        case 'Dinde':
+          countDinde++;
+          break;
+      case 'Taureau':
+        countTaureau++;
+        break;
+      default:
+        break;
+    }
+  });
   return (
     <div>
-          <div style={{ visibility: 'hidden', display: 'none', width: '285px', height: '801px', margin: '0px', float: 'none', position: 'static', inset: '85px auto auto' }}></div>
-          <div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" class="sticky" style={{top: "85px"}}>
-            <div class="sticky-inner">
-            <Add/>
             <div class="bg-white mb-3">
               <h4 class="px-3 py-4 op-5 m-0">
                 Active Topics
               </h4>
               <hr class="m-0"/>
               <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="x" class="text-primary">Why Bootstrap 4 is so awesome? </a>
+                <h6 class="text-primary">
+                  <a href="x" class="text-primary filter-text">Alimentation et Abreuvement </a>
                 </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="x">39 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="x">AppStrapMaster</a></p>
+                <p class="mb-0 filter-text">Donner à manger et à boire aux animaux.</p>
               </div>
               <hr class="m-0"/>
               <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="x" class="text-primary">Custom shortcut or command to launch command in terminal? </a>
+                <h6 class="text-primary filter-text">
+                  <a href="x" class="text-primary">Soins de Santé</a>
                 </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="x">58 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="x">DanielD</a></p>
+                <p class="mb-0 filter-text">Contrôler la santé des animaux.</p>
+                <p class="mb-0 filter-text">Assurer la vaccination régulière et le suivi médical.</p>
               </div>
               <hr class="m-0"/>
               <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="x" class="text-primary">HELP! My Windows XP machine is down </a>
+                <h6 class="text-primary filter-text">
+                  <a href="x" class="text-primary">Gestion de la Production </a>
                 </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="x">48 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="x">DanielD</a></p>
-              </div>
-              <hr class="m-0"/>
-              <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="x" class="text-primary">HELP! My Windows XP machine is down </a>
-                </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="x">38 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="x">DanielD</a></p>
+                <p class="mb-0 filter-text">Surveiller la croissance et le développement des animaux.</p>
+                <p class="mb-0 filter-text">Planifier la vente des animaux adultes ou des produits dérivés (viande, lait, œufs, etc.).</p>
               </div>
               <hr class="m-0"/>
             </div>
@@ -49,17 +70,20 @@ const Activity = () => {
                 Stats
               </h4>
               <hr class="my-0"/>
+             
               <div class="row text-center d-flex flex-row op-7 mx-0">
-                <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a class="d-block lead font-weight-bold" href="x">58</a> Topics </div>
-                <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a class="d-block lead font-weight-bold" href="x">1.856</a> Posts </div>
+                <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a class="d-block lead font-weight-bold" href="x">{countVaches}</a> Vaches </div>
+                <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a class="d-block lead font-weight-bold" href="x">{countTaureau}</a> Taureau </div>
               </div>
               <div class="row d-flex flex-row op-7">
-                <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a class="d-block lead font-weight-bold" href="x">300</a> Members </div>
-                <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a class="d-block lead font-weight-bold" href="x">DanielD</a> Newest Member </div>
-              </div>
+               <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a class="d-block lead font-weight-bold" href="x">{countChevres}</a> chévre </div>
+               <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a class="d-block lead font-weight-bold" href="x">{countMoutons}</a> Moutons </div>
+               </div>
+               <div class="row d-flex flex-row op-7">
+               <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a class="d-block lead font-weight-bold" href="x">{countVolailles}</a> Poulet </div>
+               <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a class="d-block lead font-weight-bold" href="x">{countDinde}</a> Dinde </div>
+               </div>
             </div>
-         </div>
-         </div>
          </div>
         
   );

@@ -24,6 +24,27 @@ console.log("agri",agriculteurId)
     res.status(201).json({ message: 'Animal enregistré avec succès.', animal: animalEnregistre });
   } catch (error) {
     console.error('Erreur lors de la création de la fiche d\'animal :', error);
-    res.status(500).json({ message: 'Erreur lors de la création de la fiche d\'animal.' });
   }
+};
+exports.getAnimauxByAgriculteur = async (req, res) => {
+  try {
+    // Récupérez l'identifiant de l'agriculteur connecté à partir de la requête (supposons qu'il soit stocké dans req.userId)
+    const agriculteurId = req.userId;
+
+    // Récupérez les animaux associés à cet agriculteur depuis la base de données
+    const animaux = await Animal.find({ Agriculteur: agriculteurId });
+
+    // Répondez avec les animaux trouvés
+    res.status(200).json(animaux);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des animaux de l\'agriculteur :', error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des animaux de l\'agriculteur.' });
+  }
+};
+exports.all = async (req, res) => {
+  
+  Animal.find()
+  .then(Animals => res.status(200).json(Animals))
+    .catch(err => res.status(400).json({error: err.message}));
+
 };
