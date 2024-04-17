@@ -229,6 +229,11 @@ const handleCategorieClick =()=>{
                       <FaCat /> Bétail
                     </Nav.Link>
                   </li>
+                  <li>
+                    <Nav.Link as={Link} to="/agriculteur/FicheAnimal" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor }}>
+                      <FaCat /> FicheAnimal
+                    </Nav.Link>
+                  </li>
               </ul>
               <div className="d-none d-lg-flex ms-2">
                 <button className='rounded-circle btn-sm-square bg-white ms-3'>
