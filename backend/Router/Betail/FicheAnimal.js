@@ -5,4 +5,7 @@ const authenticateUser= require('../../Controller/Authentification/authenticateU
 router.post('/', authenticateUser,AnimalController.create);
 router.get('/',authenticateUser,AnimalController.getAnimauxByAgriculteur);
 router.get('/all',AnimalController.all);
+router.delete('/:id',AnimalController.delete);
+router.put('/:id',AnimalController.update);
+router.get('/:id',AnimalController.getbetailById);
 module.exports = router;

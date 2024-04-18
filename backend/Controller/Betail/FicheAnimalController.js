@@ -48,3 +48,45 @@ exports.all = async (req, res) => {
     .catch(err => res.status(400).json({error: err.message}));
 
 };
+exports.delete = async (req,res)=>{
+  const animalId = req.params.id;
+
+  try {
+    const deletedAnimal = await Animal.findByIdAndDelete(animalId);
+    if (!deletedAnimal) {
+      return res.status(404).json({ error: 'Animal n est pas trouver' });
+    }
+    res.status(200).json({ message: 'Animal supprimer avec succés' });
+  } catch (error) {
+    console.error('Error deleting animal:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+exports.update = async (req, res) => {
+  const animalId = req.params.id;
+  const updatedData = req.body; // Nouvelles données de l'animal à mettre à jour
+
+  try {
+    const result = await Animal.updateOne({ _id: animalId }, { $set: updatedData });
+
+    if (result.nModified === 0) {
+      return res.status(404).json({ error: 'Animal not found or no changes made' });
+    }
+
+    res.status(200).json({ message: 'Animal updated successfully' });
+  } catch (error) {
+    console.error('Error updating animal:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+exports.getbetailById = async (req, res) => {
+  try {
+    const animal = await Animal.findById(req.params.id);
+    if (!animal) {
+      return res.status(404).json({ success: false, message: 'animal n est pas trouver' });
+    }
+    res.status(200).json({animal});
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};

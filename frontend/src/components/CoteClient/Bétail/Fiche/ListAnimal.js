@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import './ListAnimal.css'
-import {  Dropdown } from 'react-bootstrap';
+import {  Dropdown,Button } from 'react-bootstrap';
 import Navbar from '../../Navbar';
 import CarouselBetail from './CarouselBetail.jsx';
 import Filtre from './Filtre.jsx';
 import Activity from './Activity.jsx';
 import axios from 'axios';
 import Add from './Add';
+import Update from './Update.jsx';
 //import $ from 'jquery';
 const ListAnimal = () => {
-  
+
   const [animaux, setAnimaux] = useState([]);
   const [filteredAnimals, setFilteredAnimals] = useState([]);
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   const [selectedCategory, setSelectedCategory] = useState('');
-
+  const [selectedAnimalId, setSelectedAnimalId] = useState(null);
+  const handleUpdateClick = (animalId) => {
+    setSelectedAnimalId(animalId);
+  };
+  const handleCloseModal = () => {
+    setSelectedAnimalId(null);
+    fetchAnimauxByAgriculteur(); // Recharger la liste des animaux après la modification
+  }
   useEffect(() => {
     fetchAnimauxByAgriculteur(); // Appel initial pour charger les animaux
   }, []);
@@ -46,7 +54,25 @@ const ListAnimal = () => {
       setFilteredAnimals(animaux);
     }
   };
-
+	//   delete
+	const handleDelete = async (id) => {
+		try {
+			// Afficher une alerte pour demander confirmation
+			const confirmDelete = window.confirm("Voulez-vous vraiment supprimer cet élément ?");
+			if (!confirmDelete) {
+				return;
+			}
+	
+			const updatedData = animaux.filter(item => item._id !== id);
+            setAnimaux(updatedData);
+            setFilteredAnimals(updatedData);
+			await axios.delete(`http://localhost:3001/FicheAnimal/${id}`);
+				fetchAnimauxByAgriculteur();
+				
+		} catch (error) {
+			console.error('Erreur lors de la suppression de l\'élément :', error);
+		}
+	};
   return (
     <div>
 <Navbar textColor="black" />
@@ -105,9 +131,12 @@ const ListAnimal = () => {
               <Dropdown.Menu>
                 <Dropdown.Item href="x">Suivi Sante</Dropdown.Item>
                 <Dropdown.Item href="x">Suivi Mouvement</Dropdown.Item>
-                <Dropdown.Item href="x">Edit</Dropdown.Item>
+                <Dropdown.Item>
+                <Button onClick={() => handleUpdateClick(animal._id)}>Modifier</Button>
+                  {/* <Update  onUpdate={fetchAnimauxByAgriculteur} animauxId={animal._id} /> */}
+                </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="x" className="text-danger">
+                <Dropdown.Item  className="text-danger"  onClick={() => handleDelete(animal._id)}>
                   Delete item
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -124,6 +153,7 @@ const ListAnimal = () => {
               ))): (
                 <p style={{fontFamily:" arial",fontSize: "x-large",marginLeft: "15%"}}>Aucun animal trouvé pour la catégorie sélectionnée.</p>
                   )}
+                   <Update animalId={selectedAnimalId} onClose={handleCloseModal} />
                   </div>
               </div>
             </div>
