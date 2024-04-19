@@ -8,22 +8,31 @@ import { FaRegEdit } from "react-icons/fa";
 function Update({ onUpdate, betailId }) {
   const [show, setShow] = useState(false);
   const [betail, setBetail] = useState([]);
+
+  const [race, setRace] = useState('');
+  const [sexe, setSexe] = useState('');
+  const [frequence_suivi_sante, setFrequenceSuivie] = useState('');
  
   const [categories, setCategories] = useState([]);
-  
-  const [selectedCategorie, setSelectedCategorie] = useState('');
-  
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [races, setRaces] = useState([]);
   const [image_betail, setImageBetail] = useState(null);
-  
+
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true)
+    
+    if (selectedCategory) {
+      fetchRacesByCategory(selectedCategory);
+    }
+  };
   const fetchBetail = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/Betail/${betailId}`);
       const data = response.data.data;
       setBetail(data);
-     
-      setSelectedCategorie(data.categorie_betail._id);
+     setRace(data.race);
+      setSelectedCategory(data.id_categorie._id);
      
     } catch (error) {
       console.error('Error fetching betail:', error);
@@ -31,16 +40,23 @@ function Update({ onUpdate, betailId }) {
   };
 
 
-
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/CategorieBetail");
+      const response = await axios.get('http://localhost:3001/CategorieBetail');
       setCategories(response.data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error('Error fetching categories:', error);
     }
   };
-
+  
+  const fetchRacesByCategory = async (categoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/CategorieBetail/categories/races/${categoryId}`);
+      setRaces(response.data.data); // Assuming response.data.data contains the array of races
+    } catch (error) {
+      console.error('Error fetching races:', error);
+    }
+  };
  
 
 
@@ -55,7 +71,15 @@ function Update({ onUpdate, betailId }) {
 
   
   
- 
+  const handleCategoryChange = (e) => {
+    const categoryId = e.target.value;
+    setSelectedCategory(categoryId);
+    if (categoryId) {
+      fetchRacesByCategory(categoryId);
+    } else {
+      setRaces([]); // Reset races when no category is selected
+    }
+  };
   
 
 
@@ -66,10 +90,9 @@ function Update({ onUpdate, betailId }) {
     try {
       const formData = new FormData(e.target);
       
-      formData.append('categorie_betail', selectedCategorie);
-     
-     
-      formData.append('image_betail', image_betail);
+      
+      formData.append("image_betail", image_betail);
+      
       const result = await axios.put(`http://localhost:3001/Betail/${betailId}`,
        formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
@@ -78,6 +101,7 @@ function Update({ onUpdate, betailId }) {
       handleClose();
       alert(result.data.message);
       onUpdate();
+      window.location.reload()
       
     } catch (error) {
       console.error('Error updating betail:', error);
@@ -98,81 +122,106 @@ function Update({ onUpdate, betailId }) {
           <Modal.Title>Modifier Betail</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {betail && (
+        {betail && (
             <Form onSubmit={handleSubmit} id="updateForm">
-             <Form.Group className="mb-3" controlId="nom_betail">
-                <FloatingLabel controlId="floatingTextarea2" label="Nom Betail:">
-                  <Form.Control
-                    type="text"
-                    placeholder=""
-                    defaultValue={betail.nom_betail}
-                    name="nom_betail"
+            <Form.Group controlId="categorie">
+              <Form.Label>Catégorie</Form.Label>
+              <Form.Control as="select" name="id_categorie" defaultValue={selectedCategory} onChange={handleCategoryChange}>
+                <option value="">Sélectionnez la catégorie</option>
+                {categories.map((categorie) => (
+                  <option key={categorie._id} value={categorie._id}>
+                    {categorie.nom_categorieBetail}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="race">
+              <Form.Label>Race</Form.Label>
+              <Form.Control as="select" name="race" defaultValue={race} onChange={(e) => setRace(e.target.value)} disabled={!selectedCategory}>
+                <option value="">Sélectionnez la race</option>
+                {races.map((race) => (
+                  <option selected={race==betail.race}key={race} value={race}>
+                    {race}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="etat_betail">
+              <Form.Label>État de gestation</Form.Label>
+              <Form.Control type="text" name="etat_betail" defaultValue={betail.etat_betail} />
+            </Form.Group>
+
+          <Form.Group className="mb-3" controlId="nom_betail">
+              <FloatingLabel controlId="floatingTextarea2" label="Nom Betail:">
+                <Form.Control
+                  type="text"
+                  placeholder="Nom Betail"
+                  defaultValue={betail.nom_betail}
+                 name='nom_betail'
+                 id='nom_betail'
+                />
+              </FloatingLabel>
+            </Form.Group>
+
+           
+
+
+            
+            
+
+            <Form.Group className="mb-3" controlId="saison">
+              <Form.Label>sex</Form.Label>
+              <Form.Control as="select" id='sexe' name='sexe' defaultValue={sexe} onChange={(e) => setSexe(e.target.value)} >
+                <option value="">Sélectionnez la genre du betail</option>
+                <option selected={"masculin"==betail.sexe} value="masculin">masculin</option>
+                <option selected={"féminin"==betail.sexe} value="féminin">féminin</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="alimentation">
+              <Form.Label>Besoin d'alimentation</Form.Label>
+              <Form.Control type="text" name="alimentation" defaultValue={betail.alimentation}
                   />
-                </FloatingLabel>
-              </Form.Group>
+            </Form.Group>
 
+            <Form.Group className="mb-3" controlId="quantite_aliment_par_jour_kg">
+              <Form.Label>Quantité d'alimentation par jour en KG</Form.Label>
+              <Form.Control type="text" name="quantite_aliment_par_jour_kg"  defaultValue={betail.quantite_aliment_par_jour_kg}
+                   />
+            </Form.Group>
 
-              
+            <Form.Group className="mb-3" controlId="frequence_suivi_sante">
+              <Form.Label>Fréquence de suivi de la santé</Form.Label>
+              <Form.Control as="select" id='frequence_suivi_sante' name='frequence_suivi_sante' defaultValue={frequence_suivi_sante} onChange={(e) => setFrequenceSuivie(e.target.value)} >
+                <option value="">Sélectionnez la fréquence de suivi de la santé</option>
+                <option selected={"Quotidienne"==betail.frequence_suivi_sante} value="Quotidienne">Quotidienne</option>
+                <option selected={"Hebdomadaire"==betail.frequence_suivi_sante} value="Hebdomadaire">Hebdomadaire</option>
+                <option selected={"Bimensuelle"==betail.frequence_suivi_sante} value="Bimensuelle">Bimensuelle</option>
+                <option selected={"Mensuelle"==betail.frequence_suivi_sante} value="Mensuelle">Mensuelle</option>
+                <option selected={"Trimestrielle"==betail.frequence_suivi_sante} value="Trimestrielle">Trimestrielle</option>
+                <option selected={"Semestrielle"==betail.frequence_suivi_sante} value="Semestrielle">Semestrielle</option>
+                <option selected={"Annuelle"==betail.frequence_suivi_sante} value="Annuelle">Annuelle</option>
+              </Form.Control>
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="date_naissance">
-                <FloatingLabel controlId="floatingTextarea2" label="Date de Naissance">
-                  <Form.Control
-                    type='date'
-                    placeholder="Date de Naissance"
-                    defaultValue={betail.date_naissance}
-                    name="date_naissance"
-                  />
-                </FloatingLabel>
-              </Form.Group>
-
-              
-
-              <Form.Group className="mb-3" controlId="IdantifiantsAnimal">
-                <FloatingLabel controlId="floatingTextarea2" label="Idantifiants Animale">
-                  <Form.Control
-                    type='text'
-                    placeholder="Methode Irrigation"
-                    defaultValue={betail.IdantifiantsAnimal}
-                    name="IdantifiantsAnimal"
-                  />
-                </FloatingLabel>
-              </Form.Group>
-
-
-
-
-              <Form.Group className="mb-3" controlId="image_betail">
-                <Form.Label>Image Betail:</Form.Label>
-                <Form.Control type="file" onChange={handleImageChange} />
-              </Form.Group>
-
-             
-
-              <Form.Group className="mb-3" controlId="saison">
-                <Form.Label>Sexe:</Form.Label>
-                <Form.Control as="select" value={betail.sexe} name='sexe' id='sexe'>
-                  <option value="">Sélectionnez une saison</option>
-                  <option value="masculin"> masculin </option>
-                  <option value="féminin"> féminin </option>
-                 
-                </Form.Control>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="categorie">
-                <Form.Label>Catégorie:</Form.Label>
-                <Form.Control as="select" value={selectedCategorie} onChange={(e) => setSelectedCategorie(e.target.value)}>
-                  <option value="">Sélectionnez une catégorie</option>
-                  {categories && categories.map(categorie => (
-                    <option key={categorie._id} value={categorie._id}>{categorie.nom_categorieBetail}</option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
-              
-              
+            <Form.Group className="mb-3" controlId="commentaires_sante">
+              <Form.Label>Commentaire pour la santé</Form.Label>
+              <Form.Control as="textarea" style={{ height: '100px' }} name="commentaires_sante" defaultValue={betail.commentaires_sante}
+                 />
+            </Form.Group>
 
             
 
-
+            <Form.Group className="mb-3" controlId="title">
+              <FloatingLabel controlId="floatingTextarea2" label="Image Betail:">
+                <Form.Control
+                  type="file"
+                  onChange={handleImageChange}
+                />
+              </FloatingLabel>
+            </Form.Group>
            
 
               
@@ -181,7 +230,7 @@ function Update({ onUpdate, betailId }) {
         </Modal.Body>
         <Modal.Footer>
           <Button className="bg-secondary" onClick={handleClose}>Close</Button>
-          <Button className="btn" type="submit" form="updateForm"> Submit </Button>
+          <Button className="btn" type="submit" form="updateForm"> Enregistrer </Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -58,4 +58,15 @@ exports.delete = async (req, res) => {
   }
 };
 
-
+// Récupérer les races pour une catégorie spécifique
+exports.getRaces = async (req, res) => {
+  try {
+    const categorie = await Categorie.findById(req.params.id).populate('betails');
+    if (!categorie) {
+      return res.status(404).json({ success: false, message: 'Categorie n est pas trouver' });
+    }
+    res.status(200).json({ success: true, data: categorie.races });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};

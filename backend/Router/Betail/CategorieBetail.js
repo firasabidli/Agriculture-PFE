@@ -14,5 +14,5 @@ router.put('/modifier/:id', categorieBetailController.update);
 
 // Supprimer une catégorie par son ID
 router.delete('/delete/:id', categorieBetailController.delete);
-
+router.get('/categories/races/:id', categorieBetailController.getRaces);
 module.exports = router;

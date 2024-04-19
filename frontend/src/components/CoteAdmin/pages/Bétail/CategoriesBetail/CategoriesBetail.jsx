@@ -117,7 +117,7 @@ const CategoriesBetail = () => {
 													<td>{item.description}</td>
 													<td >
 														<div className='action ' style={{marginLeft:'100px'}}>
-															<Update categorieId={item._id} nomCategorie={item.nom_categorieBetail} Description={item.description}  onUpdate={fetchData()}/>
+															<Update categorieId={item._id} nomCategorie={item.nom_categorieBetail} Description={item.description} category={item}  onUpdate={fetchData()}/>
 															<Delete categorieId={item._id} onDelete={fetchData()}/>
 														</div>
 													</td>

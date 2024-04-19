@@ -10,7 +10,6 @@ import Update from './Update';
 
  import Add from './Add';
 
-
 const Betail = () => {
     const [data, setData] = useState([]);
 
@@ -67,7 +66,7 @@ const Betail = () => {
 		<Header toggleSidebar={toggleSidebar}/>
 		<main className='stock-container'>
 			<div className='main-ajoute'>
-				 <Add onCreate={fetchData()}/>
+				 <Add onCreate={fetchData()} />
 				
 			</div>
 			<div className='main-title'>
@@ -103,10 +102,11 @@ const Betail = () => {
 										<thead className="thead-dark">
 											<tr>
 												<th>ID no.</th>
-												<th>Idantifiants Animale</th> 
-												<th>Image Betail</th> 
-												<th>Nom du Betail</th>
 												<th>Categorie Betail</th> 
+												<th>Race</th>
+												<th>Nom du Betail</th>
+												<th>Image Betail</th> 
+												<th>Etat Betail</th> 
 												<th>sexe</th> 
 												<th>Action</th>
 											</tr>
@@ -115,13 +115,15 @@ const Betail = () => {
 											{displayedData.map((item, index) => (
 												<tr key={item._id} className="alert" role="alert">
 													<td>{index}</td>
-													<td className='td-title'>{item.IdantifiantsAnimal}</td>
+													<td>{item.id_categorie.nom_categorieBetail}</td> 
+													<td className='td-title'>{item.race}</td>
+													<td className='td-title'>{item.nom_betail}</td>
 													<td className='td-im' >
 													{item.image_betail && (
                										<img src={item.image_betail} className='td-image' style={{width:'120px',textAlign:'center'}} alt='image_betail'/>)}
 													</td>
-													<td className='td-title'>{item.nom_betail}</td>
-													 <td>{item.categorie_betail.nom_categorieBetail}</td> 
+													
+													<td>{item.etat_betail}</td>
 													 <td>{item.sexe}</td> 
 													<td >
 														<div className='action ' style={{marginLeft:'100px'}}>
