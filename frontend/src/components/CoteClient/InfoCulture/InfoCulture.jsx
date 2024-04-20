@@ -42,7 +42,7 @@ const InfoCulture = () => {
               </p>
               <p>
               <Button variant="primary" onClick={() => setModalShow(true)}>
-                NOUS REMARQUE
+                NOUS COMMENTAIRE
               </Button>
               <RemarqueCulture
                 show={modalShow}

@@ -64,9 +64,31 @@ exports.delete = async (req,res)=>{
 }
 exports.update = async (req, res) => {
   const animalId = req.params.id;
-  const updatedData = req.body; // Nouvelles données de l'animal à mettre à jour
+  console.log('Request Body:', req.body);
 
+  const { categorieBetail, subCategorieBetail, Race, date_naissance, IdantifiantsAnimal, sexe } = req.body;
+
+  console.log('categorieBetail:', categorieBetail);
+  console.log('subCategorieBetail:', subCategorieBetail);
+  console.log('Race:', Race);
+  console.log('date_naissance:', date_naissance);
+  console.log('IdantifiantsAnimal:', IdantifiantsAnimal);
+  console.log('sexe:', sexe);
+  
   try {
+    // Construct the updatedData object based on the fields received in the request body
+    const updatedData = {
+      categorieBetail,
+      subCategorieBetail,
+      Race,
+      date_naissance,
+      IdantifiantsAnimal,
+      sexe
+    };
+
+    console.log('Updated data:', updatedData);
+    //const updated = await Animal.findByIdAndUpdate(req.params.id,updatedData, { new: true });
+    // Use Mongoose's updateOne method to update the animal document
     const result = await Animal.updateOne({ _id: animalId }, { $set: updatedData });
 
     if (result.nModified === 0) {
