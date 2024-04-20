@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 //import { Navbar as BootstrapNavbar } from 'react-bootstrap';
+import { GiCow } from 'react-icons/gi';
+import { SiHappycow } from "react-icons/si";
 import { Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -14,13 +16,17 @@ const MyNavbar = ({ textColor }) => {
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
+  const [displayedDataCategorieBetail, setDisplayedDataCategorieBetail] = useState([]);
   const [cultures, setCultures] = useState([]);
+  const [betails, setBetails] = useState([]);
   const [SaisonData, setSaisonData] = useState([]);
   const [culturesSaison, setCulturesSaison] = useState([]);
   const [showList, setShowList] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [categorieList,setCategorieList]=useState(false);
+  const [categorieBetailList,setCategorieBetailList]=useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [hoveredCategoryBetail, setHoveredCategoryBetail] = useState(null);
   const [saisonList,setSaisonList]=useState(false);
   const [hoveredSaison, setHoveredSaison] = useState(null);
 
@@ -42,14 +48,12 @@ const MyNavbar = ({ textColor }) => {
     };
   }, []);
 
-  useEffect(() => {
-    fetchCategories();
-    fetchSaison();
-  }, []);
+  
 
   useEffect(() => {
     fetchCategories();
     fetchSaison();
+    fetchCategoriesBetail();
   }, []);
   const fetchCategories = async () => {
     try {
@@ -69,6 +73,23 @@ const MyNavbar = ({ textColor }) => {
       console.error('Erreur lors de la récupération des cultures :', error);
     }
   };
+  const fetchBetailByCategory = async (categoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/Betail/categorieBetail/${categoryId}`);
+      setBetails(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+    }
+  };
+  const fetchCategoriesBetail = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/CategorieBetail');
+      setDisplayedDataCategorieBetail(response.data);
+     
+    } catch (error) {
+      console.error('Erreur lors de la récupération des catégories du betail:', error);
+    }
+  };
   const handleTitleClick = () => {
     setShowList(!showList);
     if (!showList) {
@@ -78,10 +99,22 @@ const MyNavbar = ({ textColor }) => {
 const handleCategorieClick =()=>{
   setCategorieList(!categorieList);
 }
+const handleCategorieBetailClick =()=>{
+  setCategorieBetailList(!categorieList);
+}
   const handleCategoryChange = async (categoryId) => {
     try {
       await fetchCulturesByCategory(categoryId);
       setHoveredCategory(categoryId);
+  
+    } catch (error) {
+      console.error('Erreur lors de la récupération des cultures :', error);
+    }
+  };
+  const handleCategorybetailChange = async (categoryId) => {
+    try {
+      await fetchBetailByCategory(categoryId);
+      setHoveredCategoryBetail(categoryId);
   
     } catch (error) {
       console.error('Erreur lors de la récupération des cultures :', error);
@@ -224,14 +257,51 @@ const handleCategorieClick =()=>{
                   )}
                   {/* </div> */}
                 </li>
+                <li className="nav-item">
+                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick} style={{ color: textColor }}>
+                  <SiHappycow />Bétail
+                  </div>
+                {/* <div style={{position:'relative'}}> */}
+                  {showList && (
+                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
+                     
                   <li>
-                    <Nav.Link as={Link} to="/betail" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor }}>
-                      <FaCat /> Bétail
-                    </Nav.Link>
+                    <span className="dropdown-item-title" style={{fontWeight:"bold"}} onClick={handleCategorieBetailClick}>Catégorie</span>
                   </li>
+                  {categorieBetailList && (
+                  <ul  style={{ top: isScrolled ? '70px' : '120px',zIndex: 1 }}>
+                    {displayedDataCategorieBetail && displayedDataCategorieBetail.map((item) => (
+                      <li key={item._id}>
+                        <button value={item._id} onClick={() => handleCategorybetailChange(item._id)} className="dropdown-item rounded-2">
+                          {item.nom_categorieBetail}
+                        </button>
+                        {/* onMouseEnter={() => handleHoverCategory(item._id)} */}
+                      </li>
+                    ))}
+                  </ul>
+                  )}
+                       
+                   
+                    </ul>
+                  )}
+                  {/* CultureCategorie */}
+                 
+                  {/* Culturesaison */}
+                  {hoveredCategoryBetail && (
+                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2, right:'36%' }}>
+                      {betails && betails.map((betail) => (
+                       <Link to={`/betail/${betail._id}`}> <li key={betail._id} className="dropdown-item rounded-2">{betail.nom_betail}</li>
+                       </Link>
+                      ))}
+                    </ul>
+                  )}
+                  {/* </div> */}
+                </li>
+
+                
                   <li>
                     <Nav.Link as={Link} to="/agriculteur/FicheAnimal" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor }}>
-                      <FaCat /> FicheAnimal
+                    <GiCow style={{fontSize:'35px'}}/> FicheAnimal
                     </Nav.Link>
                   </li>
               </ul>

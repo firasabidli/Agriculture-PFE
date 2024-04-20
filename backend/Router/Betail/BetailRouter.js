@@ -20,4 +20,5 @@ router.get('/', betailController.all);
 router.get('/:id', betailController.getBetailById);
 router.put('/:id',upload.single("image_betail"), betailController.update);
 router.delete('/:id', betailController.delete);
+router.get('/categorieBetail/:id',betailController.categorieBetail);
 module.exports = router;

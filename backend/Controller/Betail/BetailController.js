@@ -158,3 +158,14 @@ exports.delete = async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
+
+exports.categorieBetail = async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    const betails = await Betail.find({ id_categorie: categoryId }).populate('id_categorie');
+    res.json(betails);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des betails par catégorie :', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des betails par catégorie.' });
+  }
+};
