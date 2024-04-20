@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { GiCow } from 'react-icons/gi';
 import { SiHappycow } from "react-icons/si";
 import { Nav, Modal } from 'react-bootstrap';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaShoppingBag, FaHome, FaLeaf, FaCat, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaShoppingBag, FaHome, FaLeaf, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
@@ -239,7 +239,7 @@ const handleCategorieBetailClick =()=>{
                   )}
                   {/* CultureCategorie */}
                   {hoveredSaison && (
-                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2, right:'36%' }}>
+                    <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '140px', zIndex: 2, right:'41%' }}>
                       {culturesSaison && culturesSaison.map((culture) => (
                        <Link to={`/culture/${culture._id}`}> <li key={culture._id} className="dropdown-item rounded-2">{culture.nom_agriculture}</li>
                        </Link>
