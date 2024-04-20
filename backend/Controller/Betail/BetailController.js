@@ -6,10 +6,14 @@ const fs = require('fs');
 exports.create = async (req, res) => {
   const {
     nom_betail,
-    date_naissance,
+    race,
     sexe,
-    IdantifiantsAnimal,
-    categorie_betail, 
+    alimentation,
+    quantite_aliment_par_jour_kg,
+    frequence_suivi_sante,
+    commentaires_sante,
+    etat_betail,
+    id_categorie, 
   } = req.body;
 
   const imageName = req.file.filename;
@@ -17,18 +21,21 @@ exports.create = async (req, res) => {
   try {
     const newBetail = await Betail.create({
         nom_betail,
-        date_naissance,
+        race,
         sexe,
-        IdantifiantsAnimal,
-        categorie_betail, 
+        alimentation,
         image_betail: imageName,
-        categorie_betail: categorie_betail,
+        quantite_aliment_par_jour_kg,
+        frequence_suivi_sante,
+        commentaires_sante,
+        etat_betail,
+        id_categorie: id_categorie,
       
       
     });
     
-    await CategorieBetail.updateMany({ '_id': newBetail.categorie_betail }, { $push: { betails: newBetail._id } });
-    res.json({ success: true, message: 'Betail created', data: newBetail });
+    await CategorieBetail.updateMany({ '_id': newBetail.id_categorie }, { $push: { betails: newBetail._id } });
+    res.json({ success: true, message: 'Betail enregistrer avec succés', data: newBetail });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -37,7 +44,7 @@ exports.create = async (req, res) => {
 
 exports.all = async (req, res) => {
     try {
-      const Betails = await Betail.find().populate('categorie_betail');
+      const Betails = await Betail.find().populate('id_categorie');
       const BetailsWithImagePaths = Betails.map(betail => ({
         ...betail._doc,
         image_betail: betail.image_betail ? `http://localhost:3001/images/Betails/${betail.image_betail}` : null // Ajouter le chemin d'accès complet au dossier images
@@ -51,7 +58,7 @@ exports.all = async (req, res) => {
 // Récupérer  Betail par son ID
 exports.getBetailById = async (req, res) => {
   try {
-    const betail = await Betail.findById(req.params.id).populate('categorie_betail');
+    const betail = await Betail.findById(req.params.id).populate('id_categorie');
     if (!betail) {
       return res.status(404).json({ success: false, message: 'Betail not found' });
     }
@@ -74,18 +81,26 @@ exports.getBetailById = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const {
-        nom_betail,
-        date_naissance,
-        sexe,
-        IdantifiantsAnimal,
-        categorie_betail,  } = req.body;
+      nom_betail,
+      race,
+      sexe,
+      alimentation,
+      quantite_aliment_par_jour_kg,
+      frequence_suivi_sante,
+      commentaires_sante,
+      etat_betail,
+      id_categorie,  } = req.body;
 
     let updateData = {
-        nom_betail,
-        date_naissance,
-        sexe,
-        IdantifiantsAnimal,
-        categorie_betail: categorie_betail,
+      nom_betail,
+      race,
+      sexe,
+      alimentation,
+      quantite_aliment_par_jour_kg,
+      frequence_suivi_sante,
+      commentaires_sante,
+      etat_betail,
+      id_categorie: id_categorie,
       
     };
     
@@ -113,9 +128,9 @@ exports.update = async (req, res) => {
     await CategorieBetail.updateMany({}, { $pull: { betails: updatedBetail._id } });
     // Ajouter la nouvelle betail au nouveau categorie
     
-    await CategorieBetail.updateMany({ '_id': { $in: categorie_betail } }, { $addToSet: { betails: updatedBetail._id } });
+    await CategorieBetail.updateMany({ '_id': { $in: id_categorie } }, { $addToSet: { betails: updatedBetail._id } });
 
-    res.status(200).json({ success: true,message: 'Betail Updated', data: updatedBetail });
+    res.status(200).json({ success: true,message: 'Betail modifier avec succés', data: updatedBetail });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -137,10 +152,20 @@ exports.delete = async (req, res) => {
     // Supprimer l'ID de la betail de categorie
     
     await CategorieBetail.updateMany({}, { $pull: { betails: betail._id } });
-    res.status(200).json({ success: true, message: 'Betail deleted successfully' });
+    res.status(200).json({ success: true, message: 'Betail supprimer avec succés' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
 
+exports.categorieBetail = async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    const betails = await Betail.find({ id_categorie: categoryId }).populate('id_categorie');
+    res.json(betails);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des betails par catégorie :', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des betails par catégorie.' });
+  }
+};

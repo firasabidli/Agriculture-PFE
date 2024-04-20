@@ -74,7 +74,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.header("Access-Control-Allow-Headers", "Authorization");
 
-    console.log(req.headers['authorization']);
+    // console.log(req.headers['authorization']);
     next();
   });
 
