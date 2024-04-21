@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const SanteBetailController = require('../../Controller/Betail/SanteBetail');
+const authenticateUser= require('../../Controller/Authentification/authenticateUser');
+router.post('/', authenticateUser,SanteBetailController.create);
+router.get('/:id',SanteBetailController.getAnimal);
+router.delete('/:id',SanteBetailController.delete);
+router.put('/:id',SanteBetailController.update);
+router.get('/sante/:id',SanteBetailController.getSanteById);
+module.exports = router;

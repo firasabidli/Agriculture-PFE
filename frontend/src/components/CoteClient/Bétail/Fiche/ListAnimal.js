@@ -8,6 +8,7 @@ import Activity from './Activity.jsx';
 import axios from 'axios';
 import Add from './Add';
 import Update from './Update.jsx';
+import { Link } from 'react-router-dom';
 //import $ from 'jquery';
 const ListAnimal = () => {
 
@@ -73,6 +74,9 @@ const ListAnimal = () => {
 			console.error('Erreur lors de la suppression de l\'élément :', error);
 		}
 	};
+  const handleAnimalLinkClick = (animalId) => {
+    return `/agriculteur/PageSante/${animalId}`;
+  };
   return (
     <div>
 <Navbar textColor="black" />
@@ -82,12 +86,7 @@ const ListAnimal = () => {
       
     {/* <!-- Main content --> */}
         <div class="col-lg-9 mb-3">
-          {/* {animaux && <Filtre animaux={animaux}/>} */}
           <Filtre onCategoryChange={handleCategoryFilter}/>
-          {/* <!-- Main content --> */}
-        {/* {animaux.length === 0 ? (
-				  <p style={{fontFamily:" arial",fontSize: "x-large",marginLeft: "10%"}}>Aucune bétail disponible</p>
-				) : ( */}
         <div className="page-content page-container" id="page-content">
           <div className="padding">
             <div className="row" style={{marginLeft:"-15%"}}>
@@ -110,26 +109,12 @@ const ListAnimal = () => {
                           </div>
                           <div>
             <Dropdown align="end">
-              <Dropdown.Toggle variant="link" id="dropdown-basic">
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="feather feather-more-vertical"
-                >
-                  <circle cx="12" cy="12" r="1"></circle>
-                  <circle cx="12" cy="5" r="1"></circle>
-                  <circle cx="12" cy="19" r="1"></circle>
-                </svg> */}
-              
+              <Dropdown.Toggle variant="link" id="dropdown-basic">         
               <Dropdown.Menu>
-                <Dropdown.Item href="x">Suivi Sante</Dropdown.Item>
+              <Link className="dropdown-item" to={handleAnimalLinkClick(animal._id)} >Suivi Santé</Link>
+                {/* <Dropdown.Item onClick={()=> handleSanteClick()} >Suivi Sante
+                <PageSanté/>
+                </Dropdown.Item> */}
                 <Dropdown.Item href="x">Suivi Mouvement</Dropdown.Item>
                 <Dropdown.Item>
                 <Button onClick={() => handleUpdateClick(animal._id)}>Modifier</Button>
