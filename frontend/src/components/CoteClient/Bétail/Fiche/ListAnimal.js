@@ -45,16 +45,22 @@ const ListAnimal = () => {
   };
 
   // Fonction pour mettre à jour les animaux filtrés en fonction de la catégorie sélectionnée
-  const handleCategoryFilter = (category) => {
-    setSelectedCategory(category); // Mettre à jour la catégorie sélectionnée
-    if (category  !== '') {
-      const filtered = animaux.filter((animal) => animal.categorieBetail === category);
+  const handleCategoryFilter = (category, subcategory) => {
+    setSelectedCategory(category);
+  
+    if (category !== '') {
+      let filtered = animaux.filter((animal) => animal.categorieBetail === category);
+  
+      if (subcategory !== '') {
+        filtered = filtered.filter((animal) => animal.subCategorieBetail === subcategory);
+      }
+  
       setFilteredAnimals(filtered);
-      
     } else {
       setFilteredAnimals(animaux);
     }
   };
+  
 	//   delete
 	const handleDelete = async (id) => {
 		try {
@@ -77,6 +83,9 @@ const ListAnimal = () => {
   const handleAnimalLinkClick = (animalId) => {
     return `/agriculteur/PageSante/${animalId}`;
   };
+  const handleMouvementLinkClick = (animalId) => {
+    return `/agriculteur/PageMouvement/${animalId}`;
+  };
   return (
     <div>
 <Navbar textColor="black" />
@@ -86,7 +95,7 @@ const ListAnimal = () => {
       
     {/* <!-- Main content --> */}
         <div class="col-lg-9 mb-3">
-          <Filtre onCategoryChange={handleCategoryFilter}/>
+          <Filtre onFilterChange={handleCategoryFilter}/>
         <div className="page-content page-container" id="page-content">
           <div className="padding">
             <div className="row" style={{marginLeft:"-15%"}}>
@@ -102,6 +111,8 @@ const ListAnimal = () => {
                         <div><a href="x"><span className="w-40 avatar gd-primary">A</span></a></div>
                         <div className="flex">
                           <a href="x" className="item-author text-color">Identifiant: {animal.IdantifiantsAnimal}</a>
+                          <br/>
+                          <a href="x" className="item-author text-color">Race: {animal.Race}</a>
                           <div className="item-except text-muted text-sm h-1x">Date de Naissance: {new Date(animal.date_naissance).toLocaleDateString('fr-FR', options)}</div>
                         </div>
                         <div className="no-wrap">
@@ -112,10 +123,7 @@ const ListAnimal = () => {
               <Dropdown.Toggle variant="link" id="dropdown-basic">         
               <Dropdown.Menu>
               <Link className="dropdown-item" to={handleAnimalLinkClick(animal._id)} >Suivi Santé</Link>
-                {/* <Dropdown.Item onClick={()=> handleSanteClick()} >Suivi Sante
-                <PageSanté/>
-                </Dropdown.Item> */}
-                <Dropdown.Item href="x">Suivi Mouvement</Dropdown.Item>
+              <Link className="dropdown-item" to={handleMouvementLinkClick(animal._id)} >Suivi Mouvement</Link>
                 <Dropdown.Item>
                 <Button onClick={() => handleUpdateClick(animal._id)}>Modifier</Button>
                   {/* <Update  onUpdate={fetchAnimauxByAgriculteur} animauxId={animal._id} /> */}

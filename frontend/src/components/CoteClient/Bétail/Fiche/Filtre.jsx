@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Filtre = ({ onCategoryChange }) => {
+const Filtre = ({ onFilterChange }) => {
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
+
   const handleCategoryChange = (event) => {
     const category = event.target.value;
-    onCategoryChange(category); // Appel de la fonction de filtrage avec la catégorie sélectionnée
+    setSelectedCategory(category);
+    setSelectedSubcategory(''); 
+    onFilterChange(category, '');
+  };
+
+  const handleSubcategoryChange = (event) => {
+    const subcategory = event.target.value;
+    console.log("hh",subcategory)
+    setSelectedSubcategory(subcategory);
+    onFilterChange(selectedCategory, subcategory);
   };
 
   return (
@@ -14,9 +26,10 @@ const Filtre = ({ onCategoryChange }) => {
             className="form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50"
             data-toggle="select"
             tabIndex="-98"
+            value={selectedCategory}
             onChange={handleCategoryChange}
           >
-            <option value="">Categories</option>
+            <option value="">Catégories</option>
             <option value="bovin">Bovin</option>
             <option value="ovin">Ovin</option>
             <option value="volailles">Volailles</option>
@@ -29,11 +42,29 @@ const Filtre = ({ onCategoryChange }) => {
             className="form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50"
             data-toggle="select"
             tabIndex="-98"
+            value={selectedSubcategory}
+            onChange={handleSubcategoryChange}
           >
-            <option value="">Filter by</option>
-            <option value="Race">Race</option>
-            <option value="Naissance">Naissance</option>
-            <option value="SubCtegorie">SubCtegorie</option>
+            <option value="">Sous-catégories</option>
+            {/* Remplacez ces options par les sous-catégories réelles correspondant à la catégorie sélectionnée */}
+            {selectedCategory === 'bovin' && (
+              <>
+                <option value="Vache">Vache</option>
+                <option value="Taureau">Taureau</option>
+              </>
+            )}
+            {selectedCategory === 'ovin' && (
+              <>
+                <option value="Mouton">Mouton</option>
+                <option value="Chèvre">Chèvre</option>
+              </>
+            )}
+            {selectedCategory === 'volailles' && (
+              <>
+                <option value="Poulet">Poulet</option>
+                <option value="Dinde">Dinde</option>
+              </>
+            )}
           </select>
         </div>
       </div>

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+//import { now } from "mongoose";
 const AjouterSanté = ({ onCreate }) => {
     const { id } = useParams();
+    const now = new Date();
   const [healthData, setHealthData] = useState({
     AnimalId:id,
-    dateEnregistrement: new Date().toISOString().split("T")[0],
+    dateEnregistrement: new Date(now).toISOString().split("T")[0],
     etatSante: "",
     maladiesSymptomes: "",
     traitements: [],
@@ -111,6 +113,14 @@ const AjouterSanté = ({ onCreate }) => {
         }
       );
       alert(' ajouté avec succès !');
+      setHealthData({
+        dateEnregistrement: "",
+        etatSante: "",
+        maladiesSymptomes: "",
+        traitements: [],
+        vaccinations: [],
+        observationsGenerales: "",
+      });
         onCreate();
       console.log("Réponse du serveur :", response.data);
       // Ici vous pouvez ajouter du code pour gérer la réponse du serveur, par exemple rediriger l'utilisateur

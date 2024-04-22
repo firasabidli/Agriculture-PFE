@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const MouvementBetailController = require('../../Controller/Betail/MouvementBetail');
+const authenticateUser= require('../../Controller/Authentification/authenticateUser');
+router.post('/', authenticateUser,MouvementBetailController.create);
+router.get('/:id',MouvementBetailController.getAnimal);
+router.delete('/:id',MouvementBetailController.delete);
+router.put('/:id',MouvementBetailController.update);
+router.get('/mouvement/:id',MouvementBetailController.getMouvementById);
+module.exports = router;
