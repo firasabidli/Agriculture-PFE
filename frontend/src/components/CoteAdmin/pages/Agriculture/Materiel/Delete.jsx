@@ -30,7 +30,7 @@ function Delete({ materielId, onDelete  }) {
         <Modal.Header closeButton>
           <Modal.Title>Confirmation de suppression</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Êtes-vous sûr de vouloir supprimer cette Materiel  ?</Modal.Body>
+        <Modal.Body>Êtes-vous sûr de vouloir supprimer cette Equipement ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Annuler

@@ -63,7 +63,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             data-bs-parent="#sidebar"
                         >
                           <li className="sidebar-item ">
-                            <Link to="/admin/Agricultures" className={`sidebar-link ${page==="Agriculture" ? 'item-active' : ''}`}><span className="icon"><GiWheat /></span>{ " "}Cultures </Link>
+                            <Link to="/admin/Agricultures" className={`sidebar-link ${page==="Agriculture" ? 'item-active' : ''}`}><span className="icon"><GiWheat /></span>{ " "}Agriculture </Link>
                             </li>
                             <li className="sidebar-item">
                             <Link to="/admin/Categories" className={`sidebar-link ${page==="Categories" ? 'item-active' : ''}`}><span className="icon"><SiDatabricks /></span>{ " "}Categories </Link>

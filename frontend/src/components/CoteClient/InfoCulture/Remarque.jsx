@@ -49,7 +49,7 @@ const RemarqueCulture = ({ show, onHide, cultureName }) => {
                         </Form.Control>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Nous Remarque</Form.Label>
+                        <Form.Label>Nous Commentaire</Form.Label>
                         <Form.Control as="textarea" rows={3} placeholder="Saisissez votre remarque ici..." value={remarque} onChange={(e) => setRemarque(e.target.value)} />
                     </Form.Group>
                 </Form>

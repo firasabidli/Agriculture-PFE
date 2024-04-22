@@ -71,7 +71,7 @@ const Materiel = () => {
 			</div>
 			<div className='main-title'>
 				<div className='List-title'>
-					<h5>Liste Materiel</h5>
+					<h5>Liste d'Equipement</h5>
 					<span className='style-line'></span>
 					<TextField
 						placeholder="rechercher"
@@ -102,7 +102,7 @@ const Materiel = () => {
 										<thead className="thead-dark">
 											<tr>
 												<th>ID no.</th>
-												<th>Image Materiel</th>
+												<th>Image</th>
 												<th>Name</th>
 												<th>description</th>
 												<th>Action</th>

@@ -74,9 +74,9 @@ const NotifCulture = () => {
                         <h5 style={{ textAlign: "center", marginTop: "10px" }}>Notifications</h5>
                     </li>
                     <li>
-                        <button className='button-notif' onClick={handleShowRemarquesClick}>Remarque</button>
-                        <button className='button-notif'>Utilisateur</button>
-                        <button className='button-notif'>Utilisateur</button>
+                        <button className='button-notif' onClick={handleShowRemarquesClick}>Commentaire</button>
+                        {/* <button className='button-notif'>Utilisateur</button>
+                        <button className='button-notif'>Utilisateur</button> */}
                     </li>
                     {showRemarques && remarques.map((req, index) => (
                         <li key={index}>

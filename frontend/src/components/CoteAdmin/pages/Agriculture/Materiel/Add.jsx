@@ -39,7 +39,7 @@ function Add({onCreate}) {
       );
       
       console.log(result);
-      // Refresh materiel after successful upload
+      // Refresh Equipement after successful upload
       if (result.data.success) {
        
         handleClose(); 
@@ -47,7 +47,7 @@ function Add({onCreate}) {
         onCreate();
       }
     } catch (error) {
-      console.error("Error uploading materiel:", error);
+      console.error("Error uploading Equipement:", error);
     }
   };
   const onInputChange = (e) => {
@@ -65,16 +65,16 @@ function Add({onCreate}) {
 	    </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Ajouter un materiel</Modal.Title>
+          <Modal.Title>Ajouter Equipement</Modal.Title>
         </Modal.Header>
         <Modal.Body>
        
           <Form onSubmit={submit} id="form">
             <Form.Group className="mb-3" controlId="name">
-              <FloatingLabel controlId="floatingTextarea2" label="Nom du materiel:">
+              <FloatingLabel controlId="floatingTextarea2" label="Nom du Equipement:">
                 <Form.Control
                   type="text"
-                  placeholder="Nom du materiel:"
+                  placeholder="Nom du Equipement:"
                   value={nom}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -95,7 +95,7 @@ function Add({onCreate}) {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="image">
-              <FloatingLabel controlId="floatingTextarea2" label="Image Materiel:">
+              <FloatingLabel controlId="floatingTextarea2" label="Image Equipement:">
                 <Form.Control
                   type="file"
                   onChange={onInputChange}
