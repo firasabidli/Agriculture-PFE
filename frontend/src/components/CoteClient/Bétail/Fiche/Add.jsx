@@ -25,7 +25,7 @@ function Add({ onCreate }) {
     if (categoryId === 'bovin') {
       setSubcategories(['Vache', 'Taureau']);
     } else if (categoryId === 'ovin') {
-      setSubcategories(['Mouton', 'chévre']);
+      setSubcategories(['Mouton', 'Chévre']);
     } else if (categoryId === 'volailles') {
       setSubcategories(['Poulet', 'Dinde']);
     } else {

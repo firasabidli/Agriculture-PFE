@@ -1,0 +1,12 @@
+const mongoose = require('mongoose');
+const movementSchema = new mongoose.Schema({
+    Agriculteur:{ type: mongoose.Schema.Types.ObjectId, ref: 'Utilisateur' },
+    AnimalId: { type: mongoose.Schema.Types.ObjectId, ref: 'Animaux' },
+    movementDate: { type: Date, default: Date.now },
+    movementType: String,
+    origin: String,
+    destination: String,
+    price: { type: Number, default: 0 },
+    additionalDetails: String
+});
+module.exports = mongoose.model('MovementBétail', movementSchema);

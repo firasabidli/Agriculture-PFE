@@ -9,7 +9,8 @@ const AnimalSchema = new mongoose.Schema({
     date_naissance :{ type: Date, required: true },
     IdantifiantsAnimal  :{ type: String, required: true, unique: true},
     sexe: { type: String, required: true },
-    HealthState: [{ type: mongoose.Schema.Types.ObjectId, ref: 'HealthState' }]
+    HealthState: [{ type: mongoose.Schema.Types.ObjectId, ref: 'HealthState' }],
+    MovementBétail: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MovementBétail' }]
 });
 
 module.exports = mongoose.model('Animaux', AnimalSchema);

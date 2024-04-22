@@ -23,6 +23,7 @@ const CategorieBetailRouter = require('./Router/Betail/CategorieBetail');
 const BetailRouter = require('./Router/Betail/BetailRouter');
 const FicheAnimalRouter=require('./Router/Betail/FicheAnimal');
 const SanteBetail=require('./Router/Betail/SanteBetail');
+const MouvementBetail = require ('./Router/Betail/MouvementBetail')
 const cors = require('cors');
 const app = express();
 const argon2 = require('argon2');
@@ -98,5 +99,6 @@ app.use('/CategorieBetail', CategorieBetailRouter);
 app.use('/Betail', BetailRouter);
 app.use('/FicheAnimal',FicheAnimalRouter);
 app.use('/SanteBetail',SanteBetail);
+app.use('/MouvementsBetail',MouvementBetail)
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

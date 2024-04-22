@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'; // Importez Axios pour effectuer des appels HTTP
 
-const Update = ({ onUpdate, SanteId, animalId }) => {
+const Update = ({ onUpdate, SanteId }) => {
     const [show, setShow] = useState(false);
     const [etatSante, setEtatSante] = useState('');
     const [maladiesSymptomes, setMaladiesSymptomes] = useState('');
@@ -199,10 +199,10 @@ const Update = ({ onUpdate, SanteId, animalId }) => {
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button  className="bg-secondary" onClick={handleClose}>
                         Fermer
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button className="btn" type="submit" onClick={handleSubmit}>
                         Enregistrer
                     </Button>
                 </Modal.Footer>

@@ -1,7 +1,6 @@
 
 import './PageSanté.css';
 import Navbar from'../../Navbar';
-import ListeSanté from "./ListeSanté";
 import AjouterSanté from "./Ajouter";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
@@ -19,31 +18,98 @@ const PageSanté=()=> {
         console.error('Erreur lors de la récupération des données de santé de l\'agriculteur:', error);
       }
     };
+  
     const formatDate = (dateString) => {
       const dateObject = new Date(dateString);
       const formattedDate = dateObject.toISOString().split("T")[0];
       return formattedDate;
     };
+  
     useEffect(() => {
       fetchSanteByAgriculteur();
+      console.log('Component mounted');
+  scheduleNextCheck();
     }, []);
-      const handleDelete = async (id) => {
-          try {
-              // Afficher une alerte pour demander confirmation
-              const confirmDelete = window.confirm("Voulez-vous vraiment supprimer cet élément ?");
-              if (!confirmDelete) {
-                  return;
-              }
-      
-              const updatedData = healthData.filter(item => item._id !== id);
-              setHealthData(updatedData);
-              await axios.delete(`http://localhost:3001/SanteBetail/${id}`);
-                  fetchSanteByAgriculteur();
-                  
-          } catch (error) {
-              console.error('Erreur lors de la suppression de l\'élément :', error);
-          }
-      };
+  
+    const handleDelete = async (id) => {
+      try {
+        const confirmDelete = window.confirm("Voulez-vous vraiment supprimer cet élément ?");
+        if (!confirmDelete) {
+          return;
+        }
+  
+        const updatedData = healthData.filter(item => item._id !== id);
+        setHealthData(updatedData);
+        await axios.delete(`http://localhost:3001/SanteBetail/${id}`);
+        fetchSanteByAgriculteur();
+      } catch (error) {
+        console.error('Erreur lors de la suppression de l\'élément :', error);
+      }
+    };
+    const checkVaccinationDates = () => {
+      const today = new Date();
+    
+      healthData.forEach((item) => {
+        const vaccinationDate = new Date(item.dateVaccination);
+    
+        // Comparer la date de vaccination avec la date actuelle
+        if (vaccinationDate.getDate() === today.getDate() &&
+            vaccinationDate.getMonth() === today.getMonth() &&
+            vaccinationDate.getFullYear() === today.getFullYear()) {
+          // Afficher une notification pour cette vaccination
+          console.log(`Vaccination due today: ${item.nomVaccin}`);
+          showNotification(`Vaccination due today: ${item.nomVaccin}`);
+        }
+      });
+    
+      // Planifier la prochaine vérification à 00h30 pour le lendemain
+      scheduleNextCheck();
+    };
+    
+    
+  
+    const scheduleNextCheck = () => {
+      const now = new Date();
+      const nextCheckTime = new Date(now);
+    
+      // Définir l'heure à 00h44 à partir de l'heure actuelle
+      nextCheckTime.setHours(1, 14, 0, 0);
+    
+      console.log('Next check time:', nextCheckTime);
+    
+      // Vérifier si l'heure actuelle est déjà passée 00h44 pour aujourd'hui
+      if (now > nextCheckTime) {
+        // Si oui, passer à demain à 00h44
+        nextCheckTime.setDate(now.getDate() + 1);
+      }
+    
+      const timeUntilNextCheck = nextCheckTime - now;
+    
+      console.log('Time until next check:', timeUntilNextCheck);
+    
+      // Utiliser setTimeout pour déclencher la vérification à 00h44
+      setTimeout(() => {
+        console.log('Executing checkVaccinationDates...');
+        checkVaccinationDates();
+      }, timeUntilNextCheck);
+    };
+    
+    
+  
+    const showNotification = (message) => {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Rappel de Vaccination', {
+          body: message,
+        });
+      }
+    };
+  
+    // Demander la permission d'afficher des notifications au chargement initial
+    useEffect(() => {
+      if ('Notification' in window && Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+    }, []);
     return(
         <div>
             <Navbar textColor="black" />
