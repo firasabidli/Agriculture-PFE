@@ -169,7 +169,7 @@ function Update({ onUpdate, agricultureId }) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modifier Culture</Modal.Title>
+          <Modal.Title>Modifier Agriculture</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {agriculture && (

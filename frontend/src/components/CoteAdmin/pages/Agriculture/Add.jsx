@@ -189,7 +189,7 @@ function Add({ onCreate }) {
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Ajouter un materiel</Modal.Title>
+          <Modal.Title>Ajouter un Agriculture</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={submit} id="form">

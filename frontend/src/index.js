@@ -40,8 +40,7 @@ root.render(
           <Route element={<PrivateRoute />} >
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/accueil" element={<PageAccueil />} />
-          </Route>
-                <Route path="/" element={<App />} />
+              <Route path="/" element={<App />} />
                 {/* User Routes */}
                 {/* <Route path="/accueil" element={<PageAccueil />} /> */}
                 <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
@@ -64,6 +63,8 @@ root.render(
                 {/* Admin Routes Bétail */}
                 <Route path="/admin/CategorieBetail" element={<CategorieBetail/>}></Route>
                 <Route path="/admin/Betail" element={<Betail/>}></Route>
+          </Route>
+             
           </Routes>
       </UserProvider>
     </Router>

@@ -67,7 +67,7 @@ function MyModelMedicament(props) {
             <Modal.Body>
                 <form className="form-container">
                     <div>
-                        <label htmlFor="nomMedicament">Nom du médicament :</label>
+                        <label htmlFor="nomMedicament">Nom d'Engrais :</label>
                         <input type="text" id="nomMedicament" value={nomMedicament} onChange={(e) => setNomMedicament(e.target.value)} className="form-input" required />
                     </div>
                     <div>

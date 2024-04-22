@@ -98,7 +98,7 @@ const Medicament = () => {
 			</div>
 			<div className='main-title'>
 				<div className='List-title'>
-					<h5>La Pharmacie de la Terre: Découverte de la Liste des Médicaments Agricoles</h5>
+					<h5>La Pharmacie de la Terre: Découverte de la Liste des Engrais Agricoles</h5>
 					<span className='style-line'></span>
 					<TextField
 						placeholder="rechercher"
@@ -122,7 +122,7 @@ const Medicament = () => {
 							<thead>
 								<tr class="row100 head">
 									<th class="cell100 column0">ID</th>
-									<th class="cell100 column1">Image Medicament</th>
+									<th class="cell100 column1">Image</th>
 									<th class="cell100 column2">Nom</th>
 									<th class="cell100 column3">Description</th>
 									<th class="cell100 column4">modifier</th>

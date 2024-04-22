@@ -67,16 +67,16 @@ function Update({ materielId, onUpdate }) {
       <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modifier Culture</Modal.Title>
+          <Modal.Title>Modifier Equipement</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {materiel && (
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="name">
-                <FloatingLabel controlId="floatingTextarea2" label="Nom du materiel:">
+                <FloatingLabel controlId="floatingTextarea2" label="Nom du Equipement:">
                   <Form.Control
                     type="text"
-                    placeholder="Nom du materiel"
+                    placeholder="Nom du Equipement"
                     defaultValue={materiel.nom}
                     name="name"
                   />
@@ -84,8 +84,8 @@ function Update({ materielId, onUpdate }) {
               </Form.Group>
               
 
-              <Form.Group className="mb-3" controlId="image_culture">
-                <Form.Label>Image Culture:</Form.Label>
+              <Form.Group className="mb-3" controlId="image_Equipement">
+                <Form.Label>Image Equipement:</Form.Label>
                 <Form.Control type="file" onChange={handleImageChange} />
               </Form.Group>
 
