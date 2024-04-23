@@ -9,7 +9,7 @@ import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/CoteClient/css/style.css';
-import logo from "../../assets/images/logo.jpg";
+import logo from "../../assets/images/logo1.png";
 import axios from 'axios';
 import { useUser } from '../UserContext';
 const MyNavbar = ({ textColor }) => {
