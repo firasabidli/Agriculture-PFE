@@ -37,18 +37,10 @@ root.render(
     <Router>
       <UserProvider>
         <Routes>
-          <Route element={<PrivateRoute />} >
-              <Route path="/admin/dashboard" element={<Dashboard />} />
-              <Route path="/accueil" element={<PageAccueil />} />
-              
-                {/* User Routes */}
-                {/* <Route path="/accueil" element={<PageAccueil />} /> */}
-                <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
-                <Route  path="/betail/:betailId" component={InfoBetail} element={<InfoBetail />} />
-                      {/* Admin Routes */}
-                {/* <Route path="/admin/dashboard" element={<Dashboard/>} /> */}
-                <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
-                {/* Admin Routes Agriculture */}
+        <Route element={<PrivateRoute allowedRoles={['Admin']} />}>
+                <Route path="/admin/dashboard" element={<Dashboard />} />
+                <Route path="/admin/CategorieBetail" element={<CategorieBetail/>}></Route>
+                <Route path="/admin/Betail" element={<Betail/>}></Route>
                 <Route path="/admin/Methodestock" element={<MethodeStock />} />
                 <Route path="/admin/MedicamentCulture" element={<Medicament />} />
                 <Route path="/admin/Materiel" element={<Materiel />} />
@@ -56,14 +48,18 @@ root.render(
                 <Route path="/admin/Agricultures" element={<Agricultures />} />
                 <Route path="/admin/Profile" element={<Profile />} />
                 <Route path="/admin/ActiverCompte" element={<ActiverCompte />} />
-                {/* bétail */}
+         </Route>
+
+            <Route element={<PrivateRoute allowedRoles={['Agriculteur']} />}>
+                <Route path="/accueil" element={<PageAccueil />} />
+                <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
+                <Route  path="/betail/:betailId" component={InfoBetail} element={<InfoBetail />} />
                 <Route path="/agriculteur/FicheAnimal" element={<ListAnimal/>}/>
                 <Route path="/agriculteur/PageSante/:id" element={<PageSanté/>}></Route>
                 <Route path="/agriculteur/PageMouvement/:id" element={<PageMouvement/>}></Route>
-                {/* Admin Routes Bétail */}
-                <Route path="/admin/CategorieBetail" element={<CategorieBetail/>}></Route>
-                <Route path="/admin/Betail" element={<Betail/>}></Route>
-          </Route>
+                <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
+            </Route>
+
           <Route path="/" element={<App />} />
           </Routes>
       </UserProvider>
