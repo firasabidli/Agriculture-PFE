@@ -139,7 +139,13 @@ function Add({ onCreate }) {
     Object.keys(selectedMedicaments).forEach(medicamentId => {
       formData.append('MedicamentsCulture[]', medicamentId);
     });
+    const isValidnom = /^[a-zA-Z\s]+$/.test(nom_agriculture);
+    const isValiddescription= /^[a-zA-Z\s]+$/.test(description);
 
+  if (!isValidnom || !isValiddescription) {
+    alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
+    return;
+  }
     try {
       const result = await axios.post(
         "http://localhost:3001/Agriculture",

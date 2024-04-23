@@ -23,6 +23,13 @@ function Add({ onCreate }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const isValidnom = /^[a-zA-Z\s]+$/.test(nom_categorie);
+      const isValiddescription= /^[a-zA-Z\s]+$/.test(description);
+
+    if (!isValidnom || !isValiddescription) {
+      alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
+      return;
+    }
       const response = await axios.post('http://localhost:3001/Categorie', {
         nom_categorie,
         description
