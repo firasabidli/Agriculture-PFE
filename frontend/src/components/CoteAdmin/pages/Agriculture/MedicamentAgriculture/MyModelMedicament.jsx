@@ -29,6 +29,13 @@ function MyModelMedicament(props) {
             const formData = new FormData();
             formData.append('nomMedicament', nomMedicament);
             formData.append('description', description);
+            const isValidnom = /^[a-zA-Z\s]+$/.test(nomMedicament);
+            const isValiddescription= /^[a-zA-Z\s]+$/.test(description);
+      
+          if (!isValidnom || !isValiddescription) {
+            alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
+            return;
+          }
             formData.append('image', newImage || image);
             if (props.formData) {
                 // Modifier

@@ -82,7 +82,13 @@ function Add({ onCreate }) {
   };
   const submit = async (e) => {
     e.preventDefault();
+    const isValidnom = /^[a-zA-Z\s]+$/.test(nom_betail);
+    const isValidrace= /^[a-zA-Z\s]+$/.test(race);
 
+  if (!isValidnom || !isValidrace) {
+    alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
+    return;
+  }
     const formData = new FormData();
     formData.append('id_categorie', selectedCategory);
     formData.append("nom_betail", nom_betail);

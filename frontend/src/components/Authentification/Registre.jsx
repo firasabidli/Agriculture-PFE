@@ -37,10 +37,29 @@ const RegistreForm = () => {
         alert("Veuillez remplir tous les champs.");
         return;
       }
+      const isValidCin = /^[0-9]+$/.test(formData.cin);
+      const isValidPhone = /^[0-9]+$/.test(formData.numeroTelephone);
+      if (!isValidCin || !isValidPhone) {
+        alert("Les champs CIN et numéro de téléphone ne doivent contenir que des chiffres.");
+        return;
+      }
       if(formData.cin.length !==8 || formData.numeroTelephone.length !==8){
         alert("Veuillez verifier le taille le cin ou numero du telephone.");
         return;
       }
+      const isValidPassword = /^[a-zA-Z0-9\s]+$/.test(formData.password);
+      const isValidConfirmPassword = /^[a-zA-Z0-9\s]+$/.test(formData.confirmPassword);
+
+    if (!isValidPassword || !isValidConfirmPassword) {
+      alert('Le champ password ne doit contenir que des lettres, des chiffres et des espaces.');
+      return;
+    }
+
+    // Validation de la longueur minimale du mot de passe
+    if (formData.password.length < 7 || formData.confirmPassword.length < 7) {
+      alert("Le mot de passe doit contenir au moins 7 caractères.");
+      return;
+    }
     if (formData.password !== formData.confirmPassword) {
       alert("Les mots de passe ne correspondent pas.");
       return;
