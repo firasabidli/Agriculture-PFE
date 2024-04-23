@@ -20,6 +20,7 @@ import Categories from './components/CoteAdmin/pages/Agriculture/CategoriesAgric
 import Agricultures from './components/CoteAdmin/pages/Agriculture/Agricultures.jsx';
 import Dashboard from './components/CoteAdmin/Dashboard.jsx';
 import PrivateRoute from './components/PrivateRoute.js';
+import PrivateRouteApp from './components/PrivateRouteApp.js';
 import { UserProvider } from './components/UserContext.js';
 import Profile from './components/CoteAdmin/pages/Profile/Profile.jsx';
 import ActiverCompte from './components/CoteAdmin/pages/Agriculteurs/ActiverComptesAgriculteurs/ActiverCompte.jsx';
@@ -59,8 +60,10 @@ root.render(
                 <Route path="/agriculteur/PageMouvement/:id" element={<PageMouvement/>}></Route>
                 <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
             </Route>
-
+          
           <Route path="/" element={<App />} />
+
+        
           </Routes>
       </UserProvider>
     </Router>
