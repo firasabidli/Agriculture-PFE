@@ -114,7 +114,6 @@ const PageSanté=()=> {
         <div>
             <Navbar textColor="black" />
             <div class="container" style={{marginTop:"9%"}}>
-
 <div class="row" >
     <div class="col-xl-8">
         <h4>Liste de suivi de santé</h4>
@@ -177,7 +176,7 @@ const PageSanté=()=> {
 </div>
 {/* <!-- end row --> */}
 </div>
-        </div>
+</div>
 
     );
 };

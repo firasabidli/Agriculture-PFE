@@ -228,3 +228,14 @@ a {
     font-size: 13px;
     font-weight: 500
 }
+@media (max-width: 870px) {
+    .container {
+        min-height: 800px;
+        height: 100vh;
+      }
+}
+@media (max-width: 570px) {
+    .container {
+        padding: -1px;
+      }
+}
