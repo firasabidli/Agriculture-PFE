@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const EngraisController = require('../../Controller/ProductionAgriculture/historiqueEngrais');
+const authenticateUser= require('../../Controller/Authentification/authenticateUser');
+router.post('/', authenticateUser,EngraisController.create);
+router.get('/:id',EngraisController.get);
+// router.delete('/:id',SanteBetailController.delete);
+// router.put('/:id',SanteBetailController.update);
+// router.get('/sante/:id',SanteBetailController.getSanteById);
+module.exports = router;

@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const AgricultureController = require('../../Controller/ProductionAgriculture/ListeAgriculture');
+const authenticateUser= require('../../Controller/Authentification/authenticateUser');
+router.post('/', authenticateUser,AgricultureController.create);
+router.get('/',authenticateUser,AgricultureController.getAgricultureByAgriculteur);
+router.get('/all',AgricultureController.all);
+router.delete('/:id',AgricultureController.delete);
+router.put('/:id', AgricultureController.update);
+router.get('/:id',AgricultureController.getById);
+module.exports = router;

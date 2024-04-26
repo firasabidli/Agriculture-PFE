@@ -8,7 +8,7 @@ const Activity = ({ animaux }) => {
   let countVolailles = 0;
   let countTaureau =0;
   let countDinde=0;
-
+let res=0
   // Parcourir les animaux pour compter chaque espèce
   animaux.forEach((animal) => {
     switch (animal.subCategorieBetail) {
@@ -33,12 +33,13 @@ const Activity = ({ animaux }) => {
       default:
         break;
     }
+    res=countChevres+countDinde+countMoutons+countTaureau+countVaches+countVolailles;
   });
   return (
     <div>
             <div class="bg-white mb-3">
               <h4 class="px-3 py-4 op-5 m-0">
-                Active Topics
+                Les Activités
               </h4>
               <hr class="m-0"/>
               <div class="pos-relative px-3 py-3">
@@ -66,18 +67,22 @@ const Activity = ({ animaux }) => {
               <hr class="m-0"/>
             </div>
             <div class="bg-white text-sm">
+              <div style={{display:"flex"}}>
               <h4 class="px-3 py-4 op-5 m-0 roboto-bold">
-                Stats
+                Stat
               </h4>
+              <h4 class="px-3 py-4 op-5 roboto-bold"style={{marginLeft:"50%"}}>
+                Total= {res}
+              </h4>
+              </div>
               <hr class="my-0"/>
-             
               <div class="row text-center d-flex flex-row op-7 mx-0">
                 <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a class="d-block lead font-weight-bold" href="x">{countVaches}</a> Vaches </div>
                 <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a class="d-block lead font-weight-bold" href="x">{countTaureau}</a> Taureau </div>
               </div>
-              <div class="row d-flex flex-row op-7">
-               <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a class="d-block lead font-weight-bold" href="x">{countChevres}</a> chévre </div>
-               <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a class="d-block lead font-weight-bold" href="x">{countMoutons}</a> Moutons </div>
+              <div class="row d-flex flex-row op-7 mx-0">
+               <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a class="d-block lead font-weight-bold" href="x">{countChevres}</a> chévre </div>
+               <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a class="d-block lead font-weight-bold" href="x">{countMoutons}</a> Moutons </div>
                </div>
                <div class="row d-flex flex-row op-7">
                <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a class="d-block lead font-weight-bold" href="x">{countVolailles}</a> Poulet </div>

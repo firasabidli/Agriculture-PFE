@@ -23,7 +23,10 @@ const CategorieBetailRouter = require('./Router/Betail/CategorieBetail');
 const BetailRouter = require('./Router/Betail/BetailRouter');
 const FicheAnimalRouter=require('./Router/Betail/FicheAnimal');
 const SanteBetail=require('./Router/Betail/SanteBetail');
-const MouvementBetail = require ('./Router/Betail/MouvementBetail')
+const MouvementBetail = require ('./Router/Betail/MouvementBetail');
+//ProductionAgriculture
+const ListeAgriculture= require('./Router/ProductionAgriculture/FicheAgriculture');
+const historiqueEngrais=require('./Router/ProductionAgriculture/historiqueEngrais');
 const cors = require('cors');
 const app = express();
 const argon2 = require('argon2');
@@ -100,5 +103,8 @@ app.use('/Betail', BetailRouter);
 app.use('/FicheAnimal',FicheAnimalRouter);
 app.use('/SanteBetail',SanteBetail);
 app.use('/MouvementsBetail',MouvementBetail)
+//ProductionAgriculture
+app.use('/ListeAgriculture',ListeAgriculture);
+app.use('/HistoriqueEngrais',historiqueEngrais);
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

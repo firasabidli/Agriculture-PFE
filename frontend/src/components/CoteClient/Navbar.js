@@ -22,6 +22,7 @@ const MyNavbar = ({ textColor }) => {
   const [SaisonData, setSaisonData] = useState([]);
   const [culturesSaison, setCulturesSaison] = useState([]);
   const [showList, setShowList] = useState(false);
+  const [showListPro, setShowListPro] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [categorieList,setCategorieList]=useState(false);
   const [categorieBetailList,setCategorieBetailList]=useState(false);
@@ -95,6 +96,9 @@ const MyNavbar = ({ textColor }) => {
     if (!showList) {
       fetchCategories();
     }
+  };
+  const handleProClick = () => {
+    setShowListPro(!showListPro);
   };
 const handleCategorieClick =()=>{
   setCategorieList(!categorieList);
@@ -196,17 +200,17 @@ const handleCategorieBetailClick =()=>{
                     </Nav.Link>
                   </li>
                   <li className="nav-item">
-                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick} style={{ color: textColor }}>
+                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick} style={{ color: textColor,cursor:"pointer" }}>
                     <FaLeaf /><span>Agriculture</span>
                   </div>
                 {/* <div style={{position:'relative'}}> */}
                   {showList && (
                     <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
                       <li>
-                      <span className="dropdown-item-title" style={{fontWeight:"bold"}}>Filtrer par</span>
+                      <span className="dropdown-item-title" style={{fontWeight:"bold",cursor:"pointer"}}>Filtrer par</span>
                     </li>
                   <li>
-                    <span className="dropdown-item-title" style={{fontWeight:"bold"}} onClick={handleCategorieClick}>Catégorie</span>
+                    <span className="dropdown-item-title" style={{fontWeight:"bold",cursor:"pointer"}} onClick={handleCategorieClick}>Catégorie</span>
                   </li>
                   {categorieList && (
                   <ul  style={{ top: isScrolled ? '70px' : '120px',zIndex: 1 }}>
@@ -221,7 +225,7 @@ const handleCategorieBetailClick =()=>{
                   </ul>
                   )}
                        <li>
-                        <span className="dropdown-item-title" onClick={handleSaisonClick} style={{fontWeight:"bold"}}>Saison</span>
+                        <span className="dropdown-item-title" onClick={handleSaisonClick} style={{fontWeight:"bold",cursor:"pointer"}}>Saison</span>
                       </li>
                       {saisonList && (
                   <ul  style={{ top: isScrolled ? '70px' : '120px',zIndex: 1 }}>
@@ -258,7 +262,7 @@ const handleCategorieBetailClick =()=>{
                   {/* </div> */}
                 </li>
                 <li className="nav-item">
-                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick} style={{ color: textColor }}>
+                  <div className={`nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} onClick={handleTitleClick} style={{ color: textColor ,cursor:"pointer"}}>
                   <SiHappycow />Bétail
                   </div>
                 {/* <div style={{position:'relative'}}> */}
@@ -266,7 +270,7 @@ const handleCategorieBetailClick =()=>{
                     <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
                      
                   <li>
-                    <span className="dropdown-item-title" style={{fontWeight:"bold"}} onClick={handleCategorieBetailClick}>Catégorie</span>
+                    <span className="dropdown-item-title" style={{fontWeight:"bold",cursor:"pointer"}} onClick={handleCategorieBetailClick}>Catégorie</span>
                   </li>
                   {categorieBetailList && (
                   <ul  style={{ top: isScrolled ? '70px' : '120px',zIndex: 1 }}>
@@ -300,9 +304,23 @@ const handleCategorieBetailClick =()=>{
 
                 
                   <li>
-                    <Nav.Link as={Link} to="/agriculteur/FicheAnimal" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor }}>
-                    <GiCow style={{fontSize:'35px'}}/> FicheAnimal
+                  <div className={`nav-link ms-3  ${isScrolled ? 'text-black' : ''}`} onClick={handleProClick} style={{ color: textColor,cursor:"pointer" }}>
+                  <span>Production</span>
+                </div>
+                  {showListPro && (
+                  <ul className="dropdown-menu position-fixed d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
+                    <li>
+                    <Nav.Link as={Link} to="/agriculteur/FicheAnimal" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor,cursor:"pointer" }}>
+                    <span className="dropdown-item rounded-2" style={{fontWeight:"bold",cursor:"pointer"}}>FicheAnimal</span> 
                     </Nav.Link>
+                    </li>
+                    <li>
+                    <Nav.Link as={Link} to="/agriculteur/FicheAgriculture" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor,cursor:"pointer" }}>
+                     <span className='dropdown-item rounded-2'style={{fontWeight:"bold",cursor:"pointer"}}>Production Agriculture </span>
+                    </Nav.Link>
+                    </li>
+                  </ul>
+                  )}
                   </li>
               </ul>
               <div className="d-none d-lg-flex ms-2">
