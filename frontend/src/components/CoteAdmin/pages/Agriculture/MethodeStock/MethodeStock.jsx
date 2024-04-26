@@ -121,7 +121,7 @@ const MethodeStock = () => {
 											<tr>
 												<th>ID no.</th>
 												<th>image_MethodStock</th>
-												<th>Title</th>
+												<th>Titre</th>
 												<th>description</th>
 												<th>Action</th>
 											</tr>

@@ -34,8 +34,8 @@ function MyModelAjouterStock(props) {
             const formData = new FormData();
             formData.append('title', title);
             formData.append('description', description);
-            const isValidnom = /^[a-zA-Z\s]+$/.test(title);
-            const isValiddescription= /^[a-zA-Z\s]+$/.test(description);
+            const isValidnom = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(title);
+            const isValiddescription= /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(description);
       
           if (!isValidnom || !isValiddescription) {
             alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');

@@ -83,9 +83,9 @@ function Add({ onCreate }) {
   const submit = async (e) => {
     e.preventDefault();
     const isValidnom = /^[a-zA-Z\s]+$/.test(nom_betail);
-    const isValidrace= /^[a-zA-Z\s]+$/.test(race);
+    // const isValidrace= /^[a-zA-Z\s]+$/.test(race);
 
-  if (!isValidnom || !isValidrace) {
+  if (!isValidnom ) {
     alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
     return;
   }
