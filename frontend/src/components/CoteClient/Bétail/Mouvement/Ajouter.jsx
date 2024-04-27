@@ -26,7 +26,7 @@ const Ajouter = ({ onCreate }) => {
     e.preventDefault();
 
     try {
-      const isValiddestination= /^[a-zA-Z\s]+$/.test(movementData.destination);
+      const isValiddestination= /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(movementData.destination);
       if (!isValiddestination) {
         alert('Le champ destination ne doit contenir que des lettres et des espaces.');
         return;

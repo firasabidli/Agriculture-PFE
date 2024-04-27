@@ -4,7 +4,7 @@ const EngraisController = require('../../Controller/ProductionAgriculture/histor
 const authenticateUser= require('../../Controller/Authentification/authenticateUser');
 router.post('/', authenticateUser,EngraisController.create);
 router.get('/:id',EngraisController.get);
-// router.delete('/:id',SanteBetailController.delete);
-// router.put('/:id',SanteBetailController.update);
-// router.get('/sante/:id',SanteBetailController.getSanteById);
+router.delete('/:id',EngraisController.delete);
+router.put('/:id',EngraisController.update);
+router.get('/engrais/:id',EngraisController.getById);
 module.exports = router;

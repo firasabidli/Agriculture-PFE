@@ -14,18 +14,22 @@ const engraisHistoriqueSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  unite: {
+    type:String,required:true
+  },
   dateApplication: {
     type: Date,
     required: true
   },
-  champ: {
+  nom: {
     type: String,
     required: true
   },
   prix: {
     type: Number,
     required: true
-  }
+  },
+  prixTotalPro: {type:Number,required:true}
 });
 
 const EngraisHistorique = mongoose.model('EngraisHistorique', engraisHistoriqueSchema);
