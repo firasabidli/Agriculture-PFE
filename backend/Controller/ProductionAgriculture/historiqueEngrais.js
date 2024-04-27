@@ -34,3 +34,46 @@ exports.get = async (req, res) => {
         res.status(500).json({ message: 'Erreur lors de la récupération des données de engrais.' });
       }
     };
+//delete
+exports.delete=async(req,res)=>{
+  try {
+    const id = req.params.id;
+    const deletedItem = await Engrais.findByIdAndDelete(id);
+    if (!deletedItem) {
+      return res.status(404).json({ message: 'L\'élément à supprimer est introuvable.' });
+    }
+    res.status(200).json({ message: 'L\'élément a été supprimé avec succès.' });
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'élément :', error);
+    res.status(500).json({ message: 'Erreur lors de la suppression de l\'élément.' });
+  }
+};
+//update
+exports.update = async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
+console.log(updateData)
+  try {
+    const updatedData = await Engrais.findByIdAndUpdate(id, updateData, { new: true });
+
+    if (!updatedData) {
+      return res.status(404).json({ message: "Données  non trouvées" });
+    }
+
+    res.status(200).json(updatedData);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour des données de santé :", error);
+    res.status(500).json({ message: "Erreur lors de la mise à jour des données de santé" });
+  }
+};
+exports.getById = async (req, res) => {
+  try {
+    const engrais = await Engrais.findById(req.params.id);
+    if (!engrais) {
+      return res.status(404).json({ success: false, message: 'culture n est pas trouver' });
+    }
+    res.status(200).json({engrais});
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
