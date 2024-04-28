@@ -33,6 +33,7 @@ import PageSanté from './components/CoteClient/Bétail/SanteBétail/PageSanté.
 import PageMouvement from './components/CoteClient/Bétail/Mouvement/PageMouvement.jsx';
 import ListAgriculture from './components/CoteClient/Agriculture/Fiche/ListeAgriculture.jsx';
 import PageEngrais from './components/CoteClient/Agriculture/HistoriqueEngrais/PageEngrais.jsx';
+import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -54,6 +55,7 @@ root.render(
 
             <Route element={<PrivateRoute allowedRoles={['Agriculteur']} />}>
                 <Route path="/accueil" element={<PageAccueil />} />
+                <Route path="/meteo" element={<Meteo/>} />
                 <Route  path="/culture/:cultureId" component={InfoCulture} element={<InfoCulture />} />
                 <Route  path="/betail/:betailId" component={InfoBetail} element={<InfoBetail />} />
                 <Route path="/agriculteur/FicheAnimal" element={<ListAnimal/>}/>

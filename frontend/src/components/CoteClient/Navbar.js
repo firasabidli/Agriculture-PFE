@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 //import { Navbar as BootstrapNavbar } from 'react-bootstrap';
 import { GiCow } from 'react-icons/gi';
 import { SiHappycow } from "react-icons/si";
+import { TiWeatherPartlySunny } from "react-icons/ti";
 import { Nav, Modal } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaShoppingBag, FaHome, FaLeaf, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -327,6 +328,9 @@ const handleCategorieBetailClick =()=>{
                 <button className='rounded-circle btn-sm-square bg-white ms-3'>
                   <FaSearch className="text-body"  onClick={handleModalShow} />
                 </button>
+                <Link to="/meteo" className='rounded-circle btn-sm-square bg-white ms-3 text-dark pt-1 fs-4'>
+                 <TiWeatherPartlySunny />
+                </Link>
                 
               <div>
             <div className='rounded-circle btn-sm-square bg-white ms-3' onClick={handleProfileClick}>
