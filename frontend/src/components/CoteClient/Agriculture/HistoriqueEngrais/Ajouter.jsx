@@ -5,51 +5,47 @@ import axios from 'axios';
 const AjouterEngrais = ({ onCreate }) => {
     const { id } = useParams();
     const now = new Date();
-    const [engraisData, setEngraisData] = useState({
-        idCulture: id,
-        dateApplication: new Date(now).toISOString().split("T")[0],
-        nom: "",
-        type: "",
-        quantite: "",
-        prix: "",
-        unite: "kg", 
-        
-    });
-
+    const [dateApplication, setDateApplication] = useState(new Date(now).toISOString().split("T")[0]);
+    const [unite, setUnite] = useState("kg");
+    const [nom, setNom] = useState("");
+    const [type,setType]=useState("");
+    const [quantite,setQuantite]=useState("");
+    const [prix,setprix]=useState("");
+    const [prixTotalPro,setTotalPro]=useState(0);
     
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setEngraisData({
-            ...engraisData,
-            [name]: value,
-        });
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { quantite, prix } = engraisData;
-        const prixtotal= quantite * prix;
+        // const { quantite, prix } = engraisData;
+        
         try {
-            if (!engraisData.type || !engraisData.quantite || !engraisData.prix || !engraisData.nom) {
+            if (!type || !quantite || !prix || !nom) {
                 alert('Veuillez remplir tous les champs.');
                 return;
             }
 
-            const isValidType = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(engraisData.type);
-            if (!isValidType) {
-                alert('Le type d\'engrais ne doit contenir que des lettres et des espaces.');
+            const isValidnom = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(nom);
+            if (!isValidnom) {
+                alert('Le nom d\'engrais ne doit contenir que des lettres et des espaces.');
                 return;
             }
 
             const authToken = localStorage.getItem("authToken");
             const userId = localStorage.getItem("user")._id;
-
+            const prixTotalPro=quantite * prix;
             const formData = {
                 Agriculteur: userId,
-                prixTotalPro: prixtotal,
-                ...engraisData,
+                idCulture: id,
+                prixTotalPro: prixTotalPro,
+                dateApplication:dateApplication,
+                unite:unite,
+                nom:nom,
+                type:type,
+                quantite:quantite,
+                prix:prix
             };
-console.log(formData.idCulture)
+            console.log("data", formData.dateApplication);
+
             const response = await axios.post(
                 "http://localhost:3001/HistoriqueEngrais/",
                 formData,
@@ -61,15 +57,13 @@ console.log(formData.idCulture)
                 }
             );
             alert('Engrais ajouté avec succès !');
-            setEngraisData({
-                dateApplication: "",
-                nom: "",
-                type: "",
-                quantite: "",
-                unite:"",
-                prix: "",
-                prixTotalPro:0
-            });
+            setDateApplication(new Date(now).toISOString().split("T")[0]);
+            setUnite("kg");
+            setNom("");
+            setType("")
+            setQuantite("");
+            setTotalPro(0);
+            setprix("");
             onCreate();
             console.log("Réponse du serveur :", response.data);
         } catch (error) {
@@ -88,8 +82,8 @@ console.log(formData.idCulture)
                             type="text"
                             className="form-control"
                             name="nom"
-                            value={engraisData.nom}
-                            onChange={handleInputChange}
+                            value={nom}
+                            onChange={(e) => setNom(e.target.value)}
                             required
                         />
                     </div>
@@ -98,8 +92,8 @@ console.log(formData.idCulture)
                         <select
                             className="form-control"
                             name="type"
-                            value={engraisData.type}
-                            onChange={handleInputChange}
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
                             required
                         >
                             <option value="">Sélectionner le type de produit</option>
@@ -113,8 +107,9 @@ console.log(formData.idCulture)
                             type="date"
                             className="form-control"
                             name="dateApplication"
-                            value={engraisData.dateApplication}
-                            onChange={handleInputChange}
+                            value={dateApplication}
+                            onChange={(e) => setDateApplication(e.target.value)}
+                            // onChange={handleInputChange}
                             required
                         />
                     </div>
@@ -125,9 +120,10 @@ console.log(formData.idCulture)
                            type="number"
                             className="form-control"
                             name="quantite"
-                            value={engraisData.quantite}
+                            value={quantite}
                             // onChange={handleQuantiteChange}
-                            onChange={handleInputChange}
+                            //onChange={handleInputChange}
+                            onChange={(e) => setQuantite(e.target.value)}
                             required
                         />
                         </div>
@@ -136,8 +132,8 @@ console.log(formData.idCulture)
                         <select
                             className="form-control"
                             name="unite"
-                            value={engraisData.unite}
-                            onChange={handleInputChange}
+                            value={unite}
+                            onChange={(e) => setUnite(e.target.value)}
                         >
                             <option value="kg">kg</option>
                             <option value="g">g</option>
@@ -154,9 +150,10 @@ console.log(formData.idCulture)
                             type="number"
                             className="form-control"
                             name="prix"
-                            value={engraisData.prix}
+                            value={prix}
+                            onChange={(e) => setprix(e.target.value)}
                             // onChange={handlePrixChange}
-                            onChange={handleInputChange}
+                            // onChange={handleInputChange}
                             required
                         />
                     </div>

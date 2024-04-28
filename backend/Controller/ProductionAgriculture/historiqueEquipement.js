@@ -1,4 +1,4 @@
-const Engrais= require('../../Model/ProductionAgriculture/historiqueEngrais');
+const Equipement= require('../../Model/ProductionAgriculture/historiqueEquipement');
 // ajouter
 exports.create= async(req,res)=>{
    
@@ -8,8 +8,8 @@ exports.create= async(req,res)=>{
           Agriculteur: agriculteurId,
           ...req.body,
         };
-    // console.log(newData);
-        const newState = new Engrais(newData);
+    console.log(newData);
+        const newState = new Equipement(newData);
         const savedState = await newState.save();
     
         res.status(201).json(savedState);
@@ -22,7 +22,7 @@ exports.create= async(req,res)=>{
 exports.get = async (req, res) => {
       try {
         const cultureId = req.params.id;
-        const States = await Engrais.find({ idCulture: cultureId });
+        const States = await Equipement.find({ idCulture: cultureId });
     
         if (!States || States.length === 0) {
           return res.status(404).json({ message: 'Aucune donnée  trouvée pour cet culture.' });
@@ -30,7 +30,7 @@ exports.get = async (req, res) => {
     
         res.status(200).json(States);
       } catch (error) {
-        console.error('Erreur lors de la récupération des données de engrais par culture :', error);
+        console.error('Erreur lors de la récupération des données d Equipement par culture :', error);
         res.status(500).json({ message: 'Erreur lors de la récupération des données de engrais.' });
       }
     };
@@ -38,7 +38,7 @@ exports.get = async (req, res) => {
 exports.delete=async(req,res)=>{
   try {
     const id = req.params.id;
-    const deletedItem = await Engrais.findByIdAndDelete(id);
+    const deletedItem = await Equipement.findByIdAndDelete(id);
     if (!deletedItem) {
       return res.status(404).json({ message: 'L\'élément à supprimer est introuvable.' });
     }
@@ -54,7 +54,7 @@ exports.update = async (req, res) => {
   const updateData = req.body;
 console.log(updateData)
   try {
-    const updatedData = await Engrais.findByIdAndUpdate(id, updateData, { new: true });
+    const updatedData = await Equipement.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedData) {
       return res.status(404).json({ message: "Données  non trouvées" });
@@ -62,17 +62,17 @@ console.log(updateData)
 
     res.status(200).json(updatedData);
   } catch (error) {
-    console.error("Erreur lors de la mise à jour des données de santé :", error);
-    res.status(500).json({ message: "Erreur lors de la mise à jour des données de santé" });
+    console.error("Erreur lors de la mise à jour des données  :", error);
+    res.status(500).json({ message: "Erreur lors de la mise à jour des données " });
   }
 };
 exports.getById = async (req, res) => {
   try {
-    const engrais = await Engrais.findById(req.params.id);
-    if (!engrais) {
+    const Equipements = await Equipement.findById(req.params.id);
+    if (!Equipements) {
       return res.status(404).json({ success: false, message: 'culture n est pas trouver' });
     }
-    res.status(200).json({engrais});
+    res.status(200).json({Equipements});
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
