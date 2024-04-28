@@ -28,6 +28,7 @@ const MouvementBetail = require ('./Router/Betail/MouvementBetail');
 const ListeAgriculture= require('./Router/ProductionAgriculture/FicheAgriculture');
 const historiqueEngrais=require('./Router/ProductionAgriculture/historiqueEngrais');
 const historiqueEquipement=require('./Router/ProductionAgriculture/historiqueEquipement');
+const historiqueMainOeuvre=require('./Router/ProductionAgriculture/historiqueMainOeuvre');
 const cors = require('cors');
 const app = express();
 const argon2 = require('argon2');
@@ -108,6 +109,6 @@ app.use('/MouvementsBetail',MouvementBetail)
 app.use('/ListeAgriculture',ListeAgriculture);
 app.use('/HistoriqueEngrais',historiqueEngrais);
 app.use('/HistoriqueEquipement',historiqueEquipement);
-
+app.use('/HistoriqueMainOeuvre',historiqueMainOeuvre);
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

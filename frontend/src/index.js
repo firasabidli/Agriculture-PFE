@@ -33,6 +33,7 @@ import PageSanté from './components/CoteClient/Bétail/SanteBétail/PageSanté.
 import PageMouvement from './components/CoteClient/Bétail/Mouvement/PageMouvement.jsx';
 import ListAgriculture from './components/CoteClient/Agriculture/Fiche/ListeAgriculture.jsx';
 import PageEquipement from './components/CoteClient/Agriculture/HistoriqueEquipement/PageEquipement.jsx';
+import PageMainOeuvre from './components/CoteClient/Agriculture/HistoriqueMainOeuvre/PageMainOeuvre.jsx';
 import PageEngrais from './components/CoteClient/Agriculture/HistoriqueEngrais/PageEngrais.jsx';
 import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -66,6 +67,7 @@ root.render(
                 <Route path="/agriculteur/FicheAgriculture" element={<ListAgriculture/>}></Route>
                 <Route path="/agriculteur/historique/Engrais/:id" element={<PageEngrais/>}></Route>
                 <Route path="/agriculteur/historique/Equipement/:id" element={<PageEquipement/>}></Route>
+                <Route path="/agriculteur/historique/MainOeuvre/:id" element={<PageMainOeuvre/>}></Route>
             </Route>
           
           <Route path="/" element={<App />} />
