@@ -1,4 +1,4 @@
-const Equipement= require('../../Model/ProductionAgriculture/historiqueEquipement');
+const Irrigation= require('../../Model/ProductionAgriculture/historiqueIrrugation');
 // ajouter
 exports.create= async(req,res)=>{
    
@@ -9,12 +9,12 @@ exports.create= async(req,res)=>{
           ...req.body,
         };
     //console.log(newData);
-        const newState = new Equipement(newData);
+        const newState = new Irrigation(newData);
         const savedState = await newState.save();
     
         res.status(201).json(savedState);
       } catch (error) {
-        console.error('Erreur lors de l\'enregistrement :', error);
+        console.error('Erreur lors de l\'enregistrement:', error);
         res.status(500).json({ message: 'Erreur lors de l\'enregistrement.' });
       }
     }
@@ -22,7 +22,7 @@ exports.create= async(req,res)=>{
 exports.get = async (req, res) => {
       try {
         const cultureId = req.params.id;
-        const States = await Equipement.find({ idCulture: cultureId });
+        const States = await Irrigation.find({ idCulture: cultureId });
     
         if (!States || States.length === 0) {
           return res.status(404).json({ message: 'Aucune donnée  trouvée pour cet culture.' });
@@ -30,7 +30,7 @@ exports.get = async (req, res) => {
     
         res.status(200).json(States);
       } catch (error) {
-        console.error('Erreur lors de la récupération des données d Equipement par culture :', error);
+        console.error('Erreur lors de la récupération des données d Irrigation par culture :', error);
         res.status(500).json({ message: 'Erreur lors de la récupération des données de engrais.' });
       }
     };
@@ -38,7 +38,7 @@ exports.get = async (req, res) => {
 exports.delete=async(req,res)=>{
   try {
     const id = req.params.id;
-    const deletedItem = await Equipement.findByIdAndDelete(id);
+    const deletedItem = await Irrigation.findByIdAndDelete(id);
     if (!deletedItem) {
       return res.status(404).json({ message: 'L\'élément à supprimer est introuvable.' });
     }
@@ -54,7 +54,7 @@ exports.update = async (req, res) => {
   const updateData = req.body;
 console.log(updateData)
   try {
-    const updatedData = await Equipement.findByIdAndUpdate(id, updateData, { new: true });
+    const updatedData = await Irrigation.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedData) {
       return res.status(404).json({ message: "Données  non trouvées" });
@@ -68,11 +68,11 @@ console.log(updateData)
 };
 exports.getById = async (req, res) => {
   try {
-    const Equipements = await Equipement.findById(req.params.id);
-    if (!Equipements) {
+    const Irrigations = await Irrigation.findById(req.params.id);
+    if (!Irrigations) {
       return res.status(404).json({ success: false, message: 'culture n est pas trouver' });
     }
-    res.status(200).json({Equipements});
+    res.status(200).json({Irrigations});
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
