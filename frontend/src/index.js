@@ -36,6 +36,7 @@ import PageEquipement from './components/CoteClient/Agriculture/HistoriqueEquipe
 import PageMainOeuvre from './components/CoteClient/Agriculture/HistoriqueMainOeuvre/PageMainOeuvre.jsx';
 import PageIrrigation from './components/CoteClient/Agriculture/historiqueIrrigation/PageIrrigation.jsx';
 import PageEngrais from './components/CoteClient/Agriculture/HistoriqueEngrais/PageEngrais.jsx';
+import PageRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/PageRecolte.jsx';
 import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -70,6 +71,7 @@ root.render(
                 <Route path="/agriculteur/historique/Equipement/:id" element={<PageEquipement/>}></Route>
                 <Route path="/agriculteur/historique/MainOeuvre/:id" element={<PageMainOeuvre/>}></Route>
                 <Route path="/agriculteur/historique/Irrigation/:id" element={<PageIrrigation/>}></Route>
+                <Route path="/agriculteur/historique/Recolte/:id" element={<PageRecolte/>}></Route>
             </Route>
           
           <Route path="/" element={<App />} />

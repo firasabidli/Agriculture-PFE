@@ -69,7 +69,9 @@ const ListAgriculture = () => {
       const handleLinkIClick = (animalId) => {
         return `/agriculteur/historique/Irrigation/${animalId}`;
       };
-
+      const handleLinkRClick = (animalId) => {
+        return `/agriculteur/historique/Recolte/${animalId}`;
+      };
     return (
         <div>
             <Navbar textColor="black" />
@@ -106,6 +108,7 @@ const ListAgriculture = () => {
                                                                             <Link className="dropdown-item" to={handleLinkEqClick(element._id)} >Suivi Equipement</Link>
                                                                             <Link className="dropdown-item" to={handleLinkMClick(element._id)} >Suivi Main d'Oeuvre</Link>
                                                                             <Link className="dropdown-item" to={handleLinkIClick(element._id)} >Suivi d'Irrigation</Link>
+                                                                            <Link className="dropdown-item" to={handleLinkRClick(element._id)} >Suivi Recolte</Link>
                                                                                 <Dropdown.Item>
                                                                                     <Button onClick={() => handleUpdateClick(element._id)}>Modifier</Button>
                                                                                 </Dropdown.Item>
