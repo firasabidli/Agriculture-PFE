@@ -69,7 +69,7 @@ const Update = ({ onUpdate, engraisId }) => {
             quantite: engraisData.quantite,
             dateApplication:dateApplication,
             prix:prix,
-            prixTotalPro,
+            prixTotalPro: engraisData.quantite *prix,
             unite: engraisData.unite,
         };
         try {

@@ -11,7 +11,7 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
     const [nombreHeures, setNombreHeures] = useState("");
     const [dateTravail, setDateTravail] = useState("");
     const [typeTravail, setTypeTravail] = useState("");
-
+    const [prixTotal,setPrixTotal] = useState("");
     useEffect(() => {
         const fetchMainOeuvre = async () => {
             try {
@@ -23,6 +23,7 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
                 const formattedDate = new Date(mainOeuvreData.dateTravail).toISOString().split('T')[0];
                 setDateTravail(formattedDate);
                 setTypeTravail(mainOeuvreData.typeTravail);
+                setPrixTotal(mainOeuvreData.prixTotal)
                 console.log(mainOeuvreData.typeTravail)
             } catch (error) {
                 console.error('Error fetching main d\'oeuvre:', error);
@@ -50,12 +51,14 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
     };
 
     const handleSubmit = async () => {
+
         const formData = {
             nom: nom,
             prixParHeure: prixParHeure,
             nombreHeures: nombreHeures,
             dateTravail: dateTravail,
-            typeTravail: typeTravail
+            typeTravail: typeTravail,
+            prixTotal:nombreHeures * prixParHeure
         };
         try {
             await axios.put(`http://localhost:3001/HistoriqueMainOeuvre/${mainOeuvreId}`, formData);
