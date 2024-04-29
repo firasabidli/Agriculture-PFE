@@ -79,17 +79,17 @@ const PageRecolte = () => {
                                 <tbody>
                                     {filteredData.map((item, index) => (
                                         <tr key={index}>
-                                            <td style={{ width: "1%", fontSize: "large" }}>{new Date(item.date).toLocaleDateString('fr-FR', options)}</td>
-                                            <td style={{ fontSize: "large" }}>{item.balles[0].nombreBalles}</td>
-                                            <td style={{ fontSize: "large" }}>{item.balles[0].prixVenteParBalle}</td>
-                                            <td style={{ fontSize: "large" }}>{item.balles[0].prixTotalBalle}</td>
-                                            <td style={{ fontSize: "large" }}>{item.quantites[0].quantite}{item.quantites[0].unite}</td>
-                                            <td style={{ fontSize: "large" }}>{item.quantites[0].prix}</td>
-                                            <td style={{ fontSize: "large" }}>{item.quantites[0].prixTotalVente}</td>
-                                            <td style={{ fontSize: "large" }}>{item.revenuTotal}</td>
-                                            <td>
+                                            <td style={{ width: "1%", fontSize: "99%" }}>{new Date(item.date).toLocaleDateString('fr-FR', options)}</td>
+                                            <td style={{fontSize: "99%" }}>{item.balles[0].nombreBalles}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.balles[0].prixVenteParBalle}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.balles[0].prixTotalBalle}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.quantites[0].quantite}{item.quantites[0].unite}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.quantites[0].prix}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.quantites[0].prixTotalVente}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.revenuTotal}</td>
+                                            <td  style={{ fontSize:"75%" }}>
                                                 <UpdateRecolte onUpdate={fetchRecolte} recolteId={item._id} />
-                                                <FcDeleteRow style={{ fontSize: "234%" }} onClick={() => handleDelete(item._id)} />
+                                                <FcDeleteRow style={{ fontSize: "210%" }} onClick={() => handleDelete(item._id)} />
                                             </td>
                                         </tr>
                                     ))}

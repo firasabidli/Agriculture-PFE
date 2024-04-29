@@ -80,8 +80,8 @@ const AjouterRecolte = ({ onCreate }) => {
                         />
                     </div>
                     {balles.map((balle, index) => (
-                        <div key={index}>
-                            <div className="mb-3" style={{ width: "116%" }}>
+                        <div key={index} style={{ width: "116%" }}>
+                            <div className="mb-3" style={{ width: "104%" }}>
                                 <label style={{ fontWeight: "bold" }}>Nombre de Balles :</label>
                                 <input
                                     type="number"
@@ -95,7 +95,7 @@ const AjouterRecolte = ({ onCreate }) => {
                                     required
                                 />
                             </div>
-                            <div className="mb-3" style={{ width: "116%" }}>
+                            <div className="mb-3" style={{ width: "104%" }}>
                                 <label style={{ fontWeight: "bold" }}>Prix de Vente par Balle :</label>
                                 <input
                                     type="number"
@@ -112,8 +112,8 @@ const AjouterRecolte = ({ onCreate }) => {
                         </div>
                     ))}
                     {quantites.map((quantite, index) => (
-                        <div key={index}>
-                            <div className="mb-3" style={{ width: "116%" }}>
+                        <div key={index} style={{ width: "116%" }} >
+                            <div className="mb-3" style={{ width: "104%" }}>
                                 <label style={{ fontWeight: "bold" }}>Quantité :</label>
                                 <input
                                     type="number"
@@ -127,26 +127,26 @@ const AjouterRecolte = ({ onCreate }) => {
                                     required
                                 />
                             </div>
-                            <div className="mb-3" style={{ width: "116%" }}>
-    <label style={{ fontWeight: "bold" }}>Unité :</label>
-    <select
-        className="form-control"
-        value={quantite.unite}
-        onChange={(e) => {
-            const newQuantites = [...quantites];
-            newQuantites[index].unite = e.target.value;
-            setQuantites(newQuantites);
-        }}
-        
-    >
-        <option value="">Sélectionnez une unité</option>
-        <option value="g">Gramme (g)</option>
-        <option value="kg">Kilogramme (kg)</option>
-        <option value="ton">Tonne (ton)</option>
-    </select>
-</div>
+                            <div className="mb-3" style={{ width: "104%" }}>
+                            <label style={{ fontWeight: "bold" }}>Unité :</label>
+                            <select
+                                className="form-control"
+                                value={quantite.unite}
+                                onChange={(e) => {
+                                    const newQuantites = [...quantites];
+                                    newQuantites[index].unite = e.target.value;
+                                    setQuantites(newQuantites);
+                                }}
+                                
+                            >
+                                <option value="">Sélectionnez une unité</option>
+                                <option value="g">Gramme (g)</option>
+                                <option value="kg">Kilogramme (kg)</option>
+                                <option value="ton">Tonne (ton)</option>
+                            </select>
+                        </div>
 
-                            <div className="mb-3" style={{ width: "116%" }}>
+                            <div className="mb-3" style={{ width: "104%" }}>
                                 <label style={{ fontWeight: "bold" }}>Prix de Vente :</label>
                                 <input
                                     type="number"
