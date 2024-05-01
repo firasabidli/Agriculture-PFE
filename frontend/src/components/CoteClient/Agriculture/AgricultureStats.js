@@ -146,11 +146,11 @@ const StatistiquesAgricoles = () => {
   }, [lastYearValue]);
 
   return (
-    <div>
-      <h2>Statistiques agricoles</h2>
+    <div style={{marginTop:"10%"}}>
+      <h2>Statistiques de votre Agriculture</h2>
       <div>
-        <label htmlFor="year">Année :</label>
-        <select id="year" onChange={(e) => setSelectedYear(e.target.value)} value={selectedYear}>
+        <label htmlFor="year" style={{fontWeight:"bold"}}>Année : </label>
+        <select id="year" onChange={(e) => setSelectedYear(e.target.value)} value={selectedYear} className='select3'>
           <option value="">Sélectionnez une année</option>
           {years.map((year) => (
             <option key={year} value={year}>
@@ -160,7 +160,7 @@ const StatistiquesAgricoles = () => {
         </select>
       </div>
       {selectedYear && donneesStatistiques.labels && donneesStatistiques.datasets ? (
-        <Bar data={donneesStatistiques} options={options} />
+        <Bar data={donneesStatistiques} options={options} style={{marginTop:"7%"}} />
       ) : (
         <p>Chargement des statistiques...</p>
       )}

@@ -77,7 +77,7 @@ const UpdateIrrigation = ({ onUpdate, irrigationId }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mb-3">
-                        <label htmlFor="date" className="form-label">Date :</label>
+                        <label htmlFor="date" className="form-label" style={{fontWeight:"bold"}}>Date :</label>
                         <input
                             type="date"
                             className="form-control"
@@ -89,7 +89,7 @@ const UpdateIrrigation = ({ onUpdate, irrigationId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="duree" className="form-label">Durée (en heures) :</label>
+                        <label htmlFor="duree" className="form-label" style={{fontWeight:"bold"}}>Durée (en heures) :</label>
                         <input
                             type="number"
                             className="form-control"
@@ -101,7 +101,7 @@ const UpdateIrrigation = ({ onUpdate, irrigationId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="typeIrrigation" className="form-label">Type d'irrigation :</label>
+                        <label htmlFor="typeIrrigation" className="form-label" style={{fontWeight:"bold"}}>Type d'irrigation :</label>
                         <select
                             className="form-select"
                             id="typeIrrigation"
@@ -118,7 +118,7 @@ const UpdateIrrigation = ({ onUpdate, irrigationId }) => {
                         </select>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="prixParHeure" className="form-label">Prix par heure :</label>
+                        <label htmlFor="prixParHeure" className="form-label" style={{fontWeight:"bold"}}>Prix par heure :</label>
                         <input
                             type="number"
                             className="form-control"

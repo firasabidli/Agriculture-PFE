@@ -62,7 +62,7 @@ const PageEngrais = () => {
                     <div className="col-xl-8">
                         <h4>Liste de suivi des Engrais</h4>
                         <div style={{ marginTop: "5%", marginRight: "28%", marginLeft: "-153px" }}>
-                            <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+                            <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}className="select3"> 
                                    <option value="">Filtre par  Types</option>
                                    <option value="Pesticide">Pesticide</option>
                                     <option value="Engrais">Engrais</option>

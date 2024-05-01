@@ -81,7 +81,7 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mb-3">
-                        <label htmlFor="nom" className="form-label">Nom :</label>
+                        <label htmlFor="nom" className="form-label"style={{fontWeight:"bold"}}>Nom :</label>
                         <input
                             type="text"
                             className="form-control"
@@ -93,7 +93,7 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="prixParHeure" className="form-label">Prix par heure :</label>
+                        <label htmlFor="prixParHeure" className="form-label" style={{fontWeight:"bold"}}>Prix par heure :</label>
                         <input
                             type="number"
                             className="form-control"
@@ -105,7 +105,7 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="nombreHeures" className="form-label">Nombre d'heures :</label>
+                        <label htmlFor="nombreHeures" className="form-label"style={{fontWeight:"bold"}}>Nombre d'heures :</label>
                         <input
                             type="number"
                             className="form-control"
@@ -117,7 +117,7 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="dateTravail" className="form-label">Date de travail :</label>
+                        <label htmlFor="dateTravail" className="form-label" style={{fontWeight:"bold"}}>Date de travail :</label>
                         <input
                             type="date"
                             className="form-control"
@@ -129,7 +129,7 @@ const UpdateMainOeuvre = ({ onUpdate, mainOeuvreId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="typeTravail" className="form-label">Type de travail :</label>
+                        <label htmlFor="typeTravail" className="form-label"style={{fontWeight:"bold"}}>Type de travail :</label>
                         <select
                             className="form-select"
                             id="typeTravail"

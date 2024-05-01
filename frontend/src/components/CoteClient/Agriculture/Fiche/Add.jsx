@@ -95,7 +95,7 @@ function Add({ onCreate }) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} id="form">
             <Form.Group className="mb-3" controlId="titre" style={{width: "144%"}} >
-              <FloatingLabel label="Titre">
+              <FloatingLabel label="Titre" style={{fontWeight:"bold"}}>
                 <Form.Control
                   type="text"
                   placeholder="Titre"
@@ -105,7 +105,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="surface" style={{width: "144%"}}>
-              <FloatingLabel label="Surface">
+              <FloatingLabel label="Surface" style={{fontWeight:"bold"}}>
                 <Form.Control
                   type="number"
                   placeholder="Surface"
@@ -115,7 +115,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="description" style={{width: "144%"}}>
-              <FloatingLabel label="Description">
+              <FloatingLabel label="Description" style={{fontWeight:"bold"}}>
                 <Form.Control
                   as="textarea"
                   placeholder="Description"
@@ -125,7 +125,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="localisation" style={{width: "144%"}}>
-              <FloatingLabel label="Localisation">
+              <FloatingLabel label="Localisation" style={{fontWeight:"bold"}}>
                 <Form.Control
                   type="text"
                   placeholder="Localisation"
@@ -135,7 +135,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="quantiteSemences" style={{width: "144%"}}>
-              <FloatingLabel label="Quantité de semences">
+              <FloatingLabel label="Quantité de semences" style={{fontWeight:"bold"}}>
                 <Form.Control
                   type="number"
                   placeholder="Quantité de semences"
@@ -145,7 +145,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="datePlantation" style={{width: "144%"}}>
-              <FloatingLabel label="Date de plantation">
+              <FloatingLabel label="Date de plantation" style={{fontWeight:"bold"}}>
                 <Form.Control
                   type="date"
                   placeholder="Date de plantation"
@@ -155,7 +155,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="categorie" style={{width: "144%"}}>
-              <FloatingLabel label="Catégorie">
+              <FloatingLabel label="Catégorie" style={{fontWeight:"bold"}}>
                 <Form.Control as="select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
                   <option value="">Choisir une catégorie...</option>
                   {Array.isArray(categories) && categories.map((category) => (
@@ -165,7 +165,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="prixSemence" style={{width: "144%"}}>
-              <FloatingLabel label="Prix de la semence">
+              <FloatingLabel label="Prix de la semence" style={{fontWeight:"bold"}}>
                 <Form.Control
                   type="number"
                   placeholder="Prix de la semence"
@@ -175,7 +175,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="prixTerrain" style={{width: "144%"}}>
-              <FloatingLabel label="Prix du terrain">
+              <FloatingLabel controlId="floatingInput" label="Prix du terrain" style={{fontWeight:"bold"}}>
                 <Form.Control
                   type="number"
                   placeholder="Prix du terrain"

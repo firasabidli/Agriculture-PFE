@@ -161,7 +161,7 @@ const ListAnimal = () => {
           <div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" class="sticky" style={{top: "85px"}}>
             <div class="sticky-inner">
             <Add onCreate={fetchAnimauxByAgriculteur}/>
-          <Activity animaux={animaux}/>
+             <Activity animaux={animaux}/>
           </div>
           </div>
     </div>
