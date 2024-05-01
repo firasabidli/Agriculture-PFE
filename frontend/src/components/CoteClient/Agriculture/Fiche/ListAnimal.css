@@ -164,3 +164,23 @@ a:focus, a:hover {
 list-item{
    background:white;
 }
+.select3 {
+   margin-left: 2%;
+   padding: 8px 12px;
+   font-size: 16px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   background-color: #fff;
+   color: #333;
+   appearance: none;
+ }
+ 
+ .select3:hover,
+ .select3:focus {
+   border-color: #007bff;
+ }
+ 
+ .select3 option {
+   padding: 8px 12px;
+ }
+ 

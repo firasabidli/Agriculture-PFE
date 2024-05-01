@@ -93,7 +93,7 @@ const Update = ({ onUpdate, engraisId }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mb-3">
-                        <label htmlFor="typeEngrais" className="form-label">Type d'engrais :</label>
+                        <label htmlFor="typeEngrais" className="form-label" style={{fontWeight:"bold"}}>Type d'engrais :</label>
                         <select
                             className="form-control"
                             id="typeEngrais"
@@ -107,7 +107,7 @@ const Update = ({ onUpdate, engraisId }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="nomEngrais" className="form-label">Nom de l'engrais :</label>
+                        <label htmlFor="nomEngrais" className="form-label" style={{fontWeight:"bold"}}>Nom de l'engrais :</label>
                         <input
                             type="text"
                             className="form-control"
@@ -118,7 +118,7 @@ const Update = ({ onUpdate, engraisId }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="dateApplication" className="form-label">Date d'application :</label>
+                        <label htmlFor="dateApplication" className="form-label" style={{fontWeight:"bold"}}>Date d'application :</label>
                         <input
                             type="date"
                             className="form-control"
@@ -157,7 +157,7 @@ const Update = ({ onUpdate, engraisId }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="prix" className="form-label">Prix :</label>
+                        <label htmlFor="prix" className="form-label" style={{fontWeight:"bold"}}>Prix :</label>
                         <input
                             type="number"
                             className="form-control"

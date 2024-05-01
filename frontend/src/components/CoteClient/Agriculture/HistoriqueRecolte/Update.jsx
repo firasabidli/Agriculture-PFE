@@ -104,7 +104,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mb-3">
-                        <label htmlFor="date" className="form-label">Date :</label>
+                        <label htmlFor="date" className="form-label" style={{fontWeight:"bold"}}>Date :</label>
                         <input
                             type="date"
                             className="form-control"
@@ -119,7 +119,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                     {balles.map((balle, index) => (
                         <div key={index}>
                             <div className="mb-3">
-                                <label htmlFor={`nombreBalles-${index}`} className="form-label">Nombre de Balles :</label>
+                                <label htmlFor={`nombreBalles-${index}`} className="form-label" style={{fontWeight:"bold"}}>Nombre de Balles :</label>
                                 <input
                                     type="number"
                                     className="form-control"
@@ -131,7 +131,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor={`prixVenteParBalle-${index}`} className="form-label">Prix de Vente par Balle :</label>
+                                <label htmlFor={`prixVenteParBalle-${index}`} className="form-label" style={{fontWeight:"bold"}}>Prix de Vente par Balle :</label>
                                 <input
                                     type="number"
                                     className="form-control"
@@ -148,7 +148,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                     {quantites.map((quantite, index) => (
                         <div key={index}>
                             <div className="mb-3">
-                                <label htmlFor={`quantite-${index}`} className="form-label">Quantité :</label>
+                                <label htmlFor={`quantite-${index}`} className="form-label" style={{fontWeight:"bold"}}>Quantité :</label>
                                 <input
                                     type="number"
                                     className="form-control"
@@ -160,7 +160,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor={`unite-${index}`} className="form-label">Unité :</label>
+                                <label htmlFor={`unite-${index}`} className="form-label" style={{fontWeight:"bold"}}>Unité :</label>
                                 <select
                                     className="form-select"
                                     id={`unite-${index}`}
@@ -178,7 +178,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                                 </select>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor={`prix-${index}`} className="form-label">Prix :</label>
+                                <label htmlFor={`prix-${index}`} className="form-label" style={{fontWeight:"bold"}}>Prix :</label>
                                 <input
                                     type="number"
                                     className="form-control"

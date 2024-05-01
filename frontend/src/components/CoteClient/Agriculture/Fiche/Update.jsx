@@ -75,8 +75,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleFormSubmit}>
-          <Form.Group controlId="titre">
-            <FloatingLabel controlId="floatingInput" label="Titre">
+          <Form.Group controlId="titre" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Titre" style={{fontWeight:"bold"}}>
               <Form.Control
                 type="text"
                 name="titre"
@@ -87,8 +87,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="surface">
-            <FloatingLabel controlId="floatingInput" label="Surface">
+          <Form.Group controlId="surface" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Surface" style={{fontWeight:"bold"}}>
               <Form.Control
                 type="number"
                 name="surface"
@@ -98,8 +98,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="description">
-            <FloatingLabel controlId="floatingInput" label="Description">
+          <Form.Group controlId="description" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Description" style={{fontWeight:"bold"}}>
               <Form.Control
                 as="textarea"
                 name="description"
@@ -109,8 +109,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="localisation">
-            <FloatingLabel controlId="floatingInput" label="Localisation">
+          <Form.Group controlId="localisation" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Localisation" style={{fontWeight:"bold"}}>
               <Form.Control
                 type="text"
                 name="localisation"
@@ -120,8 +120,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="quantiteSemences">
-            <FloatingLabel controlId="floatingInput" label="Quantité de semences">
+          <Form.Group controlId="quantiteSemences" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Quantité de semences" style={{fontWeight:"bold"}}>
               <Form.Control
                 type="number"
                 name="quantiteSemences"
@@ -131,8 +131,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="datePlantation">
-            <FloatingLabel controlId="floatingInput" label="Date de plantation">
+          <Form.Group controlId="datePlantation" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Date de plantation" style={{fontWeight:"bold"}}>
               <Form.Control
                 type="date"
                 name="datePlantation"
@@ -142,8 +142,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="prixSemence">
-            <FloatingLabel controlId="floatingInput" label="Prix de la semence">
+          <Form.Group controlId="prixSemence" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Prix de la semence" style={{fontWeight:"bold"}}>
               <Form.Control
                 type="number"
                 name="prixSemence"
@@ -153,8 +153,8 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="prixTerrain">
-            <FloatingLabel controlId="floatingInput" label="Prix du terrain">
+          <Form.Group controlId="prixTerrain" style={{width:"116%"}} className="mb-3">
+            <FloatingLabel controlId="floatingInput" label="Prix du terrain" style={{fontWeight:"bold"}}>
               <Form.Control
                 type="number"
                 name="prixTerrain"

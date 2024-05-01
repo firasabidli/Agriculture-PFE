@@ -79,7 +79,7 @@ const ListAgriculture = () => {
             <Carousel />
             <div className="containerList" style={{ marginTop: "3%" }}>
                 <div className="row">
-                    <div className="col-lg-9 mb-3">
+                    <div className="col-lg-8 mb-3">
                         <div className="page-content page-container" id="page-content">
                             <div className="padding">
                                 <div className="row" style={{ marginLeft: "-15%" }}>
@@ -135,16 +135,17 @@ const ListAgriculture = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0" style={{ marginLeft: "-3%" }}>
+                    <div className="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0" style={{ marginLeft: "-3%",width:"29%" }}>
                         <div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" className="sticky" style={{ top: "85px" }}>
                             <div className="sticky-inner">
                                 <Add onCreate={fetchAgricultureByAgriculteur} />
+                                <AgricultureStats />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <AgricultureStats/>
+            
         </div>
     );
 }

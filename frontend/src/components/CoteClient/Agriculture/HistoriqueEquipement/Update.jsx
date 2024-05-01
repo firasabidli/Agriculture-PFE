@@ -75,7 +75,7 @@ const Update = ({ onUpdate, equipementId }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mb-3">
-                        <label htmlFor="nom" className="form-label">Nom :</label>
+                        <label htmlFor="nom" className="form-label" style={{fontWeight:"bold"}}>Nom :</label>
                         <input
                             type="text"
                             className="form-control"
@@ -88,7 +88,7 @@ const Update = ({ onUpdate, equipementId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="prixParHeure" className="form-label">Prix par heure :</label>
+                        <label htmlFor="prixParHeure" className="form-label" style={{fontWeight:"bold"}}>Prix par heure :</label>
                         <input
                             type="number"
                             className="form-control"
@@ -100,7 +100,7 @@ const Update = ({ onUpdate, equipementId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="nombreHeures" className="form-label">Nombre d'heures :</label>
+                        <label htmlFor="nombreHeures" className="form-label" style={{fontWeight:"bold"}}>Nombre d'heures :</label>
                         <input
                             type="number"
                             className="form-control"
@@ -112,7 +112,7 @@ const Update = ({ onUpdate, equipementId }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="date" className="form-label">Date d'acquisition :</label>
+                        <label htmlFor="date" className="form-label" style={{fontWeight:"bold"}}>Date d'acquisition :</label>
                         <input
                             type="date"
                             className="form-control"
