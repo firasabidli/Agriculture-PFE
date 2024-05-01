@@ -20,16 +20,11 @@ import scatteredcloudsNight from '../../../assets/CoteClient/images/meteo/03n.pn
 import brokencloudsDay from '../../../assets/CoteClient/images/meteo/04d.png';
 import brokencloudsNight from '../../../assets/CoteClient/images/meteo/04n.png';
 
-import overcastcloudsDay from '../../../assets/CoteClient/images/meteo/04d.png';
-import overcastcloudsNight from '../../../assets/CoteClient/images/meteo/04n.png';
-
 import showerrainDay from '../../../assets/CoteClient/images/meteo/09d.png';
 import showerrainNight from '../../../assets/CoteClient/images/meteo/09n.png';
 import rainDay from '../../../assets/CoteClient/images/meteo/10d.png';
 import rainNight from '../../../assets/CoteClient/images/meteo/10n.png';
 
-import LightrainDay from '../../../assets/CoteClient/images/meteo/10d.png';
-import LightrainNight from '../../../assets/CoteClient/images/meteo/10n.png';
 
 import thunderstormDay from '../../../assets/CoteClient/images/meteo/11d.png';
 import thunderstormNight from '../../../assets/CoteClient/images/meteo/11n.png';
@@ -42,14 +37,43 @@ import mistNight from '../../../assets/CoteClient/images/meteo/50n.png';
 
 
 const CurrentWeather = ({ weatherData, city }) => {
+
   const { current } = weatherData;
   const { humidity, pressure, sunrise, sunset, wind_speed, weather, temp } = current;
   const { description, icon } = weather[0];
   const [currentDateTime, setCurrentDateTime] = useState('');
   const { daily } = weatherData;
 
-  const getWeatherIconUrl = (iconCode) => {
-    switch (iconCode) {
+  
+
+  const getDescriptionByIcon = (icon) => {
+    switch (true) {
+      case icon.includes('01'):
+        return 'ciel clair';
+      case icon.includes('02'):
+        return 'quelques nuages';
+      case icon.includes('03'):
+        return 'nuages ​​dispersés' ;
+      case icon.includes('04'):
+        return 'nuages ​​brisés';
+      case icon.includes('09'):
+        return 'pluie de douche';
+        case icon.includes('10'):
+          return 'pluie';
+      case icon.includes('11'):
+        return 'orage';
+      case icon.includes('13'):
+        return 'neige';
+      case icon.includes('50'):
+        return 'brume';
+      default:
+        return ''; 
+    }
+  };
+
+  
+  const getWeatherIcon = (icon) => {
+    switch (icon) {
       case '01d':
         return ClearSkyDay;
       case '01n':
@@ -90,32 +114,6 @@ const CurrentWeather = ({ weatherData, city }) => {
         return ''; 
     }
   };
-
-  
-  const getWeatherIcon = (description) => {
-    switch(description) {
-      case 'clear sky':
-        return icon.includes('d') ? ClearSkyDay : ClearSkyNight;
-      case 'few clouds':
-        return icon.includes('d') ? FewCloudsDay : FewCloudsNight;
-      case 'scattered clouds':
-        return icon.includes('d') ? scatteredcloudsDay : scatteredcloudsNight;
-      case 'overcast clouds':
-        return icon.includes('d') ? overcastcloudsDay : overcastcloudsNight;
-      case 'shower rain':
-        return icon.includes('d') ? showerrainDay : showerrainNight;
-      case 'light rain':
-        return icon.includes('d') ? LightrainDay : LightrainNight;
-      case 'thunderstorm':
-        return icon.includes('d') ? thunderstormDay : thunderstormNight;
-      case 'snow':
-        return icon.includes('d') ? snowDay : snowNight;
-      case 'mist':
-        return icon.includes('d') ? mistDay : mistNight;
-      default:
-        return ''; 
-    }
-  };
   
   useEffect(() => {
     const updateTime = () => {
@@ -133,6 +131,7 @@ const CurrentWeather = ({ weatherData, city }) => {
 
     return () => clearInterval(interval);
   }, []);
+  
   return (
     
     
@@ -145,7 +144,7 @@ const CurrentWeather = ({ weatherData, city }) => {
                 <div class="col-xl-12 col-xs-6  weather-panel">
                   <div class="col-xs-6 m-4">
                     <h2>{city}<br/><small>{currentDateTime}</small></h2>
-                    <p class="h3"><img src={getWeatherIcon(description)} alt="Icône météo"/> Pluvieux</p>
+                    <p class="h3"><img src={getWeatherIcon(icon)} alt="Icône météo"/> {getDescriptionByIcon(icon)}</p>
                   </div>
                   <div class="col-xs-6 text-center">
                     <div class="h1 temperature">
@@ -159,7 +158,7 @@ const CurrentWeather = ({ weatherData, city }) => {
                     {daily.slice(1).map((day, index) => (
                       <li class="col-xs-4  col-sm-1   day text-center">
                         <h3 class="h5">{new Date(day.dt * 1000).toLocaleDateString('fr', { weekday: 'short' })}</h3>
-                        <p ><i class="mi mi-fw mi-2x mi-cloud-sun"><img src={getWeatherIconUrl(day.weather[0].icon)} alt="Icône météo" className="w-icon" style={{ width:'30px'}} /></i><br/><span>Nuit-{day.temp.night}°<br/>Jour-{day.temp.day}°</span></p>
+                        <p ><i class="mi mi-fw mi-2x mi-cloud-sun"><img src={getWeatherIcon(day.weather[0].icon)} alt="Icône météo" className="w-icon" style={{ width:'30px'}} /></i><br/><span>Nuit-{day.temp.night}°<br/>Jour-{day.temp.day}°</span></p>
                       </li>
                     ))}
                       
@@ -211,4 +210,3 @@ const CurrentWeather = ({ weatherData, city }) => {
 };
 
 export default CurrentWeather;
-

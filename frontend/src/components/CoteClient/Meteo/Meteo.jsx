@@ -1,51 +1,46 @@
-import React, { useState, useEffect } from 'react';
-// import CurrentTime from './components/CurrentTime';
+import React, { useState} from 'react';
 import CurrentWeather from './CurrentWeather';
 import './Meteo.css'
 import Navbar from '../Navbar.js';
-const API_KEY ='49cc8c821cd2aff9af04c9f98c36eb74';
+import { useUser } from '../../UserContext.js';
+const API_KEY ='3756b9777f12d44d18ccec6aa71e7dd5';
+// const API_KEY ='46b7585ba81f3eca5e7a9dd7e76b0b99';
+
 
 function Meteo() {
   const [weatherData, setWeatherData] = useState(null);
-  const [cityName, setCityName] = useState(null);
+  const { user } = useUser();
+  const City = user?.gouvernorat.nom;
+  const latitude = user?.gouvernorat.latitude;
+  const longitude = user?.gouvernorat.longitude;
+  
 
-  useEffect(() => {
-    getWeatherData();
-  }, []);
 
   const getWeatherData = () => {
-    navigator.geolocation.getCurrentPosition((success) => {
-      let { latitude, longitude } = success.coords;
-
-      fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=metric&appid=${API_KEY}`)
-        .then(res => res.json())
-        .then(data => {
-          setWeatherData(data);
-          getCityName(latitude, longitude); // Appel à la fonction pour récupérer le nom de la ville
-          console.log(data);
-        })
-        .catch(error => console.error('Error fetching weather data:', error));
-    });
-  }
-
-  const getCityName = (latitude, longitude) => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`)
+    if (latitude && longitude) {
+    fetch(` https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`)
       .then(res => res.json())
       .then(data => {
-        setCityName(data.name); // Définition du nom de la ville dans le state
+        setWeatherData(data);
       })
-      .catch(error => console.error('Error fetching city name:', error));
+      .catch(error => console.error('Error fetching weather data:', error));
+    }
+  };
+
+  if (!weatherData) {
+    getWeatherData();
   }
 
   return (
-    <div  >
-      <Navbar textColor="black" />
-      {weatherData && 
+    <div>
+        <Navbar/>
+      {/* Afficher les données météorologiques */}
+      {weatherData && (
         
-          <CurrentWeather weatherData={weatherData} city={cityName}  />
-          
         
-      }
+          <CurrentWeather weatherData={weatherData} city={City} />
+        
+      )}
     </div>
   );
 }
