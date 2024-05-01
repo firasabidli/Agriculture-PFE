@@ -8,7 +8,7 @@ exports.create= async(req,res)=>{
           Agriculteur: agriculteurId,
           ...req.body,
         };
-     console.log(newData);
+     //console.log(newData);
         const newState = new Recolte(newData);
         const savedState = await newState.save();
     

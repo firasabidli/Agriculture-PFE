@@ -109,7 +109,7 @@ exports.update = async (req, res) => {
           const recoltes = await Recolte.find({ idCulture: culture._id });
           return { culture, recoltes };
       }));
-      console.log(recoltesByAgriculteur);
+      //console.log(recoltesByAgriculteur);
       res.status(200).json(recoltesByAgriculteur);
   } catch (error) {
       console.error('Erreur lors de la récupération des récoltes par agriculteur :', error);

@@ -6,6 +6,7 @@ import Carousel from './Carousel.jsx';
 import Add from './Add';
 import axios from 'axios';
 import UpdateAgriculture from './Update.jsx';
+import Details from './Details.jsx';
 import { Link } from 'react-router-dom';
 import AgricultureStats from '../AgricultureStats.js';
 const ListAgriculture = () => {
@@ -13,11 +14,21 @@ const ListAgriculture = () => {
     const [filteredCulture, setFilteredCulture] = useState([]);
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const [selectedCultureId, setSelectedCultureId] = useState(null);
+    const [selecteddetailsId, setSelecteddetailsId] = useState(null);
+    //const [showDetailsModal, setShowDetailsModal] = useState(false); // État pour contrôler l'affichage du modèle de détails
 
+    const handleDetailsClick = (Id) => {
+        console.log("cultur",Id)
+        setSelecteddetailsId(Id);
+    };
+
+    const handleCloseDetailsModal = () => {
+        setSelecteddetailsId(null);
+        fetchAgricultureByAgriculteur();
+    };
     const handleUpdateClick = (cultureId) => {
         setSelectedCultureId(cultureId);
     };
-
     const handleCloseModal = () => {
         setSelectedCultureId(null);
         fetchAgricultureByAgriculteur();
@@ -94,9 +105,7 @@ const ListAgriculture = () => {
                                                                 <div className="flex">
                                                                     <a href="x" className="item-author text-color">Titre: {element.titre}</a>
                                                                     <br />
-                                                                    <a href="x" className="item-author text-color">Surface: {element.surface}</a>
                                                                     <div className="item-except text-muted text-sm h-1x">Date de plantation: {new Date(element.datePlantation).toLocaleDateString('fr-FR', options)}</div>
-                                                                    <div className="item-except text-muted text-sm h-1x">Description: {element.description}</div>
                                                                 </div>
                                                                 <div className="no-wrap">
                                                                     <div className="item-date text-muted text-sm d-none d-md-block"></div>
@@ -110,9 +119,12 @@ const ListAgriculture = () => {
                                                                             <Link className="dropdown-item" to={handleLinkMClick(element._id)} >Suivi Main d'Oeuvre</Link>
                                                                             <Link className="dropdown-item" to={handleLinkIClick(element._id)} >Suivi d'Irrigation</Link>
                                                                             <Link className="dropdown-item" to={handleLinkRClick(element._id)} >Suivi Recolte</Link>
-                                                                                <Dropdown.Item>
+                                                                            <p  className="dropdown-item" onClick={() => handleDetailsClick(element._id)} style={{fontFamily:"Arial"}}>Détails</p>
+                                                                            <p  className="dropdown-item text-success" onClick={() => handleUpdateClick(element._id)} style={{fontFamily:"Arial"}}>Modifier</p>
+                                                                            
+                                                                                {/* <Dropdown.Item>
                                                                                     <Button onClick={() => handleUpdateClick(element._id)}>Modifier</Button>
-                                                                                </Dropdown.Item>
+                                                                                </Dropdown.Item> */}
                                                                                 <Dropdown.Divider />
                                                                                 <Dropdown.Item className="text-danger" onClick={() => handleDelete(element._id)}>
                                                                                     Supprimer
@@ -129,6 +141,7 @@ const ListAgriculture = () => {
                                                 <p style={{ fontFamily: "arial", fontSize: "x-large", marginLeft: "15%" }}>Aucun élément d'agriculture trouvé.</p>
                                             )}
                                              <UpdateAgriculture cultureId={selectedCultureId} onClose={handleCloseModal} />
+                                            <Details Id={selecteddetailsId} onClose={handleCloseDetailsModal} />
                                         </div>
                                     </div>
                                 </div>
