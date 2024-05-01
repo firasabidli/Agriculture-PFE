@@ -11,7 +11,7 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram ,FaGithub, FaGoogle} 
 import { Row, Col } from 'react-bootstrap';
 
 const PageAccueil = () => {
-  const imageUrls = [BNA, APIA, INRT, STAR];
+  const imageUrls = [BNA, APIA,STAR,INRT];
 
   return (
     <div>
@@ -27,8 +27,8 @@ const PageAccueil = () => {
           <h4 className='Entreprise'>Entreprises nous font confiance</h4>
           </Col>
           {imageUrls.map((imageUrl, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={2} style={{ marginBottom: '10px', position: 'relative' }}>
-              <img src={imageUrl} alt="" className="equal-height-image" />
+            <Col key={index} xs={12} sm={6} md={4} lg={2} style={{ marginBottom: '10px', position: 'relative',marginLeft:"0%" }}>
+              <img src={imageUrl} alt="" className="equal-height-image" style={{width:"55%"}} />
             </Col>
           ))}
         </Row>

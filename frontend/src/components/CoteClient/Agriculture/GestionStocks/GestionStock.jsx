@@ -3,13 +3,11 @@ import './ListAnimal.css'
 import { Dropdown, Button } from 'react-bootstrap';
 import Navbar from '../../Navbar';
 import Carousel from './Carousel.jsx';
+import Details from './Details.jsx';
 import Add from './Add';
 import axios from 'axios';
 import UpdateAgriculture from './Update.jsx';
-import Details from './Details.jsx';
-import { Link } from 'react-router-dom';
-import AgricultureStats from '../AgricultureStats.js';
-const ListAgriculture = () => {
+const GestionStock = () => {
     const [culture, setCulture] = useState([]);
     const [filteredCulture, setFilteredCulture] = useState([]);
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -24,29 +22,30 @@ const ListAgriculture = () => {
 
     const handleCloseDetailsModal = () => {
         setSelecteddetailsId(null);
-        fetchAgricultureByAgriculteur();
+        fetchStockByAgriculteur();
     };
     const handleUpdateClick = (cultureId) => {
         setSelectedCultureId(cultureId);
     };
     const handleCloseModal = () => {
         setSelectedCultureId(null);
-        fetchAgricultureByAgriculteur();
+        fetchStockByAgriculteur();
     }
 
     useEffect(() => {
-        fetchAgricultureByAgriculteur();
+        fetchStockByAgriculteur();
     }, []);
 
-    const fetchAgricultureByAgriculteur = async () => {
+    const fetchStockByAgriculteur = async () => {
         try {
             const authToken = localStorage.getItem('authToken');
-            const response = await axios.get('http://localhost:3001/ListeAgriculture/cultre', {
+            const response = await axios.get('http://localhost:3001/GestionStocks', {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                 },
             });
             setCulture(response.data);
+            console.log("bb",response.data);
             setFilteredCulture(response.data);
         } catch (error) {
             console.error('Erreur lors de la récupération des agricultures de l\'agriculteur:', error);
@@ -63,37 +62,22 @@ const ListAgriculture = () => {
             const updatedData = culture.filter(item => item._id !== id);
             setCulture(updatedData);
             setFilteredCulture(updatedData);
-            await axios.delete(`http://localhost:3001/ListeAgriculture/${id}`);
-            fetchAgricultureByAgriculteur();
+            await axios.delete(`http://localhost:3001/GestionStocks/${id}`);
+            fetchStockByAgriculteur();
         } catch (error) {
             console.error('Erreur lors de la suppression de l\'élément :', error);
         }
     };
-    const handleLinkClick = (animalId) => {
-        return `/agriculteur/historique/Engrais/${animalId}`;
-      };
-      const handleLinkEqClick = (animalId) => {
-        return `/agriculteur/historique/Equipement/${animalId}`;
-      };
-      const handleLinkMClick = (animalId) => {
-        return `/agriculteur/historique/MainOeuvre/${animalId}`;
-      };
-      const handleLinkIClick = (animalId) => {
-        return `/agriculteur/historique/Irrigation/${animalId}`;
-      };
-      const handleLinkRClick = (animalId) => {
-        return `/agriculteur/historique/Recolte/${animalId}`;
-      };
     return (
         <div>
             <Navbar textColor="black" />
             <Carousel />
             <div className="containerList" style={{ marginTop: "3%" }}>
                 <div className="row">
-                    <div className="col-lg-8 mb-3">
+                    <div className="col-xl-8 ">
                         <div className="page-content page-container" id="page-content">
                             <div className="padding">
-                                <div className="row" style={{ marginLeft: "-15%" }}>
+                                <div className="row">
                                     <div className="col-sm-8">
                                         <div className="animal-list">
                                             {culture.length > 0 ? (
@@ -103,9 +87,9 @@ const ListAgriculture = () => {
                                                             <div className="list-item" data-id="">
                                                                 <div><a href="x"><span className="w-40 avatar gd-primary">A</span></a></div>
                                                                 <div className="flex">
-                                                                    <a href="x" className="item-author text-color">Titre: {element.titre}</a>
+                                                                    <a href="x" className="item-author text-color">libellé: {element.libellé}</a>
                                                                     <br />
-                                                                    <div className="item-except text-muted text-sm h-1x">Date de plantation: {new Date(element.datePlantation).toLocaleDateString('fr-FR', options)}</div>
+                                                                    <div className="item-except text-muted text-sm h-1x">Date Enregistrement: {new Date(element.date).toLocaleDateString('fr-FR', options)}</div>
                                                                 </div>
                                                                 <div className="no-wrap">
                                                                     <div className="item-date text-muted text-sm d-none d-md-block"></div>
@@ -114,17 +98,8 @@ const ListAgriculture = () => {
                                                                     <Dropdown align="end">
                                                                         <Dropdown.Toggle variant="link" id="dropdown-basic">
                                                                             <Dropdown.Menu>
-                                                                            <Link className="dropdown-item" to={handleLinkClick(element._id)} >Suivi Engrais</Link>
-                                                                            <Link className="dropdown-item" to={handleLinkEqClick(element._id)} >Suivi Equipement</Link>
-                                                                            <Link className="dropdown-item" to={handleLinkMClick(element._id)} >Suivi Main d'Oeuvre</Link>
-                                                                            <Link className="dropdown-item" to={handleLinkIClick(element._id)} >Suivi d'Irrigation</Link>
-                                                                            <Link className="dropdown-item" to={handleLinkRClick(element._id)} >Suivi Recolte</Link>
                                                                             <p  className="dropdown-item" onClick={() => handleDetailsClick(element._id)} style={{fontFamily:"Arial"}}>Détails</p>
                                                                             <p  className="dropdown-item text-success" onClick={() => handleUpdateClick(element._id)} style={{fontFamily:"Arial"}}>Modifier</p>
-                                                                            
-                                                                                {/* <Dropdown.Item>
-                                                                                    <Button onClick={() => handleUpdateClick(element._id)}>Modifier</Button>
-                                                                                </Dropdown.Item> */}
                                                                                 <Dropdown.Divider />
                                                                                 <Dropdown.Item className="text-danger" onClick={() => handleDelete(element._id)}>
                                                                                     Supprimer
@@ -138,23 +113,18 @@ const ListAgriculture = () => {
                                                     </div>
                                                 ))
                                             ) : (
-                                                <p style={{ fontFamily: "arial", fontSize: "x-large", marginLeft: "15%" }}>Aucun élément d'agriculture trouvé.</p>
+                                                <p style={{ fontFamily: "arial", fontSize: "x-large", marginLeft: "15%" }}>Aucun élément de stock trouvé.</p>
                                             )}
                                              <UpdateAgriculture cultureId={selectedCultureId} onClose={handleCloseModal} />
-                                            <Details Id={selecteddetailsId} onClose={handleCloseDetailsModal} />
+                                             <Details Id={selecteddetailsId} onClose={handleCloseDetailsModal} />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0" style={{ marginLeft: "-3%",width:"29%" }}>
-                        <div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" className="sticky" style={{ top: "85px" }}>
-                            <div className="sticky-inner">
-                                <Add onCreate={fetchAgricultureByAgriculteur} />
-                                <AgricultureStats />
-                            </div>
-                        </div>
+                    <div className="col-xl-4">
+                    <Add onCreate={fetchStockByAgriculteur} />
                     </div>
                 </div>
             </div>
@@ -162,4 +132,4 @@ const ListAgriculture = () => {
         </div>
     );
 }
-export default ListAgriculture;
+export default GestionStock;

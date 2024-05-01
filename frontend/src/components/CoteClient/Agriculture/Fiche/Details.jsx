@@ -29,7 +29,7 @@ const Details = ({ Id, onClose }) => {
                 <Modal.Title>Détails de la culture</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {formData ? ( // Vérifier si formData est défini avant de mapper ses éléments
+                {formData ? (
                     <div>
                         <p><span style={{fontWeight:"bold"}}>Titre: </span> {formData.titre}</p>
                         <p><span style={{fontWeight:"bold"}}>Description: </span> {formData.description}</p>

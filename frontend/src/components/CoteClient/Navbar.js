@@ -320,6 +320,11 @@ const handleCategorieBetailClick =()=>{
                      <span className='dropdown-item rounded-2'style={{fontWeight:"bold",cursor:"pointer"}}>Production Agriculture </span>
                     </Nav.Link>
                     </li>
+                    <li>
+                    <Nav.Link as={Link} to="/agriculture/gestionStock" className={`nav-item nav-link ms-3 ${isScrolled ? 'text-black' : ''}`} style={{ color: textColor,cursor:"pointer" }}>
+                     <span className='dropdown-item rounded-2'style={{fontWeight:"bold",cursor:"pointer"}}>Gestion Stock Agriculture </span>
+                    </Nav.Link>
+                    </li>
                   </ul>
                   )}
                   </li>
@@ -353,18 +358,6 @@ const handleCategorieBetailClick =()=>{
         </ul>
       )}
             </div>
-                {/* <button className='rounded-circle btn-sm-square bg-white ms-3'>
-                <FaUser className="text-body"  onClick={handleProfileClick}/>
-               
-      {showUser && (
-        <ul className="dropdown-menu dropdown-menu-dark text-small shadow position-fixed d-grid gap-1 p-2 rounded-3 mx-0  w-220px" style={{ top: isScrolled ? '70px' : '120px',zIndex:1 }}>
-          <li><a className="dropdown-item" href="/">{userName||'Utilisateur'}</a></li>
-          <li><a className="dropdown-item" href="/">Profil</a></li>
-          <li><hr className="dropdown-divider"/></li>
-          <li><a className="dropdown-item" href="/" onClick={handleLogout}>Se déconnecter</a></li>
-        </ul>
-      )}
-      </button> */}
                 <button className='rounded-circle btn-sm-square bg-white ms-3'>
                   <FaShoppingBag className="text-body  " />
                 </button>
