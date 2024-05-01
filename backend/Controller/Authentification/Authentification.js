@@ -28,7 +28,7 @@ function generateAuthToken(userId) {
 }
 
 exports.create = async (req, res) => {
-  const { cin, nom, adresse, email, dateNaissance, numeroTelephone, password } = req.body;
+  const { cin, nom, gouvernorat, adresse, email, dateNaissance, numeroTelephone, password } = req.body;
   const accepte = '0';
 
   try {
@@ -42,6 +42,11 @@ exports.create = async (req, res) => {
       const newAgriculteur = new Utilisateur.Agriculteur({
           cin,
           nom,
+          gouvernorat: {
+            nom: gouvernorat.nom,
+            latitude: gouvernorat.latitude,
+            longitude: gouvernorat.longitude
+          },
           adresse,
           email,
           dateNaissance,
@@ -109,6 +114,11 @@ exports.createAdmin = async (cin, nom, adresse, email, dateNaissance, numeroTele
         const newAdmin = new Utilisateur.Admin({
             cin,
             nom,
+            gouvernorat: {
+              nom: gouvernorat.nom,
+              latitude: gouvernorat.latitude,
+              longitude: gouvernorat.longitude
+            },
             adresse,
             email,
             dateNaissance,

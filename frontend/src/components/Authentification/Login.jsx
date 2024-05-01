@@ -108,7 +108,7 @@ const LoginForm = () => {
           <form className="sign-in-form" onSubmit={handleSubmit}>
             <h2 className="title">Se Connecter</h2>
             
-            <Form.Floating className='mb-4 mt-3 input'>
+            <Form.Floating className='mb-4 mt-3 input-login'>
               <Form.Control
                 id="floatingInputCustom"
                 name="email"
@@ -120,7 +120,7 @@ const LoginForm = () => {
               <label htmlFor="floatingInputCustom"><MdEmail /> Adresse e-mail</label>
             </Form.Floating>
             
-            <Form.Floating className='mb-4 input'>
+            <Form.Floating className='mb-4 input-login'>
               <Form.Control
                 id="floatingPasswordCustom"
                 name="password"

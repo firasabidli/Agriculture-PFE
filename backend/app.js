@@ -55,6 +55,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/Agriculture', {
             const newAdmin = new UserModel.Admin({
                 cin: '1234567890',
                 nom: 'Admin',
+                gouvernorat: {
+                    nom: 'Jendouba',
+                    latitude: 36.9833,
+                    longitude: 10.1167
+                  },
                 adresse: '123 Rue Admin',
                 email: 'admin@example.com',
                 dateNaissance: new Date('1990-01-01'),

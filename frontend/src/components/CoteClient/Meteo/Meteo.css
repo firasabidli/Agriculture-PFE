@@ -1,0 +1,13 @@
+.bg-img {
+    /* Minimum height of the viewport */
+  
+   justify-content: center; /* Horizontally center */
+   align-items: center; /* Vertically center */
+   
+   background: #5598fd;
+   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+     url("../../../assets/CoteClient/images/meteo/bg.jpg");
+   background-size: cover;
+   background-position: center;
+  height: 800px;
+  }

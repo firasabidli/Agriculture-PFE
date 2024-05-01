@@ -5,6 +5,14 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   cin: { type: String, required: true, immutable: true },
   nom: { type: String, required: true },
+  gouvernorat: {
+    type: {
+      nom: { type: String, required: true },
+      latitude: { type: Number, required: true },
+      longitude: { type: Number, required: true }
+    },
+    required: true
+  },
   adresse: { type: String, required: true },
   email: { type: String, required: true },
   dateNaissance: { type: Date, required: true },
