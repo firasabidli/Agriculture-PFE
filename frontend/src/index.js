@@ -31,11 +31,12 @@ import ListAnimal from './components/CoteClient/Bétail/Fiche/ListAnimal.js';
 import InfoBetail from './components/CoteClient/InfoBetail/InfoBetail.jsx';
 import PageSanté from './components/CoteClient/Bétail/SanteBétail/PageSanté.jsx';
 import PageMouvement from './components/CoteClient/Bétail/Mouvement/PageMouvement.jsx';
-import ListAgriculture from './components/CoteClient/Agriculture/Fiche/ListeAgriculture.jsx';
+import ListAgriculture from './components/CoteClient/Agriculture/Fiche/ListAgriculture.jsx';
 import PageEquipement from './components/CoteClient/Agriculture/HistoriqueEquipement/PageEquipement.jsx';
 import PageMainOeuvre from './components/CoteClient/Agriculture/HistoriqueMainOeuvre/PageMainOeuvre.jsx';
 import PageIrrigation from './components/CoteClient/Agriculture/historiqueIrrigation/PageIrrigation.jsx';
 import PageEngrais from './components/CoteClient/Agriculture/HistoriqueEngrais/PageEngrais.jsx';
+import GestionStock from './components/CoteClient/Agriculture/GestionStocks/GestionStock.jsx';
 import PageRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/PageRecolte.jsx';
 import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -72,6 +73,7 @@ root.render(
                 <Route path="/agriculteur/historique/MainOeuvre/:id" element={<PageMainOeuvre/>}></Route>
                 <Route path="/agriculteur/historique/Irrigation/:id" element={<PageIrrigation/>}></Route>
                 <Route path="/agriculteur/historique/Recolte/:id" element={<PageRecolte/>}></Route>
+                <Route path="/agriculture/gestionStock" element={<GestionStock/>}></Route>
             </Route>
           
           <Route path="/" element={<App />} />
