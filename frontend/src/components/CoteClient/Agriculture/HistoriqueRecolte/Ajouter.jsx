@@ -140,7 +140,6 @@ const AjouterRecolte = ({ onCreate }) => {
                                 
                             >
                                 <option value="">Sélectionnez une unité</option>
-                                <option value="g">Gramme (g)</option>
                                 <option value="kg">Kilogramme (kg)</option>
                                 <option value="ton">Tonne (ton)</option>
                             </select>

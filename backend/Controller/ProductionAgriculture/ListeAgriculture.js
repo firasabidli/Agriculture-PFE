@@ -1,5 +1,5 @@
 const culture = require('../../Model/ProductionAgriculture/FicheAgriculture');
-
+const Recolte= require('../../Model/ProductionAgriculture/historiqueRecolte');
 exports.create = async (req, res) => {
   try {
     const { titre, surface, categorie, description, localisation, quantiteSemences, datePlantation, prixSemence, prixTerrain } = req.body;
@@ -99,4 +99,21 @@ exports.update = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
   }
 };
-  
+  //
+  exports.getRecoltesByAgriculteur = async (req, res) => {
+    console.log("recoltesByAgriculteur");
+    try {
+      const agriculteurId = req.userId;
+      const cultures = await culture.find({ Agriculteur: agriculteurId });
+      const recoltesByAgriculteur = await Promise.all(cultures.map(async (culture) => {
+          const recoltes = await Recolte.find({ idCulture: culture._id });
+          return { culture, recoltes };
+      }));
+      console.log(recoltesByAgriculteur);
+      res.status(200).json(recoltesByAgriculteur);
+  } catch (error) {
+      console.error('Erreur lors de la récupération des récoltes par agriculteur :', error);
+      res.status(500).json({ message: 'Erreur lors de la récupération des récoltes.' });
+  }
+
+  }  

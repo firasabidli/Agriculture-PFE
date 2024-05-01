@@ -7,6 +7,7 @@ import Add from './Add';
 import axios from 'axios';
 import UpdateAgriculture from './Update.jsx';
 import { Link } from 'react-router-dom';
+import AgricultureStats from '../AgricultureStats.js';
 const ListAgriculture = () => {
     const [culture, setCulture] = useState([]);
     const [filteredCulture, setFilteredCulture] = useState([]);
@@ -29,7 +30,7 @@ const ListAgriculture = () => {
     const fetchAgricultureByAgriculteur = async () => {
         try {
             const authToken = localStorage.getItem('authToken');
-            const response = await axios.get('http://localhost:3001/ListeAgriculture/', {
+            const response = await axios.get('http://localhost:3001/ListeAgriculture/cultre', {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                 },
@@ -143,6 +144,7 @@ const ListAgriculture = () => {
                     </div>
                 </div>
             </div>
+            <AgricultureStats/>
         </div>
     );
 }
