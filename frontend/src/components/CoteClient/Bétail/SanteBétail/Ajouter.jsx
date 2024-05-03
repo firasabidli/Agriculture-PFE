@@ -26,7 +26,7 @@ const AjouterSanté = ({ onCreate }) => {
   const handleAddTraitement = () => {
     setHealthData({
       ...healthData,
-      traitements: [...healthData.traitements, { medicament: "", dose: "", frequence: "" }],
+      traitements: [...healthData.traitements, { medicament: "",prixMedicament: "", dose: "", frequence: "" }],
     });
   };
 
@@ -42,7 +42,7 @@ const AjouterSanté = ({ onCreate }) => {
   const handleAddVaccination = () => {
     setHealthData({
       ...healthData,
-      vaccinations: [...healthData.vaccinations, { nomVaccin: "", dateAdministration: "" }],
+      vaccinations: [...healthData.vaccinations, { nomVaccin: "",prixVaccin: "", dateAdministration: "" }],
     });
   };
 
@@ -77,7 +77,7 @@ const AjouterSanté = ({ onCreate }) => {
     
       // Validation pour les traitements
       const isValidTraitements = healthData.traitements.every(traitement => {
-        return isValidTextField(traitement.medicament) && isValidTextField(traitement.dose) && isValidTextField(traitement.frequence);
+        return isValidTextField(traitement.medicament) && isValidPrice(traitement.prixMedicament) && isValidTextField(traitement.dose) && isValidTextField(traitement.frequence);
       });
       if (!isValidTraitements) {
         alert('Veuillez remplir tous les champs des traitements avec des caractères valides.');
@@ -86,7 +86,7 @@ const AjouterSanté = ({ onCreate }) => {
     
       // Validation pour les vaccinations
       const isValidVaccinations = healthData.vaccinations.every(vaccination => {
-        return isValidTextField(vaccination.nomVaccin) && vaccination.dateAdministration !== '';
+        return isValidTextField(vaccination.nomVaccin) && isValidPrice(vaccination.prixVaccin) && vaccination.dateAdministration !== '';
       });
       if (!isValidVaccinations) {
         alert('Veuillez remplir tous les champs des vaccinations avec des caractères valides.');
@@ -101,7 +101,7 @@ const AjouterSanté = ({ onCreate }) => {
         Agriculteur:userId,
         ...healthData,
       };
-
+      console.log(formData)
       const response = await axios.post(
         "http://localhost:3001/SanteBetail/",
         formData,
@@ -113,6 +113,7 @@ const AjouterSanté = ({ onCreate }) => {
         }
       );
       alert(' ajouté avec succès !');
+      
       setHealthData({
         dateEnregistrement: "",
         etatSante: "",
@@ -129,7 +130,9 @@ const AjouterSanté = ({ onCreate }) => {
       // Ici vous pouvez ajouter du code pour gérer les erreurs, par exemple afficher un message d'erreur à l'utilisateur
     }
   };
-
+  const isValidPrice = (text) => {
+    return /^[0-9\s]+$/.test(text);
+  };
   const isValidTextField = (text) => {
     return /^[a-zA-Z0-9\s]+$/.test(text);
   };
@@ -205,6 +208,14 @@ const AjouterSanté = ({ onCreate }) => {
                   onChange={(e) => handleTraitementChange(index, "medicament", e.target.value)}
                 />
                 <input
+                  type="Number"
+                  className="form-control mb-2"
+                  name="prixMedicament"
+                  placeholder="prix Medicament"
+                  value={traitement.prixMedicament}
+                  onChange={(e) => handleTraitementChange(index, "prixMedicament", e.target.value)}
+                />
+                <input
                   type="text"
                   className="form-control mb-2"
                   name="dose"
@@ -236,6 +247,14 @@ const AjouterSanté = ({ onCreate }) => {
                   placeholder="Nom du vaccin"
                   value={vaccination.nomVaccin}
                   onChange={(e) => handleVaccinationChange(index, "nomVaccin", e.target.value)}
+                  required
+                />
+                 <input
+                  type="Number"
+                  className="form-control mb-2"
+                  placeholder="Prix du vaccin"
+                  value={vaccination.prixVaccin}
+                  onChange={(e) => handleVaccinationChange(index, "prixVaccin", e.target.value)}
                   required
                 />
                 <input
