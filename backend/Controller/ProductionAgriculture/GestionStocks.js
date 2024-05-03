@@ -21,7 +21,7 @@ exports.create = async (req, res) => {
 exports.getstockByAgriculteur = async (req, res) => {
     try {
       const agriculteurId = req.userId;
-      console.log(agriculteurId)
+     // console.log(agriculteurId)
       const stocks = await Stock.find({ Agriculteur: agriculteurId });
       res.status(200).json(stocks);
     } catch (error) {

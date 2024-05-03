@@ -2,45 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, FloatingLabel } from 'react-bootstrap';
 import axios from 'axios';
 
-const UpdateAgriculture = ({ cultureId, onClose }) => {
+const UpdateStock = ({ stockId, onClose }) => {
   const [formData, setFormData] = useState({
-    titre: '',
-    surface: '',
-    description: '',
-    localisation: '',
-    quantiteSemences: '',
-    datePlantation: '',
-    prixSemence: '',
-    prixTerrain: ''
+    libellé: '',
+    date: '',
+    quantitéGénérale:'',
+    entrées: [],
+    sortie: [],
+    emplacement: '',
+    ville: '',
+    typeStocks: []
   });
 
   useEffect(() => {
-    console.log(cultureId)
-    const fetchAgriculture = async () => {
+    const fetchStock = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/ListeAgriculture/${cultureId}`);
-        const agricultureData = response.data.cultures;
-        console.log(agricultureData)
-
+        const response = await axios.get(`http://localhost:3001/GestionStocks/stock/${stockId}`);
+        const stockData = response.data.stocks;
+console.log("ss",stockData)
         setFormData({
-          titre: agricultureData.titre,
-          surface: agricultureData.surface,
-          description: agricultureData.description,
-          localisation: agricultureData.localisation,
-          quantiteSemences: agricultureData.quantiteSemences,
-          datePlantation: formatDate(agricultureData.datePlantation),
-          prixSemence: agricultureData.prixSemence,
-          prixTerrain: agricultureData.prixTerrain
+          libellé: stockData.libellé,
+          date: formatDate(stockData.date),
+          entrées: stockData.entrées,
+          sortie: stockData.sortie,
+          emplacement: stockData.emplacement,
+          ville: stockData.ville,
+          typeStocks: stockData.typeStocks
         });
       } catch (error) {
-        console.error('Error fetching agriculture:', error);
+        console.error('Error fetching stock:', error);
       }
     };
 
-    if (cultureId) {
-      fetchAgriculture();
+    if (stockId) {
+      fetchStock();
     }
-  }, [cultureId]);
+  }, [stockId]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -49,121 +46,229 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
     let day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-
-  const handleInputChange = (e) => {
+  const calculateQuantiteGenerale = () => {
+    let totalEntree = 0;
+    let totalSortie = 0;
+  
+    formData.entrées.forEach((entrée) => {
+      totalEntree += parseFloat(entrée.quantitéEntrée);
+    });
+  
+    formData.sortie.forEach((sortie) => {
+      totalSortie += parseFloat(sortie.quantitéSortie);
+    });
+  
+    const quantiteGenerale = totalEntree - totalSortie;
+    console.log("qq",quantiteGenerale)
+    return quantiteGenerale;
+  };
+  useEffect(() => {
+    const newQuantiteGenerale = calculateQuantiteGenerale();
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      quantitéGénérale: newQuantiteGenerale,
+    }));
+  }, [formData.entrées, formData.sortie]);
+  
+  
+  const handleInputChange = (e, index, type) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const updatedData = { ...formData };
+    if (type === 'entrée') {
+      updatedData.entrées[index][name] = value;
+    } else if (type === 'sortie') {
+      updatedData.sortie[index][name] = value;
+    }
+    setFormData(updatedData);
+  };
+
+  const handleAddEntry = () => {
+    setFormData({
+      ...formData,
+      entrées: [...formData.entrées, { dateEntrée: '', quantitéEntrée: '', uniteEntrée: '', raisonEntrée: '', prix: '' }]
+    });
+  };
+
+  const handleAddExit = () => {
+    setFormData({
+      ...formData,
+      sortie: [...formData.sortie, { dateSortie: '', quantitéSortie: '', uniteSortie: '', raisonSortie: '', prix: '' }]
+    });
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.put(`http://localhost:3001/ListeAgriculture/${cultureId}`, formData);
+      console.log(formData) 
+           const response = await axios.put(`http://localhost:3001/GestionStocks/${stockId}`, formData);
       console.log('Update successful:', response.data);
-      alert('modifier avec succés')
+      alert('Stock modifié avec succès');
       onClose();
+      window.location.reload()
     } catch (error) {
-      console.error('Error updating agriculture:', error);
+      console.error('Error updating stock:', error);
     }
   };
 
   return (
-    <Modal show={!!cultureId} onHide={onClose}>
+    <Modal show={!!stockId} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Modifier Agriculture</Modal.Title>
+        <Modal.Title>Modifier Stock</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleFormSubmit}>
-          <Form.Group controlId="titre" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Titre" style={{fontWeight:"bold"}}>
+          <Form.Group controlId="libellé" className="mb-3" style={{width:"116%"}}>
+            <FloatingLabel controlId="floatingInput" label="Libellé">
               <Form.Control
                 type="text"
-                name="titre"
-                value={formData.titre}
-                onChange={handleInputChange}
-                defaultValue={formData.titre}
+                name="libellé"
+                value={formData.libellé}
+                onChange={(e) => setFormData({ ...formData, libellé: e.target.value })}
               />
             </FloatingLabel>
           </Form.Group>
-
-          <Form.Group controlId="surface" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Surface" style={{fontWeight:"bold"}}>
-              <Form.Control
-                type="number"
-                name="surface"
-                value={formData.surface}
-                onChange={handleInputChange}
-              />
-            </FloatingLabel>
-          </Form.Group>
-
-          <Form.Group controlId="description" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Description" style={{fontWeight:"bold"}}>
-              <Form.Control
-                as="textarea"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-              />
-            </FloatingLabel>
-          </Form.Group>
-
-          <Form.Group controlId="localisation" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Localisation" style={{fontWeight:"bold"}}>
-              <Form.Control
-                type="text"
-                name="localisation"
-                value={formData.localisation}
-                onChange={handleInputChange}
-              />
-            </FloatingLabel>
-          </Form.Group>
-
-          <Form.Group controlId="quantiteSemences" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Quantité de semences" style={{fontWeight:"bold"}}>
-              <Form.Control
-                type="number"
-                name="quantiteSemences"
-                value={formData.quantiteSemences}
-                onChange={handleInputChange}
-              />
-            </FloatingLabel>
-          </Form.Group>
-
-          <Form.Group controlId="datePlantation" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Date de plantation" style={{fontWeight:"bold"}}>
+          <Form.Group controlId="date" className="mb-3" style={{width:"116%"}}>
+            <FloatingLabel controlId="floatingInput" label="Date">
               <Form.Control
                 type="date"
-                name="datePlantation"
-                value={formData.datePlantation}
-                onChange={handleInputChange}
+                name="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
               />
             </FloatingLabel>
           </Form.Group>
-
-          <Form.Group controlId="prixSemence" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Prix de la semence" style={{fontWeight:"bold"}}>
-              <Form.Control
-                type="number"
-                name="prixSemence"
-                value={formData.prixSemence}
-                onChange={handleInputChange}
-              />
-            </FloatingLabel>
-          </Form.Group>
-
-          <Form.Group controlId="prixTerrain" style={{width:"116%"}} className="mb-3">
-            <FloatingLabel controlId="floatingInput" label="Prix du terrain" style={{fontWeight:"bold"}}>
-              <Form.Control
-                type="number"
-                name="prixTerrain"
-                value={formData.prixTerrain}
-                onChange={handleInputChange}
-              />
-            </FloatingLabel>
-          </Form.Group>
-
+          <Button onClick={handleAddEntry} className="mb-3" style={{width:"116%"}}>Ajouter Entrée</Button>
+          {Array.isArray(formData.entrées) && formData.entrées.map((entrée, index) => (
+            <div key={index}>
+             <Form.Group controlId={`dateEntrée${index}`} className="mb-3">
+                <FloatingLabel controlId={`floatingInput${index}`} label="Date d'entrée">
+                  <Form.Control
+                    type="date"
+                    name={`dateEntrée`}
+                    //value={entrée.dateEntrée}
+                    defaultValue={formatDate(entrée.dateEntrée)}
+                    onChange={(e) => handleInputChange(e, index, 'entrée')}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+              <div style={{display:"flex" }}>
+              <Form.Group controlId={`quantitéEntrée${index}`} className="mb-3" style={{ width: "104%" }}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Quantité d'entrée">
+                  <Form.Control
+                    type="number"
+                    name={`quantitéEntrée`}
+                    value={entrée.quantitéEntrée}
+                    onChange={(e) => handleInputChange(e, index, 'entrée')}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+              <Form.Group controlId={`uniteEntrée${index}`} className="mb-3" style={{ width: "104%" }}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Unité d'entrée">
+                  <Form.Select
+                    name={`uniteEntrée`}
+                    value={entrée.uniteEntrée}
+                    onChange={(e) => handleInputChange(e, index, 'entrée')}
+                  >
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="L">L</option>
+                    <option value="ml">ml</option>
+                  </Form.Select>
+                </FloatingLabel>
+              </Form.Group>
+              </div>
+              <Form.Group controlId={`raisonEntrée${index}`} className="mb-3" style={{width:"116%"}}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Raison d'entrée">
+                  <Form.Select
+                    name={`raisonEntrée`}
+                    value={entrée.raisonEntrée}
+                    onChange={(e) => handleInputChange(e, index, 'entrée')}
+                  >
+                    <option value="Achat">Achat</option>
+                    <option value="Production">Production</option>
+                    <option value="Don">Don</option>
+                    <option value="Autre">Autre</option>
+                  </Form.Select>
+                </FloatingLabel>
+              </Form.Group>
+              <Form.Group controlId={`prix${index}`} className="mb-3" style={{width:"116%"}}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Prix">
+                  <Form.Control
+                    type="number"
+                    name={`prix`}
+                    value={entrée.prix}
+                    onChange={(e) => handleInputChange(e, index, 'entrée')}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </div>
+          ))}
+          <Button onClick={handleAddExit} className="mb-3" style={{width:"116%"}}>Ajouter Sortie</Button>
+          {Array.isArray(formData.sortie) && formData.sortie.map((sortie, index) => (
+            <div key={index}>
+              <Form.Group controlId={`dateSortie`} className="mb-3" style={{width:"116%"}}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Date de sortie">
+                  <Form.Control
+                    type="date"
+                    name={`dateSortie`}
+                    defaultValue={formatDate(sortie.dateSortie)}
+                    //value={sortie.dateSortie}
+                    onChange={(e) => handleInputChange(e, index, 'sortie')}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+              <div style={{display:"flex" }}>
+              <Form.Group controlId={`quantitéSortie${index}`} className="mb-3" style={{ width: "104%" }}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Quantité de sortie">
+                  <Form.Control
+                    type="number"
+                    name={`quantitéSortie`}
+                    value={sortie.quantitéSortie}
+                    onChange={(e) => handleInputChange(e, index, 'sortie')}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+              <Form.Group controlId={`uniteSortie${index}`} className="mb-3" style={{ width: "104%" }}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Unité de sortie">
+                  <Form.Select
+                    name={`uniteSortie`}
+                    value={sortie.uniteSortie}
+                    onChange={(e) => handleInputChange(e, index, 'sortie')}
+                  >
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="L">L</option>
+                    <option value="ml">ml</option>
+                  </Form.Select>
+                </FloatingLabel>
+              </Form.Group>
+              </div>
+              <Form.Group controlId={`raisonSortie${index}`} className="mb-3" style={{width:"116%"}}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Raison de sortie">
+                  <Form.Select
+                    name={`raisonSortie`}
+                    value={sortie.raisonSortie}
+                    onChange={(e) => handleInputChange(e, index, 'sortie')}
+                  >
+                    <option value="Achat">Achat</option>
+                    <option value="Production">Production</option>
+                    <option value="Don">Don</option>
+                    <option value="Autre">Autre</option>
+                  </Form.Select>
+                </FloatingLabel>
+              </Form.Group>
+              <Form.Group controlId={`prixSortie${index}`} className="mb-3" style={{width:"116%"}}>
+                <FloatingLabel controlId={`floatingInput${index}`} label="Prix">
+                  <Form.Control
+                    type="number"
+                    name={`prix`}
+                    value={sortie.prix}
+                    onChange={(e) => handleInputChange(e, index, 'sortie')}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </div>
+          ))}
           <Button variant="primary" type="submit">
             Modifier
           </Button>
@@ -173,4 +278,4 @@ const UpdateAgriculture = ({ cultureId, onClose }) => {
   );
 };
 
-export default UpdateAgriculture;
+export default UpdateStock;

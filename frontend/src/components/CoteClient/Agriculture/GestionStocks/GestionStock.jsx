@@ -115,7 +115,7 @@ const GestionStock = () => {
                                             ) : (
                                                 <p style={{ fontFamily: "arial", fontSize: "x-large", marginLeft: "15%" }}>Aucun élément de stock trouvé.</p>
                                             )}
-                                             <UpdateAgriculture cultureId={selectedCultureId} onClose={handleCloseModal} />
+                                             <UpdateAgriculture stockId={selectedCultureId} onClose={handleCloseModal} />
                                              <Details Id={selecteddetailsId} onClose={handleCloseDetailsModal} />
                                         </div>
                                     </div>
