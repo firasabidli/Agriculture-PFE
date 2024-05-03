@@ -4,14 +4,17 @@ import axios from 'axios';
 
 const Ajouter = ({ onCreate }) => {
   const { id } = useParams();
-  const now=new Date()
+  const now=new Date();
+  const [displayPriceAchat, setDisplayPriceAchat] = useState(false);
+  const [displayPriceVente, setDisplayPriceVente] = useState(false);
   const [movementData, setMovementData] = useState({
     AnimalId:id,
     dateMouvement: new Date(now).toISOString().split("T")[0],
     movementType: "",
     origin: "",
     destination: "",
-    price: 0,
+    priceAchat: 0,
+    priceVente: 0,
   });
 
   const handleInputChange = (e) => {
@@ -20,6 +23,25 @@ const Ajouter = ({ onCreate }) => {
       ...movementData,
       [name]: value,
     });
+  };
+
+  const handleInputTypeVenteChange = (e) => {
+    const { name, value } = e.target;
+    setMovementData({
+      ...movementData,
+      [name]: value,
+    });
+    setDisplayPriceVente(true);
+    setDisplayPriceAchat(false);
+  };
+  const handleInputTypeAchatChange = (e) => {
+    const { name, value } = e.target;
+    setMovementData({
+      ...movementData,
+      [name]: value,
+    });
+    setDisplayPriceAchat(true);
+    setDisplayPriceVente(false);
   };
 
   const handleSubmit = async (e) => {
@@ -37,10 +59,18 @@ const Ajouter = ({ onCreate }) => {
         return;
       }
   
-      if (isNaN(movementData.price) || movementData.price <= 0) {
-        alert('Le prix doit être un nombre positif.');
+     if (displayPriceAchat){
+      if (isNaN(movementData.priceAchat)  || movementData.priceAchat <= 0) {
+        alert("Le prix d'achat doit être un nombre positif.");
         return;
       }
+     }
+     if (displayPriceVente){
+      if (isNaN(movementData.priceVente)  || movementData.priceVente <= 0) {
+        alert("Le prix du vente doit être un nombre positif.");
+        return;
+      }
+     }
       const authToken = localStorage.getItem("authToken");
       const userId = localStorage.getItem("user")._id;
       console.log("yy",movementData)
@@ -63,10 +93,11 @@ const Ajouter = ({ onCreate }) => {
       setMovementData({ dateMouvement: "",  movementType: "",
       origin: "",
       destination: "",
-      price: 0
+      priceAchat: 0,
+      priceVente: 0,
      });
       onCreate();
-
+      window.location.reload()
       console.log("Réponse du serveur :", response.data);
     } catch (error) {
       console.error("Erreur lors de l'ajout du mouvement de bétail :", error);
@@ -87,7 +118,8 @@ const Ajouter = ({ onCreate }) => {
                 name="movementType"
                 value="achat"
                 checked={movementData.movementType === "achat"}
-                onChange={handleInputChange}
+               
+                onChange={handleInputTypeAchatChange}
                 required
               />
               <label htmlFor="achat" style={{ marginLeft: "5px", marginRight: "15px" ,fontSize:"110%"}}>Achat</label>
@@ -97,7 +129,7 @@ const Ajouter = ({ onCreate }) => {
                 name="movementType"
                 value="vente"
                 checked={movementData.movementType === "vente"}
-                onChange={handleInputChange}
+                onChange={handleInputTypeVenteChange}
               />
               <label htmlFor="vente" style={{ marginLeft: "5px",fontSize:"110%"}}>Vente</label>
             </div>
@@ -137,16 +169,30 @@ const Ajouter = ({ onCreate }) => {
               required
             />
           </div>
-          <div className="mb-3" style={{width: "116%"}}>
-            <label style={{fontWeight:"bold"}}>Prix :</label>
-            <input
-              type="number"
-              className="form-control"
-              name="price"
-              value={movementData.price}
-              onChange={handleInputChange}
-            />
-          </div>
+          {displayPriceAchat &&
+              <div className="mb-3" style={{width: "116%"}}>
+                <label style={{fontWeight:"bold"}}>Prix d'achat :</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  name="priceAchat"
+                  value={movementData.priceAchat}
+                  onChange={handleInputChange}
+                />
+              </div>
+          }
+            {displayPriceVente &&
+              <div className="mb-3" style={{width: "116%"}}>
+                <label style={{fontWeight:"bold"}}>Prix du vente:</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  name="priceVente"
+                  value={movementData.priceVente}
+                  onChange={handleInputChange}
+                />
+              </div>
+            }
           <button type="submit" className="btn btn-primary">Ajouter Mouvement</button>
         </form>
       </div>

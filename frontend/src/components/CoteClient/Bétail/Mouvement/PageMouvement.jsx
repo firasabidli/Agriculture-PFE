@@ -8,11 +8,14 @@ import Navbar from'../../Navbar';
 const PageMouvement = () => {
   const { id } = useParams();
   const [movementData, setMovementData] = useState([]);
-
+  const [displayPriceAchat, setDisplayPriceAchat] = useState(false);
+  const [displayPriceVente, setDisplayPriceVente] = useState(false);
   const fetchMovementsByFarmer = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/MouvementsBetail/${id}`);
       setMovementData(response.data);
+      console.log(response.data);
+      
     } catch (error) {
       console.error('Erreur lors de la récupération des mouvements de bétail:', error);
     }
@@ -59,7 +62,10 @@ const PageMouvement = () => {
                 <h5 className="card-title">{item.movementType}</h5>
                 <p className="card-text">Origine: {item.origin}</p>
                 <p className="card-text">Destination: {item.destination}</p>
-                <p className="card-text">Prix: {item.price}DT</p>
+                {item.movementType=="achat" &&
+                <p className="card-text">Prix d'achat: {item.priceAchat}DT</p>}
+                {item.movementType=="vente" &&
+                <p className="card-text">Prix du vente: {item.priceVente}DT</p>}
                 <p className="card-text">Enregistré le: {formatDate(item.movementDate)}</p>
                 <div className="btn-group" role="group" style={{marginLeft:"15%",marginTop:"15px"}}>
                   <Update onUpdate={fetchMovementsByFarmer} mouvementId={item._id} />

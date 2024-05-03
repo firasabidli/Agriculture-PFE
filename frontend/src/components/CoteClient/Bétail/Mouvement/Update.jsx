@@ -8,8 +8,10 @@ const Update = ({ onUpdate, mouvementId }) => {
     const [typeMouvement, setTypeMouvement] = useState('');
     const [origine, setOrigine] = useState('');
     const [destination, setDestination] = useState('');
-    const [prix, setPrix] = useState(0);
-
+    const [prixAchat, setPrixAchat] = useState(0);
+    const [prixVente, setPrixVente] = useState(0);
+    const [displayPriceAchat, setDisplayPriceAchat] = useState(false);
+    const [displayPriceVente, setDisplayPriceVente] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -24,7 +26,10 @@ const Update = ({ onUpdate, mouvementId }) => {
                             setTypeMouvement(mouvementData.movementType);
                 setOrigine(mouvementData.origin);
                 setDestination(mouvementData.destination);
-                setPrix(mouvementData.price);
+                setPrixAchat(mouvementData.priceAchat);
+                setPrixVente(mouvementData.priceVente);
+                setDisplayPriceAchat(mouvementData.movementType=="achat");
+                setDisplayPriceVente(mouvementData.movementType=="vente");
             } catch (error) {
                 console.error('Error fetching mouvement:', error);
             }
@@ -40,7 +45,8 @@ const Update = ({ onUpdate, mouvementId }) => {
             movementType: typeMouvement,
             origin: origin,
             destination: destination,
-            price: prix
+            priceAchat: prixAchat,
+            priceVente: prixVente
         };
 
         try {
@@ -52,6 +58,18 @@ const Update = ({ onUpdate, mouvementId }) => {
             console.error('Error updating mouvement:', error);
         }
     };
+
+    const handleInputTypeAchatChange = () => {
+        setTypeMouvement("achat")
+        setDisplayPriceAchat(true);
+        setDisplayPriceVente(false);
+      };
+
+      const handleInputTypeVenteChange = () => {
+        setTypeMouvement("vente")
+        setDisplayPriceAchat(false);
+        setDisplayPriceVente(true);
+      };
 
     return (
         <>
@@ -73,7 +91,7 @@ const Update = ({ onUpdate, mouvementId }) => {
                                 name="typeMouvement"
                                 value="achat"
                                 checked={typeMouvement === "achat"}
-                                onChange={() => setTypeMouvement("achat")}
+                                onChange={handleInputTypeAchatChange}
                             />
                             <label htmlFor="achat" style={{ marginLeft: "5px", marginRight: "15px" ,fontSize:"110%"}}>Achat</label>
                             <input
@@ -82,7 +100,7 @@ const Update = ({ onUpdate, mouvementId }) => {
                                 name="typeMouvement"
                                 value="vente"
                                 checked={typeMouvement === "vente"}
-                                onChange={() => setTypeMouvement("vente")}
+                                onChange={handleInputTypeVenteChange}
                             />
                             <label htmlFor="vente" style={{ marginLeft: "5px",fontSize:"110%"}}>Vente</label>
                         </div>
@@ -121,16 +139,28 @@ const Update = ({ onUpdate, mouvementId }) => {
                             onChange={(e) => setDestination(e.target.value)}
                         />
                     </div>
-
-                    <div className="mb-3">
-                        <label style={{fontWeight:"bold"}}>Prix :</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            value={prix}
-                            onChange={(e) => setPrix(e.target.value)}
-                        />
-                    </div>
+                    {displayPriceAchat &&
+                            <div className="mb-3">
+                                <label style={{fontWeight:"bold"}}>Prix d'achat:</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={prixAchat}
+                                    onChange={(e) => setPrixAchat(e.target.value)}
+                                />
+                            </div>
+                    }
+                    {displayPriceVente &&
+                            <div className="mb-3">
+                                <label style={{fontWeight:"bold"}}>Prix du vente:</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={prixVente}
+                                    onChange={(e) => setPrixVente(e.target.value)}
+                                />
+                            </div>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
                     <Btn  className="bg-secondary" onClick={handleClose}>

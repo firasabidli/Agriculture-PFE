@@ -36,7 +36,7 @@ const Update = ({ onUpdate, SanteId }) => {
     }, [SanteId]);
 
     const handleAddTraitement = () => {
-        setTraitements([...traitements, { medicament: "", dose: "", frequence: "" }]);
+        setTraitements([...traitements, { medicament: "", prixMedicament: "", dose: "", frequence: "" }]);
     };
 
     const handleTraitementChange = (index, fieldName, value) => {
@@ -46,7 +46,7 @@ const Update = ({ onUpdate, SanteId }) => {
     };
 
     const handleAddVaccination = () => {
-        setVaccinations([...vaccinations, { nomVaccin: "", dateAdministration: "" }]);
+        setVaccinations([...vaccinations, { nomVaccin: "", prixVaccin: "", dateAdministration: "" }]);
     };
 
     const handleVaccinationChange = (index, fieldName, value) => {
@@ -150,6 +150,13 @@ const Update = ({ onUpdate, SanteId }) => {
                                     value={traitement.medicament}
                                     onChange={(e) => handleTraitementChange(index, "medicament", e.target.value)}
                                 />
+                                 <input
+                                    type="Number"
+                                    className="form-control mb-2"
+                                    placeholder="Prix du Médicament"
+                                    value={traitement.prixMedicament}
+                                    onChange={(e) => handleTraitementChange(index, "prixMedicament", e.target.value)}
+                                />
                                 <input
                                     type="text"
                                     className="form-control mb-2"
@@ -182,6 +189,13 @@ const Update = ({ onUpdate, SanteId }) => {
                                     placeholder="Nom du vaccin"
                                     value={vaccination.nomVaccin}
                                     onChange={(e) => handleVaccinationChange(index, "nomVaccin", e.target.value)}
+                                />
+                                 <input
+                                    type="Number"
+                                    className="form-control mb-2"
+                                    placeholder="Prix du vaccin"
+                                    value={vaccination.prixVaccin}
+                                    onChange={(e) => handleVaccinationChange(index, "prixVaccin", e.target.value)}
                                 />
                                 <input
                                     type="date"

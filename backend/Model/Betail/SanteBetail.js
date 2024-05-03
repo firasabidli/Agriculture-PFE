@@ -20,6 +20,10 @@ const HealthStateSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      prixMedicament: {
+        type: Number,
+        required: true,
+      },
       dose: {
         type: String,
         required: true,
@@ -32,6 +36,10 @@ const HealthStateSchema = new mongoose.Schema({
     vaccinations: [{
       nomVaccin: {
         type: String,
+        required: true,
+      },
+      prixVaccin: {
+        type: Number,
         required: true,
       },
       dateAdministration: {
