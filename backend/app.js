@@ -17,6 +17,7 @@ const UserProfileRouter = require('./Router/Authentification/userProfileRouter')
 const ActiverCompteRouter = require('./Router/Authentification/ActiverCompteRouter');
 const AuthRouter = require('./Router/Authentification/Authentification');
 const UserModel = require('./Model/Authentification/Utilisateur');
+
 //const verifyAuthToken = require('./Controller/Authentification/verifyAuthTokenMiddleware');
 //Bétail
 const CategorieBetailRouter = require('./Router/Betail/CategorieBetail');
@@ -33,9 +34,14 @@ const historiqueMainOeuvre=require('./Router/ProductionAgriculture/historiqueMai
 const historiqueIrrigation=require('./Router/ProductionAgriculture/historiqueIrrigation');
 const historiqueRecolte=require('./Router/ProductionAgriculture/historiqueRecolte');
 const GestionStock=require('./Router/ProductionAgriculture/GestionStocks');
+//chat
+const Message=require('./Router/Chat/Message');
+const SalleDiscussion=require('./Router/Chat/SalleDiscussion');
+const Conversation = require('./Router/Chat/Conversation');
 const cors = require('cors');
 const app = express();
 const argon2 = require('argon2');
+
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
@@ -123,5 +129,9 @@ app.use('/HistoriqueMainOeuvre',historiqueMainOeuvre);
 app.use('/HistoriqueIrrigation',historiqueIrrigation);
 app.use('/HistoriqueRecolte',historiqueRecolte);
 app.use('/GestionStocks',GestionStock);
+//chat
+app.use('/salle',SalleDiscussion);
+app.use('/Message',Message);
+app.use('/Conversations',Conversation)
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

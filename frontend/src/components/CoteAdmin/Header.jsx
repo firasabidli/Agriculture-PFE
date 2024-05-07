@@ -56,6 +56,7 @@ function Header({ toggleSidebar }) {
     />
     </div>
     </div>
+    <Link to="/admin/chat" className='rounded-circle btn-sm-square bg-white ms-3 text-dark pt-1 fs-4'>Chat</Link>
     <div className='header-right d-flex ms-auto '>
       <NotifCulture/>
       <div class="dropdown text-end  ">

@@ -39,6 +39,8 @@ import PageIrrigation from './components/CoteClient/Agriculture/historiqueIrriga
 import PageEngrais from './components/CoteClient/Agriculture/HistoriqueEngrais/PageEngrais.jsx';
 import GestionStock from './components/CoteClient/Agriculture/GestionStocks/GestionStock.jsx';
 import PageRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/PageRecolte.jsx';
+import Chatpage from './components/CoteClient/Chat/Chat.jsx';
+import ChatpageAdmin from './components/CoteAdmin/ChatAdmin/Chat.jsx';
 import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -57,8 +59,9 @@ root.render(
                 <Route path="/admin/Agricultures" element={<Agricultures />} />
                 <Route path="/admin/Profile" element={<Profile />} />
                 <Route path="/admin/ActiverCompte" element={<ActiverCompte />} />
+                
          </Route>
-
+         <Route path="/admin/chat" element={<ChatpageAdmin/>}></Route>
             <Route element={<PrivateRoute allowedRoles={['Agriculteur']} />}>
                 <Route path="/accueil" element={<PageAccueil />} />
                 <Route path="/meteo" element={<Meteo/>} />
@@ -76,6 +79,8 @@ root.render(
                 <Route path="/agriculteur/historique/Irrigation/:id" element={<PageIrrigation/>}></Route>
                 <Route path="/agriculteur/historique/Recolte/:id" element={<PageRecolte/>}></Route>
                 <Route path="/agriculture/gestionStock" element={<GestionStock/>}></Route>
+                <Route path="/chat" element={<Chatpage/>}></Route>
+                
             </Route>
           
           <Route path="/" element={<App />} />
