@@ -31,6 +31,7 @@ import ListAnimal from './components/CoteClient/Bétail/Fiche/ListAnimal.js';
 import InfoBetail from './components/CoteClient/InfoBetail/InfoBetail.jsx';
 import PageSanté from './components/CoteClient/Bétail/SanteBétail/PageSanté.jsx';
 import PageMouvement from './components/CoteClient/Bétail/Mouvement/PageMouvement.jsx';
+import PageProductionLaitiere from './components/CoteClient/Bétail/ProductionLaitiere/PageProductionLaitiere.jsx';
 import ListAgriculture from './components/CoteClient/Agriculture/Fiche/ListAgriculture.jsx';
 import PageEquipement from './components/CoteClient/Agriculture/HistoriqueEquipement/PageEquipement.jsx';
 import PageMainOeuvre from './components/CoteClient/Agriculture/HistoriqueMainOeuvre/PageMainOeuvre.jsx';
@@ -66,6 +67,7 @@ root.render(
                 <Route path="/agriculteur/FicheAnimal" element={<ListAnimal/>}/>
                 <Route path="/agriculteur/PageSante/:id" element={<PageSanté/>}></Route>
                 <Route path="/agriculteur/PageMouvement/:id" element={<PageMouvement/>}></Route>
+                <Route path="/agriculteur/PageProductionLaitiere/:id" element={<PageProductionLaitiere/>}></Route>
                 <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
                 <Route path="/agriculteur/FicheAgriculture" element={<ListAgriculture/>}></Route>
                 <Route path="/agriculteur/historique/Engrais/:id" element={<PageEngrais/>}></Route>

@@ -9,6 +9,7 @@ import axios from 'axios';
 import Add from './Add';
 import Update from './Update.jsx';
 import { Link } from 'react-router-dom';
+import HistoriqueProduction from './HistoriqueProduction/HistoriqueProduction.jsx';
 //import $ from 'jquery';
 const ListAnimal = () => {
 
@@ -86,6 +87,9 @@ const ListAnimal = () => {
   const handleMouvementLinkClick = (animalId) => {
     return `/agriculteur/PageMouvement/${animalId}`;
   };
+  const handleProductionLinkClick = (animalId) => {
+    return `/agriculteur/PageProductionLaitiere/${animalId}`;
+  };
   return (
     <div>
 <Navbar textColor="black" />
@@ -124,6 +128,10 @@ const ListAnimal = () => {
               <Dropdown.Menu>
               <Link className="dropdown-item" to={handleAnimalLinkClick(animal._id)} >Suivi Santé</Link>
               <Link className="dropdown-item" to={handleMouvementLinkClick(animal._id)} >Suivi Mouvement</Link>
+             {animal.subCategorieBetail=="Vache" && (
+              <Link className="dropdown-item" to={handleProductionLinkClick(animal._id)} >Suivi Production</Link>
+             )}
+              
                 <Dropdown.Item>
                 <Button onClick={() => handleUpdateClick(animal._id)}>Modifier</Button>
                   {/* <Update  onUpdate={fetchAnimauxByAgriculteur} animauxId={animal._id} /> */}
@@ -152,8 +160,8 @@ const ListAnimal = () => {
             </div>
           </div>
         </div>
-     
-    </div>
+       <HistoriqueProduction/>
+       </div>
     {/*  */}
     {/* <!-- Sidebar content --> */}
         <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0" style={{marginLeft:"-3%"}}>

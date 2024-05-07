@@ -84,7 +84,6 @@ const Ajouter = ({ onCreate }) => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${authToken}`,
             "Content-Type": "application/json",
           },
         }

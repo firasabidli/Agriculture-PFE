@@ -1,0 +1,112 @@
+
+
+     .table {
+      
+        
+        border-collapse: collapse;
+        border-spacing: 0 0px;
+        
+     }
+    h3{
+        color: black;
+        margin-top: 200px;
+        text-align: center;
+    }
+    h2{
+        margin-top: 30px;
+        text-align: center;
+    }
+    .calendar{
+        text-align: center;
+        
+       margin: 0 auto;
+    }
+    .btn{
+      
+      background-color: #38c609;
+      color: white;
+    }
+
+    .btn:hover{
+     
+      background-color: white;
+      color: #38c609;
+      border-color: #38c609;
+    }
+      .table thead th {
+        border: solid 0.5px rgb(255, 255, 255);
+       padding: 10px;
+       
+        font-size: 14px;
+        color: #f9fbf9; 
+        background-color: #38c609;
+      }
+      
+      .table tbody th {
+        border: solid 0.5px rgb(255, 255, 255);
+        padding: 10px;
+        width: 150px;
+        font-size: 14px;
+        }
+
+        .table tbody td {
+          border: solid 0.5px rgb(255, 255, 255);
+          padding: 5px;
+          width: 150px;
+          font-size: 14px;
+          }
+        
+        
+
+        td input{
+            width:100%;
+            
+        }
+        
+
+
+        /* checkbox Switch */
+
+        .checkbox {
+          opacity: 0;
+          position: absolute;
+      }
+
+      .checkbox-label {
+          background-color: #111;
+          width: 93px;
+          height: 48px;
+          border-radius: 50px ;
+          position: relative;
+          padding: 7px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          
+      }
+
+      .fa-add {
+          color: white;
+          font-size: 35px;
+      }
+
+      .fa-edit {
+          color: white;
+          font-size: 35px;
+      }
+
+      .checkbox-label .ball {
+          background: #38c609;
+          width: 38px;
+          height: 38px;
+          position: absolute;
+          left: 6px;
+          top: 5px;
+          border-radius: 50%;
+          transition: transform 0.2s linear;
+      }
+
+      .checkbox:checked+.checkbox-label .ball {
+          transform: translateX(43px);
+      }

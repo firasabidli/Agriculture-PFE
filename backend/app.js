@@ -24,6 +24,7 @@ const BetailRouter = require('./Router/Betail/BetailRouter');
 const FicheAnimalRouter=require('./Router/Betail/FicheAnimal');
 const SanteBetail=require('./Router/Betail/SanteBetail');
 const MouvementBetail = require ('./Router/Betail/MouvementBetail');
+const ProductionBetail = require ('./Router/Betail/ProductionRouter');
 //ProductionAgriculture
 const ListeAgriculture= require('./Router/ProductionAgriculture/FicheAgriculture');
 const historiqueEngrais=require('./Router/ProductionAgriculture/historiqueEngrais');
@@ -112,7 +113,8 @@ app.use('/CategorieBetail', CategorieBetailRouter);
 app.use('/Betail', BetailRouter);
 app.use('/FicheAnimal',FicheAnimalRouter);
 app.use('/SanteBetail',SanteBetail);
-app.use('/MouvementsBetail',MouvementBetail)
+app.use('/MouvementsBetail',MouvementBetail);
+app.use('/ProductionBetail',ProductionBetail)
 //ProductionAgriculture
 app.use('/ListeAgriculture',ListeAgriculture);
 app.use('/HistoriqueEngrais',historiqueEngrais);
