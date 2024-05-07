@@ -190,3 +190,11 @@ exports.updateImageAdmin = async (req, res, next) => {
   }
 })
 };
+exports.getUser = async (req, res) => {
+  try {
+    const agriculteurs = await Utilisateur.find({ role: "Agriculteur" });
+    res.status(200).json(agriculteurs);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};

@@ -336,7 +336,7 @@ const handleCategorieBetailClick =()=>{
                 <Link to="/meteo" className='rounded-circle btn-sm-square bg-white ms-3 text-dark pt-1 fs-4'>
                  <TiWeatherPartlySunny />
                 </Link>
-                
+                <Link to="/admin/chat" className='rounded-circle btn-sm-square bg-white ms-3 text-dark pt-1 fs-4'>Chat</Link>
               <div>
             <div className='rounded-circle btn-sm-square bg-white ms-3' onClick={handleProfileClick}>
             <img

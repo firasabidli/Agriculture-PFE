@@ -6,5 +6,6 @@ router.post('/Login', UserController.login)
 router.post('/logout', UserController.logout);
 router.get('/',UserController.get);
 router.put('/ImageAdmin/:id',UserController.updateImageAdmin);
+router.get('/user',UserController.getUser)
 router.get('/verify',UserController.verifyAuthToken);
 module.exports = router;
