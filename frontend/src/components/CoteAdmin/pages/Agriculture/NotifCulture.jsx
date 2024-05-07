@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { MdNotifications } from "react-icons/md";
-
+//import { MdNotifications } from "react-icons/md";
+import { IoMdNotifications } from "react-icons/io";
 const NotifCulture = () => {
     const [remarques, setRemarques] = useState([]);
     const [showAlerts, setShowAlerts] = useState(false);
@@ -61,7 +61,7 @@ const NotifCulture = () => {
         <div>
             <div className='notification_nombre'>
                 <div>
-                    <MdNotifications className='icon icon-header-notif notification' style={{marginLeft:"-70%",marginRight:"61%"}} onClick={handleNotificationClick} />
+                    <IoMdNotifications className=' icon-header-notif notification' style={{marginLeft:"-70%",marginRight:"61%",fontSize: "169%"}} onClick={handleNotificationClick} />
                 </div>
             
             {remarques.length > 0 && (
