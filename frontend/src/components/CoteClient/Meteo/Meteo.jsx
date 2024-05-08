@@ -3,6 +3,7 @@ import CurrentWeather from './CurrentWeather';
 import './Meteo.css'
 import Navbar from '../Navbar.js';
 import { useUser } from '../../UserContext.js';
+// import Alerts from './Alerts.jsx';
 const API_KEY ='3756b9777f12d44d18ccec6aa71e7dd5';
 // const API_KEY ='46b7585ba81f3eca5e7a9dd7e76b0b99';
 
@@ -37,9 +38,10 @@ function Meteo() {
       {/* Afficher les données météorologiques */}
       {weatherData && (
         
-        
+        <>
           <CurrentWeather weatherData={weatherData} city={City} />
-        
+        {/* <Alerts weatherData={weatherData}/> */}
+        </>
       )}
     </div>
   );
