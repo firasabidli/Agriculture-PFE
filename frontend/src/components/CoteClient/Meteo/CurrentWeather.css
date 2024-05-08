@@ -3,7 +3,15 @@ img{
   width: 50px;
 }
 
+.lamp{
+  float: right;
+  font-size: 100px;
+  margin-top: -10px;
+}
 
+.lamp:hover{
+  cursor: pointer;
+}
 
 .weather-panel {
  
