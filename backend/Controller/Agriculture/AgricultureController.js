@@ -65,7 +65,7 @@ exports.all = async (req, res) => {
       const Agricultures = await Agriculture.find().populate('saison categorie materiels MethodesStock MedicamentsCulture');
       const AgriculturesWithImagePaths = Agricultures.map(agriculture => ({
         ...agriculture._doc,
-        image_agriculture: agriculture.image_agriculture ? `http://localhost:3001/images/Agricultures/${agriculture.image_agriculture}` : null // Ajouter le chemin d'accès complet au dossier images
+        image_agriculture: agriculture.image_agriculture ? `http://localhost:3001/images/Agricultures/${agriculture.image_agriculture}` : null 
       }));
       res.status(200).json({ success: true, data: AgriculturesWithImagePaths });
     } catch (error) {
