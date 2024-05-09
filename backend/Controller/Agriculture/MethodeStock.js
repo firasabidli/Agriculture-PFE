@@ -22,7 +22,7 @@ const upload = multer({ storage: storage }).single('image_MethodStock');
 exports.createStock = async (req, res) => {
   upload(req, res, async function (err) {
     if (err) {
-      return res.status(400).json({ error: 'pas du image' });
+      return res.status(400).json({ error: 'image ne trouve pas' });
     }
   const { title, description } = req.body;
   const imageStock = req.file ? req.file.filename : null;
@@ -47,7 +47,7 @@ exports.createStock = async (req, res) => {
 
   nouvelleStock.save()
     .then(Stocks => {
-      res.status(201).json({ message: 'stock créée avec succès', stock: Stocks });
+      res.status(201).json({ message: 'Methode de stockage créée avec succès', stock: Stocks });
     })
 
     .catch(err => {
@@ -75,7 +75,7 @@ exports.createStock = async (req, res) => {
     try {
       const stock = await Stock.findById(req.params.id);
       if (!stock) {
-        return res.status(404).json({ success: false, message: 'Stock nest pas trouver' });
+        return res.status(404).json({ success: false, message: "Methode de stockage n'est pas trouver" });
       }
       res.status(200).json({ success: true, data: stock });
     } catch (err) {
@@ -107,7 +107,7 @@ exports.createStock = async (req, res) => {
           updateData.image_MethodStock = imageName;
         }
         await Stock.updateOne({ _id: req.params.id }, updateData);
-        res.status(200).json({ success: true, message: 'Stockage Modifier avec succès' });
+        res.status(200).json({ success: true, message: 'Methode de stockage Modifier avec succès' });
       });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
@@ -120,7 +120,7 @@ exports.createStock = async (req, res) => {
     Stock.findByIdAndDelete(req.params.id)
     .then((deletedStock) => {
       if (!deletedStock) {
-        return res.status(404).json({ success: false, message: 'stock n est pas trouver' });
+        return res.status(404).json({ success: false, message: "Methode de stockage n'est pas trouver" });
       }
 
       // Supprimer l'image associée
@@ -130,17 +130,17 @@ exports.createStock = async (req, res) => {
         try {
           if (fs.existsSync(imagePath)) {
             fs.unlinkSync(imagePath);
-            return res.status(200).json({ success: true, message: 'stock supprimer avec succès' });
+            return res.status(200).json({ success: true, message: 'Methode de stockage supprimer avec succès' });
           } else {
             // console.log('Image not found:', imagePath);
-            return res.status(404).json({ success: false, message: 'Image not found' });
+            return res.status(404).json({ success: false, message: 'Image ne trouve pas' });
           }
         } catch (error) {
           console.error('Error while deleting image:', error);
           return res.status(500).json({ success: false, message: 'Error while deleting image' });
         }
       } else {
-        return res.status(200).json({ success: true, message: 'stock supprimer avec  success,pas association image' });
+        return res.status(200).json({ success: true, message: 'Methode de stockage supprimer avec  success, pas association image' });
       }
     })
     .catch((error) => {

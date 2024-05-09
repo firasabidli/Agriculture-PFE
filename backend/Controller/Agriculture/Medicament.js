@@ -17,16 +17,16 @@ exports.createMedicament = async (req, res) => {
     // Télécharger l'image avec Multer
     upload(req, res, async function (err) {
       if (err) {
-        return res.status(400).json({ error: 'pas du image' });
+        return res.status(400).json({ error: 'image ne trouve pas' });
       }
 
       const { nomMedicament, description } = req.body;
       const imageM = req.file ? req.file.filename : null;
       if (!nomMedicament ) {
-        return res.status(400).json({ error: 'nom du medicament est vide.' });
+        return res.status(400).json({ error: 'nom du engrais agricole est vide.' });
       }
       if (!description ) {
-        return res.status(400).json({ error: 'description du medicament est vide.' });
+        return res.status(400).json({ error: 'description du engrais agricole est vide.' });
       }
       if(!imageM){
         return res.status(400).json({ error: 'choisir un image.' });
@@ -45,7 +45,7 @@ exports.createMedicament = async (req, res) => {
       const savedMedicament = await newMedicament.save();
 
       // Répondre avec le médicament créé
-      res.status(201).json({ message: 'Engrais créé avec succès', medicament: savedMedicament });
+      res.status(201).json({ message: 'Engrais agricole créé avec succès', medicament: savedMedicament });
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -126,7 +126,7 @@ exports.deleteMedicament = (req, res, next) => {
         try {
           if (fs.existsSync(imagePath)) {
             fs.unlinkSync(imagePath);
-            return res.status(200).json({ success: true, message: 'Engrais supprimer avec succès' });
+            return res.status(200).json({ success: true, message: 'Engrais agricole supprimer avec succès' });
           } else {
             // console.log('Image not found:', imagePath);
             return res.status(404).json({ success: false, message: 'Image not found' });
@@ -136,7 +136,7 @@ exports.deleteMedicament = (req, res, next) => {
           return res.status(500).json({ success: false, message: 'Error while deleting image' });
         }
       } else {
-        return res.status(200).json({ success: true, message: 'Engrais supprimer avec succées' });
+        return res.status(200).json({ success: true, message: 'Engrais agricole supprimer avec succées' });
       }
     })
     .catch((error) => {

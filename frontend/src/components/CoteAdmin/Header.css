@@ -9,11 +9,14 @@
     box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
     height: 60px;
 }
-
+.rounded-circle{
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
 .search-container {
     width: 450px;
-    
-    
+
     
   }
   .header-right{

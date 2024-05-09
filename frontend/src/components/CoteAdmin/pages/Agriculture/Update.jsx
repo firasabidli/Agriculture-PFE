@@ -302,7 +302,7 @@ function Update({ onUpdate, agricultureId }) {
               </Form.Group>
               
               <Form.Group className="mb-3" controlId="materiels">
-              <Form.Label>Matériaux</Form.Label>
+              <Form.Label>Equipements</Form.Label>
               {materials && materials.map(material => (
                 <Form.Check
                   key={material._id}
@@ -316,7 +316,7 @@ function Update({ onUpdate, agricultureId }) {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="stocks">
-              <Form.Label>Stocks</Form.Label>
+              <Form.Label>Metode de stockage</Form.Label>
               {stocks && stocks.map(stock => (
                 <Form.Check
                   key={stock._id}
@@ -331,7 +331,7 @@ function Update({ onUpdate, agricultureId }) {
 
 
             <Form.Group className="mb-3" controlId="stocks">
-              <Form.Label>Medicaments</Form.Label>
+              <Form.Label>Engrais agricole</Form.Label>
               {medicaments && medicaments.map(medicament => (
                 <Form.Check
                   key={medicament._id}

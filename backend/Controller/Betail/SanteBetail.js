@@ -68,7 +68,7 @@ exports.getSanteById = async (req, res) => {
   try {
     const sante = await SanteBetail.findById(req.params.id);
     if (!sante) {
-      return res.status(404).json({ success: false, message: 'animal n est pas trouver' });
+      return res.status(404).json({ success: false, message: "animal n'est pas trouvé" });
     }
     res.status(200).json({sante});
   } catch (err) {

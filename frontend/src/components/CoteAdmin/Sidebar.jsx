@@ -42,7 +42,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                 </div>
                 <ul className="sidebar-nav">
                     <li className="sidebar-item">
-                        <Link to="/" className={`sidebar-link ${page==="Home" ? 'item-active' : ''}`}>
+                        <Link to="" className={`sidebar-link ${page==="Home" ? 'item-active' : ''}`}>
                             <span className="icon"><AiOutlineDashboard /></span>
                             Dashboard
                         </Link>
@@ -64,7 +64,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             data-bs-parent="#sidebar"
                         >
                           <li className="sidebar-item ">
-                            <Link to="/admin/Agricultures" className={`sidebar-link ${page==="Agriculture" ? 'item-active' : ''}`}><span className="icon"><GiWheat /></span>{ " "}Agriculture </Link>
+                            <Link to="/admin/Agricultures" className={`sidebar-link ${page==="Agricultures" ? 'item-active' : ''}`}><span className="icon"><GiWheat /></span>{ " "}Agriculture </Link>
                             </li>
                             <li className="sidebar-item">
                             <Link to="/admin/Categories" className={`sidebar-link ${page==="Categories" ? 'item-active' : ''}`}><span className="icon"><SiDatabricks /></span>{ " "}Categories </Link>
@@ -125,7 +125,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             <Link to="/admin/ActiverCompte" className={`sidebar-link ${page==="ActiverCompte" ? 'item-active' : ''}`}><span className="icon"><BsPersonCheck /></span>{ " "}Activer Compte </Link>
                             </li>
                             <li className="sidebar-item">
-                            <Link to="/" className={`sidebar-link ${page==="GererAgriculteurs" ? 'item-active' : ''}`}><span className="icon"><BsPersonFillGear /></span>{ " "}Gerer Agriculteurs </Link>
+                            <Link to="" className={`sidebar-link ${page==="GererAgriculteurs" ? 'item-active' : ''}`}><span className="icon"><BsPersonFillGear /></span>{ " "}Gerer Agriculteurs </Link>
                             </li>
                         </ul>
                     </li>

@@ -68,7 +68,7 @@ exports.getById = async (req, res) => {
     try {
         const stocks = await Stock.findById(req.params.id);
         if (!stocks) {
-          return res.status(404).json({ success: false, message: 'culture n est pas trouver' });
+          return res.status(404).json({ success: false, message: "culture n'est pas trouver" });
         }
         res.status(200).json({stocks});
       } catch (err) {

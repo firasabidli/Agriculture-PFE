@@ -46,7 +46,7 @@ exports.delete = async (req, res) => {
 
     try {
         await Production.findByIdAndDelete(id);
-        res.json({ message: 'Production deleted successfully' });
+        res.json({ message: 'Production supprimé' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

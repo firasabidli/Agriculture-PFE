@@ -53,7 +53,7 @@ exports.delete = async (req,res)=>{
     try {
       const deleted = await culture.findByIdAndDelete(cultureId);
       if (!deleted) {
-        return res.status(404).json({ error: 'Agriculture n est pas trouver' });
+        return res.status(404).json({ error: "Agriculture n'est pas trouvé" });
       }
       res.status(200).json({ message: 'Agriculture supprimer avec succés' });
     } catch (error) {
@@ -65,7 +65,7 @@ exports.getById = async (req, res) => {
   try {
     const cultures = await culture.findById(req.params.id);
     if (!cultures) {
-      return res.status(404).json({ success: false, message: 'culture n est pas trouver' });
+      return res.status(404).json({ success: false, message: "culture n'est pas trouvé" });
     }
     res.status(200).json({cultures});
   } catch (err) {
@@ -91,9 +91,9 @@ exports.update = async (req, res) => {
 
       const result = await culture.updateOne({ _id: agricultureId }, updatedData);
       if (result.nModified === 0) {
-          return res.status(404).json({ error: 'Agriculture not found or no changes made' });
+          return res.status(404).json({ error: 'Agriculture ne trouve pas ou auccun changement apporté' });
       }
-      res.status(200).json({ message: 'Agriculture updated successfully' });
+      res.status(200).json({ message: 'Agriculture modifié avec succés' });
   } catch (error) {
       console.error('Error updating agriculture:', error);
       res.status(500).json({ error: 'Internal server error' });

@@ -25,7 +25,7 @@ exports.getCategorieById = async (req, res) => {
   try {
     const categorie = await Categorie.findById(req.params.id).populate('Agricultures');;
     if (!categorie) {
-      return res.status(404).json({ success: false, message: 'Categorie nest pas trouver' });
+      return res.status(404).json({ success: false, message: "Categorie n'est pas trouver" });
     }
     res.status(200).json({ success: true, data: categorie });
   } catch (err) {
@@ -38,7 +38,7 @@ exports.update = async (req, res) => {
   try {
     const categorie = await Categorie.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!categorie) {
-      return res.status(404).json({ success: false, message: 'Categorie not found' });
+      return res.status(404).json({ success: false, message: 'Categorie ne trouve pas' });
     }
     res.status(200).json({ success: true, message: 'Categorie modifier', data: categorie });
   } catch (err) {
@@ -51,9 +51,9 @@ exports.delete = async (req, res) => {
   try {
     const categorie = await Categorie.findByIdAndDelete(req.params.id);
     if (!categorie) {
-      return res.status(404).json({ success: false, message: 'Categorie not found' });
+      return res.status(404).json({ success: false, message: 'Categorie ne trouve pas' });
     }
-    res.status(200).json({ success: true, message: 'Categorie supprimer' });
+    res.status(200).json({ success: true, message: 'Categorie supprimer avec succées' });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

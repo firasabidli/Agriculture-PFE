@@ -54,9 +54,9 @@ exports.delete = async (req,res)=>{
   try {
     const deletedAnimal = await Animal.findByIdAndDelete(animalId);
     if (!deletedAnimal) {
-      return res.status(404).json({ error: 'Animal n est pas trouver' });
+      return res.status(404).json({ error: "Animal n'est pas trouvé" });
     }
-    res.status(200).json({ message: 'Animal supprimer avec succés' });
+    res.status(200).json({ message: 'Animal supprimé avec succés' });
   } catch (error) {
     console.error('Error deleting animal:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -95,7 +95,7 @@ exports.update = async (req, res) => {
       return res.status(404).json({ error: 'Animal not found or no changes made' });
     }
 
-    res.status(200).json({ message: 'Animal updated successfully' });
+    res.status(200).json({ message: 'Animal modifié avec succés' });
   } catch (error) {
     console.error('Error updating animal:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -105,7 +105,7 @@ exports.getbetailById = async (req, res) => {
   try {
     const animal = await Animal.findById(req.params.id);
     if (!animal) {
-      return res.status(404).json({ success: false, message: 'animal n est pas trouver' });
+      return res.status(404).json({ success: false, message: "animal n'est pas trouver" });
     }
     res.status(200).json({animal});
   } catch (err) {

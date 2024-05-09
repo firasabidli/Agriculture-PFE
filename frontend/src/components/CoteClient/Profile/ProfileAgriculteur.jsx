@@ -221,20 +221,14 @@ const ProfileAgriculteur = () => {
                                         <div className="form-control bg-secondary text-light size">{formatDateOfBirth(userDateNaissance)}</div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div className="row">
                                     <div className="col">
-                                      <div className="form-group">
+                                      <div className="form-group ">
                                         <label>Email</label>
-                                        <input className="form-control" type="email"
-                                          id="email"
-                                          name="email"
-                                          defaultValue={ user?.email}
-                                          
-                                        />
+                                        <div className="form-control bg-secondary text-light size">{ user?.email}</div>
                                       </div>
                                     </div>
                                   </div>
+                                 
                                   <div className="row">
                                     <div className="col">
                                       <div className="form-group">

@@ -2,10 +2,11 @@ const RemarqueAgriculture = require('../../Model/Agriculture/RemarqueAgriculture
 const Utilisateur=require('../../Model/Authentification/Utilisateur')
 exports.create=async(req,res)=>{
     try{
+
         const {Agriculteur,nom_culture,option_Commentaire,commentaire}=req.body;
         const visible=0;
         if(!option_Commentaire){
-            return res.status(400).json({ error: 'option du Remarque n est pas selection.' });
+            return res.status(400).json({ error: "option du Remarque n'est pas selection." });
         }
         if(!commentaire){
             return res.status(400).json({ error: 'Remarque est vide.' });

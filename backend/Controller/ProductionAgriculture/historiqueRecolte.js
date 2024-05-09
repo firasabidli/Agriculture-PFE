@@ -70,7 +70,7 @@ exports.getById = async (req, res) => {
   try {
     const Recoltes = await Recolte.findById(req.params.id);
     if (!Recoltes) {
-      return res.status(404).json({ success: false, message: 'culture n est pas trouver' });
+      return res.status(404).json({ success: false, message: "culture n'est pas trouver" });
     }
     res.status(200).json({Recoltes});
   } catch (err) {
