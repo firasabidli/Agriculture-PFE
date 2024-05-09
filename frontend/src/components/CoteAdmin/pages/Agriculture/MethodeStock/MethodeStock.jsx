@@ -93,7 +93,7 @@ const MethodeStock = () => {
 			</div>
 			<div className='main-title'>
 				<div className='List-title'>
-					<h5>Liste de Gestion de Stock</h5>
+					<h5>Liste de Gestion de Methode de stockage</h5>
 					<span className='style-line'></span>
 					<TextField
 						placeholder="rechercher"
@@ -130,7 +130,7 @@ const MethodeStock = () => {
 											{displayedData.map((item, index) => (
 												<tr key={item._id} className="alert" role="alert">
 													<td>{index}</td>
-													<td className='td-im'><img  className='td-image' src={item.image_MethodStock} alt="Méthode Stock" /></td>
+													<td className='td-im'><img  className='td-image' src={item.image_MethodStock} alt="Méthode Stockage" /></td>
 													<td className='td-title'>{item.title}</td>
 													<td>{item.description}</td>
 													<td>

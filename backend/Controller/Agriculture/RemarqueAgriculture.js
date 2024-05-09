@@ -3,7 +3,7 @@ exports.create=async(req,res)=>{
     try{
         const {nom_culture,option_Remarque,Remarque}=req.body;
         if(!option_Remarque){
-            return res.status(400).json({ error: 'option du Remarque n est pas selection.' });
+            return res.status(400).json({ error: "option du Remarque n'est pas selection." });
         }
         if(!Remarque){
             return res.status(400).json({ error: 'Remarque est vide.' });

@@ -146,7 +146,7 @@ function Profile() {
       <Sidebar isSidebarCollapsed={isSidebarCollapsed} />
       <div className="flex-grow-1">
         <Header toggleSidebar={toggleSidebar} />
-        <main className="container">
+        <main className="container p-5">
           <div className="row flex-lg-nowrap">
             <div className="col">
               <div className="row">
@@ -159,7 +159,7 @@ function Profile() {
                             <div className="mx-auto">
                               <div className="d-flex justify-content-center align-items-center rounded avatar">
                                 <div className="upload">
-                                  <img src={ selectedImage || (userImage && userImage.startsWith('http') ? userImage : `http://localhost:3001/images/Utilisateur/Admin/${userImage}`) } alt="Profil"/>
+                                  <img src={ selectedImage || (userImage && userImage.startsWith('http') ? userImage : `http://localhost:3001/images/Utilisateur/Admin/${userImage}`) } className='im' alt="Profil"/>
                                   <div className="round">
                                     <input type="file" onChange={handleImageChange} />
                                     <BsFillCameraFill className="fs-4 padding" />
@@ -183,7 +183,7 @@ function Profile() {
                             </div>
                           </div>
                         </div>
-                        <ul className="nav nav-tabs">
+                        <ul className="nav nav-tabs pt-5">
                           <li className="nav-item">
                             <Link className="active nav-link">
                               Paramètres
@@ -214,20 +214,14 @@ function Profile() {
                                         <div className="form-control bg-secondary text-light">{formatDateOfBirth(userDateNaissance)}</div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div className="row">
                                     <div className="col">
-                                      <div className="form-group">
+                                      <div className="form-group ">
                                         <label>Email</label>
-                                        <input className="form-control" type="email"
-                                          id="email"
-                                          name="email"
-                                          defaultValue={ user?.email}
-                                          
-                                        />
+                                        <div className="form-control bg-secondary text-light">{ user?.email}</div>
                                       </div>
                                     </div>
                                   </div>
+                                 
                                   <div className="row">
                                     <div className="col">
                                       <div className="form-group">

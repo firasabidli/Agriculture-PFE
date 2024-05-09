@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
  const Agricultures = () => {
     const [data, setData] = useState([]);
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-    const [page] = useState('Agriculture');
+    const [page] = useState('Agricultures');
     const [isActive] = useState(true);
     const [query, setQuery] = useState('');
     const [displayedData, setDisplayedData] = useState([]);

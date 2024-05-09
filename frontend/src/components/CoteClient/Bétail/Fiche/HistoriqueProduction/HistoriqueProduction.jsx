@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
@@ -30,7 +31,7 @@ const HistoriqueProduction = () => {
     };
     return (
         <div>
-            <h1 className="text-center">Historique Production laitière</h1>
+            <h1 className="text-center">Historique Production laitirère</h1>
             {productions.map((animal, index) => (
                 <div key={index}>
                     <table className="table w-50 m-5 text-center">

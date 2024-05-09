@@ -68,7 +68,7 @@ exports.getMouvementById = async (req, res) => {
   try {
     const mouvement = await MouvementBetail.findById(req.params.id);
     if (!mouvement) {
-      return res.status(404).json({ success: false, message: 'animal n est pas trouver' });
+      return res.status(404).json({ success: false, message: "animal n'est pas trouvé" });
     }
     res.status(200).json({mouvement});
   } catch (err) {

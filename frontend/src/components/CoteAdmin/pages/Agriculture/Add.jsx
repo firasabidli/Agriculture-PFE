@@ -328,7 +328,7 @@ function Add({ onCreate }) {
               </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="materials">
-              <Form.Label>Matériaux</Form.Label>
+              <Form.Label>Equipements</Form.Label>
               {materials && materials.map(material => (
                 <Form.Check
                   key={material._id}
@@ -342,7 +342,7 @@ function Add({ onCreate }) {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="stocks">
-              <Form.Label>Methode du Stocks</Form.Label>
+              <Form.Label>Methode du Stockage</Form.Label>
               {stocks && stocks.map(stock => (
                 <Form.Check
                   key={stock._id}
@@ -355,8 +355,8 @@ function Add({ onCreate }) {
               ))}
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="medicaments">
-              <Form.Label>Medicaments d'Agriculture</Form.Label>
+            <Form.Group className="mb-3" controlId="engrais">
+              <Form.Label>Engrais Agricole</Form.Label>
               {medicaments && medicaments.map(medicament => (
                 <Form.Check
                   key={medicament._id}

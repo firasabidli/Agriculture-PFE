@@ -61,11 +61,11 @@ function Header({ toggleSidebar }) {
       <div class="dropdown text-end  ">
         <Link class="d-block link-body-emphasis text-decoration-none dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
           <img src={getImageSource()}
-            alt={userName} width="32" height="32" class="rounded-circle"/>
+            alt={userName}  class="rounded-circle"/>
           <span style={{marginLeft:'5px'}}>{userName || 'User'}</span>
         </Link>
         <ul class="dropdown-menu text-small">
-          <li><Link to="/admin/Profile" class="dropdown-item" href="/"> <img src={getImageSource()} alt="mdo" width="32" height="32" class="rounded-circle"/><span style={{marginLeft:'5px'}}>Profile</span></Link></li>
+          <li><Link to="/admin/Profile" class="dropdown-item" href="/"> <img src={getImageSource()} alt="mdo"  class="rounded-circle"/><span style={{marginLeft:'5px'}}>Profile</span></Link></li>
           <li><hr class="dropdown-divider"/></li>
           <li><a class="dropdown-item" href="/"style={{marginLeft:'5px'}} onClick={handleLogout}>se déconnecte <FaSignOutAlt /></a></li>
         </ul>
