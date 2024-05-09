@@ -3,17 +3,20 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
-
-const RemarqueCulture = ({ show, onHide, cultureName }) => {
+import { useUser } from '../../UserContext';
+const CommentaireCulture = ({ show, onHide, cultureName }) => {
     const [optionRemarque, setOptionRemarque] = useState('');
     const [remarque, setRemarque] = useState('');
-
+    const { user } = useUser();
+    const userId = user?._id;
     const enregistrerRemarque = async () => {
         try {
+            console.log("id",userId)
             const formData = {
+                Agriculteur:userId,
                 nom_culture: cultureName,
-                option_Remarque: optionRemarque,
-                Remarque: remarque
+                option_Commentaire: optionRemarque,
+                commentaire: remarque
             };
             await axios.post('http://localhost:3001/RemarqueAgriculture/', formData);
             alert('Remarque Envoyer');
@@ -32,7 +35,7 @@ const RemarqueCulture = ({ show, onHide, cultureName }) => {
                 <Modal.Title>{cultureName}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form style={{padding:"0rem 0rem"}}>
                     <Form.Group className="mb-3" controlId="exampleForm.SelectCustom">
                         <Form.Label>Sélectionnez une option</Form.Label>
                         <Form.Control as="select" custom value={optionRemarque} onChange={(e) => {
@@ -48,14 +51,14 @@ const RemarqueCulture = ({ show, onHide, cultureName }) => {
                             <option>Tous</option>
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Nous Commentaire</Form.Label>
-                        <Form.Control as="textarea" rows={3} placeholder="Saisissez votre remarque ici..." value={remarque} onChange={(e) => setRemarque(e.target.value)} />
+                    <Form.Group className="mb-3" style={{marginRight:"52%"}} controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Commentaire</Form.Label>
+                        <Form.Control style={{width:"245%"}} as="textarea"  placeholder="Saisissez votre remarque ici..." value={remarque} onChange={(e) => setRemarque(e.target.value)} />
                     </Form.Group>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
+                <Button variant="secondary" className="bg-secondary" onClick={onHide}>
                     Fermer
                 </Button>
                 <Button variant="primary" onClick={enregistrerRemarque} style={{ marginTop: "1%" }}>
@@ -66,4 +69,4 @@ const RemarqueCulture = ({ show, onHide, cultureName }) => {
     );
 };
 
-export default RemarqueCulture;
+export default CommentaireCulture;

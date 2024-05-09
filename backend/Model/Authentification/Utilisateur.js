@@ -26,14 +26,12 @@ const userSchema = new Schema({
 const adminSchema = new Schema({
   role: { type: String, default: 'Admin' },
   username: { type: String, default: 'admin_123' },
-  // Autres champs spécifiques à l'administrateur...
 });
 
 // Définir un sous-modèle pour l'agriculteur
 const agriculteurSchema = new Schema({
   role: { type: String, default: 'Agriculteur' },
   username: { type: String, default: 'agriculteur_123' },
-  // Autres champs spécifiques à l'agriculteur...
 });
 
 // Créer un modèle utilisateur basé sur le schéma de base
