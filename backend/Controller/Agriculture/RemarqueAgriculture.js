@@ -1,5 +1,18 @@
 const RemarqueAgriculture = require('../../Model/Agriculture/RemarqueAgriculture');
-const Utilisateur=require('../../Model/Authentification/Utilisateur')
+const Utilisateur=require('../../Model/Authentification/Utilisateur');
+const path = require('path');
+const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
+dotenv.config();
+
+let transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_MAIL,
+    pass: process.env.SMTP_PASSWORD,
+  },
+});
 exports.create=async(req,res)=>{
     try{
 
@@ -37,8 +50,53 @@ exports.createResponse = async (req, res) => {
         }
         commentaire.reponses.push({ contenu, auteur: auteurId }); 
         const savedCommentaire = await commentaire.save();
-        
         res.status(201).json({ message: 'Réponse enregistrée avec succès', commentaire: savedCommentaire });
+        //envoyer email
+        const cheminLogo = path.join(__dirname, '../../src/assets//logo.png');
+    const lienApp = 'http://localhost:3000/';
+    const Agriculteur = await Utilisateur.findById(commentaire.Agriculteur);
+if (!Agriculteur) {
+    console.error('Agriculteur non trouvé pour l\'ID donné');
+    return; // Arrêtez le processus si l'agriculteur n'est pas trouvé
+}
+
+const emailAgriculteur = Agriculteur.email;
+    console.log('email',emailAgriculteur)
+    const mailOptions = {
+      from: process.env.SMTP_MAIL,
+      to: emailAgriculteur,
+      subject: 'Nouvelle réponse à votre commentaire',
+      html: `
+      <html>
+      <body>
+        <div>
+          <img src="cid:logo" alt="Logo de votre application" style="text-align: center;">
+          <h1>Bonjour ${Agriculteur.nom},</h1>
+          <p>Une nouvelle réponse a été ajoutée à votre commentaire sur <span style="font-weight: bold;">${commentaire.nom_culture}</span> en option <span style="font-weight: bold;">${commentaire.option_Commentaire}</span>:</p>
+          <p>Commentaire : <span style="font-weight: bold;">${commentaire.commentaire}</span></p>
+          <p>Réponse :<span style="font-weight: bold;"> ${contenu}</span></p>
+          <p>Cordialement,</p>
+          <a href="${lienApp}">Accéder à l'application</a>
+        </div>
+      </body>
+    </html>
+      `,
+      attachments: [{
+        filename: 'logo.png',
+        path: cheminLogo,
+        cid: 'logo' 
+      }]
+    };
+    // Envoi de l'e-mail
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log('Erreur lors de l\'envoi de l\'e-mail :', error);
+        return res.status(500).json({ error: 'Erreur lors de l\'envoi de l\'e-mail' });
+      } else {
+        console.log('E-mail envoyé avec succès !');
+        return res.status(200).json({ message: 'Compte agriculteur activé avec succès' });
+      }
+    });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
