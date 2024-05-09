@@ -35,9 +35,10 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
         <aside id="sidebar" className={`bg-white ${isSidebarCollapsed ? 'collapsed' : ''}`}>
             <div className="h-100">
                 <div className="sidebar-logo">
-                    <Link to="/">
+                <img src={logo} alt="" />
+                    {/* <Link to="/">
                         <img src={logo} alt="" />
-                    </Link>
+                    </Link> */}
                 </div>
                 <ul className="sidebar-nav">
                     <li className="sidebar-item">
@@ -127,12 +128,6 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             <Link to="/" className={`sidebar-link ${page==="GererAgriculteurs" ? 'item-active' : ''}`}><span className="icon"><BsPersonFillGear /></span>{ " "}Gerer Agriculteurs </Link>
                             </li>
                         </ul>
-                    </li>
-                    <li className="sidebar-item">
-                        <Link to="/" className="sidebar-link">
-                            <span className="icon"><FaFileInvoiceDollar /></span>
-                            Facture
-                        </Link>
                     </li>
                 </ul>
             </div>

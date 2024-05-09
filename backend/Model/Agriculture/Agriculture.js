@@ -12,7 +12,7 @@ const AgricultureSchema = new mongoose.Schema({
     image_agriculture: String,
     remarques: String,
   saison: { type: mongoose.Schema.Types.ObjectId, ref: 'Saison' },
-  categorie: { type: mongoose.Schema.Types.ObjectId, ref: 'Categorie' },
+  categorie: { type: mongoose.Schema.Types.ObjectId, ref: 'CategorieAgriculture' },
   materiels: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Materiel' }],
   MethodesStock: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MethodeStock' }],
   MedicamentsCulture: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MedicamentCulture' }]
