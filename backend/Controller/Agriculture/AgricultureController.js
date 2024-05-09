@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
     await Medicament.updateMany({ '_id': newAgriculture.MedicamentsCulture }, { $push: { Agricultures: newAgriculture._id } });
     await Saison.updateMany({ '_id': newAgriculture.saison }, { $push: { Agricultures: newAgriculture._id } });
     await Categorie.updateMany({ '_id': newAgriculture.categorie }, { $push: { Agricultures: newAgriculture._id } });
-    res.json({ success: true, message: 'Agriculture created', data: newAgriculture });
+    res.json({ success: true, message: 'Agriculture créer', data: newAgriculture });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -78,7 +78,7 @@ exports.getAgricultureById = async (req, res) => {
   try {
     const agriculture = await Agriculture.findById(req.params.id).populate('saison categorie materiels MethodesStock MedicamentsCulture');
     if (!agriculture) {
-      return res.status(404).json({ success: false, message: 'Agriculture not found' });
+      return res.status(404).json({ success: false, message: 'Agriculture nest pas trouver' });
     }
     
     // Manipuler l'image de l'agriculture pour inclure le chemin d'accès complet
@@ -168,7 +168,7 @@ exports.update = async (req, res) => {
     const updatedAgriculture = await Agriculture.findByIdAndUpdate(req.params.id, updateData, { new: true });
 
     if (!updatedAgriculture) {
-      return res.status(404).json({ success: false, message: 'Agriculture not found' });
+      return res.status(404).json({ success: false, message: 'Agriculture nest pas trouve' });
     }
     // Retirer la culture mise à jour des anciens matériaux et stocks
     await Materiel.updateMany({}, { $pull: { Agricultures: updatedAgriculture._id } });
@@ -183,7 +183,7 @@ exports.update = async (req, res) => {
     await Saison.updateMany({ '_id': { $in: saisonId } }, { $addToSet: { Agricultures: updatedAgriculture._id } });
     await Categorie.updateMany({ '_id': { $in: categorieId } }, { $addToSet: { Agricultures: updatedAgriculture._id } });
 
-    res.status(200).json({ success: true,message: 'Agriculture Updated', data: updatedAgriculture });
+    res.status(200).json({ success: true,message: 'Agriculture modifier avec sucées', data: updatedAgriculture });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -208,7 +208,7 @@ exports.delete = async (req, res) => {
     await Medicament.updateMany({}, { $pull: { Agricultures: agriculture._id } });
     await Saison.updateMany({}, { $pull: { Agricultures: agriculture._id } });
     await Categorie.updateMany({}, { $pull: { Agricultures: agriculture._id } });
-    res.status(200).json({ success: true, message: 'Agriculture deleted successfully' });
+    res.status(200).json({ success: true, message: 'Agriculture supprimer' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Internal server error' });
