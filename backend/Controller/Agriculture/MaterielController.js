@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
       
     });
 
-    res.json({ success: true, message: 'Materiel created', data: newMateriel });
+    res.json({ success: true, message: 'Materiel creer', data: newMateriel });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -41,7 +41,7 @@ exports.getMaterielById = async (req, res) => {
   try {
     const materiel = await Materiel.findById(req.params.id).populate('Agricultures');
     if (!materiel) {
-      return res.status(404).json({ success: false, message: 'Materiel not found' });
+      return res.status(404).json({ success: false, message: 'Materiel nest pas trouver' });
     }
     res.status(200).json({ success: true, data: materiel });
   } catch (error) {
@@ -81,7 +81,7 @@ exports.update = async (req, res) => {
     await Materiel.updateOne({ _id: req.params.id }, updateData);
 
     // Renvoie une réponse réussie
-    res.status(200).json({ success: true, message: 'Materiel Updated' });
+    res.status(200).json({ success: true, message: 'Materiel modifier avec succées' });
   } catch (error) {
     // Renvoie une réponse d'erreur en cas de problème
     res.status(500).json({ success: false, message: error.message });
@@ -94,14 +94,14 @@ exports.delete = (req, res) => {
   Materiel.findByIdAndDelete(req.params.id)
     .then((deletedMateriel) => {
       if (!deletedMateriel) {
-        return res.status(404).json({ success: false, message: 'Materiel not found' });
+        return res.status(404).json({ success: false, message: 'Materiel nest pas trouver' });
       }
 
       // Supprimer l'image associée
       const imagePath = `src/assets/images/MaterielsAgriculture/${deletedMateriel.image_materiel}`;
       fs.unlinkSync(imagePath);
 
-      res.status(200).json({ success: true, message: 'Materiel deleted successfully' });
+      res.status(200).json({ success: true, message: 'Materiel supprimer' });
     })
     .catch((error) => {
       res.status(500).json({ success: false, message: error.message });

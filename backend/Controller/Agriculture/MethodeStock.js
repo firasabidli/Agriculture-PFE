@@ -75,7 +75,7 @@ exports.createStock = async (req, res) => {
     try {
       const stock = await Stock.findById(req.params.id);
       if (!stock) {
-        return res.status(404).json({ success: false, message: 'Stock not found' });
+        return res.status(404).json({ success: false, message: 'Stock nest pas trouver' });
       }
       res.status(200).json({ success: true, data: stock });
     } catch (err) {
@@ -140,7 +140,7 @@ exports.createStock = async (req, res) => {
           return res.status(500).json({ success: false, message: 'Error while deleting image' });
         }
       } else {
-        return res.status(200).json({ success: true, message: 'stock avec  success,pas association image' });
+        return res.status(200).json({ success: true, message: 'stock supprimer avec  success,pas association image' });
       }
     })
     .catch((error) => {

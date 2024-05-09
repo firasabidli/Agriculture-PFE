@@ -45,7 +45,7 @@ exports.createMedicament = async (req, res) => {
       const savedMedicament = await newMedicament.save();
 
       // Répondre avec le médicament créé
-      res.status(201).json({ message: 'Médicament créé avec succès', medicament: savedMedicament });
+      res.status(201).json({ message: 'Engrais créé avec succès', medicament: savedMedicament });
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -94,7 +94,7 @@ exports.updateMedicament = async (req, res) => {
         updateData.image = imageName;
       }
       await Medicament.updateOne({ _id: req.params.id }, updateData);
-      res.status(200).json({ success: true, message: 'Medicament Updated' });
+      res.status(200).json({ success: true, message: 'Engrais modifier avec succées' });
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -116,7 +116,7 @@ exports.deleteMedicament = (req, res, next) => {
   Medicament.findByIdAndDelete(req.params.id)
     .then((deletedMedicament) => {
       if (!deletedMedicament) {
-        return res.status(404).json({ success: false, message: 'Medicament not found' });
+        return res.status(404).json({ success: false, message: 'Engrais n est pas trouver ' });
       }
 
       // Supprimer l'image associée
@@ -126,7 +126,7 @@ exports.deleteMedicament = (req, res, next) => {
         try {
           if (fs.existsSync(imagePath)) {
             fs.unlinkSync(imagePath);
-            return res.status(200).json({ success: true, message: 'Medicament supprimer avec succès' });
+            return res.status(200).json({ success: true, message: 'Engrais supprimer avec succès' });
           } else {
             // console.log('Image not found:', imagePath);
             return res.status(404).json({ success: false, message: 'Image not found' });
@@ -136,7 +136,7 @@ exports.deleteMedicament = (req, res, next) => {
           return res.status(500).json({ success: false, message: 'Error while deleting image' });
         }
       } else {
-        return res.status(200).json({ success: true, message: 'Medicament deleted successfully, no associated image' });
+        return res.status(200).json({ success: true, message: 'Engrais supprimer avec succées' });
       }
     })
     .catch((error) => {
