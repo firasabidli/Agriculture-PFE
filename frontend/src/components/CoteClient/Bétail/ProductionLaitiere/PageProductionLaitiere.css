@@ -7,6 +7,13 @@
         border-spacing: 0 0px;
         
      }
+     .dateAchat:hover{
+      cursor: pointer;
+     }
+     .tfoot{
+      background-color: #38c609;
+      color: #f9fbf9;
+     }
     h3{
         color: black;
         margin-top: 200px;

@@ -48,9 +48,11 @@ li {
     width: 100px;
     position: relative;
     margin: auto;
+    padding-left: 15px;
+    
   }
   
-  .upload img{
+  .upload .im{
     border-radius: 50%;
     border: 6px solid #eaeaea;
   }
@@ -77,7 +79,7 @@ li {
   input[type=file]::-webkit-file-upload-button{
       cursor: pointer;
   }
-  .upload img{
+  .upload .im{
       width : 100px;
        height : 100px;
   }

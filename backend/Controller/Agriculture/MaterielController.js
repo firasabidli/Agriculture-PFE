@@ -41,7 +41,7 @@ exports.getMaterielById = async (req, res) => {
   try {
     const materiel = await Materiel.findById(req.params.id).populate('Agricultures');
     if (!materiel) {
-      return res.status(404).json({ success: false, message: 'Materiel nest pas trouver' });
+      return res.status(404).json({ success: false, message: "Equipement n'est pas trouver" });
     }
     res.status(200).json({ success: true, data: materiel });
   } catch (error) {
@@ -81,7 +81,7 @@ exports.update = async (req, res) => {
     await Materiel.updateOne({ _id: req.params.id }, updateData);
 
     // Renvoie une réponse réussie
-    res.status(200).json({ success: true, message: 'Materiel modifier avec succées' });
+    res.status(200).json({ success: true, message: 'Equipement modifier avec succées' });
   } catch (error) {
     // Renvoie une réponse d'erreur en cas de problème
     res.status(500).json({ success: false, message: error.message });
@@ -94,7 +94,7 @@ exports.delete = (req, res) => {
   Materiel.findByIdAndDelete(req.params.id)
     .then((deletedMateriel) => {
       if (!deletedMateriel) {
-        return res.status(404).json({ success: false, message: 'Materiel nest pas trouver' });
+        return res.status(404).json({ success: false, message: "Equipement n'est pas trouver" });
       }
 
       // Supprimer l'image associée

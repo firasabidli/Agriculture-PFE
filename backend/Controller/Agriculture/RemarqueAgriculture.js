@@ -2,6 +2,7 @@ const RemarqueAgriculture = require('../../Model/Agriculture/RemarqueAgriculture
 const Utilisateur=require('../../Model/Authentification/Utilisateur')
 exports.create=async(req,res)=>{
     try{
+
         const {Agriculteur,nom_culture,option_Commentaire,commentaire}=req.body;
         const visible='alert-primary';
         if(!option_Commentaire){

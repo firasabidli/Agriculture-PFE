@@ -5,10 +5,12 @@ import 'react-calendar/dist/Calendar.css';
 import axios from 'axios'; 
 import { useParams } from "react-router-dom";
 import './PageProductionLaitiere.css';
-
+import AddAliments from "./AddAliments";
+import EditAliment from "./EditAliment";
+import DeleteAliment from "./DeleteAliment";
 const PageProductionLaitiere = () => {
     const [production, setProduction] = useState([]);
-    
+    const [alimentsData, setAlimentsData] = useState([]);
     const [dataYear,SetDataYear] = useState('');
     const [dataMonth,SetDataMonth] = useState('');
     const [prodTotal,setProdTotal] = useState(0);
@@ -20,7 +22,7 @@ const PageProductionLaitiere = () => {
     const weekDays = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
     const daysOfWeek = weekDays.slice(firstDayOfMonth).concat(weekDays.slice(0, firstDayOfMonth));
     const authToken = localStorage.getItem("authToken");
-    
+    const [prixTotal,setPrixTotal]=useState(0);
     const user = localStorage.getItem("user");
     const idAgriculteur = user ? JSON.parse(user)._id : null;
     const {id }=  useParams();
@@ -144,9 +146,31 @@ const handleSubmit = async (event) => {
     }
 };
 
+const fetchData = async () => {
+    try {
+        const response = await axios.get(`http://localhost:3001/AlimentsAnimal/${idAgriculteur}`);
+        if (Array.isArray(response.data.data)) {
+            setAlimentsData(response.data.data);
+           
+        } else {
+            console.error('La réponse de l\'API ne contient pas de tableau de données:', response.data.data);
+        }
+    } catch (error) {
+        console.error('Erreur lors du chargement des données:', error);
+    }
+};
 
+useEffect(() => {
+    fetchData();
+}, []);
 
-   
+const calculateTotalPrice = () => {
+    let total = 0;
+    alimentsData.forEach(item => {
+        total += item.total;
+    });
+    return total;
+};
     
 
     return (
@@ -216,6 +240,48 @@ const handleSubmit = async (event) => {
                     </table>
                 </form>
                 
+            </div>
+
+            <h2>Aliments pour animaux</h2>
+                <AddAliments onCreate={fetchData}/>
+            <div className="table-responsive mt-4">
+                <table className="table table-bordered text-center">
+                    <thead>
+                        <th>ID no.</th>
+                        <th>Date d'Achat</th>
+                        <th>Aliments</th>
+                        <th>Quantite</th>
+                        <th>Prix en DT</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                    {alimentsData.map((item, index) => (
+                        <tr key={item._id} className="alert" role="alert">
+                            <td>{index}</td>
+                            <td className='td-title'>{new Date(item.dateAchat).toLocaleDateString()}</td>
+                            <td>{item.aliments}</td>
+                            <td>{item.quantite} {item.unite}</td>
+                            <td>{item.prix}</td>
+                            <td>{item.total}</td>
+                            <td>
+                            <div className='action' style={{marginLeft:'100px'}}>
+                            <EditAliment alimentId={item._id}  aliment={item} onUpdate={fetchData} /> 
+                             <DeleteAliment alimentId={item._id} onDelete={fetchData} />  
+                            </div>
+                            </td>
+                            </tr>
+                            ))}
+                    </tbody>
+                    <tfoot >
+                        <tr >
+                            
+                            <td colspan='6' style={{textAlign:'right',backgroundColor:'#38c609',color:'white'}}> <b> Prix Total en DT:<span>{calculateTotalPrice()}</span></b></td>
+                            
+                        </tr>
+                    </tfoot>
+                </table>
+                    
             </div>
         </div>
     );

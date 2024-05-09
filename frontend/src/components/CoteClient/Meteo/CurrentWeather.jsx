@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './CurrentWeather.css';
 
 import { WiHumidity } from "react-icons/wi";
@@ -35,7 +35,8 @@ import snowNight from '../../../assets/CoteClient/images/meteo/13n.png';
 import mistDay from '../../../assets/CoteClient/images/meteo/50d.png';
 import mistNight from '../../../assets/CoteClient/images/meteo/50n.png';
 
-
+import Alerts from './Alerts.jsx';
+import { HiLightBulb } from "react-icons/hi";
 const CurrentWeather = ({ weatherData, city }) => {
 
   const { current } = weatherData;
@@ -43,7 +44,10 @@ const CurrentWeather = ({ weatherData, city }) => {
   const { description, icon } = weather[0];
   const [currentDateTime, setCurrentDateTime] = useState('');
   const { daily } = weatherData;
+  const [showAdvice,setShowAdvice]= useState(false);
 
+  // Référence à la section Alerts
+  const alertsRef = useRef(null);
   
 
   const getDescriptionByIcon = (icon) => {
@@ -131,81 +135,79 @@ const CurrentWeather = ({ weatherData, city }) => {
 
     return () => clearInterval(interval);
   }, []);
-  
+  const showAlerts = () =>{
+    setShowAdvice(!showAdvice);
+    // Faire défiler jusqu'à la section Alerts lorsque l'icône est cliquée
+    alertsRef.current.scrollIntoView({ behavior: 'smooth' });
+  } 
   return (
-    
-    
-  
-    <div class=" bg ">
-        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 ">
-        <div class="col main bg-img">
-            <div class="row">
-              <div class="col-xl-12">
-                <div class="col-xl-12 col-xs-6  weather-panel">
-                  <div class="col-xs-6 m-4">
-                    <h2>{city}<br/><small>{currentDateTime}</small></h2>
-                    <p class="h3"><img src={getWeatherIcon(icon)} alt="Icône météo"/> {getDescriptionByIcon(icon)}</p>
+    <div className="bg">
+      <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1">
+        <div className="col main bg-img">
+          <div className="row">
+            <div className="col-xl-12">
+              <div className="col-xl-12 col-xs-6  weather-panel">
+                <div className="col-xs-6 m-4">
+                  <h2>{city}<br/><small>{currentDateTime}</small></h2>
+                  <HiLightBulb className='lamp' onClick={showAlerts}/>
+                  <p className="h3"><img src={getWeatherIcon(icon)} alt="Icône météo"/> {getDescriptionByIcon(icon)}</p>
+                </div>
+                <div className="col-xs-6 text-center">
+                  <div className="h1 temperature">
+                    <span>{temp} °C</span>
                   </div>
-                  <div class="col-xs-6 text-center">
-                    <div class="h1 temperature">
-                      <span>{temp} °C</span>
-                     
-                      
-                    </div>
-                  </div>
-                  <div class="col-xs-12 m-4 ">
-                    <ul class="list-inline row forecast ">
+                </div>
+                <div className="col-xs-12 m-4 ">
+                  <ul className="list-inline row forecast ">
                     {daily.slice(1).map((day, index) => (
-                      <li class="col-xs-4  col-sm-1   day text-center">
-                        <h3 class="h5">{new Date(day.dt * 1000).toLocaleDateString('fr', { weekday: 'short' })}</h3>
-                        <p ><i class="mi mi-fw mi-2x mi-cloud-sun"><img src={getWeatherIcon(day.weather[0].icon)} alt="Icône météo" className="w-icon" style={{ width:'30px'}} /></i><br/><span>Nuit-{day.temp.night}°<br/>Jour-{day.temp.day}°</span></p>
+                      <li className="col-xs-4  col-sm-1   day text-center" key={index}>
+                        <h3 className="h5">{new Date(day.dt * 1000).toLocaleDateString('fr', { weekday: 'short' })}</h3>
+                        <p ><i className="mi mi-fw mi-2x mi-cloud-sun"><img src={getWeatherIcon(day.weather[0].icon)} alt="Icône météo" className="w-icon" style={{ width:'30px'}} /></i><br/><span>Nuit-{day.temp.night}°<br/>Jour-{day.temp.day}°</span></p>
                       </li>
                     ))}
-                      
-                    </ul>
-                  </div>
+                  </ul>
                 </div>
               </div>
             </div>
-            
-</div>
-<div class=" table-responsive table-responsive-sm table-responsive-xxl table-responsive-xl table-responsive-lg table-responsive-md ">
-            <table className='  table text-black text-center table-hovred border-dark'>
-  <thead className='fs-5  '>
-    <tr>
-       <td scope='col'> <span><TbSunset2 /></span> <br />Coucher de soleil </td>
-       <td scope='col'> <span><WiSunrise /></span> <br />Lever de soleil </td>
-       <td scope='col'> <span><WiHumidity /></span> <br />Humidité </td>
-       <td scope='col'> <span><WiStrongWind /></span><br />État du vent </td>
-       <td scope='col'> <span><IoIosCloud /></span><br />Couverture nuageuse </td>
-       <td scope='col'> <span><MdTimeline/></span><br />Pression </td>
-       <td scope='col'> <span></span><br />Indice UV </td>
-       <td scope='col'> <span><MdVisibility /></span><br />Visibilité </td>
-       <td scope='col'> <span><GiMultiDirections /></span><br />Direction du vent </td>
-    </tr>
-  </thead>
-  <tbody className='fs-5'>
-    <tr>
-      <td>{new Date(sunset * 1000).toLocaleTimeString()}</td>
-      <td>{new Date(sunrise * 1000).toLocaleTimeString()}</td>
-      <td>{humidity}%</td>
-      <td>{wind_speed} km/h</td>
-      <td>{current.clouds}%</td>
-      <td>{pressure} hPa</td>
-      <td>{current.uvi}</td>
-      <td>{current.visibility} mètres</td>
-      <td>{current.wind_deg}°</td>
-      
-    </tr>
-    
-  </tbody>
-</table>
           </div>
-      
-</div>
-          </div>
-    
-  
+        </div>
+        <div className=" table-responsive table-responsive-sm table-responsive-xxl table-responsive-xl table-responsive-lg table-responsive-md ">
+          <table className='table text-black text-center table-hovred border-dark'>
+            <thead className='fs-5  '>
+              <tr>
+                <td scope='col'> <span><TbSunset2 /></span> <br />Coucher de soleil </td>
+                <td scope='col'> <span><WiSunrise /></span> <br />Lever de soleil </td>
+                <td scope='col'> <span><WiHumidity /></span> <br />Humidité </td>
+                <td scope='col'> <span><WiStrongWind /></span><br />État du vent </td>
+                <td scope='col'> <span><IoIosCloud /></span><br />Couverture nuageuse </td>
+                <td scope='col'> <span><MdTimeline/></span><br />Pression </td>
+                <td scope='col'> <span></span><br />Indice UV </td>
+                <td scope='col'> <span><MdVisibility /></span><br />Visibilité </td>
+                <td scope='col'> <span><GiMultiDirections /></span><br />Direction du vent </td>
+              </tr>
+            </thead>
+            <tbody className='fs-5'>
+              <tr>
+                <td>{new Date(sunset * 1000).toLocaleTimeString()}</td>
+                <td>{new Date(sunrise * 1000).toLocaleTimeString()}</td>
+                <td>{humidity}%</td>
+                <td>{wind_speed} km/h</td>
+                <td>{current.clouds}%</td>
+                <td>{pressure} hPa</td>
+                <td>{current.uvi}</td>
+                <td>{current.visibility} mètres</td>
+                <td>{current.wind_deg}°</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {/* Ajout de la référence à la section Alerts */}
+        <div ref={alertsRef}></div>
+        { showAdvice && (
+          <Alerts weatherData={weatherData}/>
+        )}
+      </div>
+    </div>
   );
 };
 

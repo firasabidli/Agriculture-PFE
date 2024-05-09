@@ -35,7 +35,7 @@ exports.create = async (req, res) => {
     });
     
     await CategorieBetail.updateMany({ '_id': newBetail.id_categorie }, { $push: { betails: newBetail._id } });
-    res.json({ success: true, message: 'Betail enregistrer avec succés', data: newBetail });
+    res.json({ success: true, message: 'Betail enregistré avec succés', data: newBetail });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -60,7 +60,7 @@ exports.getBetailById = async (req, res) => {
   try {
     const betail = await Betail.findById(req.params.id).populate('id_categorie');
     if (!betail) {
-      return res.status(404).json({ success: false, message: 'Betail not found' });
+      return res.status(404).json({ success: false, message: 'Betail ne trouve pas' });
     }
     
     // Manipuler l'image de la betail pour inclure le chemin d'accès complet
@@ -121,7 +121,7 @@ exports.update = async (req, res) => {
     const updatedBetail = await Betail.findByIdAndUpdate(req.params.id, updateData, { new: true });
 
     if (!updatedBetail) {
-      return res.status(404).json({ success: false, message: 'Betail not found' });
+      return res.status(404).json({ success: false, message: 'Betail ne trouve pas' });
     }
     // Retirer la betail mise à jour de categorie
     
@@ -130,7 +130,7 @@ exports.update = async (req, res) => {
     
     await CategorieBetail.updateMany({ '_id': { $in: id_categorie } }, { $addToSet: { betails: updatedBetail._id } });
 
-    res.status(200).json({ success: true,message: 'Betail modifier avec succés', data: updatedBetail });
+    res.status(200).json({ success: true,message: 'Betail modifiée avec succés', data: updatedBetail });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -142,7 +142,7 @@ exports.delete = async (req, res) => {
   try {
     const betail = await Betail.findByIdAndDelete(req.params.id);
     if (!betail) {
-      return res.status(404).json({ success: false, message: 'Betail not found' });
+      return res.status(404).json({ success: false, message: 'Betail ne trouve pas' });
     }
     
     // Supprimer l'image associée
@@ -152,7 +152,7 @@ exports.delete = async (req, res) => {
     // Supprimer l'ID de la betail de categorie
     
     await CategorieBetail.updateMany({}, { $pull: { betails: betail._id } });
-    res.status(200).json({ success: true, message: 'Betail supprimer avec succés' });
+    res.status(200).json({ success: true, message: 'Betail suppriméé avec succés' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Internal server error' });
