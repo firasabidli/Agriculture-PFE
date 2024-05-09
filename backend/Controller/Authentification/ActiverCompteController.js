@@ -1,4 +1,6 @@
 const UserModel = require('../../Model/Authentification/Utilisateur');
+
+const path = require('path');
 // const { sendEmail } = require('./sendEmail');
 const expressAsyncHandler = require("express-async-handler");
 const dotenv = require("dotenv");
@@ -34,14 +36,30 @@ exports.activer = async (req, res) => {
 
     agriculteur.accepte = 1;
     await agriculteur.save();
-
+    const cheminLogo = path.join(__dirname, '../../src/assets//logo.png');
+    const lienApp = 'http://localhost:3000/';
     const mailOptions = {
       from: process.env.SMTP_MAIL,
-      to: agriculteur.email, // Utilisez l'e-mail de l'agriculteur pour l'envoi
+      to: agriculteur.email,
       subject: 'Activation de compte',
-      text: 'Votre compte a été activé avec succès.',
+      html: `
+        <html>
+          <body>
+            <div >
+              <img src="cid:logo" alt="Logo de votre application" style="text-align: center;">
+              <h1>Salut ${agriculteur.nom},</h1>
+              <p>Votre compte a été activé avec succès dans l'application agricole. Vous pouvez désormais accéder à notre application en suivant ce lien :</p>
+              <a href="${lienApp}">Accéder à l'application</a>
+            </div>
+          </body>
+        </html>
+      `,
+      attachments: [{
+        filename: 'logo.png',
+        path: cheminLogo,
+        cid: 'logo' 
+      }]
     };
-
     // Envoi de l'e-mail
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
@@ -53,40 +71,12 @@ exports.activer = async (req, res) => {
       }
     });
 
-    res.status(200).json({ message: 'Compte agriculteur activé avec succès' });
   } catch (error) {
     console.error('Erreur lors de l\'activation du compte agriculteur :', error);
     res.status(500).json({ error: 'Erreur interne du serveur' });
   }
 };
-// Activer un compte (accepte = 1)
-// exports.activer = async (req, res) => {
-//   const agriculteurId = req.params.id;
 
-//   try {
-//     const agriculteur = await UserModel.Agriculteur.findById(agriculteurId);
-//     if (!agriculteur) {
-//       return res.status(404).json({ error: 'Agriculteur non trouvé' });
-//     }
-
-//     agriculteur.accepte = 1;
-//     await agriculteur.save();
-//     console.log("email",agriculteur.email)
-//   // Envoyer un e-mail à l'adresse e-mail de l'agriculteur
-//   const mailOptions = {
-//     from: process.env.SMTP_MAIL,
-//     to: agriculteur.email,
-//     subject: 'Activation de compte',
-//     text: 'Votre compte a été activé avec succès.',
-//   };
-
-//    await sendEmail(mailOptions);
-//     res.status(200).json({ message: 'Compte agriculteur activé avec succès' });
-//   } catch (error) {
-//     console.error('Erreur lors de l\'activation du compte agriculteur :', error);
-//     res.status(500).json({ error: 'Erreur interne du serveur' });
-//   }
-// };
 
 // Refuser et supprimer un compte (accepte = -1)
 exports.refuser = async (req, res) => {
