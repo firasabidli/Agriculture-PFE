@@ -53,7 +53,7 @@ const CommentaireCulture = ({ show, onHide, cultureName }) => {
                     </Form.Group>
                     <Form.Group className="mb-3" style={{marginRight:"52%"}} controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Commentaire</Form.Label>
-                        <Form.Control style={{width:"245%"}} as="textarea"  placeholder="Saisissez votre remarque ici..." value={remarque} onChange={(e) => setRemarque(e.target.value)} />
+                        <Form.Control style={{width:"245%",height: "100px"}} as="textarea"  placeholder="Saisissez votre remarque ici..." value={remarque} onChange={(e) => setRemarque(e.target.value)} />
                     </Form.Group>
                 </Form>
             </Modal.Body>
