@@ -1,26 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-//import { MdNotifications } from "react-icons/md";
+import { useUser } from '../../../UserContext';
 import { IoMdNotifications } from "react-icons/io";
 const NotifCulture = () => {
-    const [remarques, setRemarques] = useState([]);
+        const [remarques, setRemarques] = useState([]);
     const [showAlerts, setShowAlerts] = useState(false);
     const [showRemarques, setShowRemarques] = useState(false);
     const [selectedAgriculteur, setSelectedAgriculteur] = useState(null);
+    const [nouvelleReponse, setNouvelleReponse] = useState('');
+  const [afficherTextarea, setAfficherTextarea] = useState(false);
+  const [envoiReponseEnCours, setEnvoiReponseEnCours] = useState(false);
+  const [showReplyFormForComment, setShowReplyFormForComment] = useState({});
+  const { user } = useUser();
+    const userId = user?._id;
+    const handleReplyButtonClick = (commentId) => {
+        setShowReplyFormForComment({
+            ...showReplyFormForComment,
+            [commentId]: true 
+        });
+    };
+  const handleChange = (event) => {
+    setNouvelleReponse(event.target.value);
+  };
+
+  const handleSubmit = async (commentId) => {
+    try {
+      setEnvoiReponseEnCours(true);
+      console.log("cc",commentId)
+      const response = await axios.post('http://localhost:3001/RemarqueAgriculture/Reponse', {
+        commentaireId:commentId,
+        contenu: nouvelleReponse,
+        auteurId: userId 
+      });
+      console.log('Réponse ajoutée avec succès :', response.data);
+    fetchRemarques()
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout de la réponse :', error);
+    } finally {
+      setEnvoiReponseEnCours(false);
+      setNouvelleReponse('');
+      setAfficherTextarea(false);
+    }
+  };
+
+
     const fetchRemarques = async () => {
         try {
             const response = await axios.get('http://localhost:3001/RemarqueAgriculture/');
             setRemarques(response.data);
-            //alert(response.data[0]._id)
-            // const updatedRemarques = response.data.map(rem => ({ ...rem, vu: false }));
-            // setRemarques(updatedRemarques);
         } catch (error) {
             console.error('Erreur lors de la récupération des remarques :', error);
         }
     };
+    const nombreDeRemarquesNonVisibles = remarques.filter(rem => rem.visible === 'alert-primary').length;
     useEffect(() => {
         fetchRemarques();
+        
     }, []);
     const Supprimer= async (id)=>{
         try {
@@ -63,9 +99,9 @@ const NotifCulture = () => {
     };
     const handleCommentaireVu = async (id) => {
         try {
-            await axios.put(`http://localhost:3001/RemarqueAgriculture/${id}`, { visible: 1 });
-            const updatedRemarques = remarques.map(rem => rem._id === id ? { ...rem, visible: 1 } : rem);
-            setRemarques(updatedRemarques);
+           const response= await axios.put(`http://localhost:3001/RemarqueAgriculture/${id}`, { visible: 'alert-secondary' });
+           console.log(response.log)
+           //window.location.reload()
         } catch (error) {
             console.error('Erreur lors de la mise à jour de la visibilité du commentaire depuis le front-end :', error);
         }
@@ -77,9 +113,9 @@ const NotifCulture = () => {
                     <IoMdNotifications className=' icon-header-notif notification' style={{marginLeft:"-70%",marginRight:"61%",fontSize: "169%"}} onClick={handleNotificationClick} />
                 </div>
             
-            {remarques.length > 0 && (
-                <span className="notification-count badge">{remarques.length}</span>
-            )}
+            {/* {remarques.length > 0 && ( */}
+                <span className="notification-count badge">{nombreDeRemarquesNonVisibles}</span>
+            {/* )} */}
             </div>
             {showAlerts && (
                 <ul className="dropdown-menu position-fixed d-grid gap-1 p-2  mx-0 shadow" style={{ marginTop: "9px", width: " 28rem" }}>
@@ -93,7 +129,7 @@ const NotifCulture = () => {
                     </li>
                     {showRemarques && remarques.map((req, index) => (
                         <li key={index}>
-                            <div className={`alert ${req.visible === 0 ? 'alert-primary' : 'alert-secondary'}`} role="alert" onClick={() => handleCommentaireVu(req._id)}>
+                            <div className={`alert ${req.visible}`} role="alert" onClick={() => handleCommentaireVu(req._id)}>
                             {console.log("req.visible:", req.visible)}
                                 <div class="d-flex justify-content-between">
                                     <div>
@@ -110,10 +146,24 @@ const NotifCulture = () => {
                                         {/* <h5>{req.Agriculteur.nom}</h5> */}
                                         <h6 class="mb-0" style={{marginTop:"10px"}}>{req.option_Commentaire}:<span> {req.nom_culture}</span></h6>
                                         <p>{req.commentaire}</p>
+                                        {req.reponses.map((reponse, index) => (
+                                            <p key={index}><span style={{fontWeight:"bold"}}>Réponse:</span> {reponse.contenu}</p>
+                                        ))}
                                     </div>
                                     <small class="opacity-50 text-nowrap" style={{ marginLeft: "-10%",marginTop:"20%" }}>{formatDate(req.date_enregistrement)}</small>
                                     <button type="button" class="btn-close" onClick={() =>Supprimer(req._id)}></button>
                                 </div>
+                                {showReplyFormForComment[req._id] ? (
+                            <>
+                                <div className="form-floating">
+                                    <textarea className="form-control" placeholder="Votre réponse..." value={nouvelleReponse} onChange={handleChange}></textarea>
+                                    <label htmlFor="floatingTextarea">Réponse</label>
+                                </div>
+                                <button onClick={()=>handleSubmit(req._id)} disabled={envoiReponseEnCours}>Envoyer</button>
+                            </>
+                        ) : (
+                            <button onClick={() => handleReplyButtonClick(req._id)}>Répondre</button>
+                        )}
                             </div>
                         </li>
                     ))}
