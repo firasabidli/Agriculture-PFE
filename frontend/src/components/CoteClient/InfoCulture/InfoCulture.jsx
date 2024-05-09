@@ -7,7 +7,7 @@ import Materiel from './Materiel.jsx';
 import Medicament from './Medicament.jsx';
 import TableCulture from './TableCuture.jsx';
 import { useParams } from 'react-router-dom';
-import RemarqueCulture from './Remarque.jsx';
+import CommentaireCulture from './Commentaire.jsx';
 import axios from 'axios';
 
 const InfoCulture = () => {
@@ -42,9 +42,9 @@ const InfoCulture = () => {
               </p>
               <p>
               <Button variant="primary" onClick={() => setModalShow(true)}>
-                NOUS COMMENTAIRE
+                COMMENTAIRE
               </Button>
-              <RemarqueCulture
+              <CommentaireCulture
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 cultureName={cultureData.nom_agriculture}
