@@ -154,15 +154,15 @@ const NotifCulture = () => {
                                     <button type="button" class="btn-close" onClick={() =>Supprimer(req._id)}></button>
                                 </div>
                                 {showReplyFormForComment[req._id] ? (
-                            <>
+                            <div style={{display:"flex"}}>
                                 <div className="form-floating">
-                                    <textarea className="form-control" placeholder="Votre réponse..." value={nouvelleReponse} onChange={handleChange}></textarea>
+                                    <textarea style={{width:"300px"}} className="form-control" placeholder="Votre réponse..." value={nouvelleReponse} onChange={handleChange}></textarea>
                                     <label htmlFor="floatingTextarea">Réponse</label>
                                 </div>
-                                <button onClick={()=>handleSubmit(req._id)} disabled={envoiReponseEnCours}>Envoyer</button>
-                            </>
+                                <button  style={{marginLeft:"10px",width:"80px",background:"dodgerblue",border:"dodgerblue",borderRadius:"6px",color:"white",height:"40px"}} onClick={()=>handleSubmit(req._id)} disabled={envoiReponseEnCours}>Envoyer</button>
+                            </div>
                         ) : (
-                            <button onClick={() => handleReplyButtonClick(req._id)}>Répondre</button>
+                            <button style={{background:"gray"}} class="btn" onClick={() => handleReplyButtonClick(req._id)}>Répondre</button>
                         )}
                             </div>
                         </li>
