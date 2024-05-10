@@ -1,5 +1,5 @@
 const argon2 = require('argon2');
-const Utilisateur = require('../../Model/Authentification/Utilisateur'); // Importer le modèle Utilisateur approprié
+const Utilisateur = require('../../Model/Authentification/Utilisateur');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const multer = require('multer');
@@ -32,7 +32,6 @@ exports.create = async (req, res) => {
   const accepte = '0';
 
   try {
-      // Vérifier si l'email ou le CIN existe déjà dans la base de données
       const existingUser = await Utilisateur.findOne({ $or: [{ cin }, { email }] });
       if (existingUser) {
           return res.status(400).json({ error: 'Un utilisateur avec cet email ou ce CIN existe déjà.' });
@@ -55,8 +54,6 @@ exports.create = async (req, res) => {
           password: hashedPassword,
       });
       await newAgriculteur.save();
-
-      // Générer un jeton d'authentification aléatoire
       const authToken = generateAuthToken(newAgriculteur._id);
 
       // Retourner le jeton d'authentification en tant que réponse
@@ -92,17 +89,7 @@ exports.login = async (req, res) => {
       return res.status(500).json({ error: 'Erreur interne du serveur lors de la connexion de l\'utilisateur. Veuillez réessayer plus tard.' });
     }
   };
-// // Fonction pour générer un jeton d'authentification aléatoire
-//  function generateAuthToken() {
-//   const authTokenLength = 64;
-//   const authToken = crypto.randomBytes(authTokenLength).toString('hex');
-//   return authToken;
-// }
-// function generateAuthToken(userId) {
-//   const authTokenLength = 64;
-//   const authToken = crypto.randomBytes(authTokenLength).toString('hex');
-//   return jwt.sign({ userId }, authToken, { expiresIn: '1h' });
-// }
+
 
 
 // Fonction pour créer un compte Administrateur
@@ -145,18 +132,13 @@ exports.logout=(req,res)=>{
 // Middleware pour vérifier le token d'authentification
 exports.verifyAuthToken = (req, res, next) => {
     const authToken = req.headers.authorization;
-
-    // Vérifier si le token d'authentification est présent
     if (!authToken) {
         return res.status(401).json({ error: 'Token d\'authentification manquant' });
     }
-
-    // Vérifier la validité du token d'authentification
     jwt.verify(authToken, process.env.JWT_SECRET, (err, decodedToken) => {
         if (err) {
             return res.status(401).json({ error: 'Token d\'authentification invalide' });
         } else {
-            // Le token d'authentification est valide, décoder les informations utilisateur
             req.user = decodedToken.user;
             next();
         }
@@ -169,14 +151,10 @@ exports.updateImageAdmin = async (req, res, next) => {
       return res.status(400).json({ error: err.message });
     }
   try {
-    // Vérifier si un fichier a été téléchargé
     if (!req.file) {
       return res.status(400).json({ message: "Aucun fichier n'a été téléchargé" });
     }
-
     const newImage = req.file.filename;
-
-    // Mettre à jour l'image de l'utilisateur administrateur dans la base de données
     const admin = await Utilisateur.Admin.findByIdAndUpdate({ _id: req.params.id }, { image: newImage }, { new: true });
 
     if (!admin) {
@@ -190,14 +168,3 @@ exports.updateImageAdmin = async (req, res, next) => {
   }
 })
 };
-//afficher agriculteur
-exports.getAgriculteur = async (req, res) => {
-  try {
-    const agriculteurs = await Utilisateur.find({ accepte: '1', role: 'Agriculteur' });
-    res.status(200).json(agriculteurs);
-    console.log("Agriculteurs avec accepte == '1' :", agriculteurs);
-  } catch (error) {
-    console.error("Erreur lors de la recherche des agriculteurs :", error);
-    res.status(500).json({ error: "Erreur lors de la recherche des agriculteurs" });
-  }
-}
