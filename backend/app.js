@@ -17,6 +17,7 @@ const UserProfileRouter = require('./Router/Authentification/userProfileRouter')
 const ActiverCompteRouter = require('./Router/Authentification/ActiverCompteRouter');
 const AuthRouter = require('./Router/Authentification/Authentification');
 const UserModel = require('./Model/Authentification/Utilisateur');
+const userAgriculteur=require('./Router/Authentification/Agriculteur');
 //const verifyAuthToken = require('./Controller/Authentification/verifyAuthTokenMiddleware');
 //Bétail
 const CategorieBetailRouter = require('./Router/Betail/CategorieBetail');
@@ -109,6 +110,7 @@ app.use('/auth', AuthRouter);
 app.use('/Profile', ProfileRouter);
 app.use('/UserProfile', UserProfileRouter);
 app.use('/ActiverCompte', ActiverCompteRouter);
+app.use('/Agriculteur',userAgriculteur);
 //Bétail
 app.use('/CategorieBetail', CategorieBetailRouter);
 app.use('/Betail', BetailRouter);
