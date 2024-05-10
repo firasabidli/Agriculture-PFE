@@ -40,6 +40,7 @@ import PageEngrais from './components/CoteClient/Agriculture/HistoriqueEngrais/P
 import GestionStock from './components/CoteClient/Agriculture/GestionStocks/GestionStock.jsx';
 import PageRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/PageRecolte.jsx';
 import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
+import ConsulterAgriculteur from './components/CoteAdmin/pages/Agriculteurs/ConsulterAgriculteur.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -57,6 +58,7 @@ root.render(
                 <Route path="/admin/Agricultures" element={<Agricultures />} />
                 <Route path="/admin/Profile" element={<Profile />} />
                 <Route path="/admin/ActiverCompte" element={<ActiverCompte />} />
+                <Route path="/admin/ConsulterAgriculteur" element={<ConsulterAgriculteur/>}></Route>
          </Route>
 
             <Route element={<PrivateRoute allowedRoles={['Agriculteur']} />}>

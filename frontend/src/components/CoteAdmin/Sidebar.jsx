@@ -125,7 +125,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             <Link to="/admin/ActiverCompte" className={`sidebar-link ${page==="ActiverCompte" ? 'item-active' : ''}`}><span className="icon"><BsPersonCheck /></span>{ " "}Activer Compte </Link>
                             </li>
                             <li className="sidebar-item">
-                            <Link to="" className={`sidebar-link ${page==="GererAgriculteurs" ? 'item-active' : ''}`}><span className="icon"><BsPersonFillGear /></span>{ " "}Gerer Agriculteurs </Link>
+                            <Link to="/admin/ConsulterAgriculteur" className={`sidebar-link ${page==="GererAgriculteurs" ? 'item-active' : ''}`}><span className="icon"><BsPersonFillGear /></span>{ " "}Gerer Agriculteurs </Link>
                             </li>
                         </ul>
                     </li>
