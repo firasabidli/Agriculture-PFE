@@ -168,7 +168,7 @@ exports.update = async (req, res) => {
     const updatedAgriculture = await Agriculture.findByIdAndUpdate(req.params.id, updateData, { new: true });
 
     if (!updatedAgriculture) {
-      return res.status(404).json({ success: false, message: "Agriculture n'est pas trouvé" });
+      return res.status(404).json({ success: false, message: "Agriculture n'est pas trouve" });
     }
     // Retirer la culture mise à jour des anciens matériaux et stocks
     await Materiel.updateMany({}, { $pull: { Agricultures: updatedAgriculture._id } });

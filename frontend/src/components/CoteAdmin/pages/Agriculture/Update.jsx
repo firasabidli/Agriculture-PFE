@@ -25,7 +25,6 @@ function Update({ onUpdate, agricultureId }) {
     try {
       const response = await axios.get(`http://localhost:3001/Agriculture/${agricultureId}`);
       const data = response.data.data;
-      console.log(data);
       setAgriculture(data);
       setSelectedSaison(data.saison._id);
       setSelectedCategorie(data.categorie._id);
@@ -309,7 +308,7 @@ function Update({ onUpdate, agricultureId }) {
                   key={material._id}
                   type="checkbox"
                   id={material._id}
-                  label={material.nom}
+                  label={material.name}
                   checked={selectedMaterials.includes(material._id)}
                   onChange={(e) => handleMaterialChange(e, material._id)}
                 />

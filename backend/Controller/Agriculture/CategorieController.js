@@ -1,39 +1,14 @@
 const Categorie = require('../../Model/Agriculture/CategorieModel');
-const Materiel = require('../../Model/Agriculture/MaterielModel');
-const MethodeStock = require('../../Model/Agriculture/MethodeStock');
-const Medicament = require('../../Model/Agriculture/Medicament');
+const Agriculture=require('../../Model/Agriculture/Agriculture')
 // Créer une nouvelle catégorie
 exports.create = async (req, res) => {
-  const {
-    nom_categorie,
-    description,
-    Equipements,
-    MethodeStockage,
-    Engrais,
-  } = req.body;
-  
   try {
-    const categorie = await Categorie.create({
-      nom_categorie,
-      description,
-      Equipements,
-      MethodeStockage,
-      Engrais,
-    });
-
-    await Materiel.updateMany({ '_id': categorie.Equipements }, { $push: { CategorieAgriculture: categorie._id } });
-    await MethodeStock.updateMany({ '_id': categorie.MethodeStockage }, { $push: { CategorieAgriculture: categorie._id } });
-    await Medicament.updateMany({ '_id': categorie.Engrais }, { $push: { CategorieAgriculture: categorie._id } });
-    
-    // Vous n'avez pas besoin de mettre à jour les collections Materiel, MethodeStock, MedicamentCulture
-    // car les références sont déjà stockées dans les champs Equipements, MethodeStockage, Engrais de la catégorie.
-    
-    res.status(201).json({ success: true, message: 'Catégorie créée avec succès', data: categorie });
+    const categorie = await Categorie.create(req.body);
+    res.status(201).json({ success: true, message: 'Categorie créer avec succées', data: categorie });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }
 };
-
 
 // Récupérer toutes les catégories
 exports.all = async (req, res) => {
@@ -48,7 +23,7 @@ exports.all = async (req, res) => {
 // Récupérer une catégorie par son ID
 exports.getCategorieById = async (req, res) => {
   try {
-    const categorie = await Categorie.findById(req.params.id).populate('Agricultures Equipements MethodeStockage Engrais');;
+    const categorie = await Categorie.findById(req.params.id).populate('Agricultures');;
     if (!categorie) {
       return res.status(404).json({ success: false, message: "Categorie n'est pas trouver" });
     }
@@ -61,33 +36,11 @@ exports.getCategorieById = async (req, res) => {
 // Mettre à jour une catégorie par son ID
 exports.update = async (req, res) => {
   try {
-    const {
-      nom_categorie,
-      description,
-      Equipements,
-      MethodeStockage,
-      Engrais,
-    } = req.body;
-
-    let updateData = {
-      nom_categorie,
-      description,
-      Equipements,
-      MethodeStockage,
-      Engrais,
-    };
-    const updatedCategorie = await Categorie.findByIdAndUpdate(req.params.id, updateData, { new: true });
-    
-    if (!updatedCategorie) {
+    const categorie = await Categorie.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!categorie) {
       return res.status(404).json({ success: false, message: 'Categorie ne trouve pas' });
     }
-    await Materiel.updateMany({}, { $pull: { CategorieAgriculture: updatedCategorie._id } });
-    await MethodeStock.updateMany({}, { $pull: { CategorieAgriculture: updatedCategorie._id } });
-    await Medicament.updateMany({}, { $pull: { CategorieAgriculture: updatedCategorie._id } });
-    await Materiel.updateMany({ '_id': { $in: Equipements } }, { $addToSet: { CategorieAgriculture: updatedCategorie._id } });
-    await MethodeStock.updateMany({ '_id': { $in: MethodeStockage } }, { $addToSet: { CategorieAgriculture: updatedCategorie._id } });
-    await Medicament.updateMany({ '_id': { $in: Engrais } }, { $addToSet: { CategorieAgriculture: updatedCategorie._id } });
-    res.status(200).json({ success: true, message: 'Categorie modifier', data: updatedCategorie });
+    res.status(200).json({ success: true, message: 'Categorie modifier', data: categorie });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -100,9 +53,6 @@ exports.delete = async (req, res) => {
     if (!categorie) {
       return res.status(404).json({ success: false, message: 'Categorie ne trouve pas' });
     }
-    await Materiel.updateMany({}, { $pull: { CategorieAgriculture: categorie._id } });
-    await MethodeStock.updateMany({}, { $pull: { CategorieAgriculture: categorie._id } });
-    await Medicament.updateMany({}, { $pull: { CategorieAgriculture: categorie._id } });
     res.status(200).json({ success: true, message: 'Categorie supprimer avec succées' });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
