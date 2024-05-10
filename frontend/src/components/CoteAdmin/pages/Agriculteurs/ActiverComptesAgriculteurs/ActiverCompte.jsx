@@ -5,15 +5,6 @@ import Header from '../../../Header';
 import './ActiverCompte.css'
 import Accepter from './Accepter';
 import Refuser from './Refuser';
-
-
-
-
-
-
-
-
-
 const ActiverCompte = () => {
     const [data, setData] = useState([]);
    

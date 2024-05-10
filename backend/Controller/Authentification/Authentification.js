@@ -190,3 +190,14 @@ exports.updateImageAdmin = async (req, res, next) => {
   }
 })
 };
+//afficher agriculteur
+exports.getAgriculteur = async (req, res) => {
+  try {
+    const agriculteurs = await Utilisateur.find({ accepte: '1', role: 'Agriculteur' });
+    res.status(200).json(agriculteurs);
+    console.log("Agriculteurs avec accepte == '1' :", agriculteurs);
+  } catch (error) {
+    console.error("Erreur lors de la recherche des agriculteurs :", error);
+    res.status(500).json({ error: "Erreur lors de la recherche des agriculteurs" });
+  }
+}
