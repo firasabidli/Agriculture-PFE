@@ -8,6 +8,7 @@ const categorieSchema = new mongoose.Schema({
     Equipements:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Materiel' }],
     MethodeStockage:[{ type: mongoose.Schema.Types.ObjectId, ref: 'MethodeStock' }],
     Engrais:[{ type: mongoose.Schema.Types.ObjectId, ref: 'MedicamentCulture' }]
+    
 });
 
 module.exports = mongoose.model('CategorieAgriculture', categorieSchema);
