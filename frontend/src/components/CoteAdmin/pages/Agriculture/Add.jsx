@@ -29,6 +29,8 @@ function Add({ onCreate }) {
   const [selectedMaterials, setSelectedMaterials] = useState({});
   const [selectedStocks, setSelectedStocks] = useState({});
   const [selectedMedicaments, setSelectedMedicaments] = useState({});
+  const [showQuantity, setShowQuantity] = useState(false);
+  const [showFrequency, setShowFrequency] = useState(false);
 
   useEffect(() => {
     fetchSaisons();
@@ -50,10 +52,7 @@ function Add({ onCreate }) {
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:3001/Categorie");
-      
       setCategories(response.data.data);
-     
-     
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -139,13 +138,15 @@ function Add({ onCreate }) {
     Object.keys(selectedMedicaments).forEach(medicamentId => {
       formData.append('MedicamentsCulture[]', medicamentId);
     });
-    const isValidnom = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(nom_agriculture);
-    const isValiddescription= /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(description);
 
-  if (!isValidnom || !isValiddescription) {
-    alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
-    return;
-  }
+    const isValidnom = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(nom_agriculture);
+    const isValiddescription = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(description);
+
+    if (!isValidnom || !isValiddescription) {
+      alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
+      return;
+    }
+
     try {
       const result = await axios.post(
         "http://localhost:3001/Agriculture",
@@ -159,9 +160,8 @@ function Add({ onCreate }) {
       if (result.data.success) {
         handleClose();
         alert(result.data.message);
-        window.location.reload()
+        window.location.reload();
         onCreate();
-
       }
     } catch (error) {
       console.error("Error uploading agriculture:", error);
@@ -187,6 +187,13 @@ function Add({ onCreate }) {
     setSelectedMedicaments({ ...selectedMedicaments, [id]: checked });
   };
 
+  const handleMethodChange = (e) => {
+    const selectedMethod = e.target.value;
+    setMethodeIrrigation(selectedMethod);
+    setShowQuantity(selectedMethod !== 'irrigation gravitaire');
+    setShowFrequency(selectedMethod !== 'irrigation gravitaire');
+  };
+
   return (
     <>
       <Button className='btn-plus' onClick={handleShow}>
@@ -199,7 +206,16 @@ function Add({ onCreate }) {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={submit} id="form">
-          <Form.Group className="mb-3" controlId="nom_agriculture">
+          <Form.Group className="mb-3" controlId="categorie">
+              <Form.Label>Catégorie</Form.Label>
+              <Form.Control as="select" value={selectedCategorie} onChange={(e) => setSelectedCategorie(e.target.value)}>
+                <option value="">Sélectionnez une catégorie</option>
+                {categories && categories.map(categorie => (
+                  <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="nom_agriculture">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Agriculture:">
                 <Form.Control
                   type="text"
@@ -211,16 +227,26 @@ function Add({ onCreate }) {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="Description">
-                <FloatingLabel controlId="floatingTextarea2" label="Description">
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Description"
-                    value={description}
-                    style={{ height: '100px' }}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </FloatingLabel>
-              </Form.Group>
+              <FloatingLabel controlId="floatingTextarea2" label="Description">
+                <Form.Control
+                  as="textarea"
+                  placeholder="Description"
+                  value={description}
+                  style={{ height: '100px' }}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </FloatingLabel>
+            </Form.Group>
+            
+            <Form.Group className="mb-3" controlId="saison">
+              <Form.Label>Saison</Form.Label>
+              <Form.Control as="select" value={selectedSaison} onChange={(e) => setSelectedSaison(e.target.value)}>
+                <option value="">Sélectionnez une saison</option>
+                {saisons && saisons.map(saison => (
+                  <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
 
             <Form.Group className="mb-3" controlId="date_plantation">
               <FloatingLabel controlId="floatingTextarea2" label="Date Plantation">
@@ -243,39 +269,45 @@ function Add({ onCreate }) {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="methode_irrigation">
-              <FloatingLabel controlId="floatingTextarea2" label="Methode Irrigation">
-                <Form.Control
-                  type='text'
-                  placeholder="methode_irrigation"
-                  value={methode_irrigation}
-                  onChange={(e) => setMethodeIrrigation(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="quantite_eau_irrigation">
-              <FloatingLabel controlId="floatingTextarea2" label="Quantité Eau Irrigation">
-                <Form.Control
-                  type='Number'
-                  placeholder="quantite_eau_irrigation"
-                  value={quantite_eau_irrigation}
-                  onChange={(e) => setQuantiteEauIrrigation(e.target.value)}
-                />
-              </FloatingLabel>
+
+            <Form.Group controlId="methodeIrrigation" className="mb-3">
+              <Form.Label>Methode Irrigation</Form.Label>
+              <Form.Select value={methode_irrigation} onChange={handleMethodChange}>
+                <option value="">Choisir une méthode d'irrigation</option>
+                <option value="goutte à goutte">Goutte à goutte</option>
+                <option value="aspersion">Aspersion</option>
+                <option value="gicleurs">Gicleurs</option>
+                <option value="irrigation par pivot">Irrigation par pivot</option>
+                <option value="irrigation gravitaire">Irrigation gravitaire</option>
+              </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="frequence_surveillance">
-              <FloatingLabel controlId="floatingTextarea2" label="Fréquence Surveillance:">
-                <Form.Control
-                  type="text"
-                  placeholder=" Fréquence Surveillance"
-                  value={frequence_surveillance}
-                  onChange={(e) => setFrequenceSurveillance(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
+            {showQuantity && (
+              <Form.Group className="mb-3" controlId="quantite_eau_irrigation">
+                <FloatingLabel controlId="floatingTextarea2" label="Quantité Eau Irrigation">
+                  <Form.Control
+                    type='Number'
+                    placeholder="quantite_eau_irrigation"
+                    value={quantite_eau_irrigation}
+                    onChange={(e) => setQuantiteEauIrrigation(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            )}
 
-            <Form.Group className="mb-3" controlId="date_derniere_surveillance">
+            {showFrequency && (
+              <>
+              <Form.Group className="mb-3" controlId="frequence_surveillance">
+                <FloatingLabel controlId="floatingTextarea2" label="Fréquence Surveillance:">
+                  <Form.Control
+                    type="text"
+                    placeholder=" Fréquence Surveillance"
+                    value={frequence_surveillance}
+                    onChange={(e) => setFrequenceSurveillance(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="date_derniere_surveillance">
               <FloatingLabel controlId="floatingTextarea2" label="Date Derniere Surveillance">
                 <Form.Control
                   type='date'
@@ -285,6 +317,10 @@ function Add({ onCreate }) {
                 />
               </FloatingLabel>
             </Form.Group>
+            </>
+            )}
+
+            
 
             <Form.Group className="mb-3" controlId="title">
               <FloatingLabel controlId="floatingTextarea2" label="Image Culture:">
@@ -295,38 +331,21 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
 
-          
             <Form.Group className="mb-3" controlId="remarques">
-                <FloatingLabel controlId="floatingTextarea2" label="Remarques:">
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Remarques"
-                    value={remarques}
-                    style={{ height: '100px' }}
-                    onChange={(e) => setRemarques(e.target.value)}
-                  />
-                </FloatingLabel>
-              </Form.Group>
-
-            <Form.Group className="mb-3" controlId="saison">
-              <Form.Label>Saison</Form.Label>
-              <Form.Control as="select" value={selectedSaison} onChange={(e) => setSelectedSaison(e.target.value)}>
-                <option value="">Sélectionnez une saison</option>
-                {saisons && saisons.map(saison => (
-                  <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
-                ))}
-              </Form.Control>
+              <FloatingLabel controlId="floatingTextarea2" label="Remarques:">
+                <Form.Control
+                  as="textarea"
+                  placeholder="Remarques"
+                  value={remarques}
+                  style={{ height: '100px' }}
+                  onChange={(e) => setRemarques(e.target.value)}
+                />
+              </FloatingLabel>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="categorie">
-              <Form.Label>Catégorie</Form.Label>
-              <Form.Control as="select" value={selectedCategorie} onChange={(e) => setSelectedCategorie(e.target.value)}>
-                <option value="">Sélectionnez une catégorie</option>
-                {categories && categories.map(categorie => (
-                  <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
-                ))}
-              </Form.Control>
-            </Form.Group>
+            
+
+           
             <Form.Group className="mb-3" controlId="materials">
               <Form.Label>Equipements</Form.Label>
               {materials && materials.map(material => (
@@ -371,7 +390,7 @@ function Add({ onCreate }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        <Btn className="bg-secondary" onClick={handleClose}>Fermer</Btn>
+          <Btn className="bg-secondary" onClick={handleClose}>Fermer</Btn>
           <Btn className="btn" type="submit" form="form"> Ajouter </Btn>
         </Modal.Footer>
       </Modal>
