@@ -132,8 +132,9 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
         <Modal.Header closeButton>
           <Modal.Title>Modifier Categorie</Modal.Title>
         </Modal.Header>
+        <Form onSubmit={handleSubmit} id="updateForm">
         <Modal.Body>
-          <Form onSubmit={handleSubmit} id="updateForm">
+          
             <Form.Group className="mb-3" controlId="nom_categorie">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Categorie">
                 <Form.Control
@@ -203,12 +204,13 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
             </Form.Group>
 
             
-          </Form>
+          
         </Modal.Body>
         <Modal.Footer>
           <Button className="bg-secondary" onClick={handleClose}>Fermer</Button>
           <Button className="btn" type="submit" form="updateForm"> Modifier </Button>
         </Modal.Footer>
+        </Form>
       </Modal>
       
     </>

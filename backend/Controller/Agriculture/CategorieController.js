@@ -38,7 +38,7 @@ exports.create = async (req, res) => {
 // Récupérer toutes les catégories
 exports.all = async (req, res) => {
   try {
-    const categories = await Categorie.find().populate('Agricultures');
+    const categories = await Categorie.find().populate('Agricultures Equipements MethodeStockage Engrais');
     res.status(200).json( { success: true, data: categories } );
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
