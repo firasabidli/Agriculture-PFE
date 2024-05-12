@@ -72,12 +72,13 @@ function Add({ onCreate }) {
         <span className='btn-title'>Ajouter</span>
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Ajouter une Catégorie</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit} id="form">
+        <Form onSubmit={handleSubmit} id="form">
+        <Modal.Body className='w-100'>
+          
             <Form.Group className="mb-3" controlId="nom_categorie">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Catégorie">
                 <Form.Control
@@ -121,12 +122,13 @@ function Add({ onCreate }) {
                 <Btn variant="secondary" onClick={handleAddRace}>Ajouter une autre Race</Btn>
               )}
             </Form.Group>
-          </Form>
+         
         </Modal.Body>
         <Modal.Footer>
           <Btn className="bg-secondary" onClick={handleClose}>Fermer</Btn>
           <Btn className="btn" type="submit" form="form">Ajouter</Btn>
         </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

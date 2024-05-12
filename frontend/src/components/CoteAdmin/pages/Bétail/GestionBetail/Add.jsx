@@ -138,12 +138,13 @@ function Add({ onCreate }) {
         <FcPlus className='icon-plus' />
         <span className='btn-title'>Ajouter</span>
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Ajouter une betail</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={submit} id="form">
+        <Form onSubmit={submit} id="form">
+        <Modal.Body className='w-100'>
+         
 
 
           <Form.Group controlId="categorie">
@@ -170,9 +171,15 @@ function Add({ onCreate }) {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="etat_betail">
+           
+
+            <Form.Group className="mb-3" controlId="etat">
               <Form.Label>État de gestation</Form.Label>
-              <Form.Control type="text" name="etat_betail" value={etat_betail} onChange={(e) => setEtatBetail(e.target.value)}/>
+              <Form.Control as="select" value={etat_betail} onChange={(e) => setEtatBetail(e.target.value)}>
+                <option value="">Sélectionnez l'etat de gestation</option>
+                <option value="Gestation">Gestation</option>
+                <option value="Non Gestation">Non Gestation</option>
+              </Form.Control>
             </Form.Group>
 
           <Form.Group className="mb-3" controlId="nom_betail">
@@ -192,7 +199,7 @@ function Add({ onCreate }) {
             
             
 
-            <Form.Group className="mb-3" controlId="saison">
+            <Form.Group className="mb-3" controlId="sexe">
               <Form.Label>sex</Form.Label>
               <Form.Control as="select" value={sexe} onChange={(e) => setSexe(e.target.value)}>
                 <option value="">Sélectionnez la genre du betail</option>
@@ -244,7 +251,7 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
             
-          </Form>
+         
         </Modal.Body>
         <Modal.Footer>
           <Btn className="bg-secondary" onClick={handleClose}>
@@ -254,6 +261,7 @@ function Add({ onCreate }) {
             Ajouter
           </Btn>
         </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

@@ -117,13 +117,14 @@ function Update({ onUpdate, betailId }) {
     <>
       <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Modifier Betail</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Form onSubmit={handleSubmit} id="updateForm">
+        <Modal.Body className='w-100'>
         {betail && (
-            <Form onSubmit={handleSubmit} id="updateForm">
+            <div>
             <Form.Group controlId="categorie">
               <Form.Label>Catégorie</Form.Label>
               <Form.Control as="select" name="id_categorie" defaultValue={selectedCategory} onChange={handleCategoryChange}>
@@ -141,16 +142,22 @@ function Update({ onUpdate, betailId }) {
               <Form.Control as="select" name="race" defaultValue={race} onChange={(e) => setRace(e.target.value)} disabled={!selectedCategory}>
                 <option value="">Sélectionnez la race</option>
                 {races.map((race) => (
-                  <option selected={race==betail.race}key={race} value={race}>
+                  <option selected={race===betail.race}key={race} value={race}>
                     {race}
                   </option>
                 ))}
               </Form.Control>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="etat_betail">
+           
+
+            <Form.Group className="mb-3" controlId="etat">
               <Form.Label>État de gestation</Form.Label>
-              <Form.Control type="text" name="etat_betail" defaultValue={betail.etat_betail} />
+              <Form.Control as="select" id='etat_betail' name="etat_betail" defaultValue={betail.etat_betail}  >
+                <option value="">Sélectionnez l'etat de gestation</option>
+                <option selected={"Gestation"===betail.etat_betail} value="Gestation">Gestation</option>
+                <option selected={"Non Gestation"===betail.etat_betail} value="Non Gestation">Non Gestation</option>
+              </Form.Control>
             </Form.Group>
 
           <Form.Group className="mb-3" controlId="nom_betail">
@@ -171,12 +178,12 @@ function Update({ onUpdate, betailId }) {
             
             
 
-            <Form.Group className="mb-3" controlId="saison">
+            <Form.Group className="mb-3" controlId="sexe">
               <Form.Label>sex</Form.Label>
               <Form.Control as="select" id='sexe' name='sexe' defaultValue={sexe} onChange={(e) => setSexe(e.target.value)} >
                 <option value="">Sélectionnez la genre du betail</option>
-                <option selected={"masculin"==betail.sexe} value="masculin">masculin</option>
-                <option selected={"féminin"==betail.sexe} value="féminin">féminin</option>
+                <option selected={"masculin"===betail.sexe} value="masculin">masculin</option>
+                <option selected={"féminin"===betail.sexe} value="féminin">féminin</option>
               </Form.Control>
             </Form.Group>
 
@@ -196,13 +203,13 @@ function Update({ onUpdate, betailId }) {
               <Form.Label>Fréquence de suivi de la santé</Form.Label>
               <Form.Control as="select" id='frequence_suivi_sante' name='frequence_suivi_sante' defaultValue={frequence_suivi_sante} onChange={(e) => setFrequenceSuivie(e.target.value)} >
                 <option value="">Sélectionnez la fréquence de suivi de la santé</option>
-                <option selected={"Quotidienne"==betail.frequence_suivi_sante} value="Quotidienne">Quotidienne</option>
-                <option selected={"Hebdomadaire"==betail.frequence_suivi_sante} value="Hebdomadaire">Hebdomadaire</option>
-                <option selected={"Bimensuelle"==betail.frequence_suivi_sante} value="Bimensuelle">Bimensuelle</option>
-                <option selected={"Mensuelle"==betail.frequence_suivi_sante} value="Mensuelle">Mensuelle</option>
-                <option selected={"Trimestrielle"==betail.frequence_suivi_sante} value="Trimestrielle">Trimestrielle</option>
-                <option selected={"Semestrielle"==betail.frequence_suivi_sante} value="Semestrielle">Semestrielle</option>
-                <option selected={"Annuelle"==betail.frequence_suivi_sante} value="Annuelle">Annuelle</option>
+                <option selected={"Quotidienne"===betail.frequence_suivi_sante} value="Quotidienne">Quotidienne</option>
+                <option selected={"Hebdomadaire"===betail.frequence_suivi_sante} value="Hebdomadaire">Hebdomadaire</option>
+                <option selected={"Bimensuelle"===betail.frequence_suivi_sante} value="Bimensuelle">Bimensuelle</option>
+                <option selected={"Mensuelle"===betail.frequence_suivi_sante} value="Mensuelle">Mensuelle</option>
+                <option selected={"Trimestrielle"===betail.frequence_suivi_sante} value="Trimestrielle">Trimestrielle</option>
+                <option selected={"Semestrielle"===betail.frequence_suivi_sante} value="Semestrielle">Semestrielle</option>
+                <option selected={"Annuelle"===betail.frequence_suivi_sante} value="Annuelle">Annuelle</option>
               </Form.Control>
             </Form.Group>
 
@@ -224,14 +231,15 @@ function Update({ onUpdate, betailId }) {
             </Form.Group>
            
 
-              
-            </Form>
+            </div> 
+            
           )}
         </Modal.Body>
         <Modal.Footer>
           <Button className="bg-secondary" onClick={handleClose}>Close</Button>
           <Button className="btn" type="submit" form="updateForm"> Enregistrer </Button>
         </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

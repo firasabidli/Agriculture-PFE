@@ -71,7 +71,7 @@ function MyModelAjouterStock(props) {
     return (
         <Modal
             {...props}
-            size="lg"
+            className='modal-lg'
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
@@ -80,8 +80,9 @@ function MyModelAjouterStock(props) {
                     {props.editMode ? 'Modifier données' : 'Ajouter données'}
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <form className="form-container">
+            <form className="form-container">
+            <Modal.Body className='w-100'>
+                
                     <div>
                         <label htmlFor="title">Titre :</label>
                         <input
@@ -98,6 +99,7 @@ function MyModelAjouterStock(props) {
                         <textarea
                             id="description"
                             value={description}
+                            style={{ height: '100px' }}
                             onChange={(e) => setDescription(e.target.value)}
                             className="form-textarea"
                             required
@@ -108,12 +110,13 @@ function MyModelAjouterStock(props) {
                         {image_MethodStock && <img src={image_MethodStock} alt="" className="current-image" />} 
                         <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
                     </div>
-                </form>
+                
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide} className="submit-button">Close</Button>
                 <Button type="submit" className="form-button" onClick={handleSubmit}>{props.editMode ? 'Modifier' : 'Ajouter'}</Button>
             </Modal.Footer>
+            </form>
         </Modal>
     );
 }

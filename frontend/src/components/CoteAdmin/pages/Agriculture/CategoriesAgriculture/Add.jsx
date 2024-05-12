@@ -106,12 +106,12 @@ function Add({ onCreate }) {
 		<span className='btn-title'>Ajouter</span>
 	    </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Ajouter une Categorie</Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleSubmit} id="form">
-  <Modal.Body>
+  <Modal.Body className='w-100'>
     <Form.Group className="mb-3" controlId="nom_categorie">
       <FloatingLabel controlId="floatingTextarea2" label="Nom Categorie">
         <Form.Control
