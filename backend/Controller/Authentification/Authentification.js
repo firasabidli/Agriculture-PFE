@@ -168,3 +168,11 @@ exports.updateImageAdmin = async (req, res, next) => {
   }
 })
 };
+exports.getUserId= async(req,res)=>{
+  try {
+    const agriculteur = await Utilisateur.findById(req.params.id);
+    res.json(agriculteur);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la récupération des détails de l\'agriculteur', error });
+  }
+}

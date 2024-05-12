@@ -73,7 +73,7 @@ const Update = ({ onUpdate, mouvementId }) => {
 
     return (
         <>
-            <button className="f-n-hover btn btn-success btn-raised px-4 py-2 w-75 text-600" style={{ marginRight: "30%", color: "white" }} onClick={handleShow}>
+            <button className="btn btn-success" style={{ marginRight: "30%",border:"1px solid",borderRadius:"10px"}} onClick={handleShow}>
                 Modifier
             </button>
 
