@@ -69,4 +69,3 @@ exports.getAgriculteur = async (req, res) => {
       res.status(500).json({ error: 'Erreur lors de l\'envoi des e-mails' });
     }
   };
-  
