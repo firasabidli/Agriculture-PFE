@@ -1,7 +1,9 @@
 import React,{useState,useEffect} from "react";
-import Button from 'react-bootstrap/Button';
+import Btn from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
+import { FaRegFilePdf } from "react-icons/fa";
+import { FaPrint } from "react-icons/fa";
 import logo from "../../../../assets/images/logo1.png";
 const FactureMouvement =({venteData,animalId,agriculteurId})=>{
     const [show, setShow] = useState(false);
@@ -139,12 +141,12 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
  
   </Modal.Body>
   <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+          <Btn className="bg-white mx-1px text-95" variant="secondary" onClick={handleClose} style={{ backgroundColor:"white" , color:"black",border: "1px solid gray"}}>
+            <FaPrint style={{ color: "blue",marginRight:"10px" }}/>Imprimer
+          </Btn>
+          <Btn  onClick={handleClose} style={{marginTop:"1%",backgroundColor:"white" , color:"black",border: "1px solid gray"}}>
+            <FaRegFilePdf style={{ color: "red",marginRight:"7px" }} /> Export
+          </Btn>
         </Modal.Footer>
       </Modal>
   </>
