@@ -127,5 +127,6 @@ app.use('/HistoriqueMainOeuvre',historiqueMainOeuvre);
 app.use('/HistoriqueIrrigation',historiqueIrrigation);
 app.use('/HistoriqueRecolte',historiqueRecolte);
 app.use('/GestionStocks',GestionStock);
+
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

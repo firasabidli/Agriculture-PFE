@@ -5,7 +5,6 @@ import Update from "./Update";
 import Ajouter from "./Ajouter";
 import Navbar from'../../Navbar';
 import FactureMouvement from "./FactureMouvement";
-
 const PageMouvement = () => {
   const { id } = useParams();
   const [movementData, setMovementData] = useState([]);
