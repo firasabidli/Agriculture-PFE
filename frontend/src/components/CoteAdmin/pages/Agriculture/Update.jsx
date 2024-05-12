@@ -19,14 +19,27 @@ function Update({ onUpdate, agricultureId }) {
   const [materials, setMaterials] = useState([]);
   const [stocks, setStocks] = useState([]);
   const [medicaments, setMedicaments] = useState([]);
+  const [methode_irrigation, setMethodeIrrigation] = useState("");
+  const [quantite_eau_irrigation, setQuantiteEauIrrigation] = useState('');
+  const [frequence_surveillance, setFrequenceSurveillance] = useState('');
+  const [date_derniere_surveillance, setDateDerniereSurveillance] = useState('');
+  const [showQuantity, setShowQuantity] = useState(true);
+  const [showFrequency, setShowFrequency] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   const fetchAgriculture = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/Agriculture/${agricultureId}`);
       const data = response.data.data;
+      console.log("agri",data);
       setAgriculture(data);
+      setMethodeIrrigation(data.methode_irrigation);
+      setShowQuantity(data.methode_irrigation !== 'irrigation gravitaire');
+      setShowFrequency(data.methode_irrigation !== 'irrigation gravitaire');
+      fetchEquipStockEngraisByCategorie(agriculture.categorie)
       setSelectedSaison(data.saison._id);
+      await fetchEquipStockEngraisByCategorie(data.categorie._id);
       setSelectedCategorie(data.categorie._id);
       setSelectedMaterials(data.materiels.map(material => material._id));
       setSelectedStocks(data.MethodesStock.map(stock => stock._id));
@@ -54,45 +67,18 @@ function Update({ onUpdate, agricultureId }) {
     }
   };
 
-  const fetchMaterials = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/Materiel");
-      setMaterials(response.data.data);
-    } catch (error) {
-      console.error("Error fetching materials:", error);
-    }
-  };
 
-  const fetchStocks = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/MethodeStock/ListStock");
-      setStocks(response.data);
-      
-    } catch (error) {
-      console.error("Error fetching stocks:", error);
-    }
-  };
-  const fetchMedicaments = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/MedicamentCulture/ListMedicament");
-      setMedicaments(response.data);
-      
-    } catch (error) {
-      console.error("Error fetching stocks:", error);
-    }
-  };
   useEffect(() => {
     
       fetchAgriculture();
+      fetchEquipStockEngraisByCategorie(agriculture.categorie)
       fetchSaisons();
       fetchCategories();
-      fetchMaterials();
-      fetchStocks();
-      fetchMedicaments();
+      
    
   }, []);
 
-
+ 
   
   
   const handleMaterialChange = (e, materialId) => {
@@ -132,8 +118,19 @@ function Update({ onUpdate, agricultureId }) {
 
     try {
       const formData = new FormData(e.target);
-      formData.append('saisonId', selectedSaison);
-      formData.append('categorieId', selectedCategorie);
+      formData.append('methode_irrigation', methode_irrigation);
+      if(methode_irrigation==='irrigation gravitaire') {
+        formData.append('quantite_eau_irrigation', 0);
+        formData.append('frequence_surveillance', "Cette méthode d'irrigation ne nécessite pas une fréquence d'irrigation !");
+        formData.append('date_derniere_surveillance', "Cette méthode d'irrigation ne nécessite pas une date dernier de fréquence d'irrigation !");
+      }
+      else{
+        formData.append('quantite_eau_irrigation', quantite_eau_irrigation);
+        formData.append('frequence_surveillance', frequence_surveillance);
+        formData.append('date_derniere_surveillance', date_derniere_surveillance);
+      }
+        formData.append('saisonId', selectedSaison);
+        formData.append('categorieId', selectedCategorie);
       selectedMaterials.forEach(material => {
         formData.append('materials', material);
       });
@@ -152,7 +149,7 @@ function Update({ onUpdate, agricultureId }) {
       handleClose();
       alert(result.data.message);
       onUpdate();
-      
+      window.location.reload();
     } catch (error) {
       console.error('Error updating culture:', error);
     }
@@ -162,18 +159,61 @@ function Update({ onUpdate, agricultureId }) {
     setImage(e.target.files[0]);
   };
 
+  const fetchEquipStockEngraisByCategorie = async (categorieId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/Categorie/${categorieId}`);
+      setMaterials(response.data.data.Equipements);
+      setStocks(response.data.data.MethodeStockage);
+      setMedicaments(response.data.data.Engrais);
+    } catch (error) {
+      console.error("Error fetching category data:", error);
+    }
+  };
+ 
+ 
+  const handleCategoryChange = async (e) => {
+    const selectedCategoryId = e.target.value;
+    setSelectedCategorie(selectedCategoryId);
+    // Assurez-vous que la catégorie sélectionnée n'est pas vide
+    if (selectedCategoryId) {
+      await fetchEquipStockEngraisByCategorie(selectedCategoryId);
+    }
+  };
 
+  
+
+  const handleMethodChange = (e) => {
+    const selectedMethod = e.target.value;
+    setMethodeIrrigation(selectedMethod);
+    setShowQuantity(selectedMethod !== 'irrigation gravitaire');
+    setShowFrequency(selectedMethod !== 'irrigation gravitaire');
+  };
+
+  
+ 
+ 
   return (
     <>
       <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modifier Agriculture</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
+  <Modal.Header closeButton>
+    <Modal.Title>Modifier Agriculture</Modal.Title>
+  </Modal.Header>
+  <Form onSubmit={handleSubmit} id="updateForm">
+  <Modal.Body className='w-100'>
           {agriculture && (
-            <Form onSubmit={handleSubmit} id="updateForm">
+            <div>
+              <Form.Group className="mb-3" controlId="categorie">
+                <Form.Label>Catégorie</Form.Label>
+                <Form.Control as="select" value={selectedCategorie} onChange={handleCategoryChange}>
+                  <option value="">Sélectionnez une catégorie</option>
+                  {categories && categories.map(categorie => (
+                    <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+
              <Form.Group className="mb-3" controlId="nom_culture">
                 <FloatingLabel controlId="floatingTextarea2" label="Nom Culture:">
                   <Form.Control
@@ -198,6 +238,15 @@ function Update({ onUpdate, agricultureId }) {
                 </FloatingLabel>
               </Form.Group>
 
+              <Form.Group className="mb-3" controlId="saison">
+                <Form.Label>Saison</Form.Label>
+                <Form.Control as="select" value={selectedSaison} onChange={(e) => setSelectedSaison(e.target.value)}>
+                  <option value="">Sélectionnez une saison</option>
+                  {saisons && saisons.map(saison => (
+                    <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
               <Form.Group className="mb-3" controlId="date_plantation">
                 <FloatingLabel controlId="floatingTextarea2" label="Date Plantation">
                   <Form.Control
@@ -220,49 +269,62 @@ function Update({ onUpdate, agricultureId }) {
                 </FloatingLabel>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="methode_irrigation">
-                <FloatingLabel controlId="floatingTextarea2" label="Methode Irrigation">
-                  <Form.Control
-                    type='text'
-                    placeholder="Methode Irrigation"
-                    defaultValue={agriculture.methode_irrigation}
-                    name="methode_irrigation"
-                  />
-                </FloatingLabel>
-              </Form.Group>
+              
 
+              <Form.Group controlId="methodeIrrigation" className="mb-3">
+              <Form.Label>Methode Irrigation</Form.Label>
+              <Form.Select value={methode_irrigation} onChange={handleMethodChange}>
+                <option value="">Choisir une méthode d'irrigation</option>
+                <option value="goutte à goutte">Goutte à goutte</option>
+                <option value="aspersion">Aspersion</option>
+                <option value="irrigation par pivot">Irrigation par pivot</option>
+                <option value="irrigation gravitaire">Irrigation gravitaire</option>
+              </Form.Select>
+            </Form.Group>
+            {showQuantity && (
               <Form.Group className="mb-3" controlId="quantite_eau_irrigation">
                 <FloatingLabel controlId="floatingTextarea2" label="Quantité Eau Irrigation">
                   <Form.Control
-                    type='number'
-                    placeholder="Quantité Eau Irrigation"
-                    defaultValue={agriculture.quantite_eau_irrigation}
-                    name="quantite_eau_irrigation"
+                    type='Number'
+                    placeholder="quantite_eau_irrigation"
+                    defaultValue={methode_irrigation===agriculture.methode_irrigation? agriculture.quantite_eau_irrigation : ''}
+                    onChange={(e) => setQuantiteEauIrrigation(e.target.value)}
                   />
                 </FloatingLabel>
               </Form.Group>
+            )}
 
-              <Form.Group className="mb-3" controlId="frequence_surveillance">
-                <FloatingLabel controlId="floatingTextarea2" label="Fréquence Surveillance">
-                  <Form.Control
-                    type="text"
-                    placeholder="Fréquence Surveillance"
-                    defaultValue={agriculture.frequence_surveillance}
-                    name="frequence_surveillance"
-                  />
-                </FloatingLabel>
-              </Form.Group>
-
+            {showFrequency && (
+              <>
+               <Form.Group controlId="frequence_surveillance" className="mb-3">
+              <Form.Label>Fréquence d'irrigation par semaine</Form.Label>
+              <Form.Select defaultValue={methode_irrigation===agriculture.methode_irrigation? agriculture.frequence_surveillance :''}  onChange={(e) => setFrequenceSurveillance(e.target.value)}>
+                <option value="">Choisir nombre des jours</option>
+                <option value="1 Jours">1 Jour</option>
+                <option value="2 Jours">2 Jours</option>
+                <option value="3 Jours">3 Jours </option>
+                <option value="4 Jours">4 Jours</option>
+                <option value="5 Jours">5 Jours</option>
+                <option value="6 Jours">6 Jours</option>
+                <option value="Toutes les jours">Toutes les jours</option>
+              </Form.Select>
+            </Form.Group>
+              
+              
               <Form.Group className="mb-3" controlId="date_derniere_surveillance">
-                <FloatingLabel controlId="floatingTextarea2" label="Date Derniere Surveillance">
-                  <Form.Control
-                    type='date'
-                    placeholder="Date Derniere Surveillance"
-                    defaultValue={agriculture.date_derniere_surveillance}
-                    name="date_derniere_surveillance"
-                  />
-                </FloatingLabel>
-              </Form.Group>
+              <FloatingLabel controlId="floatingTextarea2" label="Date Derniere Surveillance">
+                <Form.Control
+                  type='date'
+                  placeholder="Date Derniere Surveillance"
+                  defaultValue={methode_irrigation===agriculture.methode_irrigation? agriculture.date_derniere_surveillance :''}
+                  onChange={(e) => setDateDerniereSurveillance(e.target.value)}
+                />
+              </FloatingLabel>
+            </Form.Group>
+            </>
+            )}
+
+              
 
               <Form.Group className="mb-3" controlId="image_culture">
                 <Form.Label>Image Agriculture:</Form.Label>
@@ -281,25 +343,9 @@ function Update({ onUpdate, agricultureId }) {
                 </FloatingLabel>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="saison">
-                <Form.Label>Saison</Form.Label>
-                <Form.Control as="select" value={selectedSaison} onChange={(e) => setSelectedSaison(e.target.value)}>
-                  <option value="">Sélectionnez une saison</option>
-                  {saisons && saisons.map(saison => (
-                    <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
+             
 
-              <Form.Group className="mb-3" controlId="categorie">
-                <Form.Label>Catégorie</Form.Label>
-                <Form.Control as="select" value={selectedCategorie} onChange={(e) => setSelectedCategorie(e.target.value)}>
-                  <option value="">Sélectionnez une catégorie</option>
-                  {categories && categories.map(categorie => (
-                    <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
+              
               
               <Form.Group className="mb-3" controlId="materiels">
               <Form.Label>Equipements</Form.Label>
@@ -308,7 +354,7 @@ function Update({ onUpdate, agricultureId }) {
                   key={material._id}
                   type="checkbox"
                   id={material._id}
-                  label={material.name}
+                  label={material.nom}
                   checked={selectedMaterials.includes(material._id)}
                   onChange={(e) => handleMaterialChange(e, material._id)}
                 />
@@ -344,15 +390,16 @@ function Update({ onUpdate, agricultureId }) {
               ))}
             </Form.Group>
 
-              
-            </Form>
+            </div> 
+           
           )}
         </Modal.Body>
-        <Modal.Footer>
-          <Button className="bg-secondary" onClick={handleClose}>Fermer</Button>
-          <Button className="btn" type="submit" form="updateForm"> Modifier </Button>
-        </Modal.Footer>
-      </Modal>
+    <Modal.Footer>
+      <Button className="bg-secondary" onClick={handleClose}>Fermer</Button>
+      <Button className="btn" type="submit" form="updateForm"> Modifier </Button>
+    </Modal.Footer>
+  </Form>
+</Modal>
     </>
   );
 }

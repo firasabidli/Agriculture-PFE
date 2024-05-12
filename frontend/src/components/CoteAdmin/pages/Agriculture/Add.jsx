@@ -35,11 +35,13 @@ function Add({ onCreate }) {
   useEffect(() => {
     fetchSaisons();
     fetchCategories();
-    fetchMaterials();
-    fetchStocks();
-    fetchMedicaments();
+    // fetchMaterials();
+    // fetchStocks();
+    // fetchMedicaments();
+    
+    
   }, []);
-
+ 
   const fetchSaisons = async () => {
     try {
       const response = await axios.get("http://localhost:3001/Saison");
@@ -58,32 +60,28 @@ function Add({ onCreate }) {
     }
   };
 
-  const fetchMaterials = async () => {
+  const fetchEquipStockEngraisByCategorie = async (categorieId) => {
     try {
-      const response = await axios.get("http://localhost:3001/Materiel");
-      setMaterials(response.data.data);
+      const response = await axios.get(`http://localhost:3001/Categorie/${categorieId}`);
+      setMaterials(response.data.data.Equipements);
+      setStocks(response.data.data.MethodeStockage);
+      setMedicaments(response.data.data.Engrais);
     } catch (error) {
-      console.error("Error fetching materials:", error);
+      console.error("Error fetching category data:", error);
     }
   };
+  
+  const handleCategoryChange = async (e) => {
+    const selectedCategoryId = e.target.value;
+    setSelectedCategorie(selectedCategoryId);
+    // Assurez-vous que la catégorie sélectionnée n'est pas vide
+    if (selectedCategoryId) {
+      await fetchEquipStockEngraisByCategorie(selectedCategoryId);
+    }
+  };
+ 
 
-  const fetchStocks = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/MethodeStock/ListStock");
-      setStocks(response.data);
-    } catch (error) {
-      console.error("Error fetching stocks:", error);
-    }
-  };
-
-  const fetchMedicaments = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/MedicamentCulture/ListMedicament");
-      setMedicaments(response.data);
-    } catch (error) {
-      console.error("Error fetching medicaments:", error);
-    }
-  };
+  
 
   const handleClose = () => {
     setShow(false);
@@ -119,9 +117,17 @@ function Add({ onCreate }) {
     formData.append("date_plantation", date_plantation);
     formData.append("date_recolte", date_recolte);
     formData.append("methode_irrigation", methode_irrigation);
-    formData.append("quantite_eau_irrigation", quantite_eau_irrigation);
-    formData.append("frequence_surveillance", frequence_surveillance);
-    formData.append("date_derniere_surveillance", date_derniere_surveillance);
+    if(methode_irrigation==='irrigation gravitaire') {
+      formData.append('quantite_eau_irrigation', 0);
+      formData.append('frequence_surveillance', "Cette méthode d'irrigation ne nécessite pas une fréquence d'irrigation !");
+      formData.append('date_derniere_surveillance', "Cette méthode d'irrigation ne nécessite pas une date dernier de fréquence d'irrigation !");
+    }
+    else{
+      formData.append('quantite_eau_irrigation', quantite_eau_irrigation);
+      formData.append('frequence_surveillance', frequence_surveillance);
+      formData.append('date_derniere_surveillance', date_derniere_surveillance);
+    }
+    
     formData.append("image_agriculture", image_agriculture);
     formData.append("remarques", remarques);
     formData.append("saisonId", selectedSaison);
@@ -190,6 +196,7 @@ function Add({ onCreate }) {
   const handleMethodChange = (e) => {
     const selectedMethod = e.target.value;
     setMethodeIrrigation(selectedMethod);
+   
     setShowQuantity(selectedMethod !== 'irrigation gravitaire');
     setShowFrequency(selectedMethod !== 'irrigation gravitaire');
   };
@@ -200,25 +207,27 @@ function Add({ onCreate }) {
         <FcPlus className='icon-plus' />
         <span className='btn-title'>Ajouter</span>
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Ajouter un Agriculture</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={submit} id="form">
-          <Form.Group className="mb-3" controlId="categorie">
+        <Form onSubmit={submit} id="form" >
+        <Modal.Body className='w-100'>
+         
+          <Form.Group className="mb-3 " controlId="categorie">
               <Form.Label>Catégorie</Form.Label>
-              <Form.Control as="select" value={selectedCategorie} onChange={(e) => setSelectedCategorie(e.target.value)}>
+              <Form.Control as="select" value={selectedCategorie} onChange={handleCategoryChange} >
                 <option value="">Sélectionnez une catégorie</option>
                 {categories && categories.map(categorie => (
                   <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
                 ))}
               </Form.Control>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="nom_agriculture">
+            <Form.Group className="mb-3 " controlId="nom_agriculture">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Agriculture:">
                 <Form.Control
                   type="text"
+                  
                   placeholder="Nom Agriculture"
                   value={nom_agriculture}
                   onChange={(e) => setNomAgriculture(e.target.value)}
@@ -226,13 +235,13 @@ function Add({ onCreate }) {
               </FloatingLabel>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="Description">
+            <Form.Group className="mb-3 w-100" controlId="Description">
               <FloatingLabel controlId="floatingTextarea2" label="Description">
                 <Form.Control
                   as="textarea"
                   placeholder="Description"
                   value={description}
-                  style={{ height: '100px' }}
+                  style={{ height: '200px'}}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </FloatingLabel>
@@ -276,7 +285,6 @@ function Add({ onCreate }) {
                 <option value="">Choisir une méthode d'irrigation</option>
                 <option value="goutte à goutte">Goutte à goutte</option>
                 <option value="aspersion">Aspersion</option>
-                <option value="gicleurs">Gicleurs</option>
                 <option value="irrigation par pivot">Irrigation par pivot</option>
                 <option value="irrigation gravitaire">Irrigation gravitaire</option>
               </Form.Select>
@@ -297,16 +305,21 @@ function Add({ onCreate }) {
 
             {showFrequency && (
               <>
-              <Form.Group className="mb-3" controlId="frequence_surveillance">
-                <FloatingLabel controlId="floatingTextarea2" label="Fréquence Surveillance:">
-                  <Form.Control
-                    type="text"
-                    placeholder=" Fréquence Surveillance"
-                    value={frequence_surveillance}
-                    onChange={(e) => setFrequenceSurveillance(e.target.value)}
-                  />
-                </FloatingLabel>
-              </Form.Group>
+              <Form.Group controlId="frequence_surveillance" className="mb-3">
+              <Form.Label>Fréquence d'irrigation par semaine</Form.Label>
+              <Form.Select value={frequence_surveillance} onChange={(e) => setFrequenceSurveillance(e.target.value)}>
+                <option value="">Choisir nombre des jours</option>
+                <option value="1 Jours">1 Jour</option>
+                <option value="2 Jours">2 Jours</option>
+                <option value="3 Jours">3 Jours </option>
+                <option value="4 Jours">4 Jours</option>
+                <option value="5 Jours">5 Jours</option>
+                <option value="6 Jours">6 Jours</option>
+                <option value="Toutes les jours">Toutes les jours</option>
+              </Form.Select>
+            </Form.Group>
+
+              
               <Form.Group className="mb-3" controlId="date_derniere_surveillance">
               <FloatingLabel controlId="floatingTextarea2" label="Date Derniere Surveillance">
                 <Form.Control
@@ -387,12 +400,13 @@ function Add({ onCreate }) {
                 />
               ))}
             </Form.Group>
-          </Form>
+          
         </Modal.Body>
         <Modal.Footer>
           <Btn className="bg-secondary" onClick={handleClose}>Fermer</Btn>
           <Btn className="btn" type="submit" form="form"> Ajouter </Btn>
         </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
