@@ -65,13 +65,15 @@ function Update({ materielId, onUpdate }) {
     <>
       
       <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Modifier Equipement</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Form onSubmit={handleSubmit}>
+        <Modal.Body className='w-100'>
+         
           {materiel && (
-            <Form onSubmit={handleSubmit}>
+            <div>
               <Form.Group className="mb-3" controlId="name">
                 <FloatingLabel controlId="floatingTextarea2" label="Nom du Equipement:">
                   <Form.Control
@@ -111,9 +113,11 @@ function Update({ materielId, onUpdate }) {
               <Button variant="primary" type="submit">
                 Enregistrer
               </Button>
-            </Form>
+              </div>
           )}
+          
         </Modal.Body>
+        </Form>
       </Modal>
     </>
   );

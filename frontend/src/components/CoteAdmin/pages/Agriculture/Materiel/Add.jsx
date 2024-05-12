@@ -70,13 +70,14 @@ function Add({onCreate}) {
 		<FcPlus className='icon-plus'/>
 		<span className='btn-title'>Ajouter</span>
 	    </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Ajouter Equipement</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Form onSubmit={submit} id="form">
+        <Modal.Body className='w-100'>
        
-          <Form onSubmit={submit} id="form">
+          
             <Form.Group className="mb-3" controlId="name">
               <FloatingLabel controlId="floatingTextarea2" label="Nom du Equipement:">
                 <Form.Control
@@ -109,12 +110,13 @@ function Add({onCreate}) {
                 />
               </FloatingLabel>
             </Form.Group>
-          </Form>
+         
         </Modal.Body>
         <Modal.Footer>
           <Btn className="bg-secondary" onClick={handleClose}>Fermer</Btn>
           <Btn className="btn" type="submit" form="form"> Ajouter </Btn>
         </Modal.Footer>
+        </Form>
       </Modal>
    
     </>

@@ -128,12 +128,12 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
     <>
       
       <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Modifier Categorie</Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleSubmit} id="updateForm">
-        <Modal.Body>
+        <Modal.Body className='w-100'>
           
             <Form.Group className="mb-3" controlId="nom_categorie">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Categorie">

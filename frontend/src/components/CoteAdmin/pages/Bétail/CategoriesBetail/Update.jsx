@@ -61,12 +61,13 @@ function Update({ category, onUpdate }) {
     <>
       <FaRegEdit type="button" className="icon-edit" onClick={handleShow} />
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Modifier une Catégorie</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit} id="form">
+        <Form onSubmit={handleSubmit} id="form">
+        <Modal.Body className='w-100'>
+          
             <Form.Group className="mb-3" controlId="nom_categorie">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Catégorie">
                 <Form.Control
@@ -116,7 +117,7 @@ function Update({ category, onUpdate }) {
                 </Btn>
               )}
             </Form.Group>
-          </Form>
+          
         </Modal.Body>
         <Modal.Footer>
           <Btn variant="secondary" onClick={handleClose}>
@@ -126,6 +127,7 @@ function Update({ category, onUpdate }) {
             Enregistrer
           </Btn>
         </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

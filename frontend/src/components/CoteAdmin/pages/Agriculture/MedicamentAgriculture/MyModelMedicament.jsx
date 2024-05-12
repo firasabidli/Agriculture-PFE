@@ -64,34 +64,36 @@ function MyModelMedicament(props) {
     };
 
     return (
-        <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal {...props} className='modal-lg' aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
                 {props.editMode ? 'Modifier données' : 'Ajouter données'}
             </Modal.Title>
 
             </Modal.Header>
-            <Modal.Body>
-                <form className="form-container">
+            <form className="form-container">
+            <Modal.Body className='w-100'>
+                
                     <div>
                         <label htmlFor="nomMedicament">Nom d'Engrais :</label>
                         <input type="text" id="nomMedicament" value={nomMedicament} onChange={(e) => setNomMedicament(e.target.value)} className="form-input" required />
                     </div>
                     <div>
                         <label htmlFor="description">Description :</label>
-                        <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="form-textarea" required />
+                        <textarea id="description" value={description} style={{ height: '100px' }} onChange={(e) => setDescription(e.target.value)} className="form-textarea" required />
                     </div>
                     <div>
                         <label htmlFor="image">Image :</label>
                         {image && <img src={image} alt="" className="current-image" />} 
                         <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
                     </div>
-                </form>
+               
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide} className="submit-button" style={{backgroundColor:'#b4afaf'}}>Fermer</Button>
                 <Button type="submit" className="form-button" style={{fontSize:'14px'}} onClick={handleSubmit}>{editMode ? 'Modifier' : 'Ajouter'}</Button>
             </Modal.Footer>
+            </form>
         </Modal>
     );
 }
