@@ -54,58 +54,39 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
      return date.toLocaleDateString('en-US', options);
    };
 
-  //    const generatePDF = async () => {
-//     const element = document.getElementById('facture-content');
-//     html2pdf(element);
-//     // const content = document.getElementById('facture-content');
-//     // html2pdf().from(content).save(`Facture_${animalData.IdantifiantsAnimal}.pdf`);
+     const generatePDF = async () => {
+    // const element = document.getElementById('facture-content');
+    // html2pdf(element);
+    const content = document.getElementById('facture-content');
+    html2pdf().from(content).save(`Facture_${animalData.IdantifiantsAnimal}.pdf`);
+};
+// const generatePDF = async () => {
+//   const content = document.getElementById('facture-content');
+
+//   try {
+//       const canvas = await html2canvas(content);
+//       const imgData = canvas.toDataURL('image/png;base64');
+
+//       // Envoyer les données de l'image au backend
+//       const response=await axios.post('http://localhost:3001/generate-invoice-pdf', { imgData });
+// console.log("res",response)
+//       // Si vous souhaitez télécharger le PDF depuis le backend, vous pouvez ajouter ici une requête GET pour le télécharger
+//       if (response.status === 200) {
+//         const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+//         const pdfUrl = URL.createObjectURL(pdfBlob);
+//         const downloadLink = document.createElement('a');
+//         downloadLink.href = pdfUrl;
+//         downloadLink.download = 'facture.pdf';
+//         document.body.appendChild(downloadLink);
+//         downloadLink.click();
+//         document.body.removeChild(downloadLink);
+//     } else {
+//         console.error('Erreur lors de la génération du PDF.');
+//     }
+//   } catch (error) {
+//       console.error('Erreur lors de la génération du PDF:', error);
+//   }
 // };
-const generatePDF = async () => {
-  const content = document.getElementById('facture-content');
-
-  try {
-    const canvas = await html2canvas(content);
-    const imgData = canvas.toDataURL('assets/images/png');
-
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
-
-    // Convertir le PDF en Blob
-    const blob = pdf.output('blob');
-
-    // Convertir le Blob en ArrayBuffer
-    const arrayBuffer = await blob.arrayBuffer();
-
-    // Envoyer le PDF au backend
-    uploadPDF(arrayBuffer);
-  } catch (error) {
-    console.error('Erreur lors de la génération du PDF:', error);
-  }
-};
-
-const uploadPDF = async (pdfData) => {
-  try {
-    console.log('pdf', pdfData);
-    const res = await axios.post('http://localhost:3001/generate-invoice-pdf', pdfData, {
-      headers: {
-        'Content-Type': 'application/pdf'
-      },
-      responseType: 'blob'
-    });
-    console.log('res', res);
-    const url = window.URL.createObjectURL(new Blob([res.data]));
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'invoice.pdf');
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  } catch (error) {
-    console.error('Erreur lors de l\'envoi du PDF au backend:', error);
-  }
-  
-  
-};
 
     return(
         <>
