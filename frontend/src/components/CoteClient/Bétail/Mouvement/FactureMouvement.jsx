@@ -53,10 +53,60 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
      const options = { day: '2-digit', month: 'short', year: 'numeric' };
      return date.toLocaleDateString('en-US', options);
    };
-   const generatePDF = async () => {
-    const content = document.getElementById('facture-content');
-    html2pdf().from(content).save(`Facture_${animalData.IdantifiantsAnimal}.pdf`);
+
+  //    const generatePDF = async () => {
+//     const element = document.getElementById('facture-content');
+//     html2pdf(element);
+//     // const content = document.getElementById('facture-content');
+//     // html2pdf().from(content).save(`Facture_${animalData.IdantifiantsAnimal}.pdf`);
+// };
+const generatePDF = async () => {
+  const content = document.getElementById('facture-content');
+
+  try {
+    const canvas = await html2canvas(content);
+    const imgData = canvas.toDataURL('assets/images/png');
+
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+
+    // Convertir le PDF en Blob
+    const blob = pdf.output('blob');
+
+    // Convertir le Blob en ArrayBuffer
+    const arrayBuffer = await blob.arrayBuffer();
+
+    // Envoyer le PDF au backend
+    uploadPDF(arrayBuffer);
+  } catch (error) {
+    console.error('Erreur lors de la génération du PDF:', error);
+  }
 };
+
+const uploadPDF = async (pdfData) => {
+  try {
+    console.log('pdf', pdfData);
+    const res = await axios.post('http://localhost:3001/generate-invoice-pdf', pdfData, {
+      headers: {
+        'Content-Type': 'application/pdf'
+      },
+      responseType: 'blob'
+    });
+    console.log('res', res);
+    const url = window.URL.createObjectURL(new Blob([res.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'invoice.pdf');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi du PDF au backend:', error);
+  }
+  
+  
+};
+
     return(
         <>
         <button variant="primary" onClick={handleShow} className="btn" style={{marginLeft:"40%",backgroundColor:"#7e8d9f",border:"1px solid #7e8d9f",borderRadius:"10px"}} >
@@ -98,11 +148,11 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
                 <p class="text-muted">Facteur</p>
                 <ul class="list-unstyled">
                   <li class="text-muted"><i class="fas fa-circle" style={{color:"#8f8061" }}></i> <span
-                      class="fw-bold">Nom Client:</span>Firas</li>
+                      class="fw-bold">Nom Client:</span>{venteData.NomClient}</li>
                       <li class="text-muted"><i class="fas fa-circle" style={{color:"#8f8061" }}></i> <span
-                      class="fw-bold">Adresse:</span>Jendouba</li>
+                      class="fw-bold">Adresse:</span>{venteData.AdresseClient}</li>
                       <li class="text-muted"><i class="fas fa-circle" style={{color:"#8f8061" }}></i> <span
-                      class="fw-bold">Numéro Telephone:</span>25963874</li>
+                      class="fw-bold">Téléphone:</span>{venteData.NumTelClient}</li>
                   <li class="text-muted"><i class="fas fa-circle" style={{color:"#8f8061" }}></i> <span
                       class="fw-bold">Date de Creation: </span>{formatDate(currentDate)}</li>
                   
@@ -148,7 +198,7 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
   </Modal.Body>
   <Modal.Footer>
           <Btn style={{marginTop:"1%",backgroundColor:"white" , color:"black",border: "1px solid gray"}} onClick={generatePDF}>
-            <FaRegFilePdf style={{ color: "red",marginRight:"7px" }} /> Export
+            <FaRegFilePdf style={{ color: "red",marginRight:"7px" }} /> Download
           </Btn>
         </Modal.Footer>
       </Modal>
