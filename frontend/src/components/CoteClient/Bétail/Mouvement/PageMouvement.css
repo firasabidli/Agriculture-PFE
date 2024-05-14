@@ -205,7 +205,7 @@ a {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
 }
 
-.edit-btn {
+/* .edit-btn {
     width: 35px;
     height: 35px;
     line-height: 40px;
@@ -213,7 +213,7 @@ a {
     position: absolute;
     right: 25px;
     margin-top: -50px;
-}
+} */
 
 .ribbon {
     position: absolute;

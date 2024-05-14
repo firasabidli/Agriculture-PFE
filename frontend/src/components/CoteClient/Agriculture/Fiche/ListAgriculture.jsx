@@ -121,9 +121,8 @@ const ListAgriculture = () => {
                                                                             <Link className="dropdown-item" to={handleLinkRClick(element._id)} >Suivi Recolte</Link>
                                                                             <p  className="dropdown-item" onClick={() => handleDetailsClick(element._id)} style={{fontFamily:"Arial"}}>Détails</p>
                                                                             <p  className="dropdown-item text-success" onClick={() => handleUpdateClick(element._id)} style={{fontFamily:"Arial"}}>Modifier</p>
-                                                                            
-                                                                                {/* <Dropdown.Item>
-                                                                                    <Button onClick={() => handleUpdateClick(element._id)}>Modifier</Button>
+                                                                            {/* <Dropdown.Item>
+                                                                            <Button onClick={() => handleUpdateClick(element._id)}>Modifier</Button>
                                                                                 </Dropdown.Item> */}
                                                                                 <Dropdown.Divider />
                                                                                 <Dropdown.Item className="text-danger" onClick={() => handleDelete(element._id)}>
@@ -158,8 +157,8 @@ const ListAgriculture = () => {
                     </div>
                 </div>
             </div>
-            
         </div>
+        
     );
 }
 export default ListAgriculture;

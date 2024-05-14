@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 
 const Ajouter = ({ onCreate }) => {
+
   const { id } = useParams();
   const now=new Date();
   const [displayPriceAchat, setDisplayPriceAchat] = useState(false);
@@ -15,6 +16,12 @@ const Ajouter = ({ onCreate }) => {
     destination: "",
     priceAchat: 0,
     priceVente: 0,
+    NomVendeur:"",
+    NumTelVendeur:"",
+    AdresseVendeur:"",
+    NomClient:"",
+    NumTelClient:"",
+    AdresseClient:""
   });
 
   const handleInputChange = (e) => {
@@ -84,7 +91,8 @@ const Ajouter = ({ onCreate }) => {
         formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -94,6 +102,12 @@ const Ajouter = ({ onCreate }) => {
       destination: "",
       priceAchat: 0,
       priceVente: 0,
+      NomVendeur:"",
+      NumTelVendeur: "",
+      AdresseVendeur:"",
+      NomClient:"",
+      NumTelClient:"",
+      AdresseClient:""
      });
       onCreate();
       window.location.reload()
@@ -169,7 +183,39 @@ const Ajouter = ({ onCreate }) => {
             />
           </div>
           {displayPriceAchat &&
-              <div className="mb-3" style={{width: "116%"}}>
+          <div style={{width: "116%"}}>
+            <div className="mb-3" style={{width: "101%"}}>
+              <label style={{fontWeight:"bold"}}>NomVendeur :</label>
+              <input
+                type="text"
+                className="form-control"
+                name="NomVendeur"
+                value={movementData.NomVendeur}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3" style={{width: "101%"}}>
+              <label style={{fontWeight:"bold"}}>AdresseVendeur :</label>
+              <input
+                type="text"
+                className="form-control"
+                name="AdresseVendeur"
+                value={movementData.AdresseVendeur}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3" style={{width: "101%"}}>
+                <label style={{fontWeight:"bold"}}>Numéro Telephone Vendeur :</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  name="NumTelVendeur"
+                  value={movementData.NumTelVendeur}
+                  onChange={handleInputChange}
+                />
+              </div>
+            
+              <div className="mb-3" style={{width: "101%"}}>
                 <label style={{fontWeight:"bold"}}>Prix d'achat :</label>
                 <input
                   type="number"
@@ -179,9 +225,41 @@ const Ajouter = ({ onCreate }) => {
                   onChange={handleInputChange}
                 />
               </div>
+              </div>
           }
             {displayPriceVente &&
-              <div className="mb-3" style={{width: "116%"}}>
+            <div style={{width: "116%"}}>
+            <div className="mb-3" style={{width: "101%"}}>
+              <label style={{fontWeight:"bold"}}>NomClient :</label>
+              <input
+                type="text"
+                className="form-control"
+                name="NomClient"
+                value={movementData.NomClient}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3" style={{width: "101%"}}>
+              <label style={{fontWeight:"bold"}}>AdresseClient :</label>
+              <input
+                type="text"
+                className="form-control"
+                name="AdresseClient"
+                value={movementData.AdresseClient}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3" style={{width: "101%"}}>
+                <label style={{fontWeight:"bold"}}>Numéro Telephone Client :</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  name="NumTelClient"
+                  value={movementData.NumTelClient}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3" style={{width: "101%"}}>
                 <label style={{fontWeight:"bold"}}>Prix du vente:</label>
                 <input
                   type="number"
@@ -191,6 +269,8 @@ const Ajouter = ({ onCreate }) => {
                   onChange={handleInputChange}
                 />
               </div>
+            </div>
+              
             }
           <button type="submit" className="btn btn-primary">Ajouter Mouvement</button>
         </form>
