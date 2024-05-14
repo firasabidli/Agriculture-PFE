@@ -1,0 +1,57 @@
+.Cont {
+    flex-direction: row;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: 2vw;
+    flex-wrap: wrap;
+   
+  }
+  
+  .dataCard {
+    background-color: #efefef;
+    border-radius: 0.5em;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+   
+  }
+  
+  .barCard {
+    width: 60%;
+    height: 20rem;
+  }
+  .doughnutCard{
+    width: 30%;
+    height: 20rem;
+  }
+  .pieCard{
+    width: 20%;
+    height: 20rem;
+  }
+.tab{
+    border-style: solid;
+    border:1px;
+    width: 100%;
+    
+}
+.tab thead th {
+    height: 40px;
+    background-color: #38c609;
+    color: white;
+}
+  @media only screen and (max-width: 700px) {
+    .dataCard {
+      width:100%
+    }
+    
+  }
+
+@media only screen and (max-width: 550px) {
+    .dataCard {
+      width:100%
+    }
+    
+  }
+  

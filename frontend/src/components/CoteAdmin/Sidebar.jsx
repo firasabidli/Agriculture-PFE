@@ -35,14 +35,13 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
         <aside id="sidebar" className={`bg-white ${isSidebarCollapsed ? 'collapsed' : ''}`}>
             <div className="h-100">
                 <div className="sidebar-logo">
-                <img src={logo} alt="" />
-                    {/* <Link to="/">
+                    <Link to="/admin/dashboard">
                         <img src={logo} alt="" />
-                    </Link> */}
+                    </Link>
                 </div>
                 <ul className="sidebar-nav">
                     <li className="sidebar-item">
-                        <Link to="" className={`sidebar-link ${page==="Home" ? 'item-active' : ''}`}>
+                        <Link to="/admin/dashboard" className={`sidebar-link ${page==="Home" ? 'item-active' : ''}`}>
                             <span className="icon"><AiOutlineDashboard /></span>
                             Dashboard
                         </Link>
