@@ -69,8 +69,6 @@ exports.getAgriculteur = async (req, res) => {
       res.status(500).json({ error: 'Erreur lors de l\'envoi des e-mails' });
     }
   };
-  
- 
 
 // Contrôleur pour obtenir le nombre d'agriculteurs pour chaque gouvernorat
 exports.getNombreAgriculteursParGouvernorat = async (req, res) => {
@@ -124,3 +122,5 @@ exports.getNombreAgriculteursParGouvernorat = async (req, res) => {
     res.status(500).json({ message: 'Une erreur est survenue lors du traitement de la requête.' });
   }
 };
+
+

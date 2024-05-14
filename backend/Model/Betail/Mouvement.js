@@ -8,6 +8,12 @@ const movementSchema = new mongoose.Schema({
     destination: String,
     priceAchat: { type: Number, default: 0 },
     priceVente: { type: Number, default: 0 },
+    NomVendeur:{type: String},
+    AdresseVendeur:{type: String},
+    NumTelVendeur:{type: String},
+    NomClient:{type:String},
+    AdresseClient:{type:String},
+    NumTelClient:{type:String},
     additionalDetails: String
 });
 module.exports = mongoose.model('MovementBétail', movementSchema);
