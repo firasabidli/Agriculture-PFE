@@ -15,16 +15,16 @@ const Materiel = ({ cultureData }) => {
             <div class="row row-cols-1 row-cols-md-3 g-4" style={{marginRight:'2%'}}>
             {materiels.map((materiel, index) => (
                 <div key={index} class="col">
-                    <div class="card h-100 card-hover">
+                    <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title"><img src={materiel.image_materiel} class="card-img-top" alt="..."/></h5>
+                        <h5 class="card-title text-center"><img src={materiel.image_materiel} class="card-img-top" alt="..."/></h5>
                         <h6 class="card-title">{materiel.nom}</h6>
                         <p class="card-text">{materiel.description}</p>
                     </div>
                     </div>
                 </div>
-            ))}
-  </div>
+             ))}
+            </div>
 
   </article>
     );

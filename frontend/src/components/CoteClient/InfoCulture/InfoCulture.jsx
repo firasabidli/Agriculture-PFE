@@ -56,18 +56,9 @@ const InfoCulture = () => {
         )}
       </div>
       {cultureData && <Stockage cultureData={cultureData} />}
-      <div class="row g-5">
-        <div class="col-md-8">
-        
-          {cultureData &&<Materiel cultureData={cultureData} />}
-          {cultureData && <TableCulture cultureData={cultureData} />}
-          </div>
-          <div class="col-md-4">
-          <div class="position-sticky" style={{top: "2rem"}}>
-           {cultureData &&<Medicament cultureData={cultureData} />}
-           </div>
-          </div>
-       </div>
+      {cultureData &&<Materiel cultureData={cultureData} />}
+      {cultureData &&<Medicament cultureData={cultureData} />}
+      {cultureData && <TableCulture cultureData={cultureData} />}
     </div>
   );
 }
