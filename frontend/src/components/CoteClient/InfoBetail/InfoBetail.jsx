@@ -5,7 +5,6 @@ import Navbar from '../Navbar.js';
 
 import TableBetail from './TableBetail.jsx';
 import { useParams } from 'react-router-dom';
-import RemarqueBetail from './Remarque.jsx';
 import axios from 'axios';
 
 const InfoBetail = () => {
@@ -33,22 +32,11 @@ const InfoBetail = () => {
       {betailData && (
           <div>
             <img className='image-betail' src={betailData.image_betail} alt='imageBackground'/>
-            <div className="mt-5 jumbotron">
-              <h1>{betailData.nom_betail}</h1>
-              <p className="lead">
-                {betailData.race}
-              </p>
-              <p>
-              <Button variant="primary" onClick={() => setModalShow(true)}>
-                NOUS REMARQUE
-              </Button>
-              <RemarqueBetail
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                BetailName={betailData.nom_betail}
-                
-              />
-              </p>
+            <div className="mt-5 infBet">
+              <h1 className='text-white'><span style={{fontSize:'30px'}}>Nom du Bétail: </span>{betailData.nom_betail}</h1>
+              <h1 className='text-white'><span style={{fontSize:'30px'}}>Race: </span>{betailData.race}</h1>
+              
+              
             </div>
           </div>
         )}
