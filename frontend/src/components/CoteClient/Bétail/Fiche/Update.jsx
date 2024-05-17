@@ -88,13 +88,14 @@ const UpdateAnimal = ({ animalId, onClose }) => {
   };
 
   return (
-    <Modal show={!!animalId} onHide={onClose}>
+    <Modal show={!!animalId} onHide={onClose}className='modal-lg'>
       <Modal.Header closeButton>
         <Modal.Title>Modifier Animal</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleFormSubmit}>
-          <Form.Group controlId="IdantifiantsAnimal">
+      <Form onSubmit={handleFormSubmit}>
+      <Modal.Body className='w-100'>
+       
+          <Form.Group className="mb-3" controlId="IdantifiantsAnimal">
             <FloatingLabel controlId="floatingInput" label="Identifiant Animal">
               <Form.Control
                 type="text"
@@ -106,7 +107,7 @@ const UpdateAnimal = ({ animalId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="Race">
+          <Form.Group className="mb-3" controlId="Race">
             <FloatingLabel controlId="floatingInput" label="Race">
               <Form.Control
                 type="text"
@@ -117,7 +118,7 @@ const UpdateAnimal = ({ animalId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="date_naissance">
+          <Form.Group className="mb-3" controlId="date_naissance">
             <FloatingLabel controlId="floatingInput" label="Date de Naissance">
               <Form.Control
                 type="date"
@@ -128,7 +129,7 @@ const UpdateAnimal = ({ animalId, onClose }) => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="sexe">
+          <Form.Group className="mb-3" controlId="sexe">
             <Form.Label>Sélectionnez le sexe :</Form.Label>
             <div>
               <Form.Check
@@ -150,7 +151,7 @@ const UpdateAnimal = ({ animalId, onClose }) => {
             </div>
           </Form.Group>
 
-          <Form.Group controlId="categorieBetail">
+          <Form.Group className="mb-3" controlId="categorieBetail">
             <FloatingLabel controlId="floatingSelect" label="Catégorie Bétail">
               <Form.Select
                 name="categorieBetail"
@@ -165,7 +166,7 @@ const UpdateAnimal = ({ animalId, onClose }) => {
           </Form.Group>
 
           {subcategories.length > 0 && (
-            <Form.Group controlId="subCategorieBetail">
+            <Form.Group className="mb-3" controlId="subCategorieBetail">
               <Form.Label>Sous-catégorie Bétail :</Form.Label>
               <div>
                 {subcategories.map((subcategory) => (
@@ -186,8 +187,9 @@ const UpdateAnimal = ({ animalId, onClose }) => {
           <Button variant="primary" type="submit">
             Modifier
           </Button>
-        </Form>
+        
       </Modal.Body>
+      </Form>
     </Modal>
   );
 };

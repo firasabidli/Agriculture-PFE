@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { Table } from "react-bootstrap";
 
 const HistoriqueProduction = () => {
     const [productions, setProductions] = useState([]);
@@ -30,11 +31,11 @@ const HistoriqueProduction = () => {
         return total;
     };
     return (
-        <div>
+        <div className="m-3">
             <h1 className="text-center">Historique Production laitirère</h1>
             {productions.map((animal, index) => (
                 <div key={index}>
-                    <table className="table w-50 m-5 text-center">
+                    <Table responsive bordered className="w-50">
                         <thead>
                             <tr>
                                 <th colSpan={5}>Identifiant</th>
@@ -86,7 +87,7 @@ const HistoriqueProduction = () => {
                                 <td> {Object.keys(animal.productions).reduce((acc, year) => acc + calculateYearlyTotal(animal.productions[year]), 0)}</td>
                             </tr>
                         </tfoot>
-                    </table>
+                    </Table>
                 </div>
             ))}
         </div>

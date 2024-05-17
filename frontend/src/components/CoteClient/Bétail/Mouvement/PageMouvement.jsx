@@ -57,10 +57,12 @@ const PageMouvement = () => {
       <Navbar textColor="black" />
       <div className="container" style={{marginTop:"9%"}}>
         <div className="row" >
-          <div className="col-xl-8">
-            <h4>Liste de suivi Mouvement</h4>
-            <div style={{ marginTop: "5%", marginRight: "28%", marginLeft: "-153px" }}>
-              {movementData.map((item) => (
+          <div className=" card col-md-7">
+          <h4 className='p-3 text-center'>Liste de suivi Mouvement</h4>
+          {movementData.length<1? <div className='text-center p-5'><b>Auccune données disponible</b></div>:
+            <div >
+              {movementData.map((item,index) => (
+                <>
                 <div key={item._id} className="card mb-3">
                   <div className="card-body">
                     <h5 style={{textTransform:"uppercase",fontWeight:"bold",color: "#7e8d9f",fontSize:"200%"}}>{item.movementType}</h5>
@@ -71,22 +73,25 @@ const PageMouvement = () => {
                     {item.movementType === "vente" &&
                     <p className="card-text"><span class="fw-bold">Prix du vente:</span> {item.priceVente}DT</p>}
                     <p className="card-text"><span class="fw-bold">Enregistré le: </span>{formatDate(item.movementDate)}</p>
-                    <div className="btn-group" role="group" style={{marginLeft:"10%",marginTop:"15px"}}>
-                      <Update onUpdate={fetchMovementsByFarmer} mouvementId={item._id} />
-                      <button className="btn" style={{backgroundColor:"#F65005",border:"1px solid #F65005",borderRadius:"10px"}} onClick={() => handleDelete(item._id)}>
+                    <div className=" p-4 row ">
+                      <div className="col-md-4 mb-3"><Update onUpdate={fetchMovementsByFarmer} mouvementId={item._id} /></div>
+                     <div className="col-md-4 mb-3"> <button className="btn f-n-hover" style={{backgroundColor:"#F65005"}} onClick={() => handleDelete(item._id)}>
                         Supprimer
-                      </button>
+                      </button></div>
                       {item.movementType === "vente" &&
-                      <FactureMouvement venteData={item} animalId={item.AnimalId} agriculteurId={item.Agriculteur}/>
+                     <div className="col-md-4 mb-3"> <FactureMouvement venteData={item} animalId={item.AnimalId} agriculteurId={item.Agriculteur}/></div>
                       }
                     </div>
                   </div>
                 </div>
+                {index< movementData.length-1?<hr  className="border border-info border-3 opacity-75" />: ''}
+          
+                </>
               ))}
             </div>
-            
+          }
           </div>
-          <div className="col-xl-4">
+          <div className="col-md-5">
             <Ajouter onCreate={fetchMovementsByFarmer}/>
           </div>
         </div>

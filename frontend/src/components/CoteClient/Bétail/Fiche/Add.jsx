@@ -83,16 +83,17 @@ function Add({ onCreate }) {
 
   return (
     <>
-      <p className="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" onClick={handleShow}>
+      <p className="btn btn-md btn-block btn-success  py-3 mb-3 bg-op-6 roboto-bold" onClick={handleShow}>
         Ajouter Animal
       </p>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
           <Modal.Title>Ajouter un animal</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit} id="form">
-            <Form.Group className="mb-3" controlId="IdantifiantsAnimal" style={{width: "144%"}} >
+        <Form onSubmit={handleSubmit} id="form">
+        <Modal.Body className='w-100'>
+          
+            <Form.Group className="mb-3" controlId="IdantifiantsAnimal"   >
               <FloatingLabel label="Numéro Identifiant">
                 <Form.Control
                   type="text"
@@ -103,7 +104,7 @@ function Add({ onCreate }) {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="Race" style={{width: "144%"}}>
+            <Form.Group className="mb-3" controlId="Race"  >
               <FloatingLabel label="Race">
                 <Form.Control
                   type="text"
@@ -113,7 +114,7 @@ function Add({ onCreate }) {
                   ></Form.Control>
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="date_naissance" style={{width: "144%"}}>
+            <Form.Group className="mb-3" controlId="date_naissance"  >
               <FloatingLabel label="Date naissance">
                 <Form.Control
                   type="date"
@@ -123,7 +124,7 @@ function Add({ onCreate }) {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="sexe" style={{width: "144%"}}>
+            <Form.Group className="mb-3" controlId="sexe"  >
               <Form.Label>Sexe</Form.Label>
               <div>
                 <Form.Check
@@ -145,7 +146,7 @@ function Add({ onCreate }) {
               </div>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="categorie" style={{width: "144%"}}>
+            <Form.Group className="mb-3" controlId="categorie"  >
               <Form.Label>Catégorie</Form.Label>
               <Form.Control as="select" value={selectedCategory}
                 onChange={handleCategoryChange}>
@@ -171,12 +172,13 @@ function Add({ onCreate }) {
                   </div>
               )}
             </Form.Group>
-          </Form>
+          
         </Modal.Body>
         <Modal.Footer>
           <Btn className="bg-secondary" onClick={handleClose}>Fermer</Btn>
           <Btn className="btn" type="submit" form="form"> Ajouter </Btn>
         </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
