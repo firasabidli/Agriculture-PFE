@@ -70,11 +70,11 @@ const Update = ({ onUpdate, SanteId }) => {
     };
     return (
         <>
-            <button className="f-n-hover btn btn-success btn-raised px-4 py-2 w-75 text-600" style={{ marginRight: "30%", color: "white" }} onClick={handleShow}>
+            <button className="f-n-hover btn btn-success  text-600"  onClick={handleShow}>
                 Modifier
             </button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} className="modal-lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Modifier les informations</Modal.Title>
                 </Modal.Header>
