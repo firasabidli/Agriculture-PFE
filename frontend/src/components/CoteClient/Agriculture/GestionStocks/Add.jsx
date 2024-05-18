@@ -117,8 +117,8 @@ const Ajouter = ({ onCreate }) => {
                                     required
                                 />
                             </div>
-                            <div className="mb-3" style={{display:"flex" }}>
-                                <div className="mb-3" style={{ width: "104%" }}>
+                            <div className="mb-3" style={{display:"flex",width:"104%" }}>
+                                <div className="mb-3" style={{ width: "50%" }}>
                                     <label style={{ fontWeight: "bold" }}>Quantité d'entrée :</label>
                                     <input
                                         type="number"
@@ -132,7 +132,7 @@ const Ajouter = ({ onCreate }) => {
                                         required
                                     />
                                 </div>
-                                <div style={{width: "104%",marginLeft:"5%",marginRight: "-35%"}}>
+                                <div style={{width: "50%",marginLeft:"5%",marginRight: "-35%"}}>
                                     <label style={{ fontWeight: "bold" }}>Unité :</label>
                                     <select
                                         className="form-control"
