@@ -41,6 +41,7 @@ import GestionStock from './components/CoteClient/Agriculture/GestionStocks/Gest
 import PageRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/PageRecolte.jsx';
 import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
 import ConsulterAgriculteur from './components/CoteAdmin/pages/Agriculteurs/ConsulterAgriculteur.js';
+import FactureRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/FactureRecolte.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -78,6 +79,7 @@ root.render(
                 <Route path="/agriculteur/historique/Irrigation/:id" element={<PageIrrigation/>}></Route>
                 <Route path="/agriculteur/historique/Recolte/:id" element={<PageRecolte/>}></Route>
                 <Route path="/agriculture/gestionStock" element={<GestionStock/>}></Route>
+                <Route path="/agriculture/FactureRecolte/:id" element={<FactureRecolte/>}></Route>
             </Route>
           
           <Route path="/" element={<App />} />
