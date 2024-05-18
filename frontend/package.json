@@ -21,6 +21,7 @@
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
     "html2canvas": "^1.4.1",
+    "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.1",
     "ionicons": "^7.2.2",
     "jquery": "^3.7.1",

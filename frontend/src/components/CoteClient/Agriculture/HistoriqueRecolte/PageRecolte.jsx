@@ -5,7 +5,8 @@ import Navbar from '../../Navbar';
 import AjouterRecolte from "./Ajouter"; 
 import { FcDeleteRow } from "react-icons/fc";
 import UpdateRecolte from "./Update"; 
-
+import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
 const PageRecolte = () => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const { id } = useParams();
@@ -52,7 +53,9 @@ const PageRecolte = () => {
             setFilteredData(filtered);
         }
     }, [typeFilter, data]);
-
+    const handleLinkRClick = (id) => {
+        return `/agriculture/FactureRecolte/${id}`;
+      };
     return (
         <div>
             <Navbar textColor="black" />
@@ -67,11 +70,11 @@ const PageRecolte = () => {
                                         
                                         <th scope="col" style={{ background: "#70aca2" }}>Date</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Nombre de Balle</th>
-                                        <th scope="col" style={{ background: "#70aca2" }}>Prix de vente Balle</th>
-                                        <th scope="col" style={{ background: "#70aca2" }}>Prix Total Balle </th>
+                                        {/* <th scope="col" style={{ background: "#70aca2" }}>Prix de vente Balle</th>
+                                        <th scope="col" style={{ background: "#70aca2" }}>Prix Total Balle </th> */}
                                         <th scope="col" style={{ background: "#70aca2" }}>Quantité (kg)</th>
-                                        <th scope="col" style={{ background: "#70aca2" }}>Prix par Quantite</th>
-                                        <th scope="col" style={{ background: "#70aca2" }}>Prix Total vente</th>
+                                        {/* <th scope="col" style={{ background: "#70aca2" }}>Prix par Quantite</th>
+                                        <th scope="col" style={{ background: "#70aca2" }}>Prix Total vente</th> */}
                                         <th scope="col" style={{ background: "#70aca2" }}>Revenu Total</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Actions</th>
                                     </tr>
@@ -81,28 +84,33 @@ const PageRecolte = () => {
                                         <tr key={index}>
                                             <td style={{ width: "1%", fontSize: "99%" }}>{new Date(item.date).toLocaleDateString('fr-FR', options)}</td>
                                             <td style={{fontSize: "99%" }}>{item.balles[0].nombreBalles}</td>
-                                            <td style={{ fontSize: "99%" }}>{item.balles[0].prixVenteParBalle}</td>
-                                            <td style={{ fontSize: "99%" }}>{item.balles[0].prixTotalBalle}</td>
+                                            {/* <td style={{ fontSize: "99%" }}>{item.balles[0].prixVenteParBalle}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.balles[0].prixTotalBalle}</td> */}
                                             <td style={{ fontSize: "99%" }}>{item.quantites[0].quantite}{item.quantites[0].unite}</td>
-                                            <td style={{ fontSize: "99%" }}>{item.quantites[0].prix}</td>
-                                            <td style={{ fontSize: "99%" }}>{item.quantites[0].prixTotalVente}</td>
+                                            {/* <td style={{ fontSize: "99%" }}>{item.quantites[0].prix}</td>
+                                            <td style={{ fontSize: "99%" }}>{item.quantites[0].prixTotalVente}</td> */}
                                             <td style={{ fontSize: "99%" }}>{item.revenuTotal}</td>
-                                            <td  style={{ fontSize:"75%" }}>
+                                            <td  style={{ fontSize:"75%",display:"flex" }}>
                                                 <UpdateRecolte onUpdate={fetchRecolte} recolteId={item._id} />
-                                                <FcDeleteRow style={{ fontSize: "210%" }} onClick={() => handleDelete(item._id)} />
+                                                <FcDeleteRow style={{ fontSize: "400%",marginLeft:"10%" }} onClick={() => handleDelete(item._id)} />
+                                                <Link className="dropdown-item" to={handleLinkRClick(item._id)} ><LiaFileInvoiceDollarSolid style={{ fontSize: "290%",marginLeft:"10%" }}/></Link>
                                             </td>
                                         </tr>
                                     ))}
                                     <tr>
                                         <td style={{ fontSize: "large" }}>Total</td>
+                                        {/* <td></td>
+                                        <td></td> */}
                                         <td></td>
-                                        <td></td>
+                                        {/* <td></td>
+                                        <td></td> */}
                                         <td></td>
                                         <td style={{ fontSize: "large" }}>{total}</td>
                                         <td></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            {/* <FactureRecolte/> */}
                         </div>
                     </div>
                     <div className="col-xl-4">
