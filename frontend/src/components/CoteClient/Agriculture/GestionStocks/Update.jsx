@@ -250,7 +250,7 @@ console.log("ss",stockData)
                     value={sortie.raisonSortie}
                     onChange={(e) => handleInputChange(e, index, 'sortie')}
                   >
-                    <option value="Achat">Achat</option>
+                    <option value="Vente">Vente</option>
                     <option value="Production">Production</option>
                     <option value="Don">Don</option>
                     <option value="Autre">Autre</option>
