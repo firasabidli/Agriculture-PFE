@@ -85,7 +85,7 @@ function Add({ onCreate }) {
 
   return (
     <>
-      <p className="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" onClick={handleShow}>
+      <p className="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold eviteHover" style={{background:"darkgreen", color:"white", border:"1px darkgreen"}} onClick={handleShow}>
         Ajouter Agriculture
       </p>
       <Modal show={show} onHide={handleClose}>
@@ -187,7 +187,7 @@ function Add({ onCreate }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="bg-secondary" onClick={handleClose}>Fermer</Button>
+          <Button className="bg-secondary eviteHover" onClick={handleClose}>Fermer</Button>
           <Button className="btn" type="submit" form="form"> Ajouter </Button>
         </Modal.Footer>
       </Modal>

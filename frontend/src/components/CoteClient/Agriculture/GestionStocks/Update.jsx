@@ -92,7 +92,7 @@ console.log("ss",stockData)
   const handleAddExit = () => {
     setFormData({
       ...formData,
-      sortie: [...formData.sortie, { dateSortie: '', quantitéSortie: '', uniteSortie: '', raisonSortie: '', prix: '' }]
+      sortie: [...formData.sortie, { dateSortie: '', quantitéSortie: '', uniteSortie: '', raisonSortie: '', prix: '',nomClient: '' ,adresseClient: ''}]
     });
   };
 
@@ -137,7 +137,7 @@ console.log("ss",stockData)
               />
             </FloatingLabel>
           </Form.Group>
-          <Button onClick={handleAddEntry} className="mb-3" style={{width:"116%"}}>Ajouter Entrée</Button>
+          <Button onClick={handleAddEntry} className="mb-3 gd-primary eviteHover" style={{width:"116%"}}>Ajouter Entrée</Button>
           {Array.isArray(formData.entrées) && formData.entrées.map((entrée, index) => (
             <div key={index}>
              <Form.Group controlId={`dateEntrée${index}`} className="mb-3">
@@ -203,7 +203,7 @@ console.log("ss",stockData)
               </Form.Group>
             </div>
           ))}
-          <Button onClick={handleAddExit} className="mb-3" style={{width:"116%"}}>Ajouter Sortie</Button>
+          <Button onClick={handleAddExit} className="mb-3 gd-primary eviteHover" style={{width:"116%"}}>Ajouter Sortie</Button>
           {Array.isArray(formData.sortie) && formData.sortie.map((sortie, index) => (
             <div key={index}>
               <Form.Group controlId={`dateSortie`} className="mb-3" style={{width:"116%"}}>
@@ -228,13 +228,14 @@ console.log("ss",stockData)
                   />
                 </FloatingLabel>
               </Form.Group>
-              <Form.Group controlId={`uniteSortie${index}`} className="mb-3" style={{ width: "104%" }}>
+              <Form.Group controlId={`uniteSortie=`} className="mb-3" style={{ width: "104%" }}>
                 <FloatingLabel controlId={`floatingInput${index}`} label="Unité de sortie">
                   <Form.Select
                     name={`uniteSortie`}
                     value={sortie.uniteSortie}
                     onChange={(e) => handleInputChange(e, index, 'sortie')}
                   >
+                    <option value=""></option>
                     <option value="kg">kg</option>
                     <option value="g">g</option>
                     <option value="L">L</option>
@@ -243,21 +244,22 @@ console.log("ss",stockData)
                 </FloatingLabel>
               </Form.Group>
               </div>
-              <Form.Group controlId={`raisonSortie${index}`} className="mb-3" style={{width:"116%"}}>
+              <Form.Group controlId={`raisonSortie`} className="mb-3" style={{width:"116%"}}>
                 <FloatingLabel controlId={`floatingInput${index}`} label="Raison de sortie">
                   <Form.Select
                     name={`raisonSortie`}
                     value={sortie.raisonSortie}
                     onChange={(e) => handleInputChange(e, index, 'sortie')}
                   >
-                    <option value="Achat">Achat</option>
+                    <option value=""></option>
+                    <option value="Vente">Vente</option>
                     <option value="Production">Production</option>
                     <option value="Don">Don</option>
                     <option value="Autre">Autre</option>
                   </Form.Select>
                 </FloatingLabel>
               </Form.Group>
-              <Form.Group controlId={`prixSortie${index}`} className="mb-3" style={{width:"116%"}}>
+              <Form.Group controlId={`prixSortie`} className="mb-3" style={{width:"116%"}}>
                 <FloatingLabel controlId={`floatingInput${index}`} label="Prix">
                   <Form.Control
                     type="number"
@@ -267,6 +269,30 @@ console.log("ss",stockData)
                   />
                 </FloatingLabel>
               </Form.Group>
+              {sortie && sortie.raisonSortie === "Vente" && (
+            <div>
+                <Form.Group controlId={`nomClient${index}`} className="mb-3" style={{ width: "116%" }}>
+                    <FloatingLabel controlId={`floatingInput${index}`} label="nom du Client">
+                        <Form.Control
+                            type="text"
+                            name={`nomClient`}
+                            value={sortie.nomClient}
+                            onChange={(e) => handleInputChange(e, index, 'sortie')}
+                        />
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group controlId={`adresseClient${index}`} className="mb-3" style={{ width: "116%" }}>
+                    <FloatingLabel controlId={`floatingInput${index}`} label="Adresse du Client">
+                        <Form.Control
+                            type="text"
+                            name={`adresseClient`}
+                            value={sortie.adresseClient}
+                            onChange={(e) => handleInputChange(e, index, 'sortie')}
+                        />
+                    </FloatingLabel>
+                </Form.Group>
+            </div>
+        )}
             </div>
           ))}
           <Button variant="primary" type="submit">

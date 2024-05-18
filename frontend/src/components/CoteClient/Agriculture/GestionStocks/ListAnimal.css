@@ -1,4 +1,7 @@
-
+.eviteHover:hover{
+   color:#fff;
+   border: none;
+}
 body {
     background-color: #f9f9fa
 }

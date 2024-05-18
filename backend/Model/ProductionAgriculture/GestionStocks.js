@@ -20,7 +20,9 @@ const stockSchema = new mongoose.Schema({
       type: String,
   },
     raisonSortie: { type: String },
-    prix:{type:String}
+    prix:{type:String},
+    adresseClient:{type:String},
+    nomClient:{type:String}
      }],
     emplacement: { type: String, required: true },
     ville: { type: String, required: true },

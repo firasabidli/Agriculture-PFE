@@ -6,6 +6,7 @@ import Carousel from './Carousel.jsx';
 import Details from './Details.jsx';
 import Add from './Add';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import UpdateAgriculture from './Update.jsx';
 const GestionStock = () => {
     const [culture, setCulture] = useState([]);
@@ -68,9 +69,12 @@ const GestionStock = () => {
             console.error('Erreur lors de la suppression de l\'élément :', error);
         }
     };
+    const handleFactureClick = (id) =>{
+        return `/agriculture/FactureStocks/${id}`;
+    }
     return (
         <div>
-            <Navbar textColor="black" />
+            <Navbar textColor="white" />
             <Carousel />
             <div className="containerList" style={{ marginTop: "3%" }}>
                 <div className="row">
@@ -96,8 +100,11 @@ const GestionStock = () => {
                                                                 </div>
                                                                 <div>
                                                                     <Dropdown align="end">
-                                                                        <Dropdown.Toggle variant="link" id="dropdown-basic">
+                                                                        <Dropdown.Toggle className='eviteHover' style={{background:"white", color:"black", border:"none"}} >
                                                                             <Dropdown.Menu>
+                                                                            {element.sortie.some((sortie) => sortie.raisonSortie === "Vente") && (
+                                                                                <Dropdown.Item ><Link className="dropdown-item" to={ handleFactureClick(element._id)}  >Voir Facture</Link></Dropdown.Item>
+                                                                            )}
                                                                             <p  className="dropdown-item" onClick={() => handleDetailsClick(element._id)} style={{fontFamily:"Arial"}}>Détails</p>
                                                                             <p  className="dropdown-item text-success" onClick={() => handleUpdateClick(element._id)} style={{fontFamily:"Arial"}}>Modifier</p>
                                                                                 <Dropdown.Divider />

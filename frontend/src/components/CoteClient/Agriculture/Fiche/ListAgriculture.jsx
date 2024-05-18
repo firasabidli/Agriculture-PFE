@@ -112,7 +112,7 @@ const ListAgriculture = () => {
                                                                 </div>
                                                                 <div>
                                                                     <Dropdown align="end">
-                                                                        <Dropdown.Toggle variant="link" id="dropdown-basic">
+                                                                        <Dropdown.Toggle className='eviteHover' style={{background:"white", color:"black", border:"none"}}>
                                                                             <Dropdown.Menu>
                                                                             <Link className="dropdown-item" to={handleLinkClick(element._id)} >Suivi Engrais</Link>
                                                                             <Link className="dropdown-item" to={handleLinkEqClick(element._id)} >Suivi Equipement</Link>

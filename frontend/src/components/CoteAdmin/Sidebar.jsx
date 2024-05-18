@@ -69,7 +69,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             <Link to="/admin/Categories" className={`sidebar-link ${page==="Categories" ? 'item-active' : ''}`}><span className="icon"><SiDatabricks /></span>{ " "}Categories </Link>
                             </li>
                             <li className="sidebar-item">
-                            <Link to="/admin/MethodeStock" className={`sidebar-link ${page==="Stock" ? 'item-active' : ''}`}><span className="icon"><FaBuildingWheat /></span>{ " "}gestion des Methode de stocks </Link>
+                            <Link to="/admin/MethodeStock" className={`sidebar-link ${page==="Stock" ? 'item-active' : ''}`}><span className="icon"><FaBuildingWheat /></span>{ " "}gestion des Methode de stockage </Link>
                             </li>
                             <li className="sidebar-item">
                             <Link to="/admin/Materiel" className={`sidebar-link ${page==="Materiel" ? 'item-active' : ''}`}><span className="icon "><MdAgriculture /></span>{ " "}Equipement </Link>
