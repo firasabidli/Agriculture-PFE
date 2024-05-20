@@ -11,6 +11,7 @@ function Add({onCreate}) {
   const [nom, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image_materiel, setImageMateriel] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const handleClose = () => {
     setShow(false);
@@ -20,22 +21,46 @@ function Add({onCreate}) {
   };
 
   const handleShow = () => setShow(true);
+  const validateForm = () => {
+    const newErrors = {};
 
+    if (!nom.trim()) {
+      newErrors.nom_equipement = "Le nom de l'équipement est requis";
+    }
+    if (nom.length<4) {
+      newErrors.nom_equipement = "La taille du nom de l'équipement doit etre superieur ou égale à 4";
+    }
+    if (/\d/.test(nom))  {
+      newErrors.nom_equipement = "Le nom de l'équipement ne doit pas contenir de chiffres";
+    }
+    if (!description.trim()) {
+      newErrors.description = 'La description est requise';
+    }
+    if (description.length<6) {
+      newErrors.description = 'La taille du la description doit etre superieur ou égale à 6';
+    }
+    if (/\d/.test(description))  {
+      newErrors.description = 'La description ne doit pas contenir de chiffres';
+    }
+    if (image_materiel===null)  {
+      newErrors.image_materiel = "L'image est requise";
+    } 
+   
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   const submit = async (e) => {
     e.preventDefault();
-
+    if (!validateForm()) {
+      return;
+    }
     const formData = new FormData();
     formData.append("nom", nom);
     formData.append("description", description);
     
     formData.append("image_materiel", image_materiel);
-          const isValidnom =/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(nom);
-            const isValiddescription= /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(description);
-      
-          if (!isValidnom || !isValiddescription) {
-            alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
-            return;
-          }
+          
     try {
       const result = await axios.post(
         "http://localhost:3001/materiel/",
@@ -87,6 +112,7 @@ function Add({onCreate}) {
                   onChange={(e) => setName(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.nom_equipement && <div className="text-danger">{errors.nom_equipement}</div>}
             </Form.Group>
            
             <Form.Group className="mb-3" controlId="description">
@@ -100,6 +126,7 @@ function Add({onCreate}) {
           style={{ height: '100px' }}
         />
       </FloatingLabel>
+      {errors.description && <div className="text-danger">{errors.description}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="image">
@@ -107,8 +134,10 @@ function Add({onCreate}) {
                 <Form.Control
                   type="file"
                   onChange={onInputChange}
+                  accept="image/*"
                 />
               </FloatingLabel>
+              {errors.image_materiel && <div className="text-danger">{errors.image_materiel}</div>}
             </Form.Group>
          
         </Modal.Body>

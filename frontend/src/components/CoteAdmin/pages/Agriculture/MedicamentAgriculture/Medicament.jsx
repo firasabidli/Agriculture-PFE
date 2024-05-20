@@ -116,38 +116,54 @@ const Medicament = () => {
 						}}
 					/>
 				</div>
-				<div class="table100 ver2 m-b-110">
-					<div class="table100-head">
-						<table>
-							<thead>
-								<tr class="row100 head">
-									<th class="cell100 column0">ID</th>
-									<th class="cell100 column1">Image</th>
-									<th class="cell100 column2">Nom</th>
-									<th class="cell100 column3">Description</th>
-									<th class="cell100 column4">modifier</th>
-									<th class="cell100 column5">Supprimer</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
-					<div class="table100-body js-pscroll">
-						<table>
-							<tbody>
-								{Array.isArray(displayedData) && displayedData.map((item, index) => (
-									<tr key={item._id} class="row100 body">
-										<td class="cell100 column0" >{index}</td>
-										<td class="cell100 column1"><img  className='td-image' src={item.image} alt="Méthode Stock" /></td>
-										<td class="cell100 column2">{item.nomMedicament}</td>
-										<td class="cell100 column3">{item.description}</td>
-										<td class="cell100 column4"><FaRegEdit className='icon-edit' onClick={()=> handleModifier(item)}></FaRegEdit></td>
-										<td class="cell100 column5"><FcFullTrash className='icon-trash' onClick={() => handleDelete(item._id)}></FcFullTrash></td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-				</div>
+				<section className="ftco-section"> {/* Changed class to className */}
+                            <div className="container-materiel"> {/* Changed class to className */}
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="table-wrap">
+                                            {displayedData.length === 0 ? (
+                                                <p>Aucune donnée disponible</p>
+                                            ) : (
+                                                <table className="table ">
+                                                    <thead className="thead-dark text-center">
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Image</th>
+                                                            <th>Nom</th>
+                                                            <th>Description</th>
+                                                            <th>Action</th>
+															
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+													{Array.isArray(displayedData) && displayedData.map((item, index) => (
+                                                            <tr key={item._id} className="alert" role="alert">
+                                                                <td style={{width:'20px',textAlign:'center'}}>{index}</td>
+                                                                <td className='td-im' >
+                                                                    {item.image && (
+                                                                        <img src={item.image} className='td-image' style={{width:'180px',textAlign:'center'}} alt='Engrais'/>
+                                                                    )}
+                                                                </td>
+                                                                <td className='td-title'>{item.nomMedicament}</td> {/* Changed nom to name */}
+                                                                <td>{item.description.length>50? item.description.substring(0, 50) + '...': item.description}</td>
+                                                                <td >
+																<div className='action ' style={{marginLeft:'100px'}}>
+																<FaRegEdit className='icon-edit' onClick={()=> handleModifier(item)}></FaRegEdit>
+																<FcFullTrash className='icon-trash' onClick={() => handleDelete(item._id)}></FcFullTrash>
+																	</div>
+																
+                                                                </td>
+																
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
 {/*  */}
 			</div>
 		</main>
@@ -157,3 +173,5 @@ const Medicament = () => {
 };
 
 export default Medicament;
+
+
