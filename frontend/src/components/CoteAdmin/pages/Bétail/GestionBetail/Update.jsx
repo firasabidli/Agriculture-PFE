@@ -8,16 +8,19 @@ import { FaRegEdit } from "react-icons/fa";
 function Update({ onUpdate, betailId }) {
   const [show, setShow] = useState(false);
   const [betail, setBetail] = useState([]);
-
+  const [nom_betail, setNomBetail] = useState('');
+  const [quantite_aliment_par_jour_kg, setQuant] = useState('');
   const [race, setRace] = useState('');
   const [sexe, setSexe] = useState('');
+  const [commentaires_sante, setComment] = useState('');
+  const [alimentation, setAlimentation] = useState('');
   const [frequence_suivi_sante, setFrequenceSuivie] = useState('');
- 
+  const [etat_betail, setEtat] = useState('');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [races, setRaces] = useState([]);
   const [image_betail, setImageBetail] = useState(null);
-
+  const [errors, setErrors] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true)
@@ -33,6 +36,14 @@ function Update({ onUpdate, betailId }) {
       setBetail(data);
      setRace(data.race);
       setSelectedCategory(data.id_categorie._id);
+      setSexe(data.sexe);
+      setFrequenceSuivie(data.frequence_suivi_sante);
+      setEtat(data.etat_betail);
+      setAlimentation(data.alimentation);
+      setComment(data.commentaires_sante);
+      setQuant(data.quantite_aliment_par_jour_kg);
+      setNomBetail(data.nom_betail);
+      etat_betail(data.etat_betail);
      
     } catch (error) {
       console.error('Error fetching betail:', error);
@@ -81,11 +92,64 @@ function Update({ onUpdate, betailId }) {
     }
   };
   
+  const validateForm = () => {
+    const newErrors = {};
 
+    if (! nom_betail.trim()) {
+      newErrors.nom_betail = "Le nom de Betail est requis";
+    }
+    if ( nom_betail.length<4) {
+      newErrors.nom_betail = "La taille de nom de Betail doit etre superieur ou égale à 4";
+    }
+    if (/\d/.test( nom_betail))  {
+      newErrors.nom_betail = "Le nom de Betail ne doit pas contenir de chiffres";
+    }
+    if (! commentaires_sante.trim()) {
+      newErrors.commentaires_sante = 'Le commentaire de la santé est requise';
+    }
+    if ( commentaires_sante.length<6) {
+      newErrors.commentaires_sante = 'Le commentaire de la santé doit etre superieur ou égale à 6';
+    }
+    if (/\d/.test( commentaires_sante))  {
+      newErrors.commentaires_sante = 'Le commentaire de la santé ne doit pas contenir de chiffres';
+    }
+  
+   
+    if (selectedCategory==="")  {
+      newErrors.categorie = "Il faut choisir la categorie";
+    } 
+
+    if (race==="")  {
+      newErrors.race = "Il faut choisir le race";
+    } 
+
+    if (sexe==="")  {
+      newErrors.sexe = "Il faut choisir le sexe";
+    } 
+    if ( etat_betail==="")  {
+      newErrors.etat_betail = "Il faut choisir l'etat de betail";
+    } 
+    if (frequence_suivi_sante==="")  {
+      newErrors.frequence_suivi_sante = "Il faut choisir la fréquence de suivie de la santé";
+    } 
+    if ( quantite_aliment_par_jour_kg==="")  {
+      newErrors.quantite_aliment_par_jour_kg = "La quantite d'alimentation est requise";
+    } 
+    if ( alimentation==="")  {
+      newErrors.alimentation = "Le besoin d'alimentation est requise";
+    } 
+
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
 
     try {
       const formData = new FormData(e.target);
@@ -135,6 +199,7 @@ function Update({ onUpdate, betailId }) {
                   </option>
                 ))}
               </Form.Control>
+              {errors.categorie && <div className="text-danger">{errors.categorie}</div>}
             </Form.Group>
 
             <Form.Group controlId="race">
@@ -147,17 +212,19 @@ function Update({ onUpdate, betailId }) {
                   </option>
                 ))}
               </Form.Control>
+              {errors.race && <div className="text-danger">{errors.race}</div>}
             </Form.Group>
 
            
 
             <Form.Group className="mb-3" controlId="etat">
               <Form.Label>État de gestation</Form.Label>
-              <Form.Control as="select" id='etat_betail' name="etat_betail" defaultValue={betail.etat_betail}  >
+              <Form.Control as="select" id='etat_betail' name="etat_betail" defaultValue={etat_betail} onChange={(e) => setEtat(e.target.value)} >
                 <option value="">Sélectionnez l'etat de gestation</option>
                 <option selected={"Gestation"===betail.etat_betail} value="Gestation">Gestation</option>
                 <option selected={"Non Gestation"===betail.etat_betail} value="Non Gestation">Non Gestation</option>
               </Form.Control>
+              {errors.etat_betail && <div className="text-danger">{errors.etat_betail}</div>}
             </Form.Group>
 
           <Form.Group className="mb-3" controlId="nom_betail">
@@ -165,11 +232,13 @@ function Update({ onUpdate, betailId }) {
                 <Form.Control
                   type="text"
                   placeholder="Nom Betail"
-                  defaultValue={betail.nom_betail}
+                  defaultValue={nom_betail}
+                  onChange={(e) => setNomBetail(e.target.value)}
                  name='nom_betail'
                  id='nom_betail'
                 />
               </FloatingLabel>
+              {errors.nom_betail && <div className="text-danger">{errors.nom_betail}</div>}
             </Form.Group>
 
            
@@ -185,18 +254,21 @@ function Update({ onUpdate, betailId }) {
                 <option selected={"masculin"===betail.sexe} value="masculin">masculin</option>
                 <option selected={"féminin"===betail.sexe} value="féminin">féminin</option>
               </Form.Control>
+              {errors.sexe && <div className="text-danger">{errors.sexe}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="alimentation">
               <Form.Label>Besoin d'alimentation</Form.Label>
-              <Form.Control type="text" name="alimentation" defaultValue={betail.alimentation}
+              <Form.Control type="text" name="alimentation" defaultValue={alimentation} onChange={(e) => setAlimentation(e.target.value)}
                   />
+                  {errors.alimentation && <div className="text-danger">{errors.alimentation}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="quantite_aliment_par_jour_kg">
               <Form.Label>Quantité d'alimentation par jour en KG</Form.Label>
-              <Form.Control type="text" name="quantite_aliment_par_jour_kg"  defaultValue={betail.quantite_aliment_par_jour_kg}
+              <Form.Control type="text" name="quantite_aliment_par_jour_kg"  defaultValue={quantite_aliment_par_jour_kg} onChange={(e) => setQuant(e.target.value)}
                    />
+                    {errors.quantite_aliment_par_jour_kg && <div className="text-danger">{errors.quantite_aliment_par_jour_kg}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="frequence_suivi_sante">
@@ -211,12 +283,14 @@ function Update({ onUpdate, betailId }) {
                 <option selected={"Semestrielle"===betail.frequence_suivi_sante} value="Semestrielle">Semestrielle</option>
                 <option selected={"Annuelle"===betail.frequence_suivi_sante} value="Annuelle">Annuelle</option>
               </Form.Control>
+              {errors.frequence_suivi_sante && <div className="text-danger">{errors.frequence_suivi_sante}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="commentaires_sante">
               <Form.Label>Commentaire pour la santé</Form.Label>
-              <Form.Control as="textarea" style={{ height: '100px' }} name="commentaires_sante" defaultValue={betail.commentaires_sante}
+              <Form.Control as="textarea" style={{ height: '100px' }} name="commentaires_sante" defaultValue={commentaires_sante} onChange={(e) => setComment(e.target.value)}
                  />
+                 {errors.commentaires_sante && <div className="text-danger">{errors.commentaires_sante}</div>}
             </Form.Group>
 
             

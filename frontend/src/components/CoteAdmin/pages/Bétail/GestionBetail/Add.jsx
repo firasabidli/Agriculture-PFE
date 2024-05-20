@@ -21,6 +21,7 @@ function Add({ onCreate }) {
   const [frequence_suivi_sante, setFrequenceSuivi] = useState('');
   const [commentaires_sante, setComment] = useState('');
   const [etat_betail, setEtatBetail] = useState('');
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
 
@@ -80,15 +81,65 @@ function Add({ onCreate }) {
       setRaces([]); // Reset races when no category is selected
     }
   };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!nom_betail.trim()) {
+      newErrors.nom_betail = "Le nom de Betail est requis";
+    }
+    if (nom_betail.length<4) {
+      newErrors.nom_betail = "La taille de nom de Betail doit etre superieur ou égale à 4";
+    }
+    if (/\d/.test(nom_betail))  {
+      newErrors.nom_betail = "Le nom de Betail ne doit pas contenir de chiffres";
+    }
+    if (!commentaires_sante.trim()) {
+      newErrors.commentaires_sante = 'Le commentaire de la santé est requise';
+    }
+    if (commentaires_sante.length<6) {
+      newErrors.commentaires_sante = 'Le commentaire de la santé doit etre superieur ou égale à 6';
+    }
+    if (/\d/.test(commentaires_sante))  {
+      newErrors.commentaires_sante = 'Le commentaire de la santé ne doit pas contenir de chiffres';
+    }
+    if (image_betail===null)  {
+      newErrors.image_betail = "L'image est requise";
+    } 
+   
+    if (selectedCategory==="")  {
+      newErrors.categorie = "Il faut choisir la categorie";
+    } 
+
+    if (race==="")  {
+      newErrors.race = "Il faut choisir le race";
+    } 
+
+    if (sexe==="")  {
+      newErrors.sexe = "Il faut choisir le sexe";
+    } 
+    if (etat_betail==="")  {
+      newErrors.etat_betail = "Il faut choisir l'etat de betail";
+    } 
+    if (frequence_suivi_sante==="")  {
+      newErrors.frequence_suivi_sante = "Il faut choisir la fréquence de suivie de la santé";
+    } 
+    if (quantite_aliment_par_jour_kg==="")  {
+      newErrors.quantite_aliment_par_jour_kg = "La quantite d'alimentation est requise";
+    } 
+    if (alimentation==="")  {
+      newErrors.alimentation = "Le besoin d'alimentation est requise";
+    } 
+
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   const submit = async (e) => {
     e.preventDefault();
-    const isValidnom = /^[a-zA-Z\s]+$/.test(nom_betail);
-    // const isValidrace= /^[a-zA-Z\s]+$/.test(race);
-
-  if (!isValidnom ) {
-    alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
-    return;
-  }
+    if (!validateForm()) {
+      return;
+    }
     const formData = new FormData();
     formData.append('id_categorie', selectedCategory);
     formData.append("nom_betail", nom_betail);
@@ -157,6 +208,7 @@ function Add({ onCreate }) {
                   </option>
                 ))}
               </Form.Control>
+              {errors.categorie && <div className="text-danger">{errors.categorie}</div>}
             </Form.Group>
 
             <Form.Group controlId="race">
@@ -169,6 +221,7 @@ function Add({ onCreate }) {
                   </option>
                 ))}
               </Form.Control>
+              {errors.race && <div className="text-danger">{errors.race}</div>}
             </Form.Group>
 
            
@@ -180,6 +233,7 @@ function Add({ onCreate }) {
                 <option value="Gestation">Gestation</option>
                 <option value="Non Gestation">Non Gestation</option>
               </Form.Control>
+              {errors.etat_betail && <div className="text-danger">{errors.etat_betail}</div>}
             </Form.Group>
 
           <Form.Group className="mb-3" controlId="nom_betail">
@@ -191,6 +245,7 @@ function Add({ onCreate }) {
                   onChange={(e) => setNomBetail(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.nom_betail && <div className="text-danger">{errors.nom_betail}</div>}
             </Form.Group>
 
            
@@ -206,18 +261,21 @@ function Add({ onCreate }) {
                 <option value="masculin">masculin</option>
                 <option value="féminin">féminin</option>
               </Form.Control>
+              {errors.sexe && <div className="text-danger">{errors.sexe}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="alimentation">
               <Form.Label>Besoin d'alimentation</Form.Label>
               <Form.Control type="text" name="alimentation" value={alimentation}
                   onChange={(e) => setAlimentation(e.target.value)} />
+                  {errors.alimentation && <div className="text-danger">{errors.alimentation}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="quantite_aliment_par_jour_kg">
               <Form.Label>Quantité d'alimentation par jour en KG</Form.Label>
               <Form.Control type="text" name="quantite_aliment_par_jour_kg"  value={quantite_aliment_par_jour_kg}
                   onChange={(e) => setQuantiteAliment(e.target.value)} />
+                  {errors.quantite_aliment_par_jour_kg && <div className="text-danger">{errors.quantite_aliment_par_jour_kg}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="frequence_suivi_sante">
@@ -232,12 +290,14 @@ function Add({ onCreate }) {
                 <option value="Semestrielle">Semestrielle</option>
                 <option value="Annuelle">Annuelle</option>
               </Form.Control>
+              {errors.frequence_suivi_sante && <div className="text-danger">{errors.frequence_suivi_sante}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="commentaires_sante">
               <Form.Label>Commentaire pour la santé</Form.Label>
               <Form.Control as="textarea" style={{ height: '100px' }} name="commentaires_sante" value={commentaires_sante}
                   onChange={(e) => setComment(e.target.value)} />
+                  {errors.commentaires_sante && <div className="text-danger">{errors.commentaires_sante}</div>}
             </Form.Group>
 
             
@@ -249,6 +309,7 @@ function Add({ onCreate }) {
                   onChange={onInputChange}
                 />
               </FloatingLabel>
+              {errors.image_betail && <div className="text-danger">{errors.image_betail}</div>}
             </Form.Group>
             
          
