@@ -31,6 +31,7 @@ function Add({ onCreate }) {
   const [selectedMedicaments, setSelectedMedicaments] = useState({});
   const [showQuantity, setShowQuantity] = useState(false);
   const [showFrequency, setShowFrequency] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchSaisons();
@@ -86,10 +87,101 @@ function Add({ onCreate }) {
   const handleClose = () => {
     setShow(false);
     resetForm();
+    setErrors({});
   };
 
   const handleShow = () => setShow(true);
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!nom_agriculture.trim()) {
+      newErrors.nom_agriculture = "Le nom de l'agriculture est requis";
+    }
+    if (nom_agriculture.length<4) {
+      newErrors.nom_agriculture = 'La taille du nom de la catégorie doit etre superieur ou égale à 4';
+    }
+    if (/\d/.test(nom_agriculture))  {
+      newErrors.nom_agriculture = 'Le nom de la catégorie ne doit pas contenir de chiffres';
+    }
+    if (!description.trim()) {
+      newErrors.description = 'La description est requise';
+    }
+    if (description.length<6) {
+      newErrors.description = 'La taille du la description doit etre superieur ou égale à 6';
+    }
+    if (/\d/.test(description))  {
+      newErrors.description = 'La description ne doit pas contenir de chiffres';
+    }
+
+    if (!remarques.trim()) {
+      newErrors.remarques = 'La remarque est requise';
+    }
+    if (remarques.length<6) {
+      newErrors.remarques = 'La taille du la remarque doit etre superieur ou égale à 6';
+    }
+    if (methode_irrigation==='') {
+      newErrors.methodeIrrigation = "Il faut choisir une méthode d'irrigation";
+    }else{
+    if (methode_irrigation!="irrigation gravitaire"){
+      if (quantite_eau_irrigation==""){
+        newErrors.quantite_eau_irrigation = "la quantité d'eau d'irrigation est requise";
+      }
+      if (frequence_surveillance===""){
+        newErrors.frequence_surveillance = "il faut choisir le nombre des jours d'irrigation par semaine";
+      }
+
+      if(date_derniere_surveillance==""){
+        newErrors.date_derniere_surveillance = "il faut choisir une date correcte";
+      }
+      if(date_recolte<date_derniere_surveillance )
+  {
+    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre avant la date de recolte ";
+  }
+  if(date_derniere_surveillance<date_plantation )
+  {
+    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre après la date de plantation ";
+  }
+
+
+    }
+  }
+  if(image_agriculture===null){
+    newErrors.image_agriculture = "Image Agriculture est requise ";
+  
+  }
+  if(date_plantation===""){
+    newErrors.date_plantation = "il faut choisir une date de plantation correcte";
+  }
+  if(date_recolte===""){
+    newErrors.date_recolte = "il faut choisir une date de recolte correcte";
+  }
+
+  if(date_recolte<date_plantation)
+  {
+    newErrors.date_recolte = "la date de recolte doit etre apres la date de plantation ";
+  }
+  
+    if (selectedSaison==='') {
+      newErrors.saison = 'Il faut choisir une saison';
+    }
+    if (selectedCategorie==='') {
+      newErrors.categorie = 'Il faut choisir une catégorie';
+    }
+
+    if (Object.keys(selectedMaterials).length === 0) {
+      newErrors.materials = 'Au moins un équipement doit être sélectionné';
+    }
+    if (Object.keys(selectedStocks).length === 0) {
+      newErrors.stocks = 'Au moins une méthode de stockage doit être sélectionnée';
+    }
+    if (Object.keys(selectedMedicaments).length === 0) {
+      newErrors.medicaments = 'Au moins un engrais doit être sélectionné';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   const resetForm = () => {
     setNomAgriculture('');
     setDescription('');
@@ -110,7 +202,9 @@ function Add({ onCreate }) {
 
   const submit = async (e) => {
     e.preventDefault();
-
+    if (!validateForm()) {
+      return;
+    }
     const formData = new FormData();
     formData.append("nom_agriculture", nom_agriculture);
     formData.append("description", description);
@@ -145,13 +239,7 @@ function Add({ onCreate }) {
       formData.append('MedicamentsCulture[]', medicamentId);
     });
 
-    const isValidnom = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(nom_agriculture);
-    const isValiddescription = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(description);
-
-    if (!isValidnom || !isValiddescription) {
-      alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
-      return;
-    }
+   
 
     try {
       const result = await axios.post(
@@ -222,6 +310,7 @@ function Add({ onCreate }) {
                   <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
                 ))}
               </Form.Control>
+              {errors.categorie && <div className="text-danger">{errors.categorie}</div>}
             </Form.Group>
             <Form.Group className="mb-3 " controlId="nom_agriculture">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Agriculture:">
@@ -233,6 +322,7 @@ function Add({ onCreate }) {
                   onChange={(e) => setNomAgriculture(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.nom_agriculture && <div className="text-danger">{errors.nom_agriculture}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="Description">
@@ -245,6 +335,7 @@ function Add({ onCreate }) {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.description && <div className="text-danger">{errors.description}</div>}
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="saison">
@@ -255,6 +346,7 @@ function Add({ onCreate }) {
                   <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
                 ))}
               </Form.Control>
+              {errors.saison && <div className="text-danger">{errors.saison}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="date_plantation">
@@ -266,6 +358,7 @@ function Add({ onCreate }) {
                   onChange={(e) => setDatePlantation(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.date_plantation && <div className="text-danger">{errors.date_plantation}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="date_recolte">
@@ -277,6 +370,7 @@ function Add({ onCreate }) {
                   onChange={(e) => setDateRecolte(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.date_recolte && <div className="text-danger">{errors.date_recolte}</div>}
             </Form.Group>
 
             <Form.Group controlId="methodeIrrigation" className="mb-3">
@@ -288,6 +382,7 @@ function Add({ onCreate }) {
                 <option value="irrigation par pivot">Irrigation par pivot</option>
                 <option value="irrigation gravitaire">Irrigation gravitaire</option>
               </Form.Select>
+              {errors.methodeIrrigation && <div className="text-danger">{errors.methodeIrrigation}</div>}
             </Form.Group>
 
             {showQuantity && (
@@ -300,6 +395,7 @@ function Add({ onCreate }) {
                     onChange={(e) => setQuantiteEauIrrigation(e.target.value)}
                   />
                 </FloatingLabel>
+                {errors.quantite_eau_irrigation && <div className="text-danger">{errors.quantite_eau_irrigation}</div>}
               </Form.Group>
             )}
 
@@ -317,18 +413,20 @@ function Add({ onCreate }) {
                 <option value="6 Jours">6 Jours</option>
                 <option value="Toutes les jours">Toutes les jours</option>
               </Form.Select>
+              {errors.frequence_surveillance && <div className="text-danger">{errors.frequence_surveillance}</div>}
             </Form.Group>
 
               
               <Form.Group className="mb-3" controlId="date_derniere_surveillance">
-              <FloatingLabel controlId="floatingTextarea2" label="Date Derniere Surveillance">
+              <FloatingLabel controlId="floatingTextarea2" label="Date Derniere d'irrigation">
                 <Form.Control
                   type='date'
-                  placeholder="Date Derniere Surveillance"
+                  placeholder="Date Derniere d'irrigation"
                   value={date_derniere_surveillance}
                   onChange={(e) => setDateDerniereSurveillance(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.date_derniere_surveillance && <div className="text-danger">{errors.date_derniere_surveillance}</div>}
             </Form.Group>
             </>
             )}
@@ -342,6 +440,7 @@ function Add({ onCreate }) {
                   onChange={onInputChange}
                 />
               </FloatingLabel>
+              {errors.image_agriculture && <div className="text-danger">{errors.image_agriculture}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="remarques">
@@ -354,6 +453,7 @@ function Add({ onCreate }) {
                   onChange={(e) => setRemarques(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.remarques && <div className="text-danger">{errors.remarques}</div>}
             </Form.Group>
 
             
@@ -371,6 +471,7 @@ function Add({ onCreate }) {
                   onChange={handleMaterialChange}
                 />
               ))}
+               {errors.materials && <div className="text-danger">{errors.materials}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="stocks">
@@ -385,6 +486,7 @@ function Add({ onCreate }) {
                   onChange={handleStockChange}
                 />
               ))}
+              {errors.stocks && <div className="text-danger">{errors.stocks}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="engrais">
@@ -399,6 +501,7 @@ function Add({ onCreate }) {
                   onChange={handleMedicamentChange}
                 />
               ))}
+              {errors.medicaments && <div className="text-danger">{errors.medicaments}</div>}
             </Form.Group>
           
         </Modal.Body>

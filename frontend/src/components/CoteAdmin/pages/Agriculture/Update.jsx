@@ -25,6 +25,7 @@ function Update({ onUpdate, agricultureId }) {
   const [date_derniere_surveillance, setDateDerniereSurveillance] = useState('');
   const [showQuantity, setShowQuantity] = useState(true);
   const [showFrequency, setShowFrequency] = useState(true);
+  const [errors, setErrors] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
@@ -113,9 +114,99 @@ function Update({ onUpdate, agricultureId }) {
       }
     });
   };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!agriculture.nom_agriculture.trim()) {
+      newErrors.nom_agriculture = "Le nom de l'agriculture est requis";
+    }
+    if (agriculture.nom_agriculture.length<4) {
+      newErrors.nom_agriculture = 'La taille du nom de la catégorie doit etre superieur ou égale à 4';
+    }
+    if (/\d/.test(agriculture.nom_agriculture))  {
+      newErrors.nom_agriculture = 'Le nom de la catégorie ne doit pas contenir de chiffres';
+    }
+    if (!agriculture.description.trim()) {
+      newErrors.description = 'La description est requise';
+    }
+    if (agriculture.description.length<6) {
+      newErrors.description = 'La taille du la description doit etre superieur ou égale à 6';
+    }
+    if (/\d/.test(agriculture.description))  {
+      newErrors.description = 'La description ne doit pas contenir de chiffres';
+    }
+
+    if (!agriculture.remarques.trim()) {
+      newErrors.remarques = 'La remarque est requise';
+    }
+    if (agriculture.remarques.length<6) {
+      newErrors.remarques = 'La taille du la remarque doit etre superieur ou égale à 6';
+    }
+    if (methode_irrigation==='') {
+      newErrors.methodeIrrigation = "Il faut choisir une méthode d'irrigation";
+    }else{
+    if (methode_irrigation!="irrigation gravitaire"){
+      if (quantite_eau_irrigation==""){
+        newErrors.quantite_eau_irrigation = "la quantité d'eau d'irrigation est requise";
+      }
+      if (frequence_surveillance===""){
+        newErrors.frequence_surveillance = "il faut choisir le nombre des jours d'irrigation par semaine";
+      }
+
+      if(date_derniere_surveillance==""){
+        newErrors.date_derniere_surveillance = "il faut choisir une date correcte";
+      }
+      if(agriculture.date_recolte<date_derniere_surveillance )
+  {
+    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre avant la date de recolte ";
+  }
+  if(date_derniere_surveillance<agriculture.date_plantation )
+  {
+    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre après la date de plantation ";
+  }
+
+
+    }
+  }
+  
+  if(agriculture.date_plantation===""){
+    newErrors.date_plantation = "il faut choisir une date de plantation correcte";
+  }
+  if(agriculture.date_recolte===""){
+    newErrors.date_recolte = "il faut choisir une date de recolte correcte";
+  }
+
+  if(agriculture.date_recolte<agriculture.date_plantation)
+  {
+    newErrors.date_recolte = "la date de recolte doit etre apres la date de plantation ";
+  }
+  
+    if (selectedSaison==='') {
+      newErrors.saison = 'Il faut choisir une saison';
+    }
+    if (selectedCategorie==='') {
+      newErrors.categorie = 'Il faut choisir une catégorie';
+    }
+
+    if (Object.keys(selectedMaterials).length === 0) {
+      newErrors.materials = 'Au moins un équipement doit être sélectionné';
+    }
+    if (Object.keys(selectedStocks).length === 0) {
+      newErrors.stocks = 'Au moins une méthode de stockage doit être sélectionnée';
+    }
+    if (Object.keys(selectedMedicaments).length === 0) {
+      newErrors.medicaments = 'Au moins un engrais doit être sélectionné';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!validateForm()) {
+      return;
+    }
     try {
       const formData = new FormData(e.target);
       formData.append('methode_irrigation', methode_irrigation);
@@ -212,6 +303,7 @@ function Update({ onUpdate, agricultureId }) {
                     <option key={categorie._id} value={categorie._id}>{categorie.nom_categorie}</option>
                   ))}
                 </Form.Control>
+                {errors.categorie && <div className="text-danger">{errors.categorie}</div>}
               </Form.Group>
 
              <Form.Group className="mb-3" controlId="nom_culture">
@@ -223,6 +315,7 @@ function Update({ onUpdate, agricultureId }) {
                     name="nom_culture"
                   />
                 </FloatingLabel>
+                {errors.nom_agriculture && <div className="text-danger">{errors.nom_agriculture}</div>}
               </Form.Group>
 
 
@@ -236,6 +329,7 @@ function Update({ onUpdate, agricultureId }) {
                     name="description"
                   />
                 </FloatingLabel>
+                {errors.description && <div className="text-danger">{errors.description}</div>}
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="saison">
@@ -246,6 +340,7 @@ function Update({ onUpdate, agricultureId }) {
                     <option key={saison._id} value={saison._id}>{saison.nom_saison}</option>
                   ))}
                 </Form.Control>
+                {errors.saison && <div className="text-danger">{errors.saison}</div>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="date_plantation">
                 <FloatingLabel controlId="floatingTextarea2" label="Date Plantation">
@@ -256,6 +351,7 @@ function Update({ onUpdate, agricultureId }) {
                     name="date_plantation"
                   />
                 </FloatingLabel>
+                {errors.date_plantation && <div className="text-danger">{errors.date_plantation}</div>}
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="date_recolte">
@@ -267,6 +363,7 @@ function Update({ onUpdate, agricultureId }) {
                     name="date_recolte"
                   />
                 </FloatingLabel>
+                {errors.date_recolte && <div className="text-danger">{errors.date_recolte}</div>}
               </Form.Group>
 
               
@@ -280,6 +377,7 @@ function Update({ onUpdate, agricultureId }) {
                 <option value="irrigation par pivot">Irrigation par pivot</option>
                 <option value="irrigation gravitaire">Irrigation gravitaire</option>
               </Form.Select>
+              {errors.methodeIrrigation && <div className="text-danger">{errors.methodeIrrigation}</div>}
             </Form.Group>
             {showQuantity && (
               <Form.Group className="mb-3" controlId="quantite_eau_irrigation">
@@ -291,6 +389,7 @@ function Update({ onUpdate, agricultureId }) {
                     onChange={(e) => setQuantiteEauIrrigation(e.target.value)}
                   />
                 </FloatingLabel>
+                {errors.quantite_eau_irrigation && <div className="text-danger">{errors.quantite_eau_irrigation}</div>}
               </Form.Group>
             )}
 
@@ -308,18 +407,20 @@ function Update({ onUpdate, agricultureId }) {
                 <option value="6 Jours">6 Jours</option>
                 <option value="Toutes les jours">Toutes les jours</option>
               </Form.Select>
+              {errors.frequence_surveillance && <div className="text-danger">{errors.frequence_surveillance}</div>}
             </Form.Group>
               
               
               <Form.Group className="mb-3" controlId="date_derniere_surveillance">
-              <FloatingLabel controlId="floatingTextarea2" label="Date Derniere Surveillance">
+              <FloatingLabel controlId="floatingTextarea2" label="Date Derniere d'irrigation">
                 <Form.Control
                   type='date'
-                  placeholder="Date Derniere Surveillance"
+                  placeholder="Date Derniere d'irrigation"
                   defaultValue={methode_irrigation===agriculture.methode_irrigation? agriculture.date_derniere_surveillance :''}
                   onChange={(e) => setDateDerniereSurveillance(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.date_derniere_surveillance && <div className="text-danger">{errors.date_derniere_surveillance}</div>}
             </Form.Group>
             </>
             )}
@@ -341,6 +442,7 @@ function Update({ onUpdate, agricultureId }) {
                     name="remarques"
                   />
                 </FloatingLabel>
+                {errors.remarques && <div className="text-danger">{errors.remarques}</div>}
               </Form.Group>
 
              
@@ -359,6 +461,7 @@ function Update({ onUpdate, agricultureId }) {
                   onChange={(e) => handleMaterialChange(e, material._id)}
                 />
               ))}
+               {errors.materials && <div className="text-danger">{errors.materials}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="stocks">
@@ -373,6 +476,7 @@ function Update({ onUpdate, agricultureId }) {
                   onChange={(e) => handleStockChange(e, stock._id)}
                 />
               ))}
+               {errors.stocks && <div className="text-danger">{errors.stocks}</div>}
             </Form.Group>
 
 
@@ -388,6 +492,7 @@ function Update({ onUpdate, agricultureId }) {
                   onChange={(e) => handleMedicamentChange(e, medicament._id)}
                 />
               ))}
+                {errors.medicaments && <div className="text-danger">{errors.medicaments}</div>}
             </Form.Group>
 
             </div> 
