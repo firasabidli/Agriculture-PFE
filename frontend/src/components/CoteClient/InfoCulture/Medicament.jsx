@@ -5,27 +5,28 @@ const Medicament = ({ cultureData }) => {
   }
   const MedicamentsCulture = cultureData.MedicamentsCulture;
     return(
-        <div>
-          <div class="p-4">
-            <h3 class="fs-italic mb-4" style={{color:"black"}}>Articles de soins pour les végétaux et substances nourrissantes</h3>
-            <p className='mb-0'>Produits de santé et nutrition pour les plantes, favorisant leur croissance et leur vitalité.</p>
-              <div class="list-group w-auto">
+      <article class="blog-post" style={{marginLeft:"5%"}}>
+          <div>
+            <h2 class="blog-post-title mb-4" >Articles de soins pour les végétaux et substances nourrissantes</h2>
+            <p>Produits de santé et nutrition pour les plantes, favorisant leur croissance et leur vitalité.</p>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4" style={{marginRight:'2%'}}>
                 {MedicamentsCulture.map((medicament, index) => (
-                  <div key={index} class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                    <img src={medicament.image} alt="twbs" width="65" height="65" class="rounded-circle flex-shrink-0"/>
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                      <div>
-                        <h6 class="mb-0">{medicament.nomMedicament}</h6>
-                        <p class="mb-0 opacity-75">{medicament.description}</p>
+                 <div key={index} class="col">
+                  <div class="card h-100">
+                  <div class="card-body">
+                        <h5 class="card-title text-center"><img src={medicament.image} alt="..." class="card-img-top" /> </h5>
+                        <h6 class="card-title">{medicament.nomMedicament}</h6>
+                        <p class="card-text">{medicament.description}</p>
                       </div>
-                      <small class="opacity-50 text-nowrap">1 ans</small>
+                      
                     </div>
                   </div>
                   ))}
             </div>
 
-        </div>
-        </div>
+        
+        </article>
     );
 
 }

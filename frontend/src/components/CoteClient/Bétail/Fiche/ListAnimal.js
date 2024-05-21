@@ -98,7 +98,7 @@ const ListAnimal = () => {
       <div class="row">
       
     {/* <!-- Main content --> */}
-        <div class="col-lg-9 mb-3">
+        <div class="col-md-7 mb-3">
           <Filtre onFilterChange={handleCategoryFilter}/>
         <div className="page-content page-container" id="page-content">
           <div className="padding">
@@ -159,12 +159,13 @@ const ListAnimal = () => {
               </div>
             </div>
           </div>
+          <HistoriqueProduction/>
         </div>
-       <HistoriqueProduction/>
+       
        </div>
     {/*  */}
     {/* <!-- Sidebar content --> */}
-        <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0" style={{marginLeft:"-3%"}}>
+        <div class="col-md-5 mb-4 " >
         <div style={{ visibility: 'hidden', display: 'none', width: '285px', height: '801px', margin: '0px', float: 'none', position: 'static', inset: '85px auto auto' }}></div>
           <div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" class="sticky" style={{top: "85px"}}>
             <div class="sticky-inner">

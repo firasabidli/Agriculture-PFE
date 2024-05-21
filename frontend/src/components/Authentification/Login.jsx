@@ -143,7 +143,7 @@ const LoginForm = () => {
 
       <div className="panels-containerr">
         <div className="panel left-panel">
-          <div className="content">
+          <div className="content in">
             <h6 className='colorleft'>Vous n'avez pas de compte ? Inscrivez-vous ici !</h6>
             <button className="btnn transparent mb-3" id="sign-up-btn" onClick={handleSignUpClick} style={{pointerEvents:"all"}}>
               Sign up
@@ -152,7 +152,7 @@ const LoginForm = () => {
           <img src={LogoSignIn} className="image" alt="" style={{marginRight:"64%"}} />
         </div>
         <div className="panel right-panel">
-          <div className="content">
+          <div className="content up">
             <p>Vous avez déjà un compte ? Connectez-vous ici !</p>
             <button className="btnn transparent mb-2" id="sign-in-btn" onClick={handleSignInClick}>
               Sign in

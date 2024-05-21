@@ -11,6 +11,7 @@ import MyModelAjouterStock from './MyModelAjouterStock';
 import { Button } from '@mui/material';
 
 const MethodeStock = () => {
+	const [editMode, setEditMode] = useState(false);
     const [data, setData] = useState([]);
     const [formData, setFormData] = useState(null);
     const [modalShow, setModalShow] = React.useState(false);
@@ -63,6 +64,7 @@ const MethodeStock = () => {
     const handleModifier = (item) => {
         setFormData(item);
         setModalShow(true);
+		setEditMode(true);
     };
 
    
@@ -89,6 +91,7 @@ const MethodeStock = () => {
 					formData={formData}
 					setFormData={setFormData}
 					fetchData={fetchData}
+					editMode={editMode}
 				/>
 			</div>
 			<div className='main-title'>
@@ -119,10 +122,10 @@ const MethodeStock = () => {
 									<table class="table">
 										<thead class="thead-dark">
 											<tr>
-												<th>ID no.</th>
-												<th>image_MethodStock</th>
+												<th>ID</th>
+												<th>Image</th>
 												<th>Titre</th>
-												<th>description</th>
+												<th>Description</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -130,9 +133,9 @@ const MethodeStock = () => {
 											{displayedData.map((item, index) => (
 												<tr key={item._id} className="alert" role="alert">
 													<td>{index}</td>
-													<td className='td-im'><img  className='td-image' src={item.image_MethodStock} alt="Méthode Stockage" /></td>
+													<td className='td-im'><img  className='td-image' src={item.image_MethodStock} style={{width:'150px',textAlign:'center'}} alt="Méthode Stockage" /></td>
 													<td className='td-title'>{item.title}</td>
-													<td>{item.description}</td>
+													<td>{item.description.length>50? item.description.substring(0, 50) + '...': item.description}</td>
 													<td>
 														<div className='action'>
 															<FaRegEdit type='button' className='icon-edit' onClick={()=> handleModifier(item)} />

@@ -90,7 +90,7 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
 
     return(
         <>
-        <button variant="primary" onClick={handleShow} className="btn" style={{marginLeft:"40%",backgroundColor:"#7e8d9f",border:"1px solid #7e8d9f",borderRadius:"10px"}} >
+        <button variant="primary" onClick={handleShow} className="btn f-n-hover text-600" style={{backgroundColor:"#7e8d9f",border:"1px solid #7e8d9f"}} >
           Facture
         </button>
         <Modal size="lg" show={show} onHide={handleClose}>

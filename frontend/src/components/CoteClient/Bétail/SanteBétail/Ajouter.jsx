@@ -137,7 +137,7 @@ const AjouterSanté = ({ onCreate }) => {
     return /^[a-zA-Z0-9\s]+$/.test(text);
   };
   return (
-    <div className="card" style={{ marginRight:"-45%",marginLeft:"-41%"}}>
+    <div className="card" >
       <div className="card-body">
         <h5  style={{textAlign:"center"}}>Enregistrer l'état de santé du bétail</h5>
         <form onSubmit={handleSubmit} style={{marginTop:"5%"}}>

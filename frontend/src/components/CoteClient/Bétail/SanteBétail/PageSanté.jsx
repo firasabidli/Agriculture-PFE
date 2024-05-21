@@ -114,63 +114,70 @@ const PageSanté=()=> {
         <div>
             <Navbar textColor="black" />
             <div class="container" style={{marginTop:"9%"}}>
-<div class="row" >
-    <div class="col-xl-8">
-        <h4>Liste de suivi de santé</h4>
-        <div style={{ marginTop: "5%", marginRight: "28%", marginLeft: "-153px" }}>
-      {healthData.map((item, index) => (
-        <div key={item._id} className="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0">
-          <div className="row align-items-center">
-            <div className="col-md-8 mb-3 mb-sm-0">
-              <h5>{item.etatSante}</h5>
-              <p className="text-sm"><span className="op-6" style={{fontWeight:"bold"}}>Enregistré le </span>{formatDate(item.dateEnregistrement)}</p>
-              <p className="text-sm" style={{fontSize:"110%"}}><span className="op-6" style={{fontWeight:"bold"}}>Maladies etSymptomes:  </span> {item.maladiesSymptomes}</p>
-              <p className="text-sm" style={{fontSize:"110%"}}><span className="op-6" style={{fontWeight:"bold"}}>observations Generales:  </span> {item.observationsGenerales}</p>
-              {/* Afficher les traitements */}
-              {item.traitements && item.traitements.length > 0 && (
-                <div className="text-sm op-5" style={{fontSize:"110%"}}>
-                  <p style={{fontWeight:"bold"}}>Traitements :</p>
-                  <select className="form-control">
-                    {item.traitements.map((traitement, index) => (
-                      <option key={index} value={traitement.medicament}>
-                        {traitement.medicament}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-              {/* Afficher les vaccinations */}
-              {item.vaccinations && item.vaccinations.length > 0 && (
-                <div className="text-sm op-5" style={{fontSize:"110%"}}>
-                  <p style={{fontWeight:"bold"}}>Vaccinations :</p>
-                  <select className="form-control">
-                    {item.vaccinations.map((vaccination, index) => (
-                      <option key={index} value={vaccination.nomVaccin}>
-                        {vaccination.nomVaccin}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-              <div className="col-12 col-md-4" style={{display:"flex",marginLeft:"15%",marginTop:"15px"}}>
-              {/* <button className="f-n-hover btn btn-success btn-raised px-4 py-25 w-75 text-600" style={{marginRight:"30%",color: "white"}}>
-                Modifier
-              </button> */}
-              <Update onUpdate={fetchSanteByAgriculteur} SanteId={item._id}/>
-              <button className="f-n-hover btn btn-danger" onClick={() => handleDelete(item._id)}>
-                Supprimer
-              </button>
+  <div class="row" >
+    <div class=" card col-md-7 ">
+        <h4 className='p-3 text-center'>Liste de suivi de santé</h4>
+        {healthData.length<1? <div className='text-center p-5'><b>Auccune données disponible</b></div>:
+          <div >
+        {healthData.map((item, index) => (
+          
+          <>
+          
+          <div key={item._id} className="card mb-3 ">
+            <div className="row align-items-center">
+              <div className="col-md-6 mb-3 mb-sm-0">
+                <h5>{item.etatSante}</h5>
+                <p className="text-sm"><span className="op-6" style={{fontWeight:"bold"}}>Enregistré le </span>{formatDate(item.dateEnregistrement)}</p>
+                <p className="text-sm" style={{fontSize:"110%"}}><span className="op-6" style={{fontWeight:"bold"}}>Maladies etSymptomes:  </span> {item.maladiesSymptomes}</p>
+                <p className="text-sm" style={{fontSize:"110%"}}><span className="op-6" style={{fontWeight:"bold"}}>observations Generales:  </span> {item.observationsGenerales}</p>
+                {/* Afficher les traitements */}
+                {item.traitements && item.traitements.length > 0 && (
+                  <div className="text-sm op-5" style={{fontSize:"110%"}}>
+                    <p style={{fontWeight:"bold"}}>Traitements :</p>
+                    <select className="form-control">
+                      {item.traitements.map((traitement, index) => (
+                        <option key={index} value={traitement.medicament}>
+                          {traitement.medicament}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                {/* Afficher les vaccinations */}
+                {item.vaccinations && item.vaccinations.length > 0 && (
+                  <div className="text-sm op-5" style={{fontSize:"110%"}}>
+                    <p style={{fontWeight:"bold"}}>Vaccinations :</p>
+                    <select className="form-control">
+                      {item.vaccinations.map((vaccination, index) => (
+                        <option key={index} value={vaccination.nomVaccin}>
+                          {vaccination.nomVaccin}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                <div className=" p-4 row btn-group" >
+                {/* <button className="f-n-hover btn btn-success btn-raised px-4 py-25 w-75 text-600" style={{marginRight:"30%",color: "white"}}>
+                  Modifier
+                </button> */}
+                <div className="col-6"><Update onUpdate={fetchSanteByAgriculteur} SanteId={item._id}/></div>
+              <div className="col-6 "> <button className="f-n-hover btn btn-danger" onClick={() => handleDelete(item._id)}>Supprimer
+                </button></div>
+                  
+              </div>
+              </div>
             </div>
-            </div>
+          
           </div>
-         
-        </div>
-      ))}
-    </div>
+          {index< healthData.length-1?<hr  className="border border-primary border-3 opacity-75" />: ''}
+          </>
+        ))}
+          </div>
+        }
     {/* <ListeSanté /> */}
         {/* <!-- end row--> */}
     </div>
-    <div class="col-xl-4">
+    <div class="col-md-5">
     <AjouterSanté onCreate={fetchSanteByAgriculteur}/>
     </div>
 </div>

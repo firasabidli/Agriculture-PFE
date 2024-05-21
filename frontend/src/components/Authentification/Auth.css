@@ -65,7 +65,7 @@ form {
 form.sign-up-form {
   opacity: 0;
   z-index: 1;
-  margin-top: 30%;
+  margin-top: 50px;
 }
 
 form.sign-in-form {
@@ -122,7 +122,6 @@ form.sign-in-form {
   color: #aaa;
   font-weight: 500;
 }
-
 
 
 .btnn {
@@ -273,11 +272,15 @@ form.sign-in-form {
   
   .colorleft{
     color: black;
-    font-size: 0.3rem;
+    font-size: 100%;
   }
   .btn-form-signup{
     width: 30%;
     margin-right: 70%;
+  }
+  form.sign-up-form {
+   
+    margin-top: 10px;
   }
   body {
     max-height: auto;
@@ -359,10 +362,17 @@ form.sign-in-form {
     transition-delay: 0.8s;
   }
 
-  
+  .up {
+    margin-top: -40px;
+    margin-left: 80%;
+  }
+.in{
+  margin-top: -150px;
+}
+
 
   .panel p {
-    font-size: 0.3rem;
+    font-size: 20px;
     padding: 0.4rem 0;
   }
 
@@ -425,7 +435,7 @@ form.sign-in-form {
     margin-top: 10%;
   }
   form.sign-up-form {
-    margin-top: 5%;
+    margin-top: -15px;
     margin-bottom: 20%;
   }
   .btnn.transparent {
@@ -475,7 +485,7 @@ form.sign-in-form {
     
   }
   form.sign-up-form {
-    margin-top: 2%;
+    margin-top: -15px;
     margin-bottom: 20%;
   }
   .btnn.transparent {
@@ -494,4 +504,5 @@ form.sign-in-form {
   color: black;
   font-size: 100%;
 }
+
 }

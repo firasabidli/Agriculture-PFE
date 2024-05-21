@@ -25,6 +25,12 @@
     background-color: #3CB815;
     border-color: white;
   }
+  .blog-post-title{
+    text-align: left;
+  }
+  .card:hover{
+    cursor: pointer;
+  }
   
   .btn-primary:hover {
     background-color: #e0b907;
@@ -38,6 +44,10 @@
     width: 100%;
   }
   
+  .card-img-top{
+    width: 300px;
+    height: 300px;
+  }
   .jumbotron {
     position: absolute;
     top: 40%;

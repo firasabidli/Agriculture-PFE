@@ -16,7 +16,7 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
   const [selectedMaterials, setSelectedMaterials] = useState([]);
   const [selectedStocks, setSelectedStocks] = useState([]);
   const [selectedMedicaments, setSelectedMedicaments] = useState([]);
-
+  const [errors, setErrors] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const fetchCategories = async () => {
@@ -101,8 +101,45 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
       }
     });
   };
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!nom_categorie.trim()) {
+      newErrors.nom_categorie = 'Le nom de la catégorie est requis';
+    }
+    if (nom_categorie.length<4) {
+      newErrors.nom_categorie = 'La taille du nom de la catégorie doit etre superieur ou égale à 4';
+    }
+    if (/\d/.test(nom_categorie))  {
+      newErrors.nom_categorie = 'Le nom de la catégorie ne doit pas contenir de chiffres';
+    }
+    if (!description.trim()) {
+      newErrors.description = 'La description est requise';
+    }
+    if (description.length<6) {
+      newErrors.description = 'La taille du la description doit etre superieur ou égale à 6';
+    }
+    if (/\d/.test(description))  {
+      newErrors.description = 'La description ne doit pas contenir de chiffres';
+    }
+    if (Object.keys(selectedMaterials).length === 0) {
+      newErrors.materials = 'Au moins un équipement doit être sélectionné';
+    }
+    if (Object.keys(selectedStocks).length === 0) {
+      newErrors.stocks = 'Au moins une méthode de stockage doit être sélectionnée';
+    }
+    if (Object.keys(selectedMedicaments).length === 0) {
+      newErrors.medicaments = 'Au moins un engrais doit être sélectionné';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     try {
       const response = await axios.put(`http://localhost:3001/Categorie/${categorieId}`, {
         nom_categorie,
@@ -145,6 +182,7 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
                   onChange={(e) => setNomCategorie(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.nom_categorie && <div className="text-danger">{errors.nom_categorie}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="description">
@@ -158,6 +196,7 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.description && <div className="text-danger">{errors.description}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="materiels">
@@ -172,6 +211,7 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
                   onChange={(e) => handleMaterialChange(e, material._id)}
                 />
               ))}
+               {errors.materials && <div className="text-danger">{errors.materials}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="stocks">
@@ -186,6 +226,7 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
                   onChange={(e) => handleStockChange(e, stock._id)}
                 />
               ))}
+               {errors.stocks && <div className="text-danger">{errors.stocks}</div>}
             </Form.Group>
 
 
@@ -201,6 +242,7 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
                   onChange={(e) => handleMedicamentChange(e, medicament._id)}
                 />
               ))}
+               {errors.medicaments && <div className="text-danger">{errors.medicaments}</div>}
             </Form.Group>
 
             

@@ -11,8 +11,8 @@ const TableCulture = ({ cultureData }) => {
       <h2 class="blog-post-title mb-1">Planification et Suivi Agricole</h2>
       <p class="blog-post-meta"> </p>
       <p>Gestion efficace des cultures : planification et suivi.</p>
-      <h3>Tableau d'exemple</h3>
-      <Table striped bordered hover size="sm">
+      
+      <Table striped bordered hover  responsive size="md">
         <thead>
           <tr >
             <th style={{color:"black",backgroundColor:"white"}}>date_plantation</th>
