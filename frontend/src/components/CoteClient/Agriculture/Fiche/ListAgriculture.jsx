@@ -9,6 +9,7 @@ import UpdateAgriculture from './Update.jsx';
 import Details from './Details.jsx';
 import { Link } from 'react-router-dom';
 import AgricultureStats from '../AgricultureStats.js';
+import PrévisionFinanciére from '../Prévision/PrévisionFinanciére.jsx';
 const ListAgriculture = () => {
     const [culture, setCulture] = useState([]);
     const [filteredCulture, setFilteredCulture] = useState([]);
@@ -152,10 +153,12 @@ const ListAgriculture = () => {
                             <div className="sticky-inner">
                                 <Add onCreate={fetchAgricultureByAgriculteur} />
                                 <AgricultureStats />
+                                <PrévisionFinanciére/>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
         
