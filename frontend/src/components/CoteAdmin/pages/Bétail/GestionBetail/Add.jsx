@@ -257,9 +257,9 @@ function Add({ onCreate }) {
             <Form.Group className="mb-3" controlId="sexe">
               <Form.Label>sex</Form.Label>
               <Form.Control as="select" value={sexe} onChange={(e) => setSexe(e.target.value)}>
-                <option value="">Sélectionnez la genre du betail</option>
-                <option value="masculin">masculin</option>
-                <option value="féminin">féminin</option>
+                <option value="" disabled={etat_betail==="Gestation"}>Sélectionnez la genre du betail</option>
+                <option value="masculin" disabled={etat_betail==="Gestation"}>masculin</option>
+                <option value="féminin" >féminin</option>
               </Form.Control>
               {errors.sexe && <div className="text-danger">{errors.sexe}</div>}
             </Form.Group>
@@ -273,7 +273,7 @@ function Add({ onCreate }) {
 
             <Form.Group className="mb-3" controlId="quantite_aliment_par_jour_kg">
               <Form.Label>Quantité d'alimentation par jour en KG</Form.Label>
-              <Form.Control type="text" name="quantite_aliment_par_jour_kg"  value={quantite_aliment_par_jour_kg}
+              <Form.Control type="Number" name="quantite_aliment_par_jour_kg"  value={quantite_aliment_par_jour_kg}
                   onChange={(e) => setQuantiteAliment(e.target.value)} />
                   {errors.quantite_aliment_par_jour_kg && <div className="text-danger">{errors.quantite_aliment_par_jour_kg}</div>}
             </Form.Group>

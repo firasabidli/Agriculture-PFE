@@ -222,7 +222,7 @@ function Update({ onUpdate, betailId }) {
               <Form.Control as="select" id='etat_betail' name="etat_betail" defaultValue={etat_betail} onChange={(e) => setEtat(e.target.value)} >
                 <option value="">Sélectionnez l'etat de gestation</option>
                 <option selected={"Gestation"===betail.etat_betail} value="Gestation">Gestation</option>
-                <option selected={"Non Gestation"===betail.etat_betail} value="Non Gestation">Non Gestation</option>
+                <option selected={"Non Gestation"===betail.etat_betail} >Non Gestation</option>
               </Form.Control>
               {errors.etat_betail && <div className="text-danger">{errors.etat_betail}</div>}
             </Form.Group>
@@ -250,9 +250,9 @@ function Update({ onUpdate, betailId }) {
             <Form.Group className="mb-3" controlId="sexe">
               <Form.Label>sex</Form.Label>
               <Form.Control as="select" id='sexe' name='sexe' defaultValue={sexe} onChange={(e) => setSexe(e.target.value)} >
-                <option value="">Sélectionnez la genre du betail</option>
-                <option selected={"masculin"===betail.sexe} value="masculin">masculin</option>
-                <option selected={"féminin"===betail.sexe} value="féminin">féminin</option>
+                <option value="" disabled={etat_betail==="Gestation"}>Sélectionnez la genre du betail</option>
+                <option selected={"masculin"===betail.sexe } disabled={etat_betail==="Gestation"}  value="masculin">masculin</option>
+                <option selected={"féminin"===betail.sexe } value="féminin">féminin</option>
               </Form.Control>
               {errors.sexe && <div className="text-danger">{errors.sexe}</div>}
             </Form.Group>
@@ -266,7 +266,7 @@ function Update({ onUpdate, betailId }) {
 
             <Form.Group className="mb-3" controlId="quantite_aliment_par_jour_kg">
               <Form.Label>Quantité d'alimentation par jour en KG</Form.Label>
-              <Form.Control type="text" name="quantite_aliment_par_jour_kg"  defaultValue={quantite_aliment_par_jour_kg} onChange={(e) => setQuant(e.target.value)}
+              <Form.Control type="Number" name="quantite_aliment_par_jour_kg"  defaultValue={quantite_aliment_par_jour_kg} onChange={(e) => setQuant(e.target.value)}
                    />
                     {errors.quantite_aliment_par_jour_kg && <div className="text-danger">{errors.quantite_aliment_par_jour_kg}</div>}
             </Form.Group>
