@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../../../Sidebar';
 import Header from '../../../Header';
+import { FaEye } from "react-icons/fa";
 import './ActiverCompte.css'
 import Accepter from './Accepter';
 import Refuser from './Refuser';
+import ViewDetails from './viewDetails';
 const ActiverCompte = () => {
     const [data, setData] = useState([]);
    
@@ -92,7 +94,8 @@ const ActiverCompte = () => {
 													<td className='td-title'>{item.numeroTelephone}</td>
 													<td>{item.email}</td>
 													<td >
-														<div className='action ' style={{marginLeft:'100px'}}>
+														<div className='action '>
+															<ViewDetails  Agriculteur={item}/>
 															<Accepter onActivate={fetchData()} userId={item._id} />
                                                             <Refuser onrefuse={fetchData()} userId={item._id} />
 														</div>

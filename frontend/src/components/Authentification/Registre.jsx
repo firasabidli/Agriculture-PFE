@@ -160,7 +160,7 @@ const RegistreForm = () => {
               <label htmlFor="cin"><FaIdCard /> CIN</label>
             </Form.Floating>
             <Form.Floating className='mb-4  input'>
-            <select  className="form-select  " aria-label="Default select example" name="gouvernorat" value={formData.gouvernorat} onChange={handleChangeGov} >
+            <select  className="form-select  " aria-label="Default select example" name="gouvernorat" value={formData.gouvernorat.nom} onChange={handleChangeGov} >
             <option value="">Sélectionnez un gouvernorat</option>
             {gouvernorats.map((gouvernorat, index) => (
               <option key={index} value={gouvernorat.nom}>
