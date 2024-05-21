@@ -83,7 +83,7 @@ function Add({ onCreate }) {
 
   return (
     <>
-      <p className="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" onClick={handleShow}>
+      <p className="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" style={{background:"darkgreen", color:"white", border:"1px darkgreen"}} onClick={handleShow}>
         Ajouter Animal
       </p>
       <Modal show={show} onHide={handleClose}>
