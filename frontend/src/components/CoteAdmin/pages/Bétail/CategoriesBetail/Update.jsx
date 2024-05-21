@@ -11,7 +11,7 @@ function Update({ category, onUpdate }) {
   const [nom_categorieBetail, setNomCategorie] = useState(category.nom_categorieBetail);
   const [description, setDescription] = useState(category.description);
   const [races, setRaces] = useState(category.races);
-
+  const [errors, setErrors] = useState({});
   const handleClose = () => {
     setShow(false);
     setNomCategorie('');
@@ -20,9 +20,43 @@ function Update({ category, onUpdate }) {
   };
 
   const handleShow = () => setShow(true);
+  const validateForm = () => {
+    const newErrors = {};
 
+    if (!nom_categorieBetail.trim()) {
+      newErrors.nom_categorieBetail = "Le nom de catégorie Bétail est requis";
+    } else if (nom_categorieBetail.length < 4) {
+      newErrors.nom_categorieBetail = "La taille de nom de catégorie Bétail doit être supérieure ou égale à 4";
+    } else if (/\d/.test(nom_categorieBetail)) {
+      newErrors.nom_categorieBetail = "Le nom de catégorie Bétail ne doit pas contenir de chiffres";
+    }
+
+    if (!description.trim()) {
+      newErrors.description = 'La description est requise';
+    } else if (description.length < 6) {
+      newErrors.description = 'La description doit être supérieure ou égale à 6';
+    } else if (/\d/.test(description)) {
+      newErrors.description = 'La description ne doit pas contenir de chiffres';
+    }
+
+    races.forEach((race, index) => {
+      if (!race.trim()) {
+        newErrors[`race_${index}`] = `La race ${index + 1} est requise`;
+      } else if (race.length < 3) {
+        newErrors[`race_${index}`] = `La race ${index + 1} doit être supérieure ou égale à 3 caractères`;
+      } else if (/\d/.test(race)) {
+        newErrors[`race_${index}`] = `La race ${index + 1} ne doit pas contenir de chiffres`;
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     try {
       const response = await axios.put(`http://localhost:3001/CategorieBetail/modifier/${category._id}`, {
         nom_categorieBetail,
@@ -33,6 +67,7 @@ function Update({ category, onUpdate }) {
         handleClose();
         alert(response.data.message);
         onUpdate(); // Appeler la fonction onUpdate fournie par le parent
+        window.location.reload();
       }
     } catch (error) {
       console.error('Erreur lors de la mise à jour de la catégorie', error);
@@ -77,6 +112,7 @@ function Update({ category, onUpdate }) {
                   onChange={(e) => setNomCategorie(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.nom_categorieBetail && <div className="text-danger">{errors.nom_categorieBetail}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="description">
@@ -89,10 +125,12 @@ function Update({ category, onUpdate }) {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </FloatingLabel>
+              {errors.description && <div className="text-danger">{errors.description}</div>}
             </Form.Group>
 
             <Form.Group controlId="races">
               {races.map((race, index) => (
+                <>
                 <div key={index} className="d-flex mb-2">
                   <Form.Control
                     type="text"
@@ -110,6 +148,8 @@ function Update({ category, onUpdate }) {
                     </Btn>
                   )}
                 </div>
+                 {errors[`race_${index}`] && <div className="text-danger">{errors[`race_${index}`]}</div>}
+                 </>
               ))}
               {races.length < 5 && (
                 <Btn variant="secondary" onClick={handleAddRace}>
