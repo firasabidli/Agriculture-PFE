@@ -124,7 +124,7 @@ const ListAnimal = () => {
                           </div>
                           <div>
             <Dropdown align="end">
-              <Dropdown.Toggle variant="link" id="dropdown-basic">         
+              <Dropdown.Toggle className='eviteHover' style={{background:"white", color:"black", border:"none"}}>         
               <Dropdown.Menu>
               <Link className="dropdown-item" to={handleAnimalLinkClick(animal._id)} >Suivi Santé</Link>
               <Link className="dropdown-item" to={handleMouvementLinkClick(animal._id)} >Suivi Mouvement</Link>
@@ -138,7 +138,7 @@ const ListAnimal = () => {
                 </Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item  className="text-danger"  onClick={() => handleDelete(animal._id)}>
-                  Delete item
+                  Supprimer 
                 </Dropdown.Item>
               </Dropdown.Menu>
               </Dropdown.Toggle>
