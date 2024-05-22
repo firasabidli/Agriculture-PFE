@@ -55,20 +55,21 @@ exports.delete = async (req, res) => {
 
 
 exports.all = async (req, res) => {
-    const { idAgriculteur } = req.params;
+    const { idAgriculteur, idAnimal } = req.params;
 
     try {
-        let allProductions = await Production.find({ idAgriculteur }).populate('idAnimal');
+        // Fetch productions for the specified idAgriculteur and idAnimal
+        let allProductions = await Production.find({ idAgriculteur, idAnimal }).populate('idAnimal');
 
         // Création d'un objet pour stocker les données par année et par idAnimal
         const groupedProductions = {};
 
         allProductions.forEach(production => {
-            const { year, idAnimal } = production;
-            const animalId = idAnimal._id.toString(); // Convertir l'idAnimal en chaîne de caractères
+            const { year } = production;
+            const animalId = idAnimal.toString(); // Convertir l'idAnimal en chaîne de caractères
             if (!groupedProductions[animalId]) {
                 groupedProductions[animalId] = {
-                    idAnimal: idAnimal,
+                    idAnimal: production.idAnimal, // Use the populated idAnimal
                     productions: {} // Initialiser un objet vide pour stocker les données de production par année
                 };
             }
@@ -77,7 +78,6 @@ exports.all = async (req, res) => {
             }
             groupedProductions[animalId].productions[year].push({
                 month: production.month,
-                
                 productionTotal: production.productionTotal
             }); // Ajouter les données de production à la liste correspondante de l'idAnimal et de l'année
         });

@@ -90,6 +90,9 @@ const ListAnimal = () => {
   const handleProductionLinkClick = (animalId) => {
     return `/agriculteur/PageProductionLaitiere/${animalId}`;
   };
+  const handleHistoriqueProductionLinkClick = (animalId) => {
+    return `/agriculteur/HistoriqueProduction/${animalId}`;
+  };
   return (
     <div>
 <Navbar textColor="black" />
@@ -131,6 +134,9 @@ const ListAnimal = () => {
              {animal.subCategorieBetail=="Vache" && (
               <Link className="dropdown-item" to={handleProductionLinkClick(animal._id)} >Suivi Production</Link>
              )}
+             {animal.subCategorieBetail=="Vache" && (
+              <Link className="dropdown-item" to={handleHistoriqueProductionLinkClick(animal._id)} >HistoriqueProductionLitiraire</Link>
+             )}
               
                 <Dropdown.Item>
                 <Button onClick={() => handleUpdateClick(animal._id)}>Modifier</Button>
@@ -159,7 +165,6 @@ const ListAnimal = () => {
               </div>
             </div>
           </div>
-          <HistoriqueProduction/>
         </div>
        
        </div>

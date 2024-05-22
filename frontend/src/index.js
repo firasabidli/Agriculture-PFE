@@ -30,6 +30,7 @@ import Betail from './components/CoteAdmin/pages/Bétail/GestionBetail/betail.js
 import ListAnimal from './components/CoteClient/Bétail/Fiche/ListAnimal.js';
 import InfoBetail from './components/CoteClient/InfoBetail/InfoBetail.jsx';
 import PageSanté from './components/CoteClient/Bétail/SanteBétail/PageSanté.jsx';
+import HistoriqueProduction from './components/CoteClient/Bétail/Fiche/HistoriqueProduction/HistoriqueProduction.jsx';
 import PageMouvement from './components/CoteClient/Bétail/Mouvement/PageMouvement.jsx';
 import PageProductionLaitiere from './components/CoteClient/Bétail/ProductionLaitiere/PageProductionLaitiere.jsx';
 import ListAgriculture from './components/CoteClient/Agriculture/Fiche/ListAgriculture.jsx';
@@ -70,6 +71,7 @@ root.render(
                 <Route  path="/betail/:betailId" component={InfoBetail} element={<InfoBetail />} />
                 <Route path="/agriculteur/FicheAnimal" element={<ListAnimal/>}/>
                 <Route path="/agriculteur/PageSante/:id" element={<PageSanté/>}></Route>
+                <Route path="/agriculteur/HistoriqueProduction/:id" element={<HistoriqueProduction/>}></Route>
                 <Route path="/agriculteur/PageMouvement/:id" element={<PageMouvement/>}></Route>
                 <Route path="/agriculteur/PageProductionLaitiere/:id" element={<PageProductionLaitiere/>}></Route>
                 <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
