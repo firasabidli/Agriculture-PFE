@@ -114,7 +114,7 @@ const AjouterRecolte = ({ onCreate }) => {
                     {quantites.map((quantite, index) => (
                         <div key={index} style={{ width: "116%" }} >
                             <div className="mb-3" style={{ width: "104%" }}>
-                                <label style={{ fontWeight: "bold" }}>Quantité :</label>
+                                <label style={{ fontWeight: "bold" }}>Quantité du Rendements :</label>
                                 <input
                                     type="number"
                                     className="form-control"
