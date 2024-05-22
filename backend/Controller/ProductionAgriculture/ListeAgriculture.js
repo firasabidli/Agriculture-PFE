@@ -101,7 +101,7 @@ exports.update = async (req, res) => {
 };
   //
   exports.getRecoltesByAgriculteur = async (req, res) => {
-    console.log("recoltesByAgriculteur");
+    //console.log("recoltesByAgriculteur");
     try {
       const agriculteurId = req.userId;
       const cultures = await culture.find({ Agriculteur: agriculteurId });

@@ -52,7 +52,7 @@ exports.delete=async(req,res)=>{
 exports.update = async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
-console.log(updateData)
+//console.log(updateData)
   try {
     const updatedData = await Recolte.findByIdAndUpdate(id, updateData, { new: true });
 
