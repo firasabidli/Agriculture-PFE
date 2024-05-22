@@ -5,7 +5,7 @@ const ProductionController = require('../../Controller/Betail/ProductionControll
 router.post('/', ProductionController.create);
 router.get('/:idAgriculteur/:idAnimal/:month/:year', ProductionController.getByMonthAndYear);
 router.delete('/:id', ProductionController.delete);
-router.get('/:idAgriculteur', ProductionController.all);
+router.get('/:idAgriculteur/:idAnimal', ProductionController.all);
 router.get('/stat/:idAgriculteur/:idAnimal/:year/:month', ProductionController.StatLitirarire);
 
 module.exports = router;

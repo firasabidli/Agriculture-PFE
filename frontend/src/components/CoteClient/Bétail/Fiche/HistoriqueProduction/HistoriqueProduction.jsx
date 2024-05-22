@@ -2,19 +2,23 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Table } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Navbar from '../../../Navbar';
+import CarouselBetail from '../CarouselBetail.jsx';
+import { FiExternalLink } from "react-icons/fi";
 const HistoriqueProduction = () => {
     const [productions, setProductions] = useState([]);
     const user = localStorage.getItem("user");
     const idAgriculteur = user ? JSON.parse(user)._id : null;
-
+    const { id } = useParams();
     useEffect(() => {
         fetchProduction();
     }, []);
 
     const fetchProduction = async () => {
         try {            
-            const response = await axios.get(`http://localhost:3001/ProductionBetail/${idAgriculteur}`);            
+            const response = await axios.get(`http://localhost:3001/ProductionBetail/${idAgriculteur}/${id}`);            
             if (response.data != null) {
                 setProductions(response.data);
             }
@@ -32,7 +36,11 @@ const HistoriqueProduction = () => {
     };
     return (
         <div className="m-3">
-            <h1 className="text-center">Historique Production laitirère</h1>
+            <Navbar textColor="black" />
+            <CarouselBetail></CarouselBetail>
+            <Link to={`/agriculteur/PageProductionLaitiere/${id}`} style={{float:'right', color:'gray',fontSize:'1.4rem', paddingTop:'25px',marginRight:'20px'}}>Production Litiraire<FiExternalLink /></Link> <br />
+           <div className="container  p-5">
+           <h1 className="display-6 text-center">Historique Production laitirère</h1> 
             {productions.map((animal, index) => (
                 <div key={index}>
                     <Table responsive bordered className="w-50">
@@ -90,6 +98,7 @@ const HistoriqueProduction = () => {
                     </Table>
                 </div>
             ))}
+           </div>
         </div>
     );
     
