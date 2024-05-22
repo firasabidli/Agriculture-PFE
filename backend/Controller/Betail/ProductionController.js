@@ -89,6 +89,56 @@ exports.all = async (req, res) => {
 };
 
 
+exports.StatLitirarire = async (req, res) => {
+    const { idAgriculteur, idAnimal, year, month } = req.params;
+
+    try {
+        const yearNum = parseInt(year, 10);
+        const monthNum = parseInt(month, 10);
+
+        let productions = await Production.find({ idAgriculteur, idAnimal, year: yearNum, month: monthNum }).populate('idAnimal');
+
+        if (!productions.length) {
+            return res.status(404).json({ message: 'No productions found for the given criteria' });
+        }
+
+        const dailyProductions = productions.flatMap(production =>
+            production.data.map(dayData => ({
+                day: dayData.day,
+                quantite: dayData.quantite,
+                prix: dayData.prix,
+                total: dayData.total
+            }))
+        );
+
+        // Calculate days in month based on production data
+        const daysInMonth = productions.reduce((totalDays, production) => totalDays + production.data.length, 0);
+
+        // Grouping by weeks
+        const weeks = [];
+        for (let i = 0; i < daysInMonth; i++) {
+            const weekIndex = Math.floor(i / 7);
+            if (!weeks[weekIndex]) {
+                weeks[weekIndex] = { semaine: `Semaine ${weekIndex + 1}`, days: [] };
+            }
+            const productionForDay = dailyProductions[i] || { day: i + 1, quantite: 0, prix: 0, total: 0 };
+            weeks[weekIndex].days.push(productionForDay);
+        }
+
+        const result = {
+            idAgriculteur,
+            idAnimal: productions[0].idAnimal,
+            year: yearNum,
+            month: monthNum,
+            weeks
+        };
+
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}; 
+
 
 
 
