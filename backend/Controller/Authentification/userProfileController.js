@@ -6,7 +6,7 @@ const path = require('path');
 // Modifier le profil de l'utilisateur agriculteur
 exports.update = async (req, res) => {
   try {
-    const { adresse, email, numeroTelephone } = req.body;
+    const { adresse, numeroTelephone } = req.body;
 
     // Vérifier s'il y a un fichier image à mettre à jour
     let newImageName = null;
@@ -22,7 +22,6 @@ exports.update = async (req, res) => {
 
     // Mettre à jour les champs du profil
     agriculteur.adresse = adresse;
-    agriculteur.email = email;
     agriculteur.numeroTelephone = numeroTelephone;
 
     // Mettre à jour l'image seulement si une nouvelle image est envoyée
