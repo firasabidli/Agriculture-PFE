@@ -38,7 +38,7 @@ const HistoriqueProduction = () => {
         <div className="m-3">
             <Navbar textColor="black" />
             <CarouselBetail></CarouselBetail>
-            <Link to={`/agriculteur/PageProductionLaitiere/${id}`} style={{float:'right', color:'gray',fontSize:'1.4rem', paddingTop:'25px',marginRight:'20px'}}>Production Litiraire<FiExternalLink /></Link> <br />
+            <Link to={`/agriculteur/PageProductionLaitiere/${id}`} style={{float:'right', color:'gray',fontSize:'1.4rem', paddingTop:'25px',marginRight:'20px'}}>Production Laitirère<FiExternalLink /></Link> <br />
            <div className="container  p-5">
            <h1 className="display-6 text-center">Historique Production laitirère</h1> 
             {productions.map((animal, index) => (

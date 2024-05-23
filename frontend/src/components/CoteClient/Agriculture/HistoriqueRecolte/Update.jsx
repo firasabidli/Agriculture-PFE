@@ -171,9 +171,11 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                                     required
                                 >
                                     <option value="">Sélectionner une unité</option>
-                                    <option value="gramme">Gramme</option>
+                                    <option value="kg">Kilogramme (kg)</option>
+                                    <option value="ton">Tonne (ton)</option>
+                                    {/* <option value="gramme">Gramme</option>
                                     <option value="kilo">Kilo</option>
-                                    <option value="tonne">Tonne</option>
+                                    <option value="tonne">Tonne</option> */}
                                     {/* Ajoutez d'autres options d'unités ici si nécessaire */}
                                 </select>
                             </div>

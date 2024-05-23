@@ -179,7 +179,7 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
   </Modal.Body>
   <Modal.Footer>
           <Btn style={{marginTop:"1%",backgroundColor:"white" , color:"black",border: "1px solid gray"}} onClick={generatePDF}>
-            <FaRegFilePdf style={{ color: "red",marginRight:"7px" }} /> Download
+            <FaRegFilePdf style={{ color: "red",marginRight:"7px" }} /> Télécharger
           </Btn>
         </Modal.Footer>
       </Modal>
