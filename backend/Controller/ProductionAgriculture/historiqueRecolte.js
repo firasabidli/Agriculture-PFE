@@ -1,4 +1,18 @@
 const Recolte= require('../../Model/ProductionAgriculture/historiqueRecolte');
+// const FicheAgriculture = require('../../Model/');
+const FicheAgriculture= require('../../Model/ProductionAgriculture/FicheAgriculture')
+exports.getRecoltesByAgriculteur = async (req, res) => {
+    try {
+        const agriculteurId = req.params.agriculteurId;
+        const fiches = await FicheAgriculture.find({ Agriculteur: agriculteurId }).select('_id');
+        const ficheIds = fiches.map(fiche => fiche._id);
+        
+        const recoltes = await Recolte.find({ idCulture: { $in: ficheIds } }).populate('idCulture').exec();
+        res.status(200).json(recoltes);
+    } catch (error) {
+        res.status(500).json({ message: 'Erreur lors de la récupération des récoltes', error });
+    }
+};
 // ajouter
 exports.create= async(req,res)=>{
    

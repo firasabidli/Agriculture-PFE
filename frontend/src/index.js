@@ -44,6 +44,7 @@ import Meteo from './components/CoteClient/Meteo/Meteo.jsx';
 import ConsulterAgriculteur from './components/CoteAdmin/pages/Agriculteurs/ConsulterAgriculteur.js';
 import FactureRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/FactureRecolte.jsx';
 import FactureStocks from './components/CoteClient/Agriculture/GestionStocks/FactureStocks.jsx';
+import PrevisionFinanciere from './components/CoteClient/Agriculture/Prévision/PrévisionFinanciére.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -84,6 +85,7 @@ root.render(
                 <Route path="/agriculture/gestionStock" element={<GestionStock/>}></Route>
                 <Route path="/agriculture/FactureRecolte/:id" element={<FactureRecolte/>}></Route>
                 <Route path="/agriculture/FactureStocks/:id" element={<FactureStocks/>}></Route>
+                <Route path='/prevision' element={<PrevisionFinanciere/>}></Route>
             </Route>
           
           <Route path="/" element={<App />} />

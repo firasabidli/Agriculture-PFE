@@ -118,6 +118,8 @@ const StatistiquesAgricoles = () => {
   }, [selectedYear]);
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         grid: {
@@ -146,10 +148,10 @@ const StatistiquesAgricoles = () => {
   }, [lastYearValue]);
 
   return (
-    <div style={{marginTop:"10%"}}>
+    <div style={{ marginTop: "10%" }}>
       <h2>Statistiques de votre Agriculture</h2>
       <div>
-        <label htmlFor="year" style={{fontWeight:"bold"}}>Année : </label>
+        <label htmlFor="year" style={{ fontWeight: "bold" }}>Année : </label>
         <select id="year" onChange={(e) => setSelectedYear(e.target.value)} value={selectedYear} className='select3'>
           <option value="">Sélectionnez une année</option>
           {years.map((year) => (
@@ -159,10 +161,16 @@ const StatistiquesAgricoles = () => {
           ))}
         </select>
       </div>
-      {selectedYear && donneesStatistiques.labels && donneesStatistiques.datasets ? (
-        <Bar data={donneesStatistiques} options={options} style={{marginTop:"7%"}} />
+      {selectedYear ? (
+        donneesStatistiques.labels && donneesStatistiques.datasets ? (
+          <div style={{ height: '500px', marginTop: '7%' }}>
+            <Bar data={donneesStatistiques} options={options} />
+          </div>
+        ) : (
+          <p>Chargement des statistiques...</p>
+        )
       ) : (
-        <p>Chargement des statistiques...</p>
+        <p>Veuillez sélectionner une année pour afficher les statistiques.</p>
       )}
     </div>
   );

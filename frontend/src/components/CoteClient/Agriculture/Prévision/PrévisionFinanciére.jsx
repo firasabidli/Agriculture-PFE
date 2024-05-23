@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useUser } from '../../../UserContext';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 const PrevisionFinanciere = () => {
   const [financialData, setFinancialData] = useState(null);
@@ -70,32 +71,70 @@ const PrevisionFinanciere = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Prévision Financière</h1>
+    <Container className="App">
+      <h1 style={{color:'rgba(121,169,197,.92)'}}>Prévision Financière</h1>
       <div>
         <label>Choisir une année: </label>
-        <select value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
+        <Form.Select value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
           {Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i).map(year => (
             <option key={year} value={year}>{year}</option>
           ))}
-        </select>
+        </Form.Select>
       </div>
-      <button onClick={fetchFinancialData}>Calculer et Prédire</button>
+      <Button variant="primary" style={{marginTop:'5%'}} onClick={fetchFinancialData}>Calculer et Prédire</Button>
       {financialData && (
-        <div style={{ maxHeight: '400px' }}>
-          <p>Total Revenu: {financialData.totalRevenu}</p>
-          <p>Total Coût: {financialData.totalCout}</p>
-          <p>Gains: {financialData.gains}</p>
-          <p>Revenu Prédit: {financialData.predictedRevenu}</p>
-          <p>Dépenses Prédites: {financialData.predictedExpenses}</p>
-          <p>Gains Prévus: {financialData.predictedGains}</p>
-          <div style={{ height: '300px' }}>
-            <Line data={createChartData()} options={options} />
+        <Row>
+          <Col md={6}>
+            
+          <div className="row mt-4">
+          <div className="col-md-6">
+            <div className="row text-600 text-white bgc-default-tp1 py-25" style={{width: "150%" }}>
+              <div className="col-12" style={{ marginLeft: "16%" }}>Données Financières de l'Année Actuelle {selectedYear}</div>
+            </div>
+            <div className="text-95 text-secondary-d3" style={{width: "140%" }}>
+              {[
+                { label: 'Revenu', value: financialData.totalRevenu },
+                { label: 'Total Coût', value: financialData.totalCout },
+                { label: 'Gains', value: financialData.gains },
+              ].map((item, index) => (
+                <div className={`row mb-2 mb-sm-0 py-25 ${index % 2 === 0 ? 'bgc-default-l4' : ''}`} key={index}>
+                  <div className="col-6 text-left" style={{ fontWeight: "bold" }}>{item.label}</div>
+                  <div className="col-6 text-right">{item.value}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+            </div>
+            <div className="row mt-4">
+          <div className="col-md-6">
+            <div className="row text-600 text-white bgc-default-tp1 py-25" style={{width: "150%" }}>
+              <div className="col-12" style={{ marginLeft: "16%" }}>Données Financières de l'Année {selectedYear+1} </div>
+            </div>
+            <div className="text-95 text-secondary-d3" style={{width: "140%" }}>
+              {[
+                { label: 'Revenu Prédit', value: financialData.predictedRevenu },
+                { label: 'Dépenses Prédites', value: financialData.predictedExpenses },
+                { label: 'Gains Prévus', value: financialData.predictedGains },
+              ].map((item, index) => (
+                <div className={`row mb-2 mb-sm-0 py-25 ${index % 2 === 0 ? 'bgc-default-l4' : ''}`} key={index}>
+                  <div className="col-6 text-left" style={{ fontWeight: "bold" }}>{item.label}</div>
+                  <div className="col-6 text-right">{item.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+    
+            </div>
+          </Col>
+          <Col md={6}>
+            <div style={{ height: '300px' }}>
+              <Line data={createChartData()} options={options} />
+            </div>
+          </Col>
+        </Row>
       )}
-    </div>
+    </Container>
   );
-}
+};
 
 export default PrevisionFinanciere;
