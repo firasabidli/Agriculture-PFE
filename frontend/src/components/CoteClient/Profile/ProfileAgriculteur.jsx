@@ -190,7 +190,7 @@ const ProfileAgriculteur = () => {
                             </div>
                           </div>
                         </div>
-                        <ul className="nav nav-tabs">
+                        <ul className="nav nav-tabs pt-5">
                           <li className="nav-item">
                             <Link className="active nav-link">
                               Paramètres
