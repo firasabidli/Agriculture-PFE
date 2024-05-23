@@ -7,5 +7,5 @@ router.get('/:id',Controller.get);
 router.delete('/:id',Controller.delete);
 router.put('/:id',Controller.update);
 router.get('/recolte/:id',Controller.getById);
-
+router.get('/recoltAgriculteur/:agriculteurId',Controller.getRecoltesByAgriculteur)
 module.exports = router;
