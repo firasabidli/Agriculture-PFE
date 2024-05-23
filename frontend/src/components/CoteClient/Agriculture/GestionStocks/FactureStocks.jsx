@@ -48,7 +48,7 @@ const FactureStocks=()=>{
       let totalPrixSorties = 0;
       if (formData.sortie && Array.isArray(formData.sortie)) {
         formData.sortie.forEach((sortie, index) => {
-            totalPrixSorties += parseFloat(sortie.prix);
+            totalPrixSorties += parseFloat(sortie.prix) * parseFloat(sortie.quantitéSortie);
         });
     }
     const exportPDF = () => {
@@ -210,10 +210,10 @@ const FactureStocks=()=>{
                         <div className="d-print-none mt-4">
                             <div className="float-end">
                                 <button ref={printButtonRef} onClick={() => window.print()} className="btn bg-white btn-light mx-1px text-95" data-title="Print">
-                                     <FiPrinter  className="mr-1 text-primary-m1 text-120 w-2"/>Print
+                                     <FiPrinter  className="mr-1 text-primary-m1 text-120 w-2"/>Imprimer
                                 </button>
                                 <button ref={exportButtonRef} className="btn bg-white btn-light mx-1px text-95" onClick={exportPDF} data-title="PDF">
-                                    <IoCloudDownloadOutline className="mr-1 text-danger-m1 text-120 w-2"/> Export
+                                    <IoCloudDownloadOutline className="mr-1 text-danger-m1 text-120 w-2"/> Télécharger
                                 </button>
                                 
                             </div>

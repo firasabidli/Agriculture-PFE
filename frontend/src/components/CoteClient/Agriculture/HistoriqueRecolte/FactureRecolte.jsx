@@ -127,8 +127,8 @@ const FactureRecolte = () => {
                                     <div className="row text-600 text-white bgc-default-tp1 py-25">
                                         <div className="d-none d-sm-block col-1">#</div>
                                         <div className="col-9 col-sm-5" style={{ marginLeft: "15%" }}>Nombre * Quantite</div>
-                                        <div className="d-none d-sm-block col-4 col-sm-2">prix de vente</div>
-                                        <div className="d-none d-sm-block col-sm-2">prix Total Vente</div>
+                                        <div className="d-none d-sm-block col-4 col-sm-2">prix de vente (DT)</div>
+                                        <div className="d-none d-sm-block col-sm-2">prix Total Vente (DT)</div>
                                     </div>
                                     <div className="text-95 text-secondary-d3">
                                         {recolteData.balles.map((balle, index) => (
@@ -152,7 +152,7 @@ const FactureRecolte = () => {
                                     <div className="row mt-3">
                                         <div className="row my-2 align-items-center bgc-primary-l3 p-2">
                                             <div className="col-7 text-right" style={{fontWeight:"bold"}}>Total</div>
-                                            <div className="col-5"><span className="text-150 text-success-d3 opacity-2">{recolteData.revenuTotal} D</span></div>
+                                            <div className="col-5"><span className="text-150 text-success-d3 opacity-2">{recolteData.revenuTotal} DT</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -162,10 +162,10 @@ const FactureRecolte = () => {
                         <div className="d-print-none mt-4">
                             <div className="float-end">
                                 <button ref={printButtonRef} onClick={() => window.print()} className="btn bg-white btn-light mx-1px text-95" data-title="Print">
-                                     <FiPrinter  className="mr-1 text-primary-m1 text-120 w-2"/>Print
+                                     <FiPrinter  className="mr-1 text-primary-m1 text-120 w-2"/>Imprimer
                                 </button>
                                 <button ref={exportButtonRef} className="btn bg-white btn-light mx-1px text-95" onClick={exportPDF} data-title="PDF">
-                                    <IoCloudDownloadOutline className="mr-1 text-danger-m1 text-120 w-2"/> Export
+                                    <IoCloudDownloadOutline className="mr-1 text-danger-m1 text-120 w-2"/> Télécharger
                                 </button>
                                 
                             </div>

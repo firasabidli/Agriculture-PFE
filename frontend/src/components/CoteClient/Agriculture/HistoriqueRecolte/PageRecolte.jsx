@@ -72,7 +72,7 @@ const PageRecolte = () => {
                                         <th scope="col" style={{ background: "#70aca2" }}>Nombre de Balle</th>
                                         {/* <th scope="col" style={{ background: "#70aca2" }}>Prix de vente Balle</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Prix Total Balle </th> */}
-                                        <th scope="col" style={{ background: "#70aca2" }}>Quantité (kg)</th>
+                                        <th scope="col" style={{ background: "#70aca2" }}>Quantité</th>
                                         {/* <th scope="col" style={{ background: "#70aca2" }}>Prix par Quantite</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Prix Total vente</th> */}
                                         <th scope="col" style={{ background: "#70aca2" }}>Revenu Total</th>
