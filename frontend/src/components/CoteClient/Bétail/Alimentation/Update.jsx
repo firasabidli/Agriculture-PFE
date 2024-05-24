@@ -9,10 +9,10 @@ import { TbClockEdit } from "react-icons/tb";
 function EditAliment({ aliment, onUpdate }) {
   const [show, setShow] = useState(false);
   const [dateAchat, setDateAchat] = useState(aliment.dateAchat);
-  const [quantite, setQuantite] = useState(aliment.quantite);
-  const [prix, setPrix] = useState(aliment.prix);
-  const [unite,setUnite] = useState(aliment.unite);
-  const [aliments, setAliments] = useState(aliment.aliments);
+const [quantite, setQuantite] = useState(aliment.quantite);
+const [prix, setPrix] = useState(aliment.prix);
+const [unite, setUnite] = useState(aliment.unite); // Assurez-vous que cette valeur correspond à une valeur valide selon vos besoins
+const [aliments, setAliments] = useState(aliment.aliments); // Assurez-vous que cette valeur correspond à une valeur valide selon vos besoins
   const [updateDateAchat, setUpdateDateAchat] = useState(false);
 
   const handleClose = () => {
@@ -22,7 +22,7 @@ function EditAliment({ aliment, onUpdate }) {
 
   const handleShow = () => setShow(true);
 
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.put(`http://localhost:3001/AlimentsAnimal/${aliment._id}`, {
@@ -58,7 +58,7 @@ function EditAliment({ aliment, onUpdate }) {
           <Modal.Title>Modifier un aliment d'animaux</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit} id="form">
+          <Form onSubmit={handleUpdate} id="formUpdate">
           <div className='mb-3'>
           <Form.Label> Date d'achat:</Form.Label>
          <div ><span className=' m-1 p-2 border border-primary'>{new Date(dateAchat).toLocaleDateString()}</span>  <TbClockEdit className='fs-4 text-primary dateAchat' onClick={editDateAchat}/> </div> 
@@ -151,7 +151,7 @@ function EditAliment({ aliment, onUpdate }) {
           <Btn variant="secondary" onClick={handleClose}>
             Annuler
           </Btn>
-          <Btn variant="primary" type="submit" form="form">
+          <Btn variant="primary" type="submit" form="formUpdate">
             Enregistrer
           </Btn>
         </Modal.Footer>

@@ -87,6 +87,9 @@ const ListAnimal = () => {
   const handleMouvementLinkClick = (animalId) => {
     return `/agriculteur/PageMouvement/${animalId}`;
   };
+  const handleAlimentationLinkClick = (animalId) => {
+    return `/agriculteur/PageAlimentation/${animalId}`;
+  };
   const handleProductionLinkClick = (animalId) => {
     return `/agriculteur/PageProductionLaitiere/${animalId}`;
   };
@@ -131,12 +134,14 @@ const ListAnimal = () => {
               <Dropdown.Menu>
               <Link className="dropdown-item" to={handleAnimalLinkClick(animal._id)} >Suivi Santé</Link>
               <Link className="dropdown-item" to={handleMouvementLinkClick(animal._id)} >Suivi Mouvement</Link>
-             {animal.subCategorieBetail=="Vache" && (
-              <Link className="dropdown-item" to={handleProductionLinkClick(animal._id)} >Suivi Production</Link>
+              <Link className="dropdown-item" to={handleAlimentationLinkClick(animal._id)} >Suivi Alimentation</Link>
+             {animal.subCategorieBetail==="Vache"  && (
+              <Link className="dropdown-item" to={handleProductionLinkClick(animal._id)} >Suivi Production Laitière</Link>
              )}
-             {animal.subCategorieBetail=="Vache" && (
-              <Link className="dropdown-item" to={handleHistoriqueProductionLinkClick(animal._id)} >HistoriqueProductionLitiraire</Link>
+             {animal.subCategorieBetail==="Vache" && (
+              <Link className="dropdown-item" to={handleHistoriqueProductionLinkClick(animal._id)} >Historique Production Laitière</Link>
              )}
+             
               
                 <Dropdown.Item>
                 <Button onClick={() => handleUpdateClick(animal._id)}>Modifier</Button>

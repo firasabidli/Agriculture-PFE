@@ -45,6 +45,7 @@ import ConsulterAgriculteur from './components/CoteAdmin/pages/Agriculteurs/Cons
 import FactureRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/FactureRecolte.jsx';
 import FactureStocks from './components/CoteClient/Agriculture/GestionStocks/FactureStocks.jsx';
 import PrevisionFinanciere from './components/CoteClient/Agriculture/Prévision/PrévisionFinanciére.jsx';
+import PageAliment from './components/CoteClient/Bétail/Alimentation/PageAliment.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -73,6 +74,7 @@ root.render(
                 <Route path="/agriculteur/FicheAnimal" element={<ListAnimal/>}/>
                 <Route path="/agriculteur/PageSante/:id" element={<PageSanté/>}></Route>
                 <Route path="/agriculteur/HistoriqueProduction/:id" element={<HistoriqueProduction/>}></Route>
+                <Route path="/agriculteur/PageAlimentation/:id" element={<PageAliment/>}></Route>
                 <Route path="/agriculteur/PageMouvement/:id" element={<PageMouvement/>}></Route>
                 <Route path="/agriculteur/PageProductionLaitiere/:id" element={<PageProductionLaitiere/>}></Route>
                 <Route path="/profileAgriculteur" element={<ProfileAgriculteur />} />
@@ -86,6 +88,7 @@ root.render(
                 <Route path="/agriculture/FactureRecolte/:id" element={<FactureRecolte/>}></Route>
                 <Route path="/agriculture/FactureStocks/:id" element={<FactureStocks/>}></Route>
                 <Route path='/prevision' element={<PrevisionFinanciere/>}></Route>
+
             </Route>
           
           <Route path="/" element={<App />} />

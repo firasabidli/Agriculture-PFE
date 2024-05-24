@@ -16,13 +16,11 @@ const Update = ({ onUpdate, mouvementId }) => {
     const handleShow = () => setShow(true);
 
     useEffect(() => {
-        console.log("nn",mouvementId)
         const fetchMouvement = async () => {
             try {
                 
                 const response = await axios.get(`http://localhost:3001/MouvementsBetail/mouvement/${mouvementId}`);
                 const mouvementData = response.data.mouvement;
-                console.log("nn",mouvementData)
                             setTypeMouvement(mouvementData.movementType);
                 setOrigine(mouvementData.origin);
                 setDestination(mouvementData.destination);
@@ -51,7 +49,6 @@ const Update = ({ onUpdate, mouvementId }) => {
 
         try {
             const response = await axios.put(`http://localhost:3001/MouvementsBetail/${mouvementId}`, formData);
-            console.log('Update successful:', response.data);
             onUpdate(); // Appeler la fonction de rafraîchissement après la mise à jour
             handleClose();
         } catch (error) {

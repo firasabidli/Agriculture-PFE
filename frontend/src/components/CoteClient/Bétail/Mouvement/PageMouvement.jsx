@@ -16,7 +16,7 @@ const PageMouvement = () => {
     try {
       const response = await axios.get(`http://localhost:3001/MouvementsBetail/${id}`);
       setMovementData(response.data);
-      console.log(response.data);
+     
     } catch (error) {
       console.error('Erreur lors de la récupération des mouvements de bétail:', error);
     }

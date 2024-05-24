@@ -5,9 +5,6 @@ import 'react-calendar/dist/Calendar.css';
 import axios from 'axios'; 
 import { useParams } from "react-router-dom";
 import './PageProductionLaitiere.css';
-import AddAliments from "./AddAliments";
-import EditAliment from "./EditAliment";
-import DeleteAliment from "./DeleteAliment";
 import Form from 'react-bootstrap/Form';
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -105,7 +102,7 @@ const PageProductionLaitiere = () => {
         plugins: {
             title: {
                 display: true,
-                text: 'Statistique de production laitiraire',
+                text: 'Statistique de production laitière',
             },
         },
     };
@@ -189,6 +186,7 @@ const PageProductionLaitiere = () => {
             if (response) {
                 alert("Production Laitière ajoutée avec succès");
                 fetchProduction();
+                fetchStatistique();
             }
         } catch (error) {
             console.error('Error saving daily data:', error);
@@ -212,15 +210,12 @@ const PageProductionLaitiere = () => {
         fetchData();
     }, []);
 
-    const calculateTotalPrice = () => {
-        let total = 0;
-        alimentsData.forEach(item => {
-            total += item.total;
-        });
-        return total;
-    };
 
- 
+    const handleAddButtonClick = (event) => {
+        if (window.confirm('Êtes-vous sûr de vouloir ajouter cette production laitière ?')) {
+            handleSubmit(event);
+        }
+    };
 
     return (
         <div className="container">
@@ -234,11 +229,11 @@ const PageProductionLaitiere = () => {
                     value={selectedDate}
                 />
                  
-                <h2>Production production laitiraire Par Mois : {selectedMonth} {selectedYear}</h2>
+                <h2>Production laitière Par Mois : {selectedMonth} {selectedYear}</h2>
                 
               
                     
-                    <Form onSubmit={handleSubmit} id="form"> </Form>
+                    <Form  id="form"> </Form>
                     
                     <Table responsive className="tableRes">
                         <thead>
@@ -285,49 +280,13 @@ const PageProductionLaitiere = () => {
                             </tr>
                         </tfoot>
                     </Table>
-                    <div style={{float:"right"}}><button className="btn" form="form" type="submit">Ajouter</button></div>
+                    <div style={{float:"right"}}><button className="btn" form="form"  onClick={handleAddButtonClick}>Ajouter</button></div>
                     
             </div>
           
-            <h2>Aliments pour animaux</h2>
-            <AddAliments onCreate={fetchData} />
            
-                <Table  responsive>
-                    <thead>
-                        <th>ID no.</th>
-                        <th>Date d'Achat</th>
-                        <th>Aliments</th>
-                        <th>Quantite</th>
-                        <th>Prix en DT</th>
-                        <th>Total</th>
-                        <th>Action</th>
-                    </thead>
-                    <tbody>
-                        {alimentsData.map((item, index) => (
-                            <tr key={item._id} className="alert" role="alert">
-                                <td>{index}</td>
-                                <td className='td-title'>{new Date(item.dateAchat).toLocaleDateString()}</td>
-                                <td>{item.aliments}</td>
-                                <td>{item.quantite} {item.unite}</td>
-                                <td>{item.prix}</td>
-                                <td>{item.total}</td>
-                                <td>
-                                    <div className='action' style={{marginLeft:'100px'}}>
-                                        <EditAliment alimentId={item._id} aliment={item} onUpdate={fetchData} /> 
-                                        <DeleteAliment alimentId={item._id} onDelete={fetchData} />  
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                    <tfoot >
-                        <tr >
-                            <td colSpan='6' style={{textAlign:'right',backgroundColor:'#38c609',color:'white'}}> 
-                                <b> Prix Total en DT: <span>{calculateTotalPrice()}</span></b>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </Table>
+           
+                
            
 
             <div className="statLitiraire" >

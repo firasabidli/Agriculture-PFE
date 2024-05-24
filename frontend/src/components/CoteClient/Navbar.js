@@ -61,7 +61,7 @@ const MyNavbar = ({ textColor }) => {
     try {
       const response = await axios.get('http://localhost:3001/Categorie');
       setDisplayedData(response.data.data);
-      console.log(response.data.data);
+     
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories :', error);
     }
@@ -133,7 +133,7 @@ const handleCategorieBetailClick =()=>{
     try {
       const response = await axios.get('http://localhost:3001/Saison');
       setSaisonData(response.data.data);
-      console.log(response.data.data);
+    
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories :', error);
     }
@@ -158,11 +158,7 @@ const handleCategorieBetailClick =()=>{
   //User
   const handleProfileClick = () => {
     setShowUser(!showUser);
-    if (!showUser) {
-      console.log('Profil cliqué !',userName,userImage)
-      
-      
-    }
+   
   };
   const handleLogout = async () => {
     localStorage.removeItem('authToken');
