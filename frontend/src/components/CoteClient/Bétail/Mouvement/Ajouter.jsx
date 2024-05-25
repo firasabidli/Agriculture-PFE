@@ -80,7 +80,6 @@ const Ajouter = ({ onCreate }) => {
      }
       const authToken = localStorage.getItem("authToken");
       const userId = localStorage.getItem("user")._id;
-      console.log("yy",movementData)
       const formData = {
         Agriculteur: userId,
         ...movementData,
@@ -111,7 +110,7 @@ const Ajouter = ({ onCreate }) => {
      });
       onCreate();
       window.location.reload()
-      console.log("Réponse du serveur :", response.data);
+
     } catch (error) {
       console.error("Erreur lors de l'ajout du mouvement de bétail :", error);
     }

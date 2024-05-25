@@ -40,7 +40,6 @@ function Add({ onCreate }) {
     event.preventDefault();
 
     const authToken = localStorage.getItem('authToken');
-    console.log('Token:', authToken);
     const isValidrace = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(Race);
     const isValidid = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(IdantifiantsAnimal);
 

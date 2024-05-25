@@ -90,7 +90,7 @@ const Categories = () => {
                                                 <table className="table text-center">
                                                     <thead className="thead-dark">
                                                         <tr>
-                                                            <th>ID no.</th>
+                                                            <th>ID</th>
                                                             <th>Nom du Categorie</th>
                                                             <th>description</th>
                                                             <th>Action</th>
