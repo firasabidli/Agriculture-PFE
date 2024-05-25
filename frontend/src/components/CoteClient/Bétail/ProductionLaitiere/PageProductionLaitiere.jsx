@@ -9,6 +9,8 @@ import Form from 'react-bootstrap/Form';
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { Table } from "react-bootstrap";
+import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 defaults.plugins.title.display = true;
@@ -46,6 +48,10 @@ const PageProductionLaitiere = () => {
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
+
+    const handleLinkRClick = (idAgriculteur,id,year,month) => {
+        return `/Betail/FactureLaitiere/${idAgriculteur}/${id}/${month}/${year}`;
+      };
 
     const fetchProduction = async () => {
         try {            
@@ -280,7 +286,9 @@ const PageProductionLaitiere = () => {
                             </tr>
                         </tfoot>
                     </Table>
-                    <div style={{float:"right"}}><button className="btn" form="form"  onClick={handleAddButtonClick}>Ajouter</button></div>
+                    <div className="d-flex " style={{float:"right"}}>
+                    <Link className="dropdown-item" to={handleLinkRClick(idAgriculteur,id,selectedDate.getFullYear(),selectedDate.getMonth() + 1)} > Facture <LiaFileInvoiceDollarSolid style={{ fontSize: "30px",marginLeft:"10%" }}/></Link>
+                        <button className="btn" form="form"  onClick={handleAddButtonClick} style={{marginLeft:"10%"}}>Ajouter</button></div>
                     
             </div>
           
@@ -289,7 +297,7 @@ const PageProductionLaitiere = () => {
                 
            
 
-            <div className="statLitiraire" >
+            <div className="statLitiraire mt-4" >
                 <Line data={data} options={options} />
             </div>
         </div>
