@@ -1,0 +1,26 @@
+.rapport-sante-container {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .rapport-sante-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .rapport-sante-card h3 {
+    margin-top: 0;
+  }
+  
+  .rapport-sante-card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .rapport-sante-card ul li {
+    margin-bottom: 10px;
+  }
+  

@@ -22,7 +22,7 @@ exports.create= async(req,res)=>{
         exports.getAnimal = async (req, res) => {
           try {
             const animalId = req.params.id;
-            const healthStates = await SanteBetail.find({ AnimalId: animalId });
+            const healthStates = await SanteBetail.find({ AnimalId: animalId }).populate('AnimalId');
         
             if (!healthStates || healthStates.length === 0) {
               return res.status(404).json({ message: 'Aucune donnée de santé trouvée pour cet animal.' });
