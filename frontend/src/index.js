@@ -45,6 +45,7 @@ import ConsulterAgriculteur from './components/CoteAdmin/pages/Agriculteurs/Cons
 import FactureRecolte from './components/CoteClient/Agriculture/HistoriqueRecolte/FactureRecolte.jsx';
 import FactureStocks from './components/CoteClient/Agriculture/GestionStocks/FactureStocks.jsx';
 import FactureProductionLaitiere from './components/CoteClient/Bétail/ProductionLaitiere/FactureProductionLaitiere.jsx';
+import RapportProductivite from './components/CoteClient/Bétail/ProductionLaitiere/RapportProductivite.jsx';
 import PrevisionFinanciere from './components/CoteClient/Agriculture/Prévision/PrévisionFinanciére.jsx';
 import PageAliment from './components/CoteClient/Bétail/Alimentation/PageAliment.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -89,6 +90,7 @@ root.render(
                 <Route path="/agriculture/FactureRecolte/:id" element={<FactureRecolte/>}></Route>
                 <Route path="/agriculture/FactureStocks/:id" element={<FactureStocks/>}></Route>
                 <Route path="//Betail/FactureLaitiere/:idAgriculteur/:id/:month/:year" element={<FactureProductionLaitiere/>}></Route>
+                <Route path="//Betail/RapportProductivite/:idAgriculteur/:id/:month/:year" element={<RapportProductivite/>}></Route>
                 <Route path='/prevision' element={<PrevisionFinanciere/>}></Route>
 
             </Route>

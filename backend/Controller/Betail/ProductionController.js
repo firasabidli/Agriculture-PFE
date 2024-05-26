@@ -141,5 +141,121 @@ exports.StatLitirarire = async (req, res) => {
 
 
 
+exports.getDailyProduction = async (req, res) => {
+    try {
+        const { idAgriculteur, idAnimal, month, year } = req.params;
+        const production = await Production.findOne({ idAgriculteur, idAnimal, month, year });
+        if (!production) {
+            return res.status(404).json({ message: 'Aucune production trouvée pour le mois et l\'année spécifiés' });
+        }
+
+        const productionData = production.data.map(dayData => ({
+            jour: dayData.day,
+            quantite: dayData.quantite,
+            prix: dayData.prix
+        }));
+
+        const totalProduction = production.productionTotal;
+        const totalRevenue = production.data.reduce((total, dayData) => total + dayData.total, 0);
+
+        res.json({ data: productionData, productionTotal: totalProduction, revenueTotal: totalRevenue });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.getWeeklyStats = async (req, res) => {
+    const { idAgriculteur, idAnimal, year, month } = req.params;
+
+    try {
+        const yearNum = parseInt(year, 10);
+        const monthNum = parseInt(month, 10);
+
+        let productions = await Production.find({ idAgriculteur, idAnimal, year: yearNum, month: monthNum }).populate('idAnimal');
+
+        if (!productions.length) {
+            return res.status(404).json({ message: 'Aucune production trouvée pour les critères spécifiés' });
+        }
+
+        const weeklyStats = calculateWeeklyStats(productions);
+
+        res.json({ weeks: weeklyStats });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.getWeeklyStats = async (req, res) => {
+    const { idAgriculteur, idAnimal, year, month } = req.params;
+
+    try {
+        const yearNum = parseInt(year, 10);
+        const monthNum = parseInt(month, 10);
+
+        let productions = await Production.find({ idAgriculteur, idAnimal, year: yearNum, month: monthNum }).populate('idAnimal');
+
+        if (!productions.length) {
+            return res.status(404).json({ message: 'Aucune production trouvée pour les critères spécifiés' });
+        }
+
+        const weeklyStats = calculateWeeklyStats(productions);
+
+        res.json({ weeks: weeklyStats });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const calculateWeeklyStats = (productions) => {
+    const statsByWeek = {};
+    const daysInMonth = getDaysInMonth(productions[0].year, productions[0].month);
+
+    let currentWeek = 1;
+    let totalQuantity = 0;
+    let totalRevenue = 0;
+    let weekDays = [];
+
+    productions.forEach(production => {
+        production.data.forEach(dayData => {
+            totalQuantity += dayData.quantite;
+            totalRevenue += dayData.total;
+            weekDays.push({ jour: dayData.day, quantite: dayData.quantite });
+
+            if (weekDays.length === 7 || dayData.day === daysInMonth) {
+                // Ajoute les statistiques de la semaine actuelle
+                statsByWeek[`Semaine ${currentWeek}`] = {
+                    totalQuantity,
+                    totalRevenue,
+                    days: weekDays
+                };
+
+                // Réinitialiser les variables pour la prochaine semaine
+                currentWeek++;
+                totalQuantity = 0;
+                totalRevenue = 0;
+                weekDays = [];
+            }
+        });
+    });
+
+    // Si il reste des jours non inclus dans la dernière semaine
+    if (weekDays.length > 0) {
+        statsByWeek[`Semaine ${currentWeek}`] = {
+            totalQuantity,
+            totalRevenue,
+            days: weekDays
+        };
+    }
+
+    return Object.values(statsByWeek);
+};
+
+// Fonction pour obtenir le nombre de jours dans un mois
+const getDaysInMonth = (year, month) => {
+    return new Date(year, month + 1, 0).getDate();
+};
+
+
+
 
 

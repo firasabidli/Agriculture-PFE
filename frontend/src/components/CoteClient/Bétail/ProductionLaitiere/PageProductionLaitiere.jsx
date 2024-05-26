@@ -10,6 +10,7 @@ import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { Table } from "react-bootstrap";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { TbReportMoney } from "react-icons/tb";
 import { Link } from "react-router-dom";
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
@@ -51,6 +52,10 @@ const PageProductionLaitiere = () => {
 
     const handleLinkRClick = (idAgriculteur,id,year,month) => {
         return `/Betail/FactureLaitiere/${idAgriculteur}/${id}/${month}/${year}`;
+      };
+
+      const handleLinkRClickRapport = (idAgriculteur,id,year,month) => {
+        return `/Betail/RapportProductivite/${idAgriculteur}/${id}/${month}/${year}`;
       };
 
     const fetchProduction = async () => {
@@ -223,6 +228,8 @@ const PageProductionLaitiere = () => {
         }
     };
 
+   
+
     return (
         <div className="container">
             <Navbar textColor="black" />
@@ -288,6 +295,7 @@ const PageProductionLaitiere = () => {
                     </Table>
                     <div className="d-flex " style={{float:"right"}}>
                     <Link className="dropdown-item" to={handleLinkRClick(idAgriculteur,id,selectedDate.getFullYear(),selectedDate.getMonth() + 1)} > Facture <LiaFileInvoiceDollarSolid style={{ fontSize: "30px",marginLeft:"10%" }}/></Link>
+                    <Link className="dropdown-item" to={handleLinkRClickRapport(idAgriculteur,id,selectedDate.getFullYear(),selectedDate.getMonth() + 1)} style={{marginLeft:"10%"}}> Rapport <TbReportMoney  style={{ fontSize: "30px",marginLeft:"10%" }}/></Link>
                         <button className="btn" form="form"  onClick={handleAddButtonClick} style={{marginLeft:"10%"}}>Ajouter</button></div>
                     
             </div>
