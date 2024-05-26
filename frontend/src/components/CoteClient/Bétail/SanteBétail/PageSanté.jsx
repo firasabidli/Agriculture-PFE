@@ -5,6 +5,7 @@ import AjouterSanté from "./Ajouter";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import Update from "./Update";
 const PageSanté=()=> {
     const { id } = useParams();
@@ -117,8 +118,11 @@ const PageSanté=()=> {
   <div class="row" >
     <div class=" card col-md-7 ">
         <h4 className='p-3 text-center'>Liste de suivi de santé</h4>
+        {healthData.length>0 && ( <Link to={`/Betail/rapport-sante/${id}`} style={{textAlign:'right',marginBottom:'10px'}}>Voir le Rapport de Santé</Link> )}
         {healthData.length<1? <div className='text-center p-5'><b>Auccune données disponible</b></div>:
+       
           <div >
+             
         {healthData.map((item, index) => (
           
           <>
