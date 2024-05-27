@@ -72,11 +72,11 @@ const AjouterEngrais = ({ onCreate }) => {
     };
 
     return (
-        <div className="card" style={{ marginRight: "-45%", width: "127%" }}>
+        <div className="card">
             <div className="card-body">
                 <h5 style={{ textAlign: "center" }}>Ajouter de Produit</h5>
                 <form onSubmit={handleSubmit} style={{ marginTop: "5%" }}>
-                    <div className="mb-3" style={{ width: "116%" }}>
+                    <div className="mb-3" >
                         <label style={{ fontWeight: "bold" }}>Nom :</label>
                         <input
                             type="text"

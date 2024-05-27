@@ -129,7 +129,7 @@ const PageSanté=()=> {
           
           <div key={item._id} className="card mb-3 ">
             <div className="row align-items-center">
-              <div className="col-md-6 mb-3 mb-sm-0">
+              <div className="col-md-6 mb-3 mb-sm-0 p-3 py-2 px-4">
                 <h5>{item.etatSante}</h5>
                 <p className="text-sm"><span className="op-6" style={{fontWeight:"bold"}}>Enregistré le </span>{formatDate(item.dateEnregistrement)}</p>
                 <p className="text-sm" style={{fontSize:"110%"}}><span className="op-6" style={{fontWeight:"bold"}}>Maladies etSymptomes:  </span> {item.maladiesSymptomes}</p>

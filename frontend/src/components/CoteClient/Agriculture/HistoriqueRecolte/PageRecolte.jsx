@@ -7,6 +7,7 @@ import { FcDeleteRow } from "react-icons/fc";
 import UpdateRecolte from "./Update"; 
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 const PageRecolte = () => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const { id } = useParams();
@@ -61,10 +62,10 @@ const PageRecolte = () => {
             <Navbar textColor="black" />
             <div className="container" style={{ marginTop: "9%" }}>
                 <div className="row">
-                    <div className="col-xl-8">
+                    <div className="col-md-8">
                         <h4>Liste de suivi des Récoltes</h4>
-                        <div style={{ marginTop: "5%", marginRight: "28%", marginLeft: "-153px" }}>
-                            <table className="table">
+                        <div style={{ marginTop: "5%" }}>
+                            <Table responsive>
                                 <thead className="thead-light">
                                     <tr style={{ fontWeight: "bold" }}>
                                         
@@ -77,43 +78,42 @@ const PageRecolte = () => {
                                         <th scope="col" style={{ background: "#70aca2" }}>Prix Total vente</th> */}
                                         <th scope="col" style={{ background: "#70aca2" }}>Revenu Total</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Actions</th>
+                                        <th scope="col" style={{ background: "#70aca2" }}>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {filteredData.map((item, index) => (
                                         <tr key={index}>
-                                            <td style={{ width: "1%", fontSize: "99%" }}>{new Date(item.date).toLocaleDateString('fr-FR', options)}</td>
-                                            <td style={{fontSize: "99%" }}>{item.balles[0].nombreBalles}</td>
+                                            <td style={{ width: "10%", fontSize: "99%" }}>{new Date(item.date).toLocaleDateString('fr-FR', options)}</td>
+                                            <td style={{fontSize: "99%",width:'17%' }}>{item.balles[0].nombreBalles}</td>
                                             {/* <td style={{ fontSize: "99%" }}>{item.balles[0].prixVenteParBalle}</td>
                                             <td style={{ fontSize: "99%" }}>{item.balles[0].prixTotalBalle}</td> */}
-                                            <td style={{ fontSize: "99%" }}>{item.quantites[0].quantite}{item.quantites[0].unite}</td>
+                                            <td style={{ fontSize: "99%",width:'13%' }}>{item.quantites[0].quantite}{item.quantites[0].unite}</td>
                                             {/* <td style={{ fontSize: "99%" }}>{item.quantites[0].prix}</td>
                                             <td style={{ fontSize: "99%" }}>{item.quantites[0].prixTotalVente}</td> */}
-                                            <td style={{ fontSize: "99%" }}>{item.revenuTotal}</td>
-                                            <td  style={{ fontSize:"75%",display:"flex" }}>
+                                            <td style={{ fontSize: "99%",width:'13%' }}>{item.revenuTotal}</td>
+                                            <td style={{width: "1%"}}>
+                                                <div className="d-flex">
                                                 <UpdateRecolte onUpdate={fetchRecolte} recolteId={item._id} />
-                                                <FcDeleteRow style={{ fontSize: "400%",marginLeft:"10%" }} onClick={() => handleDelete(item._id)} />
-                                                <Link className="dropdown-item" to={handleLinkRClick(item._id)} ><LiaFileInvoiceDollarSolid style={{ fontSize: "290%",marginLeft:"10%" }}/></Link>
+                                                <FcDeleteRow style={{ fontSize: "400%",marginLeft:"10%",marginTop:'-10%' }} onClick={() => handleDelete(item._id)} />
+                                                <Link className="dropdown-item" to={handleLinkRClick(item._id)} ><LiaFileInvoiceDollarSolid style={{ fontSize: "200%",marginLeft:"10%",marginTop:'-2%' }}/></Link>
+                                                </div>
                                             </td>
+                                            <td></td>
                                         </tr>
                                     ))}
                                     <tr>
-                                        <td style={{ fontSize: "large" }}>Total</td>
-                                        {/* <td></td>
-                                        <td></td> */}
-                                        <td></td>
-                                        {/* <td></td>
-                                        <td></td> */}
-                                        <td></td>
+                                        <td colSpan={5}></td>
+                                       
                                         <td style={{ fontSize: "large" }}>{total}</td>
-                                        <td></td>
+                                       
                                     </tr>
                                 </tbody>
-                            </table>
+                            </Table>
                             {/* <FactureRecolte/> */}
                         </div>
                     </div>
-                    <div className="col-xl-4">
+                    <div className="col-md-4 mt-3">
                         <AjouterRecolte onCreate={fetchRecolte} />
                     </div>
                 </div>

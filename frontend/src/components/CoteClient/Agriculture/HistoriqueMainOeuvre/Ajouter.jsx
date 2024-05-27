@@ -64,7 +64,7 @@ const AjouterMainOeuvre = ({ onCreate }) => {
     };
 
     return (
-        <div className="card" style={{ marginRight: "-45%", width: "127%" }}>
+        <div className="card" >
             <div className="card-body">
                 <h5 style={{ textAlign: "center" }}>Ajouter une Main d'œuvre</h5>
                 <form onSubmit={handleSubmit} style={{ marginTop: "5%" }}>

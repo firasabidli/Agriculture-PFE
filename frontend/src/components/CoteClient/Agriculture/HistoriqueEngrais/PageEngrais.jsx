@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import Navbar from '../../Navbar';
 import Ajouter from "./Ajouter";
-
+import { Table } from "react-bootstrap";
 import { FcDeleteRow } from "react-icons/fc";
 import Update from "./Update";
 
@@ -57,17 +57,19 @@ const PageEngrais = () => {
     return (
         <div>
             <Navbar textColor="black" />
-            <div className="container" style={{ marginTop: "9%" }}>
+            <div className="container" style={{ marginTop: "15%"}}>
                 <div className="row">
-                    <div className="col-xl-8">
-                        <h4>Liste de suivi des Engrais</h4>
-                        <div style={{ marginTop: "5%", marginRight: "28%", marginLeft: "-153px" }}>
+                    <div className="col-md-8">
+                        <h4 className='p-3 text-center'>Liste de suivi des Engrais</h4>
+                        {filteredData.length < 1 ? 
+                            <div className='text-center p-5'><b>Auccune données disponible</b></div> :
+                        <div style={{ marginTop: "5%" }}>
                             <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}className="select3"> 
                                    <option value="">Filtre par  Types</option>
                                    <option value="Pesticide">Pesticide</option>
                                     <option value="Engrais">Engrais</option>
                             </select>
-                            <table className="table">
+                            <Table responsive size="md">
                                 <thead className="thead-light">
                                     <tr style={{ fontWeight: "bold" }}>
                                         <th style={{ background: "#70aca2" }}>Type</th>
@@ -104,10 +106,11 @@ const PageEngrais = () => {
                                         <td style={{ fontSize: "large" }}>{total}</td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </Table>
                         </div>
+                        }
                     </div>
-                    <div className="col-xl-4">
+                    <div className="col-md-4">
                         <Ajouter onCreate={fetchByAgriculteur} />
                     </div>
                 </div>

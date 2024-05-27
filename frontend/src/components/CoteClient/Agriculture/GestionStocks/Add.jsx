@@ -75,11 +75,13 @@ const Ajouter = ({ onCreate }) => {
     };
 
     return (
-        <div className="card" style={{ marginRight: "15%", marginTop:"12%" }}>
-            <div className="card-body">
+        <div className="card" style={{ marginTop:"12%" }}>
+            <form onSubmit={handleSubmit} style={{ marginTop: "5%" }}>
+            <div className="card-body w-100">
+            
                 <h5 style={{ textAlign: "center" }}>Ajouter un Stock</h5>
-                <form onSubmit={handleSubmit} style={{ marginTop: "5%" }}>
-                    <div className="mb-3" style={{ width: "116%" }}>
+                
+                    <div className="mb-3" >
                         <label style={{ fontWeight: "bold" }}>Libellé :</label>
                         <input
                             type="text"
@@ -90,7 +92,7 @@ const Ajouter = ({ onCreate }) => {
                             required
                         />
                     </div>
-                    <div className="mb-3" style={{ width: "116%" }}>
+                    <div className="mb-3" >
                         <label style={{ fontWeight: "bold" }}>Date :</label>
                         <input
                             type="date"
@@ -119,7 +121,7 @@ const Ajouter = ({ onCreate }) => {
                             </div>
                             <div className="mb-3" style={{display:"flex",width:"104%" }}>
                                 <div className="mb-3" style={{ width: "50%" }}>
-                                    <label style={{ fontWeight: "bold" }}>Quantité d'entrée :</label>
+                                    <label style={{ fontWeight: "bold" }}>Quantité d'entrée</label>
                                     <input
                                         type="number"
                                         className="form-control"
@@ -132,8 +134,8 @@ const Ajouter = ({ onCreate }) => {
                                         required
                                     />
                                 </div>
-                                <div style={{width: "50%",marginLeft:"5%",marginRight: "-35%"}}>
-                                    <label style={{ fontWeight: "bold" }}>Unité :</label>
+                                <div style={{width:"50%",marginLeft:'2%', textAlign:'center'}}>
+                                    <label style={{ fontWeight: "bold" }}>Unité</label>
                                     <select
                                         className="form-control"
                                         value={entrée.uniteEntrée}
@@ -151,7 +153,7 @@ const Ajouter = ({ onCreate }) => {
                                     </select>
                                 </div>
                             </div>
-                            <div className="mb-3" style={{ width: "104%" }}>
+                            <div className="mb-3" >
                                 <label style={{ fontWeight: "bold" }}>Raison d'entrée :</label>
                                 <select
                                     className="form-control"
@@ -170,7 +172,7 @@ const Ajouter = ({ onCreate }) => {
                                     <option value="Autre">Autre</option>
                                 </select>
                             </div>
-                            <div className="mb-3" style={{ width: "104%" }}>
+                            <div className="mb-3" >
                                 <label style={{ fontWeight: "bold" }}>Prix :</label>
                                 <input
                                     type="number"
@@ -186,7 +188,7 @@ const Ajouter = ({ onCreate }) => {
                             </div>
                         </div>
                     ))}
-                    <div className="mb-3" style={{ width: "116%" }}>
+                    <div className="mb-3" >
                         <label style={{ fontWeight: "bold" }}>Emplacement :</label>
                         <input
                             type="text"
@@ -196,7 +198,7 @@ const Ajouter = ({ onCreate }) => {
                             required
                         />
                     </div>
-                    <div className="mb-3" style={{ width: "116%" }}>
+                    <div className="mb-3" >
                         <label style={{ fontWeight: "bold" }}>Ville :</label>
                         <input
                             type="text"
@@ -206,7 +208,7 @@ const Ajouter = ({ onCreate }) => {
                             required
                         />
                     </div>
-                    <div className="mb-3" style={{ width: "116%" }}>
+                    <div className="mb-3" >
                         <label style={{ fontWeight: "bold" }}>Type de Stocks :</label>
                         <select 
                             className="form-control"
@@ -221,8 +223,9 @@ const Ajouter = ({ onCreate }) => {
                         </select>
                     </div>
                     <button type="submit" className="btn btn-primary">Enregistrer</button>
-                </form>
+                
             </div>
+            </form>
         </div>
     );
 };
