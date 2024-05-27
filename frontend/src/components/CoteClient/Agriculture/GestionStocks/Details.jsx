@@ -36,7 +36,7 @@ const Details = ({ Id, onClose }) => {
                         <p><span style={{fontWeight:"bold"}}>Emplacement: </span> {stockDetails.emplacement}</p>
                         <p><span style={{fontWeight:"bold"}}>Ville: </span> {stockDetails.ville}</p>
                         <p><span style={{fontWeight:"bold"}}>Type de Stocks: </span> {stockDetails.typeStocks}</p>
-                        <p><span style={{fontWeight:"bold"}}>Date d'Enregistrement: </span>{new Date(stockDetails.datePlantation).toLocaleDateString('fr-FR')}</p>
+                        <p><span style={{fontWeight:"bold"}}>Date d'Enregistrement: </span>{new Date(stockDetails.date).toLocaleDateString('fr-FR')}</p>
                         <p><span style={{fontWeight:"bold"}}>Entrées:</span></p>
                         {Array.isArray(stockDetails.entrées) && stockDetails.entrées.map((entrée, index) => (
                             <div key={index}>

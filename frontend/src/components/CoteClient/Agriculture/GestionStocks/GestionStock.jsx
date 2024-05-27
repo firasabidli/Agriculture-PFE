@@ -78,18 +78,18 @@ const GestionStock = () => {
             <Carousel />
             <div className="containerList" style={{ marginTop: "3%" }}>
                 <div className="row">
-                    <div className="col-xl-8 ">
+                    <div className="col-md-7 ">
                         <div className="page-content page-container" id="page-content">
                             <div className="padding">
                                 <div className="row">
-                                    <div className="col-sm-8">
+                                    <div className="col-md-7">
                                         <div className="animal-list">
                                             {culture.length > 0 ? (
                                                 culture.map((element) => (
                                                     <div className="container-fluid d-flex justify-content-center" key={element._id}>
-                                                        <div className="list list-row card" style={{ width: "75%" }} >
+                                                        <div className="list list-row card" style={{ width: "100%" }} >
                                                             <div className="list-item" data-id="">
-                                                                <div><a href="x"><span className="w-40 avatar gd-primary">A</span></a></div>
+                                                                <div><a href="x"><span className="w-40 avatar gd-primary">S</span></a></div>
                                                                 <div className="flex">
                                                                     <a href="x" className="item-author text-color">libellé: {element.libellé}</a>
                                                                     <br />
@@ -130,7 +130,7 @@ const GestionStock = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xl-4">
+                    <div className="col-md-5">
                     <Add onCreate={fetchStockByAgriculteur} />
                     </div>
                 </div>

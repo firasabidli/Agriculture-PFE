@@ -5,7 +5,7 @@ import Navbar from '../../Navbar';
 import AjouterMainOeuvre from "./Ajouter";
 import { FcDeleteRow } from "react-icons/fc";
 import UpdateMainOeuvre from "./Update";
-
+import { Table } from "react-bootstrap";
 const PageMainOeuvre = () => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const { id } = useParams();
@@ -58,10 +58,10 @@ const PageMainOeuvre = () => {
             <Navbar textColor="black" />
             <div className="container" style={{ marginTop: "9%" }}>
                 <div className="row">
-                    <div className="col-xl-8">
+                    <div className="col-md-8">
                         <h4>Liste de suivi des Main d'œuvre</h4>
-                        <div style={{ marginTop: "5%", marginRight: "28%", marginLeft: "-153px" }}>
-                            <table className="table">
+                        <div style={{ marginTop: "5%"}}>
+                            <Table responsive>
                                 <thead className="thead-light">
                                     <tr style={{ fontWeight: "bold" }}>
                                     <th scope="col" style={{ background: "#70aca2" }}>Type Travail</th>
@@ -71,6 +71,7 @@ const PageMainOeuvre = () => {
                                         <th scope="col" style={{ background: "#70aca2" }}>Prix par heure</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Prix Total</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Actions</th>
+                                        <th scope="col" style={{ background: "#70aca2" }}>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,21 +87,20 @@ const PageMainOeuvre = () => {
                                                 <UpdateMainOeuvre onUpdate={fetchMainOeuvre} mainOeuvreId={item._id} />
                                                 <FcDeleteRow style={{ fontSize: "234%" }} onClick={() => handleDelete(item._id)} />
                                             </td>
+                                            <td></td>
                                         </tr>
                                     ))}
                                     <tr>
-                                        <td style={{ fontSize: "large" }}>Total</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td colSpan={7}></td>
+                                        
                                         <td style={{ fontSize: "large" }}>{total}</td>
                                         <td></td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </Table>
                         </div>
                     </div>
-                    <div className="col-xl-4">
+                    <div className="col-md-4 mt-3">
                         <AjouterMainOeuvre onCreate={fetchMainOeuvre} />
                     </div>
                 </div>

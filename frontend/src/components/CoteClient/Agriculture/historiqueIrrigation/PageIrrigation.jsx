@@ -5,7 +5,7 @@ import Navbar from '../../Navbar';
 import AjouterIrrigation from "./Ajouter"; 
 import { FcDeleteRow } from "react-icons/fc";
 import UpdateIrrigation from "./Update"; 
-
+import { Table } from "react-bootstrap";
 const PageIrrigation = () => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const { id } = useParams();
@@ -58,10 +58,10 @@ const PageIrrigation = () => {
             <Navbar textColor="black" />
             <div className="container" style={{ marginTop: "9%" }}>
                 <div className="row">
-                    <div className="col-xl-8">
+                    <div className="col-md-8">
                         <h4>Liste de suivi des Irrigations</h4>
-                        <div style={{ marginTop: "5%", marginRight: "28%", marginLeft: "-153px" }}>
-                            <table className="table">
+                        <div style={{ marginTop: "5%"}}>
+                            <Table responsive >
                                 <thead className="thead-light">
                                     <tr style={{ fontWeight: "bold" }}>
                                     <th scope="col" style={{ background: "#70aca2" }}>Type d'Irrigation</th>
@@ -70,35 +70,35 @@ const PageIrrigation = () => {
                                         <th scope="col" style={{ background: "#70aca2" }}>Prix par heure</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Coût Total</th>
                                         <th scope="col" style={{ background: "#70aca2" }}>Actions</th>
+                                        <th scope="col" style={{ background: "#70aca2" }}>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {filteredData.map((item, index) => (
                                         <tr key={index}>
                                             <td style={{ fontSize: "large" }}>{item.type}</td>
-                                            <td style={{ width: "1%", fontSize: "large" }}>{new Date(item.date).toLocaleDateString('fr-FR', options)}</td>
-                                            <td style={{ fontSize: "large" }}>{item.duree}</td>
-                                            <td style={{ fontSize: "large" }}>{item.prixParHeure}</td>
-                                            <td style={{ fontSize: "large" }}>{item.coutTotal}</td>
-                                            <td>
+                                            <td style={{  fontSize: "large" }}>{new Date(item.date).toLocaleDateString('fr-FR', options)}</td>
+                                            <td style={{ fontSize: "large",width:'90px' }}>{item.duree}</td>
+                                            <td style={{ fontSize: "large",width:'105px' }}>{item.prixParHeure}</td>
+                                            <td style={{ fontSize: "large",width:'100px' }}>{item.coutTotal}</td>
+                                            <td style={{width:'80px'}}>
                                                 <UpdateIrrigation onUpdate={fetchIrrigation} irrigationId={item._id} />
                                                 <FcDeleteRow style={{ fontSize: "234%" }} onClick={() => handleDelete(item._id)} />
                                             </td>
+                                            <td style={{ width:'90px' }}></td>
                                         </tr>
                                     ))}
                                     <tr>
-                                        <td style={{ fontSize: "large" }}>Total</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td style={{ fontSize: "large" }}>{total}</td>
-                                        <td></td>
+                                        <td  colSpan={6} ></td>
+                                        
+                                        <td style={{ fontSize: "large",width:'90px' }}>{total}</td>
+                                    
                                     </tr>
                                 </tbody>
-                            </table>
+                            </Table>
                         </div>
                     </div>
-                    <div className="col-xl-4">
+                    <div className="col-md-4 mt-3">
                         <AjouterIrrigation onCreate={fetchIrrigation} />
                     </div>
                 </div>

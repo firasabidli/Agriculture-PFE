@@ -97,7 +97,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
 
     return (
         <>
-            <CiEdit style={{ fontSize: "400%" }} onClick={handleShow} />
+            <CiEdit style={{ fontSize: "400%",marginTop:'-10%' }} onClick={handleShow} />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Modifier les informations de récolte</Modal.Title>
