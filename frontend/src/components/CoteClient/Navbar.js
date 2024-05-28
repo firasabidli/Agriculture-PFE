@@ -324,11 +324,8 @@ const handleCategorieBetailClick =()=>{
                   </ul>
                   )}
                   </li>
-              </ul>
-              <div className="d-none d-lg-flex ms-2">
-                <button className='rounded-circle btn-sm-square bg-white ms-3'>
-                  <FaSearch className="text-body"  onClick={handleModalShow} />
-                </button>
+                  <div className=" pt-4 d-sm-flex ms-2 mx-5">
+                
                 <Link to="/meteo" className='rounded-circle btn-sm-square bg-white ms-3 text-dark pt-1 fs-4'>
                  <TiWeatherPartlySunny />
                 </Link>
@@ -354,10 +351,10 @@ const handleCategorieBetailClick =()=>{
         </ul>
       )}
             </div>
-                <button className='rounded-circle btn-sm-square bg-white ms-3'>
-                  <FaShoppingBag className="text-body  " />
-                </button>
+                
               </div>
+              </ul>
+             
             </div>
           </div>
         </nav>

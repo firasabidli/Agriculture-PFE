@@ -34,17 +34,15 @@ function Meteo() {
 
   return (
     <div>
-        <Navbar/>
-      {/* Afficher les données météorologiques */}
+      <Navbar />
       {weatherData && (
-        
         <>
           <CurrentWeather weatherData={weatherData} city={City} />
-        {/* <Alerts weatherData={weatherData}/> */}
         </>
       )}
     </div>
   );
+  
 }
 
 export default Meteo;
