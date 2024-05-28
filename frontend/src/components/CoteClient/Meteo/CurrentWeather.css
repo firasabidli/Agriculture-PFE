@@ -30,9 +30,10 @@
   background-color: transparent;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
   .weather-panel {
     padding: 10px;
+    margin-top: 80%;
   }
 
   .table-responsive {

@@ -135,12 +135,14 @@ const CurrentWeather = ({ weatherData, city }) => {
       <div className="row">
         <div className="col main bg-img">
           <div className="row">
-            <div className="col-xl-12">
-              <div className="weather-panel">
-                <div className="m-4">
+            <div className="col-12">
+              <div className="weather-panel  ">
+                <div className="row">
+                  <div className='col-12'>
                   <h2>{city}<br /><small>{currentDateTime}</small></h2>
                   <HiLightBulb className='lamp' onClick={showAlerts} />
                   <p className="h3"><img src={getWeatherIcon(icon)} alt="Icône météo" /> {getDescriptionByIcon(icon)}</p>
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="temperature">
@@ -150,7 +152,7 @@ const CurrentWeather = ({ weatherData, city }) => {
                 <div className="m-4">
                   <ul className="list-inline row forecast">
                     {daily.slice(1).map((day, index) => (
-                      <li className="col-xs-4 col-sm-1 day text-center" key={index}>
+                      <li className="col-xs-4 col-sm-1  day text-center" key={index}>
                         <h3 className="h5">{new Date(day.dt * 1000).toLocaleDateString('fr', { weekday: 'short' })}</h3>
                         <p><i className="mi mi-fw mi-2x mi-cloud-sun">
                           <img src={getWeatherIcon(day.weather[0].icon)} alt="Icône météo" className="w-icon" style={{ width: '30px' }} /></i><br />
