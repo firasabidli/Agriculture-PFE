@@ -1,3 +1,23 @@
+
+.colorCurrent {
+  background-color: #1976D2;
+  color:white;
+}
+/* CSS */
+@keyframes tableRotate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.tableRotate {
+
+  transition: tableRolate 1s ease-out;
+}
+
 .bg-img {
   display: flex;
   justify-content: center; /* Center horizontally */
