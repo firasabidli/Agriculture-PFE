@@ -60,17 +60,23 @@ const Main = () => {
         <div class="row row-cols-1 mb-3 ">
             <div class="col-sm-12 col-md-6 col-lg-4 mb-3 "  >
                 <div class="card" style={{borderRadius:'5%'}}>
-                <div class="card-body"style={{color:'white',backgroundColor:'#38c609',borderRadius:'5%'}}>
+                <div class="card-body"style={{color:'white',backgroundColor:'#e91e63',borderRadius:'5%'}}>
                     <h2 class="card-title text-center text-light"> <GiFarmer style={{fontSize:'50px'}}/></h2>
                     <h5 class="card-title text-center text-light"> Agriculteurs</h5>
                     
                     <h5 className='text-center'>{agriculteurs.length}</h5>
                 </div>
+                {/* <div class="card-body"style={{color:'white',backgroundColor:'#38c609',borderRadius:'5%'}}>
+                    <h2 class="card-title text-center text-light"> <GiFarmer style={{fontSize:'50px'}}/></h2>
+                    <h5 class="card-title text-center text-light"> Agriculteurs</h5>
+                    
+                    <h5 className='text-center'>{agriculteurs.length}</h5>
+                </div> */}
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 mb-3 "  >
                 <div class="card" style={{borderRadius:'5%'}}>
-                <div class="card-body"style={{color:'white',backgroundColor:'#38c609',borderRadius:'5%'}}>
+                <div class="card-body"style={{color:'white',backgroundColor:'#7b809a',borderRadius:'5%'}}>
                     <h2 class="card-title text-center text-light"> <GiCow style={{fontSize:'50px'}}/></h2>
                     <h5 class="card-title text-center text-light"> Bétails</h5>
                     
@@ -80,7 +86,7 @@ const Main = () => {
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 mb-3 "  >
                 <div class="card" style={{borderRadius:'5%'}}>
-                <div class="card-body"style={{color:'white',backgroundColor:'#38c609',borderRadius:'5%'}}>
+                <div class="card-body"style={{color:'white',backgroundColor:'#4caf50',borderRadius:'5%'}}>
                     <h2 class="card-title text-center text-light"> <GiWheat  style={{fontSize:'50px'}}/></h2>
                     <h5 class="card-title text-center text-light"> cultures</h5>
                     

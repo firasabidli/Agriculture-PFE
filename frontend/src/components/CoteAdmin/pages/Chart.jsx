@@ -150,7 +150,7 @@ const Charts = ({agricultures, betails}) => {
                 <div className="dataCard barCard col-sm-12 col-md-3   mb-3 ">
                     <Bar
                         data={{
-                            labels: AgricultureCultureData.map((data) => `Catégorie: ${data.label}`),
+                            labels: AgricultureCultureData.map((data) => `${data.label}`),
                             datasets: [
                                 {
                                     label: "Nombre de culture",
