@@ -140,6 +140,7 @@ function Add({ onCreate }) {
     if (!validateForm()) {
       return;
     }
+    console.log('etat', etat_betail)
     const formData = new FormData();
     formData.append('id_categorie', selectedCategory);
     formData.append("nom_betail", nom_betail);
@@ -164,7 +165,6 @@ function Add({ onCreate }) {
       if (result.data.success) {
         handleClose();
         alert(result.data.message);
-        window.location.reload()
         onCreate();
 
       }
@@ -177,11 +177,6 @@ function Add({ onCreate }) {
     setImageBetail(e.target.files[0]);
   };
 
- 
-
- 
-
-  
 
   return (
     <>
@@ -224,17 +219,31 @@ function Add({ onCreate }) {
               {errors.race && <div className="text-danger">{errors.race}</div>}
             </Form.Group>
 
-           
-
             <Form.Group className="mb-3" controlId="etat">
               <Form.Label>État de gestation</Form.Label>
-              <Form.Control as="select" value={etat_betail} onChange={(e) => setEtatBetail(e.target.value)}>
-                <option value="">Sélectionnez l'etat de gestation</option>
-                <option value="Gestation">Gestation</option>
-                <option value="Non Gestation">Non Gestation</option>
-              </Form.Control>
+              <div>
+                <Form.Check
+                  inline
+                  label="Gestation"
+                  type="radio"
+                  id="gestation"
+                  name="etat_gestation"
+                  checked={etat_betail === "Gestation"}
+                  onChange={() => setEtatBetail("Gestation")}
+                />
+                <Form.Check
+                  inline
+                  label="Non Gestation"
+                  type="radio"
+                  id="non_gestation"
+                  name="etat_gestation"
+                  checked={etat_betail === "Non Gestation"}
+                  onChange={() => setEtatBetail("Non Gestation")}
+                />
+              </div>
               {errors.etat_betail && <div className="text-danger">{errors.etat_betail}</div>}
             </Form.Group>
+
 
           <Form.Group className="mb-3" controlId="nom_betail">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Betail:">
@@ -248,11 +257,7 @@ function Add({ onCreate }) {
               {errors.nom_betail && <div className="text-danger">{errors.nom_betail}</div>}
             </Form.Group>
 
-           
 
-
-            
-            
 
             <Form.Group className="mb-3" controlId="sexe">
               <Form.Label>sex</Form.Label>

@@ -6,7 +6,10 @@
     background-color:initial;
     
   }
-  
+  .eviteHover:hover{
+    color:#fff;
+    border: none;
+  }
   .main-title {
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.35);
     display: block;

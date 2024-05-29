@@ -121,7 +121,6 @@ const ConsulterAgriculteur = () => {
                 <Header toggleSidebar={toggleSidebar}/>
                 <main className='stock-container'>
                     <div className='main-ajoute'>
-                        <h1>hi</h1>
                     </div>
                     <div className='main-title'>
                         <div className='List-title'>
@@ -155,8 +154,8 @@ const ConsulterAgriculteur = () => {
                                                 <table className="table text-center">
                                                     <thead className="thead-dark">
                                                         <tr>
-                                                            <th>
-                                                                <div class="form-check">
+                                                            <th style={{backgroundColor:"#7b809a"}}>
+                                                                <div class="form-check" >
                                                                     <input
                                                                         class="form-check-input"
                                                                         type="checkbox"
@@ -168,10 +167,10 @@ const ConsulterAgriculteur = () => {
                                                                     ID no.
                                                                 </div>
                                                             </th>
-                                                            <th>Nom</th>
-                                                            <th>Gouvernant</th>
-                                                            <th>email</th>
-                                                            <th>numeroTelephone</th>
+                                                            <th style={{backgroundColor:"#7b809a"}}>Nom</th>
+                                                            <th style={{backgroundColor:"#7b809a"}}>Gouvernant</th>
+                                                            <th style={{backgroundColor:"#7b809a"}}>email</th>
+                                                            <th style={{backgroundColor:"#7b809a"}}>numeroTelephone</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

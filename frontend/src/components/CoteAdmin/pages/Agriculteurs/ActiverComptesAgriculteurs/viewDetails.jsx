@@ -41,7 +41,7 @@ function ViewDetails({ Agriculteur }) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>Close</Button>
+          <Button variant="secondary"  className="bg-secondary eviteHover" onClick={() => setShow(false)}>Close</Button>
         </Modal.Footer>
       </Modal>
     </>

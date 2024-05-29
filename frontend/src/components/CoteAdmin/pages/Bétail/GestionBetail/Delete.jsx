@@ -32,7 +32,7 @@ function Delete({ betailId, onDelete  }) {
         </Modal.Header>
         <Modal.Body>Êtes-vous sûr de vouloir supprimer cette betail  ?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary"  className="bg-secondary eviteHover" onClick={handleClose}>
             Annuler
           </Button>
           <Button variant="success" onClick={confirmDelete}>

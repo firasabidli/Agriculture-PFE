@@ -77,11 +77,11 @@ const ActiverCompte = () => {
 									<table className="table text-center">
 										<thead className="thead-dark">
 											<tr>
-												<th>ID no.</th>
-												<th>Nom </th>
-                                                <th>N° de téléphone</th>
-												<th>email</th>
-												<th>Action</th>
+												<th style={{backgroundColor:"#7b809a"}}>ID no.</th>
+												<th style={{backgroundColor:"#7b809a"}}>Nom </th>
+                                                <th style={{backgroundColor:"#7b809a"}}>N° de téléphone</th>
+												<th style={{backgroundColor:"#7b809a"}}>email</th>
+												<th style={{backgroundColor:"#7b809a"}}>Action</th>
 											</tr>
 										</thead>
 										<tbody>

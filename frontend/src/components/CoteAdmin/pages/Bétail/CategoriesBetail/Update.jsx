@@ -94,7 +94,7 @@ function Update({ category, onUpdate }) {
 
   return (
     <>
-      <FaRegEdit type="button" className="icon-edit" onClick={handleShow} />
+      <FaRegEdit type="button" className="icon-edit" style={{color:"#495057"}} onClick={handleShow} />
 
       <Modal show={show} onHide={handleClose} className='modal-lg'>
         <Modal.Header closeButton>
@@ -142,7 +142,8 @@ function Update({ category, onUpdate }) {
                     <Btn
                       variant="danger"
                       onClick={() => handleRemoveRace(index)}
-                      className="ms-2"
+                      className="ms-2 eviteHover"
+                      style={{backgroundColor:"#f44335"}}
                     >
                       Supprimer
                     </Btn>
@@ -152,7 +153,7 @@ function Update({ category, onUpdate }) {
                  </>
               ))}
               {races.length < 5 && (
-                <Btn variant="secondary" onClick={handleAddRace}>
+                <Btn variant="secondary" className="eviteHover" style={{backgroundColor:"#03a9f4"}} onClick={handleAddRace}>
                   Ajouter une Race
                 </Btn>
               )}
@@ -160,10 +161,10 @@ function Update({ category, onUpdate }) {
           
         </Modal.Body>
         <Modal.Footer>
-          <Btn variant="secondary" onClick={handleClose}>
+          <Btn variant="secondary" className="bg-secondary eviteHover" onClick={handleClose}>
             Annuler
           </Btn>
-          <Btn variant="primary" type="submit" form="form">
+          <Btn variant="success" type="submit" form="form">
             Enregistrer
           </Btn>
         </Modal.Footer>
