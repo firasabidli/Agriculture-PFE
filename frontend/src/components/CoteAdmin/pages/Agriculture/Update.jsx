@@ -285,7 +285,7 @@ function Update({ onUpdate, agricultureId }) {
  
   return (
     <>
-      <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
+      <FaRegEdit type='button' className='icon-edit' style={{color:"#495057"}} onClick={handleShow} />
 
       <Modal show={show} onHide={handleClose} className='modal-lg'>
   <Modal.Header closeButton>

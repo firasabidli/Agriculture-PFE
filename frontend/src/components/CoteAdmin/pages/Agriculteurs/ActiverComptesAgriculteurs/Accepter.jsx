@@ -31,7 +31,7 @@ function Accepter({ userId, onActivate  }) {
         </Modal.Header>
         <Modal.Body>Êtes-vous sûr de vouloir activer cette agriculteur  ?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary"  className="bg-secondary eviteHover" onClick={handleClose}>
             Annuler
           </Button>
           <Button variant="success" onClick={confirmActivate}>

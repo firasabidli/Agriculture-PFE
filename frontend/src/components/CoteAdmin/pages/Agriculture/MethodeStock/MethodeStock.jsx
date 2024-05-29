@@ -138,7 +138,7 @@ const MethodeStock = () => {
 													<td>{item.description.length>50? item.description.substring(0, 50) + '...': item.description}</td>
 													<td>
 														<div className='action'>
-															<FaRegEdit type='button' className='icon-edit' onClick={()=> handleModifier(item)} />
+															<FaRegEdit type='button'  className='icon-edit'style={{color:"#495057"}} onClick={()=> handleModifier(item)} />
 															<FcFullTrash type='button' className='icon-trash' onClick={() => handleDelete(item._id)}  />
 														</div>
 													</td>

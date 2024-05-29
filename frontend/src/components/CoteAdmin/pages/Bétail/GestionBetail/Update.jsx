@@ -165,7 +165,7 @@ function Update({ onUpdate, betailId }) {
       handleClose();
       alert(result.data.message);
       onUpdate();
-      window.location.reload()
+      
       
     } catch (error) {
       console.error('Error updating betail:', error);
@@ -179,7 +179,7 @@ function Update({ onUpdate, betailId }) {
 
   return (
     <>
-      <FaRegEdit type='button' className='icon-edit' onClick={handleShow} />
+      <FaRegEdit type='button' className='icon-edit' style={{color:"#495057"}} onClick={handleShow} />
 
       <Modal show={show} onHide={handleClose}className='modal-lg'>
         <Modal.Header closeButton>
@@ -215,17 +215,33 @@ function Update({ onUpdate, betailId }) {
               {errors.race && <div className="text-danger">{errors.race}</div>}
             </Form.Group>
 
-           
-
             <Form.Group className="mb-3" controlId="etat">
-              <Form.Label>État de gestation</Form.Label>
-              <Form.Control as="select" id='etat_betail' name="etat_betail" defaultValue={etat_betail} onChange={(e) => setEtat(e.target.value)} >
-                <option value="">Sélectionnez l'etat de gestation</option>
-                <option selected={"Gestation"===betail.etat_betail} value="Gestation">Gestation</option>
-                <option selected={"Non Gestation"===betail.etat_betail} >Non Gestation</option>
-              </Form.Control>
-              {errors.etat_betail && <div className="text-danger">{errors.etat_betail}</div>}
-            </Form.Group>
+  <Form.Label>État de gestation</Form.Label>
+  <div>
+    <Form.Check
+      inline
+      label="Gestation"
+      type="radio"
+      id="gestation"
+      name="etat_betail"
+      value="Gestation"
+      checked={etat_betail === "Gestation"}
+      onChange={() => setEtat("Gestation")}
+    />
+    <Form.Check
+      inline
+      label="Non Gestation"
+      type="radio"
+      id="non_gestation"
+      name="etat_betail"
+      value="Non Gestation"
+      checked={etat_betail === "Non Gestation"}
+      onChange={() => setEtat("Non Gestation")}
+    />
+  </div>
+  {errors.etat_betail && <div className="text-danger">{errors.etat_betail}</div>}
+</Form.Group>
+
 
           <Form.Group className="mb-3" controlId="nom_betail">
               <FloatingLabel controlId="floatingTextarea2" label="Nom Betail:">

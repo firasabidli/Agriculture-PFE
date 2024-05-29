@@ -148,7 +148,7 @@ const Medicament = () => {
                                                                 <td>{item.description.length>50? item.description.substring(0, 50) + '...': item.description}</td>
                                                                 <td >
 																<div className='action ' style={{marginLeft:'100px'}}>
-																<FaRegEdit className='icon-edit' onClick={()=> handleModifier(item)}></FaRegEdit>
+																<FaRegEdit className='icon-edit' style={{color:"#495057"}} onClick={()=> handleModifier(item)}></FaRegEdit>
 																<FcFullTrash className='icon-trash' onClick={() => handleDelete(item._id)}></FcFullTrash>
 																	</div>
 																

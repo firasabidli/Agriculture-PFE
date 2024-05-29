@@ -1,4 +1,7 @@
-
+.eviteHover:hover{
+  color:#fff;
+  border: none;
+}
 .stock-container {
     grid-area: main;
     overflow-y: auto;
