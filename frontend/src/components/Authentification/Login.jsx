@@ -10,6 +10,7 @@ import RegistreForm from './Registre';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserContext';
 import AuthService from './service/AuthService';
+import MotDePasseOublie from './MotDePasseOublié'; 
 // Supprimez les accolades autour de `onLogin`
 const LoginForm = () => {
   const history=useNavigate()
@@ -133,6 +134,7 @@ const LoginForm = () => {
             </Form.Floating>
 
             <input type="submit" value="Connexion" className="btnn solid mb-4" />
+            <MotDePasseOublie/>
             <img src={userGif} alt="ImageLogin" className='ImageGif'  />
           </form>
 
@@ -157,6 +159,7 @@ const LoginForm = () => {
             <button className="btnn transparent mb-2" id="sign-in-btn" onClick={handleSignInClick}>
               Sign in
             </button>
+            
           </div>
           
           <img src={LogoSignUp} className="image" alt="" style={{marginRight:"130%"}} />
