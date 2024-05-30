@@ -1,5 +1,7 @@
 const Utilisateur = require('../../Model/Authentification/Utilisateur');
 const expressAsyncHandler = require("express-async-handler");
+const argon2 = require('argon2');
+const crypto = require('crypto');
 const path = require('path');
 const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
@@ -123,4 +125,60 @@ exports.getNombreAgriculteursParGouvernorat = async (req, res) => {
   }
 };
 
+exports.MotDePasseOublie = async (req, res) => {
+  try {
+    const email = req.body.email;
+
+    // Rechercher l'utilisateur par email
+    const agriculteur = await Utilisateur.findOne({ email });
+    if (!agriculteur) {
+      return res.status(404).json({ message: 'Aucun utilisateur trouvé avec cet e-mail' });
+    }
+
+    // Générer un nouveau mot de passe aléatoire
+    const nouveauMotDePasse = crypto.randomBytes(8).toString('hex');
+
+    // Hacher le nouveau mot de passe
+    const hashedPassword = await argon2.hash(nouveauMotDePasse);
+
+    // Mettre à jour le mot de passe de l'utilisateur dans la base de données
+    agriculteur.password = hashedPassword;
+    await agriculteur.save();
+
+    // Préparer l'e-mail avec le nouveau mot de passe
+    const cheminLogo = path.join(__dirname, '../../src/assets/logo.png');
+    const mailOptions = {
+      from: process.env.SMTP_MAIL,
+      to: agriculteur.email,
+      subject: 'Récupération de compte',
+      html: `
+        <html>
+          <body>
+            <div style="text-align: center;">
+              <img src="cid:logo" alt="Logo de votre application" style="width: 150px; height: auto;">
+              <h1>Salut ${agriculteur.nom},</h1>
+              <p>Nous avons généré un nouveau mot de passe pour votre compte :</p>
+              <p><strong>${nouveauMotDePasse}</strong></p>
+              <p>Veuillez utiliser ce mot de passe pour vous connecter et n'oubliez pas de le changer après votre première connexion.</p>
+            </div>
+          </body>
+        </html>
+      `,
+      attachments: [{
+        filename: 'logo.png',
+        path: cheminLogo,
+        cid: 'logo'
+      }]
+    };
+
+    // Envoi de l'e-mail
+    await transporter.sendMail(mailOptions);
+
+    // Envoyer une réponse réussie une fois l'e-mail envoyé
+    res.status(200).json({ message: 'Un nouvel e-mail de mot de passe a été envoyé avec succès' });
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des e-mails :', error);
+    res.status(500).json({ error: 'Erreur lors de l\'envoi des e-mails' });
+  }
+};
 
