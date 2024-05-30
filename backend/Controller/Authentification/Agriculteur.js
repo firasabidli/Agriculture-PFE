@@ -160,6 +160,7 @@ exports.MotDePasseOublie = async (req, res) => {
               <p>Nous avons généré un nouveau mot de passe pour votre compte :</p>
               <p><strong>${nouveauMotDePasse}</strong></p>
               <p>Veuillez utiliser ce mot de passe pour vous connecter et n'oubliez pas de le changer après votre première connexion.</p>
+              <a href="http://localhost:3000/" style="text-decoration:none;"> Login </a>
             </div>
           </body>
         </html>
