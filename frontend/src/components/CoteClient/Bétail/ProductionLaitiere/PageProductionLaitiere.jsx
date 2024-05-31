@@ -232,7 +232,8 @@ const PageProductionLaitiere = () => {
                 />
                  <div>
                  <input type="checkbox" id="check1" class="toggle" onClick={handleSwitch}/>
-                 <label for="check1"></label>
+                 <label for="check1">{switchInput? 'Ajouter':'Modifier'}</label>
+                
                  </div>
                  {!switchInput && (
 
@@ -243,7 +244,7 @@ const PageProductionLaitiere = () => {
                     
                     <Form  id="form"> </Form>
                     
-                    <Table responsive className="tableRes">
+                    <Table responsive className="tableRes text-center">
                         <thead>
                             <tr>
                                 <th rowSpan="2" scope='col'>N° Semaine</th>
@@ -305,7 +306,7 @@ const PageProductionLaitiere = () => {
     
     <Form  id="form"> </Form>
     
-    <Table responsive className="tableRes">
+    <Table responsive className="tableRes text-center">
         <thead>
             <tr>
                 <th rowSpan="2" scope='col'>N° Semaine</th>
@@ -318,9 +319,9 @@ const PageProductionLaitiere = () => {
             <tr>
                 {[...Array(daysOfWeek.length)].map((_, index) => (
                     <React.Fragment key={index}>
-                        <th scope='col'>quantité</th>
-                        <th scope='col'>prix</th>
-                        <th scope='col'>edit</th>
+                        <th scope='col'>Quantité</th>
+                        <th scope='col'>Prix</th>
+                        <th scope='col'>Modifier</th>
                     </React.Fragment>
                 ))}
             </tr>
@@ -335,11 +336,11 @@ const PageProductionLaitiere = () => {
             const quantite = dayData ? dayData['quantite'] : '';
             const prix = dayData ? dayData['prix'] : '';
             const idJour = dayData ? dayData._id : null;
-           
+           const editMod = dayData ? true: false;
 
             return (
                 <td key={jourIndex} style={{ border: 'solid 0.5px white', color: 'grey' }}>
-                    {jourIndex % 3 === 2 ? <Edit idJour={idJour} idProduction={idProduction} quantite={quantite} prix={prix} onUpdate={fetchProduction} /> : jourIndex % 3 === 0 ? quantite : prix}
+                    {jourIndex % 3 === 2 ? editMod?<Edit idJour={idJour} idProduction={idProduction} quantite={quantite} prix={prix} onUpdate={fetchProduction} /> :"" : jourIndex % 3 === 0 ? quantite : prix}
                 </td>
             );
         })}
@@ -350,7 +351,7 @@ const PageProductionLaitiere = () => {
                                         </tbody>
         <tfoot>
             <tr>
-                <td colSpan='15' style={{textAlign:'right',backgroundColor:'#38c609',color:'white'}}> 
+                <td colSpan='24' style={{textAlign:'right',backgroundColor:'#38c609',color:'white'}}> 
                     <b> Production Total en DT: <span>{(dataYear === selectedDate.getFullYear() && dataMonth === selectedDate.getMonth() + 1) ? prodTotal : 0}</span></b>
                 </td>
             </tr>
