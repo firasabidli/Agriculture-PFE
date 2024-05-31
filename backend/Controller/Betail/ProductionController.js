@@ -41,16 +41,33 @@ exports.create = async (req, res) => {
 };
 
 
-exports.delete = async (req, res) => {
-    const { id } = req.params;
-
+exports.update = async (req, res) => {
     try {
-        await Production.findByIdAndDelete(id);
-        res.json({ message: 'Production supprimé' });
+        const { idProduction, idJour } = req.params;
+        const { quantite, prix } = req.body;
+
+        // Mettez à jour le document dans la base de données
+        const updatedProduction = await Production.findOneAndUpdate(
+            { _id: idProduction, "data._id": idJour }, // Filtre pour trouver le document correspondant
+            { $set: { "data.$.quantite": quantite, "data.$.prix": prix, "data.$.total": quantite*prix } }, // Mise à jour des champs quantité et prix
+            { new: true } // Option pour renvoyer le document mis à jour
+        );
+
+        // Vérifiez si le document a été mis à jour avec succès
+        if (!updatedProduction) {
+            return res.status(404).json({ success: false, message: 'Production ou jour ne trouve pas' });
+        }
+
+        res.status(200).json({ success: true, message: 'Production laitière modifié avec succés' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Error updating production:', error);
+        res.status(500).json({ success: false, message: error });
     }
 };
+
+
+
+
 
 
 
