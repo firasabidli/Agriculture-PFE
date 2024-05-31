@@ -37,7 +37,7 @@ function Edit({ idProduction, idJour, quantite, prix, onUpdate }) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Production</Modal.Title>
+          <Modal.Title>Modifier production laitière</Modal.Title>
         </Modal.Header>
         <Form>
           <Modal.Body>
