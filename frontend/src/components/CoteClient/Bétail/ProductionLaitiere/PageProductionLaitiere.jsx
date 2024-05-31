@@ -12,6 +12,7 @@ import { Table } from "react-bootstrap";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { TbReportMoney } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import Edit from "./edit";
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 defaults.plugins.title.display = true;
@@ -21,8 +22,9 @@ defaults.plugins.title.color = "black";
 
 const PageProductionLaitiere = () => {
     const [production, setProduction] = useState([]);
+    const [idProduction, setIdProduction] = useState('');
+    const [switchInput, setSwitchInput] = useState(false);
     const [stat, setStat] = useState([]);
-    const [alimentsData, setAlimentsData] = useState([]);
     const [dataYear, setDataYear] = useState('');
     const [dataMonth, setDataMonth] = useState('');
     const [prodTotal, setProdTotal] = useState(0);
@@ -42,7 +44,6 @@ const PageProductionLaitiere = () => {
     useEffect(() => {
         if (idAgriculteur) {
             fetchProduction();
-            fetchStatistique();
         }
     }, [selectedDate, idAgriculteur]);
 
@@ -63,10 +64,12 @@ const PageProductionLaitiere = () => {
             const response = await axios.get(`http://localhost:3001/ProductionBetail/${idAgriculteur}/${id}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`);            
             if (response.data != null) {
                 setProduction(response.data.data);
+                setIdProduction(response.data._id);
                 setProd(response.data.data);
                 setDataMonth(response.data.month);
                 setDataYear(response.data.year);
                 setProdTotal(response.data.productionTotal);
+                fetchStatistique();
             }
         } catch (error) {
             console.error('Error fetching daily data:', error);
@@ -197,29 +200,13 @@ const PageProductionLaitiere = () => {
             if (response) {
                 alert("Production Laitière ajoutée avec succès");
                 fetchProduction();
-                fetchStatistique();
             }
         } catch (error) {
             console.error('Error saving daily data:', error);
         }
     };
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(`http://localhost:3001/AlimentsAnimal/${idAgriculteur}`);
-            if (Array.isArray(response.data.data)) {
-                setAlimentsData(response.data.data);
-            } else {
-                console.error('La réponse de l\'API ne contient pas de tableau de données:', response.data.data);
-            }
-        } catch (error) {
-            console.error('Erreur lors du chargement des données:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+   
 
 
     const handleAddButtonClick = (event) => {
@@ -228,7 +215,9 @@ const PageProductionLaitiere = () => {
         }
     };
 
-   
+   const handleSwitch =()=>{
+    setSwitchInput(!switchInput);
+   }
 
     return (
         <div className="container">
@@ -241,7 +230,13 @@ const PageProductionLaitiere = () => {
                     onChange={handleDateChange}
                     value={selectedDate}
                 />
-                 
+                 <div>
+                 <input type="checkbox" id="check1" class="toggle" onClick={handleSwitch}/>
+                 <label for="check1"></label>
+                 </div>
+                 {!switchInput && (
+
+                <>
                 <h2>Production laitière Par Mois : {selectedMonth} {selectedYear}</h2>
                 
               
@@ -297,7 +292,76 @@ const PageProductionLaitiere = () => {
                     <Link className="dropdown-item" to={handleLinkRClick(idAgriculteur,id,selectedDate.getFullYear(),selectedDate.getMonth() + 1)} > Facture <LiaFileInvoiceDollarSolid style={{ fontSize: "30px",marginLeft:"10%" }}/></Link>
                     <Link className="dropdown-item" to={handleLinkRClickRapport(idAgriculteur,id,selectedDate.getFullYear(),selectedDate.getMonth() + 1)} style={{marginLeft:"10%"}}> Rapport <TbReportMoney  style={{ fontSize: "30px",marginLeft:"10%" }}/></Link>
                         <button className="btn" form="form"  onClick={handleAddButtonClick} style={{marginLeft:"10%"}}>Ajouter</button></div>
-                    
+                   </>
+                   )}
+
+
+{switchInput && (
+
+<>
+<h2>Production laitière Par Mois : {selectedMonth} {selectedYear}</h2>
+
+
+    
+    <Form  id="form"> </Form>
+    
+    <Table responsive className="tableRes">
+        <thead>
+            <tr>
+                <th rowSpan="2" scope='col'>N° Semaine</th>
+                {daysOfWeek.map((day, index) => (
+                    <React.Fragment key={index}>
+                        <th colSpan="3" scope='col'>{day}</th>
+                    </React.Fragment>
+                ))}
+            </tr>
+            <tr>
+                {[...Array(daysOfWeek.length)].map((_, index) => (
+                    <React.Fragment key={index}>
+                        <th scope='col'>quantité</th>
+                        <th scope='col'>prix</th>
+                        <th scope='col'>edit</th>
+                    </React.Fragment>
+                ))}
+            </tr>
+        </thead>
+        <tbody>
+        {[...Array(weeksInMonth)].map((_, semaineIndex) => (
+    <tr key={semaineIndex} style={{ textAlign: 'center' }}>
+        <td style={{ border: 'solid white', color: 'grey' }}>{semaineIndex + 1}</td>
+        {[...Array(Math.min(7 * 3, (daysInMonth - semaineIndex * 7) * 3))].map((_, jourIndex) => {
+            const index = semaineIndex * 7 + Math.floor(jourIndex / 3);
+            const dayData = production[index];
+            const quantite = dayData ? dayData['quantite'] : '';
+            const prix = dayData ? dayData['prix'] : '';
+            const idJour = dayData ? dayData._id : null;
+           
+
+            return (
+                <td key={jourIndex} style={{ border: 'solid 0.5px white', color: 'grey' }}>
+                    {jourIndex % 3 === 2 ? <Edit idJour={idJour} idProduction={idProduction} quantite={quantite} prix={prix} onUpdate={fetchProduction} /> : jourIndex % 3 === 0 ? quantite : prix}
+                </td>
+            );
+        })}
+    </tr>
+))}
+
+                                            
+                                        </tbody>
+        <tfoot>
+            <tr>
+                <td colSpan='15' style={{textAlign:'right',backgroundColor:'#38c609',color:'white'}}> 
+                    <b> Production Total en DT: <span>{(dataYear === selectedDate.getFullYear() && dataMonth === selectedDate.getMonth() + 1) ? prodTotal : 0}</span></b>
+                </td>
+            </tr>
+        </tfoot>
+    </Table>
+    <div className="d-flex " style={{float:"right"}}>
+    <Link className="dropdown-item" to={handleLinkRClick(idAgriculteur,id,selectedDate.getFullYear(),selectedDate.getMonth() + 1)} > Facture <LiaFileInvoiceDollarSolid style={{ fontSize: "30px",marginLeft:"10%" }}/></Link>
+    <Link className="dropdown-item" to={handleLinkRClickRapport(idAgriculteur,id,selectedDate.getFullYear(),selectedDate.getMonth() + 1)} style={{marginLeft:"10%"}}> Rapport <TbReportMoney  style={{ fontSize: "30px",marginLeft:"10%" }}/></Link>
+        <button className="btn" form="form"  onClick={handleAddButtonClick} style={{marginLeft:"10%"}}>Ajouter</button></div>
+   </>
+   )}
             </div>
           
            

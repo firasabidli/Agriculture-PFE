@@ -157,9 +157,9 @@ const FactureProductionLaitiere = () => {
                                                     {[...Array(Math.min(7 * 3, (daysInMonth - semaineIndex * 7) * 3))].map((_, jourIndex) => {
                                                         const index = semaineIndex * 7 + Math.floor(jourIndex / 3);
                                                         const dayData = production[index];
-                                                        const quantite = dayData ? dayData['quantite'] : 0;
-                                                        const prix = dayData ? dayData['prix'] : 0;
-                                                        const total = quantite * prix;
+                                                        const quantite = dayData ? dayData['quantite'] : '';
+                                                        const prix = dayData ? dayData['prix'] : '';
+                                                        const total = dayData['prix'] || dayData['quantite'] ? quantite * prix : '';
                                                         return (
                                                             <td key={jourIndex} style={{ border: 'solid 0.5px white', color: 'grey' }}>
                                                                 {jourIndex % 3 === 2 ? total : jourIndex % 3 === 0 ? quantite : prix}
