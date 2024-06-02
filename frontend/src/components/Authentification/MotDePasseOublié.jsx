@@ -53,10 +53,10 @@ function MotDePasseOublie() {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" className="bg-secondary eviteHover" onClick={handleClose}>
               Fermer
             </Button>
-            <Button variant="primary"  form='FormRécuption'onClick={handleSubmit}>
+            <Button variant="success"  form='FormRécuption'onClick={handleSubmit}>
               Envoyer
             </Button>
           </Modal.Footer>
