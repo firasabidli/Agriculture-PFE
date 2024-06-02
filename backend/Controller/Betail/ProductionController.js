@@ -1,5 +1,5 @@
 const Production = require('../../Model/Betail/ProductionModel');
-
+// afficher production par moi et annee
 exports.getByMonthAndYear = async (req, res) => {
     try {
         const { idAgriculteur,idAnimal, month, year } = req.params;
@@ -9,7 +9,7 @@ exports.getByMonthAndYear = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
+// ajouter production
 exports.create = async (req, res) => {
     const { idAgriculteur, idAnimal, month, year, data,productionTotal } = req.body;
 
@@ -40,7 +40,7 @@ exports.create = async (req, res) => {
     }
 };
 
-
+//update
 exports.update = async (req, res) => {
     try {
         const { idProduction, idJour } = req.params;
@@ -66,11 +66,7 @@ exports.update = async (req, res) => {
 };
 
 
-
-
-
-
-
+// afficher tous les productions
 exports.all = async (req, res) => {
     const { idAgriculteur, idAnimal } = req.params;
 
@@ -105,7 +101,7 @@ exports.all = async (req, res) => {
     }
 };
 
-
+// statistique
 exports.StatLitirarire = async (req, res) => {
     const { idAgriculteur, idAnimal, year, month } = req.params;
 

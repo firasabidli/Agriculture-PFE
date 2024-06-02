@@ -60,7 +60,7 @@ const MyNavbar = ({ textColor }) => {
       console.error('Erreur lors de la récupération des catégories :', error);
     }
   };
-
+// Culture
   const fetchCulturesByCategory = async (categoryId) => {
     try {
       const response = await axios.get(`http://localhost:3001/Agriculture/categorieAgriculture/${categoryId}`);

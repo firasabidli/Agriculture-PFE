@@ -81,7 +81,7 @@ function Add({ onCreate }) {
       setRaces([]); // Reset races when no category is selected
     }
   };
-
+// Validation du champ
   const validateForm = () => {
     const newErrors = {};
 

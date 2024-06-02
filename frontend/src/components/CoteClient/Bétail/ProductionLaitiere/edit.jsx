@@ -27,7 +27,7 @@ function Edit({ idProduction, idJour, quantite, prix, onUpdate }) {
       }
     } catch (error) {
       console.error('Erreur lors de la modification de  production:', error);
-      // Gérez les erreurs
+     
     }
   };
   

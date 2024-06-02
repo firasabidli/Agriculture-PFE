@@ -1,5 +1,5 @@
 const AlimentsAnimal = require('../../Model/Betail/AlimentsAnimalModel');
-
+// Ajouter données sur aliment d'un animal
 exports.create = async (req, res) => {
   try {
     const alimentsAnimal = await AlimentsAnimal.create(req.body);
@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
     res.status(400).json({ success: false, message: err.message });
   }
 };
-
+// afficher tout les données
 exports.all = async (req, res) => {
   try {
     const { idAgriculteur, AnimalId } = req.params;
@@ -31,7 +31,7 @@ exports.getCategorieById = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
-
+// modifier
 exports.update = async (req, res) => {
   try {
     const { dateAchat, quantite, unite, prix, total, aliments  } = req.body;
@@ -50,9 +50,7 @@ exports.update = async (req, res) => {
   }
 };
 
-
-
-
+// supprimer
 exports.delete = async (req, res) => {
   try {
     const alimentsAnimal = await AlimentsAnimal.findByIdAndDelete(req.params.id);

@@ -33,6 +33,7 @@ let res=0
       default:
         break;
     }
+    // Total animaux
     res=countChevres+countDinde+countMoutons+countTaureau+countVaches+countVolailles;
   });
   return (

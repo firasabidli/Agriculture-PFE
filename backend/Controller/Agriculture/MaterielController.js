@@ -51,9 +51,6 @@ exports.getMaterielById = async (req, res) => {
 
 // Mettre à jour une Materiel par son ID
 
-;
-
-
 exports.update = async (req, res) => {
   try {
     const { nom, description } = req.body;
@@ -80,10 +77,9 @@ exports.update = async (req, res) => {
     // Mettez à jour les données du matériel
     await Materiel.updateOne({ _id: req.params.id }, updateData);
 
-    // Renvoie une réponse réussie
     res.status(200).json({ success: true, message: 'Equipement modifier avec succées' });
   } catch (error) {
-    // Renvoie une réponse d'erreur en cas de problème
+    
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -109,11 +105,11 @@ exports.delete = (req, res) => {
 };
 
 
-
+//rechercher
 exports.search = async (req, res) => {
     try {
       const query = req.query.q;
-      // Recherche dans la base de données en utilisant une expression régulière pour rechercher dans le nom
+      // Recherche dans la base de données 
       const results = await Materiel.find({ nom: { $regex: query, $options: 'i' } });
       res.json(results);
     } catch (error) {

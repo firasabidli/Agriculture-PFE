@@ -13,7 +13,7 @@ const Filtre = ({ onFilterChange }) => {
 
   const handleSubcategoryChange = (event) => {
     const subcategory = event.target.value;
-    console.log("hh",subcategory)
+   
     setSelectedSubcategory(subcategory);
     onFilterChange(selectedCategory, subcategory);
   };

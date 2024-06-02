@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios'; // Importez Axios pour effectuer des appels HTTP
+import axios from 'axios'; 
 import { CiEdit } from "react-icons/ci";
 
 const Update = ({ onUpdate, engraisId }) => {
@@ -10,7 +10,7 @@ const Update = ({ onUpdate, engraisId }) => {
     const [nomEngrais, setNomEngrais] = useState('');
     const [engraisData, setEngraisData] = useState({
         quantite: '',
-        unite: 'kg', // Valeur par défaut pour l'unité
+        unite: 'kg', 
     });
     const [dateApplication, setDateApplication] = useState('');
     const [prix, setPrix] = useState('');

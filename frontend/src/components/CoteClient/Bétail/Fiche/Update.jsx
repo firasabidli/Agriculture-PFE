@@ -72,7 +72,7 @@ const UpdateAnimal = ({ animalId, onClose }) => {
     }
 
     setSelectedSubcategory('');
-    //setFormData({ ...formData, subCategorieBetail: ''});
+    
   };
 
   const handleFormSubmit = async (e) => {

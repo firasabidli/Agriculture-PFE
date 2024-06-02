@@ -27,8 +27,8 @@ const CategoriesBetail = () => {
         setDisplayedData(filteredData);
     };
 
-    // fetchData function
-    const fetchData = async () => {
+    //  function pour afficher les données
+        const fetchData = async () => {
         try {
             const response = await axios.get('http://localhost:3001/CategorieBetail');
             if (Array.isArray(response.data)) {

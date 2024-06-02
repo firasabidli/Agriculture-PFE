@@ -24,9 +24,7 @@ exports.create = async (req, res) => {
     await Materiel.updateMany({ '_id': categorie.Equipements }, { $push: { CategorieAgriculture: categorie._id } });
     await MethodeStock.updateMany({ '_id': categorie.MethodeStockage }, { $push: { CategorieAgriculture: categorie._id } });
     await Medicament.updateMany({ '_id': categorie.Engrais }, { $push: { CategorieAgriculture: categorie._id } });
-    
-    // Vous n'avez pas besoin de mettre à jour les collections Materiel, MethodeStock, MedicamentCulture
-    // car les références sont déjà stockées dans les champs Equipements, MethodeStockage, Engrais de la catégorie.
+  
     
     res.status(201).json({ success: true, message: 'Catégorie créée avec succès', data: categorie });
   } catch (err) {
@@ -108,10 +106,11 @@ exports.delete = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+//rechercher
 exports.search = async (req, res) => {
   try {
     const query = req.query.q;
-    // Recherche dans la base de données en utilisant une expression régulière pour rechercher dans le nom
+    // Recherche dans la base de données 
     const results = await Categorie.find({ name: { $regex: query, $options: 'i' } });
     res.json(results);
   } catch (error) {

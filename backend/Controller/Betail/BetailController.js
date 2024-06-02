@@ -41,7 +41,7 @@ exports.create = async (req, res) => {
   }
 };
 
-
+// afficher all du bétail
 exports.all = async (req, res) => {
     try {
       const Betails = await Betail.find().populate('id_categorie');

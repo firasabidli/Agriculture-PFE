@@ -1,5 +1,6 @@
 const culture = require('../../Model/ProductionAgriculture/FicheAgriculture');
 const Recolte= require('../../Model/ProductionAgriculture/historiqueRecolte');
+// ajouter 
 exports.create = async (req, res) => {
   try {
     const { titre, surface, categorie, description, localisation, quantiteSemences, datePlantation, prixSemence, prixTerrain } = req.body;
@@ -9,8 +10,6 @@ exports.create = async (req, res) => {
     if (!titre || !surface || !categorie || !description || !localisation || !quantiteSemences || !datePlantation || !prixSemence || !prixTerrain) {
       return res.status(400).json({ error: 'Veuillez fournir toutes les informations requises.' });
     }
-
-    // Création d'une nouvelle fiche d'agriculture
     const nouvelleFiche = new culture({
       Agriculteur: agriculteurId,
       titre,
@@ -32,6 +31,7 @@ exports.create = async (req, res) => {
     res.status(500).json({ error: 'Une erreur est survenue lors de la création de la fiche d\'agriculture.' });
   }
 };
+// afficher les données du agriculture selon agriculteur connecte
 exports.getAgricultureByAgriculteur = async (req, res) => {
     try {
       const agriculteurId = req.userId;
@@ -42,11 +42,13 @@ exports.getAgricultureByAgriculteur = async (req, res) => {
       res.status(500).json({ message: 'Erreur lors de la récupération des cultures de l\'agriculteur.' });
     }
   };
+  // afficher tous les données
 exports.all = async (req, res) => {
     culture.find()
     .then(cultures => res.status(200).json(cultures))
       .catch(err => res.status(400).json({error: err.message}));
   };
+  // supprimer 
 exports.delete = async (req,res)=>{
     const cultureId = req.params.id;
   
@@ -61,6 +63,7 @@ exports.delete = async (req,res)=>{
       res.status(500).json({ error: 'Internal server error' });
     }
   }
+  // afficher selon id
 exports.getById = async (req, res) => {
   try {
     const cultures = await culture.findById(req.params.id);
@@ -72,6 +75,7 @@ exports.getById = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+// modifier
 exports.update = async (req, res) => {
   const agricultureId = req.params.id;
   const { titre, surface, categorie, description, localisation, quantiteSemences, datePlantation, prixSemence, prixTerrain } = req.body;

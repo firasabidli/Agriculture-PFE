@@ -29,7 +29,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
         }
     }, [page]);
 
-    // JSX de la barre latérale avec les états mis à jour
+   
     return (
         <aside id="sidebar" className={`bg-white ${isSidebarCollapsed ? 'collapsed' : ''}`}>
             <div className="h-100">

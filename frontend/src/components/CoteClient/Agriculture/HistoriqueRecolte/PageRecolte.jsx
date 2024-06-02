@@ -54,6 +54,7 @@ const PageRecolte = () => {
             setFilteredData(filtered);
         }
     }, [typeFilter, data]);
+    
     const handleLinkRClick = (id) => {
         return `/agriculture/FactureRecolte/${id}`;
       };

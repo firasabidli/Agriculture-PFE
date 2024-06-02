@@ -21,6 +21,7 @@ function Add({onCreate}) {
   };
 
   const handleShow = () => setShow(true);
+  // validation du champ
   const validateForm = () => {
     const newErrors = {};
 

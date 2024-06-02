@@ -1,18 +1,20 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import Btn from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import { FaRegFilePdf } from "react-icons/fa";
 import logo from "../../../../assets/images/logo1.png";
-
-import html2pdf from 'html2pdf.js';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 const FactureMouvement =({venteData,animalId,agriculteurId})=>{
+  const ButtonpdfRef = useRef(null);
     const [show, setShow] = useState(false);
     const [animalData, setAnimalData] = useState(null);
     const [agriculteurDetails, setAgriculteurDetails] = useState(null);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const totalAmount = venteData.priceVente + 150;
+
+  const totalAmount = venteData.priceVente;
   // Fonction pour récupérer les détails de l'agriculteur en fonction de son ID
   const fetchAgriculteurDetails = async () => {
     try {
@@ -51,41 +53,42 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
      const options = { day: '2-digit', month: 'short', year: 'numeric' };
      return date.toLocaleDateString('en-US', options);
    };
+   // genertePDF (Télécharger facture )
+const generatePDF = () => {
+  const input = document.getElementById('facture-content');
 
-     const generatePDF = async () => {
-    // const element = document.getElementById('facture-content');
-    // html2pdf(element);
-    const content = document.getElementById('facture-content');
-    html2pdf().from(content).save(`Facture_${animalData.IdantifiantsAnimal}.pdf`);
+  // Masquer les boutons
+  ButtonpdfRef.current.style.display = 'none';
+
+
+  html2canvas(input)
+      .then(canvas => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = pdf.internal.pageSize.getHeight();
+          const imgHeight = canvas.height * pdfWidth / canvas.width;
+          
+          let heightLeft = imgHeight;
+          let position = 0;
+
+          pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+          heightLeft -= pdfHeight;
+
+          while (heightLeft >= 0) {
+              position = heightLeft - imgHeight;
+              pdf.addPage();
+              pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+              heightLeft -= pdfHeight;
+          }
+
+          pdf.save(`facture_${animalData.IdantifiantsAnimal}.pdf`);
+
+          // Réafficher les boutons
+          ButtonpdfRef.current.style.display = 'block';
+          
+      });
 };
-// const generatePDF = async () => {
-//   const content = document.getElementById('facture-content');
-
-//   try {
-//       const canvas = await html2canvas(content);
-//       const imgData = canvas.toDataURL('image/png;base64');
-
-//       // Envoyer les données de l'image au backend
-//       const response=await axios.post('http://localhost:3001/generate-invoice-pdf', { imgData });
-// console.log("res",response)
-//       // Si vous souhaitez télécharger le PDF depuis le backend, vous pouvez ajouter ici une requête GET pour le télécharger
-//       if (response.status === 200) {
-//         const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
-//         const pdfUrl = URL.createObjectURL(pdfBlob);
-//         const downloadLink = document.createElement('a');
-//         downloadLink.href = pdfUrl;
-//         downloadLink.download = 'facture.pdf';
-//         document.body.appendChild(downloadLink);
-//         downloadLink.click();
-//         document.body.removeChild(downloadLink);
-//     } else {
-//         console.error('Erreur lors de la génération du PDF.');
-//     }
-//   } catch (error) {
-//       console.error('Erreur lors de la génération du PDF:', error);
-//   }
-// };
-
     return(
         <>
         <button variant="primary" onClick={handleShow} className="btn f-n-hover text-600" style={{backgroundColor:"#7e8d9f",border:"1px solid #7e8d9f"}} >
@@ -164,7 +167,7 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
               <div class="col-xl-3">
                 <ul class="list-unstyled">
                   <li class="text-muted ms-3"><span class="text-black me-4">Sous-total</span>{venteData.priceVente} DT</li>
-                  <li class="text-muted ms-3 mt-2"><span class="text-black me-4">Livraison</span>150 DT</li>
+                  
                 </ul>
                 <p class="text-black float-start"><span class="text-black me-2">Montant Total</span><span style={{fontSize: "20px"}}>{totalAmount}DT</span></p>
               </div>
@@ -176,8 +179,8 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
   </div>
   </Modal.Body>
   <Modal.Footer>
-          <Btn style={{marginTop:"1%",backgroundColor:"white" , color:"black",border: "1px solid gray"}} onClick={generatePDF}>
-            <FaRegFilePdf style={{ color: "red",marginRight:"7px" }} /> Télécharger
+          <Btn ref={ButtonpdfRef} style={{marginTop:"1%",backgroundColor:"white" , color:"black",border: "1px solid gray"}} onClick={generatePDF}>
+            <FaRegFilePdf style={{ color: "red",marginRight:"7px" }}  /> Télécharger
           </Btn>
         </Modal.Footer>
       </Modal>

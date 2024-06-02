@@ -13,6 +13,7 @@ let transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASSWORD,
   },
 });
+// enregistrer le commentaire /remarque
 exports.create=async(req,res)=>{
     try{
 

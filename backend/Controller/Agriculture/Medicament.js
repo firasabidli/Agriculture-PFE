@@ -43,15 +43,13 @@ exports.createMedicament = async (req, res) => {
 
       // Enregistrer le nouvel objet Medicament dans la base de données
       const savedMedicament = await newMedicament.save();
-
-      // Répondre avec le médicament créé
       res.status(201).json({ message: 'Engrais agricole créé avec succès', medicament: savedMedicament });
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
-//affichage
+
 //affichage
 exports.getMedicament = async (req, res) => {
   try {
@@ -68,8 +66,6 @@ exports.getMedicament = async (req, res) => {
 ;
 
 
-
-//update
 //updateMedicament
 exports.updateMedicament = async (req, res) => {
   try {

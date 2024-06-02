@@ -36,7 +36,7 @@ const historiqueIrrigation=require('./Router/ProductionAgriculture/historiqueIrr
 const historiqueRecolte=require('./Router/ProductionAgriculture/historiqueRecolte');
 const GestionStock=require('./Router/ProductionAgriculture/GestionStocks');
 const PrévisionFinanciére=require('./Router/ProductionAgriculture/PrévisionFinanciére');
-const generatePdf=require('./Router/generatePdf')
+
 const cors = require('cors');
 const app = express();
 const argon2 = require('argon2');
@@ -130,6 +130,6 @@ app.use('/HistoriqueIrrigation',historiqueIrrigation);
 app.use('/HistoriqueRecolte',historiqueRecolte);
 app.use('/GestionStocks',GestionStock);
 app.use('/Prevision',PrévisionFinanciére)
-app.use('/generate-invoice-pdf',generatePdf);
+
 app.use('/images', express.static('./src/assets/images'));
 module.exports = app;

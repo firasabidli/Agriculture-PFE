@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
+
 function Add({ onCreate }) {
   const [show, setShow] = useState(false);
   const [IdantifiantsAnimal, setIdantifiantsAnimal] = useState('');
@@ -70,6 +71,10 @@ function Add({ onCreate }) {
         alert('Animal ajouté avec succès !');
         onCreate();
       }
+      else{
+        alert("Animal est deja existe")
+      }
+     
     } catch (error) {
       console.error('Erreur lors de la soumission du formulaire:', error);
     }

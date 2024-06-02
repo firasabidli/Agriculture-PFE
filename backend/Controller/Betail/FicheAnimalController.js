@@ -1,10 +1,10 @@
 const Animal = require('../../Model/Betail/FicheAnimal');
-
+//Ajouter un animal
 exports.create = async (req, res) => {
   try {
     const { categorieBetail,subCategorieBetail, Race, date_naissance, IdantifiantsAnimal, sexe } = req.body;
     const agriculteurId = req.userId;
-console.log("agri",agriculteurId)
+    
     //Vérification des champs obligatoires
     if (!categorieBetail||!subCategorieBetail || !Race || !date_naissance || !IdantifiantsAnimal || !sexe) {
       return res.status(400).json({ error: 'Veuillez fournir toutes les informations requises.' });
@@ -23,24 +23,26 @@ console.log("agri",agriculteurId)
     const animalEnregistre = await nouvelAnimal.save();
     res.status(201).json({ message: 'Animal enregistré avec succès.', animal: animalEnregistre });
   } catch (error) {
-    console.error('Erreur lors de la création de la fiche d\'animal :', error);
+    console.error('Erreur lors de la récupération des animaux de l\'agriculteur :', error);
+    console.error('Animal est deja existe');
   }
 };
+// afficher un animal selon agriculteur
 exports.getAnimauxByAgriculteur = async (req, res) => {
   try {
-    // Récupérez l'identifiant de l'agriculteur connecté à partir de la requête (supposons qu'il soit stocké dans req.userId)
+    // Récupérez l'identifiant de l'agriculteur connecté 
     const agriculteurId = req.userId;
 
     // Récupérez les animaux associés à cet agriculteur depuis la base de données
     const animaux = await Animal.find({ Agriculteur: agriculteurId });
 
-    // Répondez avec les animaux trouvés
     res.status(200).json(animaux);
   } catch (error) {
     console.error('Erreur lors de la récupération des animaux de l\'agriculteur :', error);
     res.status(500).json({ message: 'Erreur lors de la récupération des animaux de l\'agriculteur.' });
   }
 };
+// afficher tout les animaux
 exports.all = async (req, res) => {
   
   Animal.find()
@@ -48,6 +50,7 @@ exports.all = async (req, res) => {
     .catch(err => res.status(400).json({error: err.message}));
 
 };
+//Supprimer un animal
 exports.delete = async (req,res)=>{
   const animalId = req.params.id;
 
@@ -62,21 +65,16 @@ exports.delete = async (req,res)=>{
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+// modifier les données d'un animal
 exports.update = async (req, res) => {
   const animalId = req.params.id;
   console.log('Request Body:', req.body);
 
   const { categorieBetail, subCategorieBetail, Race, date_naissance, IdantifiantsAnimal, sexe } = req.body;
 
-  console.log('categorieBetail:', categorieBetail);
-  console.log('subCategorieBetail:', subCategorieBetail);
-  console.log('Race:', Race);
-  console.log('date_naissance:', date_naissance);
-  console.log('IdantifiantsAnimal:', IdantifiantsAnimal);
-  console.log('sexe:', sexe);
   
   try {
-    // Construct the updatedData object based on the fields received in the request body
+
     const updatedData = {
       categorieBetail,
       subCategorieBetail,
@@ -87,8 +85,7 @@ exports.update = async (req, res) => {
     };
 
     console.log('Updated data:', updatedData);
-    //const updated = await Animal.findByIdAndUpdate(req.params.id,updatedData, { new: true });
-    // Use Mongoose's updateOne method to update the animal document
+   
     const result = await Animal.updateOne({ _id: animalId }, { $set: updatedData });
 
     if (result.nModified === 0) {
@@ -101,6 +98,7 @@ exports.update = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+// afficher animal selon id
 exports.getbetailById = async (req, res) => {
   try {
     const animal = await Animal.findById(req.params.id);

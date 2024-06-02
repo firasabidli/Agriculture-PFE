@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-//categorie_betail: { type: mongoose.Schema.Types.ObjectId, ref: 'CategorieBetail' },
-// enum: ['masculin', 'féminin']
+
 const AnimalSchema = new mongoose.Schema({
     Agriculteur:{ type: mongoose.Schema.Types.ObjectId, ref: 'Utilisateur' },
     categorieBetail:{type:String , required : true},

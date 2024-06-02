@@ -6,18 +6,17 @@ const MainOeuvre = require('../../Model/ProductionAgriculture/historiqueMainOeuv
 const Stock = require('../../Model/ProductionAgriculture/GestionStocks');
 const FicheAgriculture = require('../../Model/ProductionAgriculture/FicheAgriculture');
 const ss = require('simple-statistics');
-
+// fonction pour calcuer gains et prévision  
 exports.calculateAndPredict = async (req, res) => {
     try {
         const { idAgriculteur, year } = req.params;
 
         if (!idAgriculteur || !year) {
-            return res.status(400).json({ message: 'Missing required parameters: idAgriculteur and selectedYear' });
+            return res.status(400).json({ message: 'il n est pas trouver : idAgriculteur et annees' });
         }
 
         const selectedYear = parseInt(year, 10);
-
-        // Fetch the culture IDs associated with the given agriculteur
+      // afficher id culture relier avec agriculteur
         const fiches = await FicheAgriculture.find({ Agriculteur: idAgriculteur });
         const cultureIds = fiches.map(fiche => fiche._id);
 

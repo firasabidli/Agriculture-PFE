@@ -29,7 +29,7 @@ exports.create = async (req, res) => {
   const imageName = req.file.filename;
 
   try {
-    // Create the Agriculture entry
+    
     const newAgriculture = await Agriculture.create({
       nom_agriculture,
       description,
@@ -115,17 +115,6 @@ exports.getAgricultureById = async (req, res) => {
 };
 
 
-// exports.getAgricultureById = async (req, res) => {
-//   try {
-//     const agriculture = await Agriculture.findById(req.params.id).populate('saison categorie materiels MethodesStock MedicamentsCulture');
-//     if (!agriculture) {
-//       return res.status(404).json({ success: false, message: 'Agriculture not found' });
-//     }
-//     res.status(200).json({ success: true, data: agriculture });
-//   } catch (err) {
-//     res.status(500).json({ success: false, message: err.message });
-//   }
-// };
 
 // Mettre à jour une Agriculture par son ID
 exports.update = async (req, res) => {
@@ -148,9 +137,7 @@ exports.update = async (req, res) => {
       MethodesStock:MethodesStock, 
       MedicamentsCulture:MedicamentsCulture,
     };
-    // await Materiel.updateMany({ '_id': updateData.materiels }, { $push: { cultures: updateData._id } });
-    // await MethodeStock.updateMany({ '_id': updateData.MethodesStock }, { $push: { cultures: updateData._id } });
-    // await Medicament.updateMany({ '_id': updateData.MedicamentsCulture }, { $push: { cultures: updateData._id } });
+   
      // Vérifiez si une nouvelle image est téléchargée
     if (req.file) {
       // Supprimez l'ancienne image

@@ -109,7 +109,7 @@ const Ajouter = ({ onCreate }) => {
       AdresseClient:""
      });
       onCreate();
-      window.location.reload()
+      // window.location.reload()
 
     } catch (error) {
       console.error("Erreur lors de l'ajout du mouvement de bétail :", error);

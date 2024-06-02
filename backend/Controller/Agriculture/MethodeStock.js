@@ -10,12 +10,7 @@ const storage = multer.diskStorage({
   },
 
 });
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'src/assets/images/StockageAgriculture');
-// const path = require('path');
-//   }
-// });
+
 const upload = multer({ storage: storage }).single('image_MethodStock');
 
 // Créer un nouveau stock
@@ -93,7 +88,7 @@ exports.createStock = async (req, res) => {
         // console.log(req.body)
         const { title, description } = req.body;
         let updateData = { title, description };
-        // console.log(req.file)
+       
         if (req.file) {
           // Supprimer l'ancienne image si elle existe
           const oldStock = await Stock.findById(req.params.id);
@@ -147,7 +142,7 @@ exports.createStock = async (req, res) => {
       res.status(500).json({ success: false, message: error.message });
     });
 };
-
+//recherche
 exports.search = async (req, res) => {
   try {
     const query = req.query.q;

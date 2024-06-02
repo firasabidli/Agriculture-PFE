@@ -1,5 +1,3 @@
-// AuthService.js
-
 import axios from 'axios';
 
 //const API_BASE_URL = 'http://localhost:3001'; // Remplacez ceci par l'URL de votre backend

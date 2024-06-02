@@ -106,7 +106,7 @@ function Update({ onUpdate, agricultureId }) {
       }
     });
   };
-
+// select engrais
   const handleMedicamentChange = (e, medicamentId) => {
     const isChecked = e.target.checked;
     setSelectedMedicaments(prevSelectedMedicaments => {
@@ -117,7 +117,7 @@ function Update({ onUpdate, agricultureId }) {
       }
     });
   };
-
+// validation 
   const validateFormUpdate = () => {
     const newErrors = {};
 
@@ -205,6 +205,8 @@ function Update({ onUpdate, agricultureId }) {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  // function submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateFormUpdate()) {

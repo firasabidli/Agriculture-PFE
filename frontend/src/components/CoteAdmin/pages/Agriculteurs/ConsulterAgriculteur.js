@@ -67,7 +67,7 @@ const ConsulterAgriculteur = () => {
         setSelectedAgriculteurs(selectedAgriculteursUpdated);
     };
 
-    // Fonction pour filtrer les données en fonction de la valeur de recherche
+    // Fonction pour filtrer les données =
     const handleSearch = (event) => {
         const value = event.target.value;
         setSearchValue(value);

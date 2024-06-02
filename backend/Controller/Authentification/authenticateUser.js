@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-
+// verifier est ce que agriculteur connecter or no
 const authenticateUser = (req, res, next) => {
   const authToken = req.headers.authorization;
 

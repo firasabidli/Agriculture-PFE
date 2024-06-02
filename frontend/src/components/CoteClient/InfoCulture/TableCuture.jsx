@@ -1,10 +1,6 @@
 import Table from 'react-bootstrap/Table';
 const TableCulture = ({ cultureData }) => {
   console.log("table",cultureData)
-  // if (!cultureData || cultureData.length === 0 || !Array.isArray(cultureData)) {
-  //   return <p>Aucune donnée à afficher.</p>;
-  // }
-
   
   return (
     <article class="blog-post" style={{ marginLeft: "5%", marginTop: "2%" }}>

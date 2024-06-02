@@ -1,5 +1,6 @@
 const Stock = require('../../Model/ProductionAgriculture/GestionStocks');
 
+// Ajouter
 exports.create = async (req, res) => {
     try {
         const agriculteurId = req.userId;
@@ -17,7 +18,7 @@ exports.create = async (req, res) => {
         res.status(500).json({ message: 'Erreur lors de l\'enregistrement.' });
     }
 };
-
+// afficher stock selon agriculteur qui connecter
 exports.getstockByAgriculteur = async (req, res) => {
     try {
       const agriculteurId = req.userId;
@@ -29,7 +30,7 @@ exports.getstockByAgriculteur = async (req, res) => {
       res.status(500).json({ message: 'Erreur lors de la récupération des cultures de l\'agriculteur.' });
     }
   };
-
+// supprimer
 exports.delete = async (req, res) => {
     try {
         const id = req.params.id;
@@ -45,7 +46,7 @@ exports.delete = async (req, res) => {
         res.status(500).json({ message: 'Erreur lors de la suppression de l\'élément.' });
     }
 };
-
+// modifier
 exports.update = async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
@@ -63,7 +64,7 @@ exports.update = async (req, res) => {
         res.status(500).json({ message: "Erreur lors de la mise à jour des données." });
     }
 };
-
+// afficher les donnees selon id
 exports.getById = async (req, res) => {
     try {
         const stocks = await Stock.findById(req.params.id);

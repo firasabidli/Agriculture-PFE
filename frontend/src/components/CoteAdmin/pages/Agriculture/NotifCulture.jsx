@@ -123,8 +123,7 @@ const NotifCulture = () => {
                     </li>
                     <li>
                         <button className='button-notif' onClick={handleShowRemarquesClick}>Commentaire</button>
-                        {/* <button className='button-notif'>Utilisateur</button>
-                        <button className='button-notif'>Utilisateur</button> */}
+                       
                     </li>
                     {showRemarques && remarques.map((req, index) => (
                         <li key={index}>

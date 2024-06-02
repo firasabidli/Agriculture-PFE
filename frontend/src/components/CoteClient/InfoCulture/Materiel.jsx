@@ -1,5 +1,4 @@
 import React from 'react';
-//import pommeTerre from '../../../assets/CoteClient/images/pommes-de-terre.png';
 const Materiel = ({ cultureData }) => {
     if (!cultureData || !cultureData.materiels|| cultureData.materiels.length === 0) {
         return <p>Aucune donnée à afficher.</p>

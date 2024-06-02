@@ -11,11 +11,11 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserContext';
 import AuthService from './service/AuthService';
 import MotDePasseOublie from './MotDePasseOublié'; 
-// Supprimez les accolades autour de `onLogin`
+
 const LoginForm = () => {
   const history=useNavigate()
   const { updateUser } = useUser();
-  // const { setUser} = useUser();
+ 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -51,11 +51,11 @@ const LoginForm = () => {
         if (userRole === 'Admin') {
           // Redirection pour l'administrateur
           history('/admin/dashboard');
-        } else if (userRole === 'Agriculteur') {
+        } else if(userRole === 'Agriculteur') {
           // Redirection pour l'agriculteur
           history('/accueil');
         } else {
-          // Gérer les autres types d'utilisateurs ou les erreurs
+        alert("erreur")
         }
         // setUser(user);
         updateUser(user);
@@ -66,41 +66,12 @@ const LoginForm = () => {
                 alert (error.response.data.error);
               } else {
                 console.error('Login failed:', error.message);
-                // Handle other errors
+               
               }
             });
   };
   
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios.post('http://localhost:3001/auth/Login', formData)
-  //     .then(response => {
-  //       console.log('Login successful:', response.data);
-  //       const userRole = response.data.user.role;
-  //       const userName = response.data.user.nom;
-  //       console.log(userName,userRole);
-  //       console.log('userRole:',userRole);
-  //       if (userRole === 'admin') {
-  //         setUserName(userName);
-  //       navigate('/Dashbord');
-  //       } else if (userRole === 'agriculteur') {
-  //        navigate('/accueil');
-  //       } else {
-  //         alert("Erreur")
-  //       }
-
-  //       //  onLogin(userName,userRole);
-  //     })
-  //     .catch(error => {
-  //       if (error.response) {
-  //         console.error('Login failed:', error.response.data.error);
-  //         alert (error.response.data.error);
-  //       } else {
-  //         console.error('Login failed:', error.message);
-  //         // Handle other errors
-  //       }
-  //     });
-  // };
+ 
   
   return (
     <div className={`containerr ${isSignUpMode ? 'sign-up-mode' : ''}`}>

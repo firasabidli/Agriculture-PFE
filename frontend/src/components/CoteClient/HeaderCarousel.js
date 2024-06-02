@@ -38,20 +38,7 @@ const HeaderCarousel = () => {
             </div>
           </Carousel.Caption>
         </Carousel.Item>
-        {/* <Carousel.Item>
-          <img className="w-100" src={Carousel2} alt="Natural Food Is Always Healthy" />
-          <Carousel.Caption>
-            <div className="container-Carousel"> 
-              <div className="row justify-content-start">
-                <div className="col-lg-7">
-                  <h1 className="display-2 mb-5 animated slideInDown">Au Cœur de la Nature, Pour une Alimentation Saine</h1>
-                  <Button className="btn btn-primary-carsoul rounded-pill py-sm-3 px-sm-5">Production</Button>
-                  <Button className="btn btn-secondary-carsoul  rounded-pill py-sm-3 px-sm-5 ms-3">Services</Button>
-                </div>
-              </div>
-            </div>
-          </Carousel.Caption>
-        </Carousel.Item> */}
+        
       </Carousel>
     </div>
   );

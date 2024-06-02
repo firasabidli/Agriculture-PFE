@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const multer = require('multer');
 const path = require('path');
 require('dotenv').config();
+//storage du image
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'src/assets/images/Utilisateur/Admin');
@@ -26,7 +27,7 @@ function generateAuthToken(userId) {
   const authToken = crypto.randomBytes(authTokenLength).toString('hex');
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
-
+//enregister utilisateur
 exports.create = async (req, res) => {
   const { cin, nom, gouvernorat, adresse, email, dateNaissance, numeroTelephone, password } = req.body;
   const accepte = '0';
@@ -63,6 +64,7 @@ exports.create = async (req, res) => {
       return res.status(500).json({ error: 'Erreur interne du serveur lors de la création de l\'utilisateur agricole. Veuillez réessayer plus tard.' });
   }
 };
+//authentification
 exports.login = async (req, res) => {
     const { email, password } = req.body;
   
@@ -120,6 +122,7 @@ exports.createAdmin = async (cin, nom, adresse, email, dateNaissance, numeroTele
         throw error;
     }
 };
+//function pour déconnecter
 exports.logout=(req,res)=>{
     req.session.destroy((err) => {
         if (err) {
@@ -168,6 +171,7 @@ exports.updateImageAdmin = async (req, res, next) => {
   }
 })
 };
+// affucher user selon id
 exports.getUserId= async(req,res)=>{
   try {
     const agriculteur = await Utilisateur.findById(req.params.id);

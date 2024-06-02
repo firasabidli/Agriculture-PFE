@@ -25,6 +25,7 @@ exports.all = async (req, res) => {
     res.status(500).json({ error: 'Erreur interne du serveur' });
   }
 };
+//activer compte
 exports.activer = async (req, res) => {
   const agriculteurId = req.params.id;
 

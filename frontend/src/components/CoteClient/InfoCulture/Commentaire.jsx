@@ -19,7 +19,7 @@ const CommentaireCulture = ({ show, onHide, cultureName }) => {
                 commentaire: remarque
             };
             await axios.post('http://localhost:3001/RemarqueAgriculture/', formData);
-            alert('Remarque Envoyer');
+            alert('commentaire Envoyer');
             setOptionRemarque('');
             setRemarque('');
             onHide();

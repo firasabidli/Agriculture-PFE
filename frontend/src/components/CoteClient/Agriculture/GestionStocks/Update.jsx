@@ -19,7 +19,7 @@ const UpdateStock = ({ stockId, onClose }) => {
       try {
         const response = await axios.get(`http://localhost:3001/GestionStocks/stock/${stockId}`);
         const stockData = response.data.stocks;
-console.log("ss",stockData)
+//console.log("ss",stockData)
         setFormData({
           libellé: stockData.libellé,
           date: formatDate(stockData.date),

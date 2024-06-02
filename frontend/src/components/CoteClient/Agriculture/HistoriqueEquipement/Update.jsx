@@ -21,8 +21,6 @@ const Update = ({ onUpdate, equipementId }) => {
                 setNombreHeures(equipementData.nombreHeures);
                 const formattedDate = new Date(equipementData.date).toISOString().split('T')[0];
                setDateAcquisition(formattedDate);
-               
-                //console.log(equipementData.date)
             } catch (error) {
                 console.error('Error fetching equipement:', error);
             }

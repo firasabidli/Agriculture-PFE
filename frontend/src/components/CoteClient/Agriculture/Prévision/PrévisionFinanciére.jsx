@@ -10,13 +10,13 @@ const PrevisionFinanciere = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const { user } = useUser();
   const userId = user?._id;
-
+// Afficher le gains et le prevision 
   const fetchFinancialData = () => {
     axios.get(`http://localhost:3001/Prevision/calculateAndPredict/${userId}/${selectedYear}`)
       .then(response => setFinancialData(response.data))
       .catch(error => console.error('Error fetching data:', error));
   };
-
+//  afficher anneé et revenu et expense séparer
   const createChartData = () => {
     if (!financialData || !financialData.historicalData) return null;
 

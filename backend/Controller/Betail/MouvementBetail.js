@@ -1,6 +1,6 @@
 const MouvementBetail = require('../../Model/Betail/Mouvement');
 
-// ajouter
+// ajouter mouvement
 exports.create= async(req,res)=>{
    
         try {
@@ -34,6 +34,7 @@ exports.create= async(req,res)=>{
             res.status(500).json({ message: 'Erreur lors de la récupération des données de mouvement.' });
           }
         };
+// supprimer mouvement
 exports.delete=async(req,res)=>{
   try {
     const id = req.params.id;
@@ -47,6 +48,7 @@ exports.delete=async(req,res)=>{
     res.status(500).json({ message: 'Erreur lors de la suppression de l\'élément.' });
   }
 };
+// modifier
 exports.update = async (req, res) => {
   const { id } = req.params;
   const updateData = req.body; // Les données mises à jour sont envoyées dans le corps de la requête
@@ -64,6 +66,7 @@ exports.update = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de la mise à jour des données de santé" });
   }
 }
+// afficher mouvement selon id
 exports.getMouvementById = async (req, res) => {
   try {
     const mouvement = await MouvementBetail.findById(req.params.id);

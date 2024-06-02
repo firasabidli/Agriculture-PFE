@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import Navbar from '../../Navbar';
-import AjouterEquipement from "./Ajouter"; // Assurez-vous d'avoir le bon composant d'ajout d'équipement
+import AjouterEquipement from "./Ajouter"; 
 import { FcDeleteRow } from "react-icons/fc";
-import UpdateEquipement from "./Update"; // Assurez-vous d'avoir le bon composant de mise à jour d'équipement
+import UpdateEquipement from "./Update"; 
 import { Table } from "react-bootstrap";
 const PageEquipement = () => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -61,11 +61,7 @@ const PageEquipement = () => {
                     <div className="col-md-8">
                         <h4>Liste de suivi des Equipements</h4>
                         <div style={{ marginTop: "5%"}}>
-                            {/* <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-                                   <option value="">Filtre par Types</option>
-                                   <option value="Pesticide">Pesticide</option>
-                                   <option value="Engrais">Engrais</option>
-                            </select> */}
+
                             <Table responsive>
                                 <thead className="thead-light">
                                     <tr style={{ fontWeight: "bold" }}>

@@ -11,17 +11,17 @@ function Add({ onCreate }) {
   const [show, setShow] = useState(false);
   const [nom_categorieBetail, setNomCategorie] = useState('');
   const [description, setDescription] = useState('');
-  const [races, setRaces] = useState(['']); // Au moins un champ de race au début
+  const [races, setRaces] = useState(['']); 
   const [errors, setErrors] = useState({});
   const handleClose = () => {
     setShow(false);
     setNomCategorie('');
     setDescription('');
-    setRaces(['']); // Réinitialiser avec au moins un champ de race
+    setRaces(['']); 
   };
 
   const handleShow = () => setShow(true);
-
+// validation du champ
   const validateForm = () => {
     const newErrors = {};
 
@@ -54,6 +54,7 @@ function Add({ onCreate }) {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  // envoyer les données a backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
