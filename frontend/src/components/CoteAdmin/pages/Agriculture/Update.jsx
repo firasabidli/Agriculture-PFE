@@ -38,6 +38,9 @@ function Update({ onUpdate, agricultureId }) {
       setMethodeIrrigation(data.methode_irrigation);
       setShowQuantity(data.methode_irrigation !== 'irrigation gravitaire');
       setShowFrequency(data.methode_irrigation !== 'irrigation gravitaire');
+      setFrequenceSurveillance(data.frequence_surveillance)
+      setQuantiteEauIrrigation(data.quantite_eau_irrigation)
+      setDateDerniereSurveillance(data.date_derniere_surveillance)
       fetchEquipStockEngraisByCategorie(agriculture.categorie)
       setSelectedSaison(data.saison._id);
       await fetchEquipStockEngraisByCategorie(data.categorie._id);
@@ -77,7 +80,7 @@ function Update({ onUpdate, agricultureId }) {
       fetchCategories();
       
    
-  }, []);
+  }, );
 
  
   
@@ -115,7 +118,7 @@ function Update({ onUpdate, agricultureId }) {
     });
   };
 
-  const validateForm = () => {
+  const validateFormUpdate = () => {
     const newErrors = {};
 
     if (!agriculture.nom_agriculture.trim()) {
@@ -146,20 +149,20 @@ function Update({ onUpdate, agricultureId }) {
     if (methode_irrigation==='') {
       newErrors.methodeIrrigation = "Il faut choisir une méthode d'irrigation";
     }else{
-    if (methode_irrigation!="irrigation gravitaire"){
-      if (quantite_eau_irrigation==""){
-        newErrors.quantite_eau_irrigation = "la quantité d'eau d'irrigation est requise";
+    if (methode_irrigation!=="irrigation gravitaire"){
+      if (quantite_eau_irrigation===""){
+        newErrors.quantite_eau_irrigation = "la quantité d'eau d'irrigation est requise kkkkkkkkkk";
       }
       if (frequence_surveillance===""){
-        newErrors.frequence_surveillance = "il faut choisir le nombre des jours d'irrigation par semaine";
+        newErrors.frequence_surveillance = "il faut choisir le nombre des jours d'irrigation par semaine kkkkkkkkkkk";
       }
 
-      if(date_derniere_surveillance==""){
+      if(date_derniere_surveillance===""){
         newErrors.date_derniere_surveillance = "il faut choisir une date correcte";
       }
       if(agriculture.date_recolte<date_derniere_surveillance )
   {
-    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre avant la date de recolte ";
+    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre avant la date de recolte jjjjjjjjjj ";
   }
   if(date_derniere_surveillance<agriculture.date_plantation )
   {
@@ -204,7 +207,7 @@ function Update({ onUpdate, agricultureId }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
+    if (!validateFormUpdate()) {
       return;
     }
     try {
@@ -385,7 +388,7 @@ function Update({ onUpdate, agricultureId }) {
                   <Form.Control
                     type='Number'
                     placeholder="quantite_eau_irrigation"
-                    defaultValue={methode_irrigation===agriculture.methode_irrigation? agriculture.quantite_eau_irrigation : ''}
+                    defaultValue={agriculture.quantite_eau_irrigation}
                     onChange={(e) => setQuantiteEauIrrigation(e.target.value)}
                   />
                 </FloatingLabel>
@@ -397,15 +400,15 @@ function Update({ onUpdate, agricultureId }) {
               <>
                <Form.Group controlId="frequence_surveillance" className="mb-3">
               <Form.Label>Fréquence d'irrigation par semaine</Form.Label>
-              <Form.Select defaultValue={methode_irrigation===agriculture.methode_irrigation? agriculture.frequence_surveillance :''}  onChange={(e) => setFrequenceSurveillance(e.target.value)}>
-                <option value="">Choisir nombre des jours</option>
-                <option value="1 Jours">1 Jour</option>
-                <option value="2 Jours">2 Jours</option>
-                <option value="3 Jours">3 Jours </option>
-                <option value="4 Jours">4 Jours</option>
-                <option value="5 Jours">5 Jours</option>
-                <option value="6 Jours">6 Jours</option>
-                <option value="Toutes les jours">Toutes les jours</option>
+              <Form.Select defaultValue={agriculture.frequence_surveillance}  onChange={(e) => setFrequenceSurveillance(e.target.value)}>
+                <option  disabled value="">Choisir nombre des jours</option>
+                <option selected={agriculture.frequence_surveillance==="1 Jours"} value="1 Jours">1 Jour</option>
+                <option selected={agriculture.frequence_surveillance==="2 Jours"} value="2 Jours">2 Jours</option>
+                <option selected={agriculture.frequence_surveillance==="3 Jours"} value="3 Jours">3 Jours </option>
+                <option selected={agriculture.frequence_surveillance==="4 Jours"} value="4 Jours">4 Jours</option>
+                <option selected={agriculture.frequence_surveillance==="5 Jours"} value="5 Jours">5 Jours</option>
+                <option  selected={agriculture.frequence_surveillance==="6 Jours"}value="6 Jours">6 Jours</option>
+                <option  selected={agriculture.frequence_surveillance==="Toutes les jours"}value="Toutes les jours">Toutes les jours</option>
               </Form.Select>
               {errors.frequence_surveillance && <div className="text-danger">{errors.frequence_surveillance}</div>}
             </Form.Group>
@@ -416,7 +419,7 @@ function Update({ onUpdate, agricultureId }) {
                 <Form.Control
                   type='date'
                   placeholder="Date Derniere d'irrigation"
-                  defaultValue={methode_irrigation===agriculture.methode_irrigation? agriculture.date_derniere_surveillance :''}
+                  defaultValue={agriculture.date_derniere_surveillance}
                   onChange={(e) => setDateDerniereSurveillance(e.target.value)}
                 />
               </FloatingLabel>

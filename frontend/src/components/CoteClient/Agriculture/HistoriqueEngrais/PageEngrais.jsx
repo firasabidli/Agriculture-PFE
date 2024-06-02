@@ -26,7 +26,7 @@ const PageEngrais = () => {
 
     useEffect(() => {
         fetchByAgriculteur();
-    }, []);
+    }, );
 
     const handleDelete = async (id) => {
         try {

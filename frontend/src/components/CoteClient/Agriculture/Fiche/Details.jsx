@@ -21,7 +21,7 @@ const Details = ({ Id, onClose }) => {
         if (Id) { 
             fetchAgriculture();
         }
-    }, [Id]);
+    }, );
 
     return (
         <Modal show={!!Id} onHide={onClose}>

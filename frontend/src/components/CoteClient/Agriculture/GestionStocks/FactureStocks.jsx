@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useUser } from '../../../UserContext';
 import axios from "axios";
 import jsPDF from 'jspdf';
+import { Link } from "react-router-dom";
 import html2canvas from 'html2canvas';
 import { FiPrinter } from "react-icons/fi";
 import { IoCloudDownloadOutline } from "react-icons/io5"
@@ -108,9 +109,9 @@ const FactureStocks=()=>{
 					</div>
 
 					<div class="widget-toolbar hidden-480">
-						<a href="#">
+						<Link >
 							<i class="ace-icon fa fa-print"></i>
-						</a>
+						</Link>
 					</div>
 				</div>
 
@@ -184,7 +185,7 @@ const FactureStocks=()=>{
 										<td class="center">{index}</td>
 
 										<td>
-											<a href="#">{sort.quantitéSortie}{sort.uniteSortie}</a>
+											<Link >{sort.quantitéSortie}{sort.uniteSortie}</Link>
 										</td>
 										<td class="hidden-xs">
                                         {sort.prix}

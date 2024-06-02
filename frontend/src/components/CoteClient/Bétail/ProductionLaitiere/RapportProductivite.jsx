@@ -145,19 +145,20 @@ const RapportProductivite = () => {
             <h3>Statistiques Hebdomadaires</h3>
             <div className="list-group">
               {weeklyStats.map((week, index) => (
-                <a href="#" className="list-group-item list-group-item-action w-100" key={index}>
-                  <div className="d-flex w-100 justify-content-between">
-                    <h5 className="mb-1">Semaine {index + 1}</h5>
-                    <b className='text-primary'>
-                      Quantité: {week.totalQuantity} litres <br /> Revenus: {week.totalRevenue} DT
-                    </b>
-                  </div>
-                  <ul>
-                    {week.days.map((day, dayIndex) => (
-                      <li key={dayIndex}>{day.jour}: {day.quantite} litres</li>
-                    ))}
-                  </ul>
-                </a>
+                <button className="list-group-item list-group-item-action w-100" key={index} >
+                <div className="d-flex w-100 justify-content-between">
+                  <h5 className="mb-1">Semaine {index + 1}</h5>
+                  <b className='text-primary'>
+                    Quantité: {week.totalQuantity} litres <br /> Revenus: {week.totalRevenue} DT
+                  </b>
+                </div>
+                <ul>
+                  {week.days.map((day, dayIndex) => (
+                    <li key={dayIndex}>{day.jour}: {day.quantite} litres</li>
+                  ))}
+                </ul>
+              </button>
+              
               ))}
             </div>
           </div>

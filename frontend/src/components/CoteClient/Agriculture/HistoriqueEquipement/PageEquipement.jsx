@@ -11,7 +11,7 @@ const PageEquipement = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [typeFilter, setTypeFilter] = useState("");
+    const [typeFilter] = useState("");
 
     const fetchEquipement = async () => {
         try {
@@ -25,7 +25,7 @@ const PageEquipement = () => {
 
     useEffect(() => {
         fetchEquipement();
-    }, []);
+    }, );
 
     const handleDelete = async (id) => {
         try {

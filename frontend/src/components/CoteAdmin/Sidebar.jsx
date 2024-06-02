@@ -10,7 +10,6 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { SiDatabricks } from "react-icons/si";
 import { FaBuildingWheat } from "react-icons/fa6";
 import { MdAgriculture } from "react-icons/md";
-import { FaFileInvoiceDollar } from "react-icons/fa";
 import { SiHappycow } from "react-icons/si";
 import logo from '../../assets/images/logo.jpg';
 import engrais from '../../assets/images/Engrais.png';
@@ -47,8 +46,8 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                         </Link>
                     </li>
                     <li className="sidebar-item">
-                        <a
-                            href="#"
+                        <Link
+                           
                             className={`sidebar-link ${agricultureOpen ? '' : 'collapsed'}`}
                             onClick={() => setAgricultureOpen(!agricultureOpen)}
                             aria-expanded={agricultureOpen ? 'true' : 'false'}
@@ -56,7 +55,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             data-bs-target="#agriculture-collapse"
                         >
                             <span className="icon"><FcCloseUpMode/></span>Agriculture
-                        </a>
+                        </Link>
                         <ul
                             id="agriculture-collapse"
                             className={`sidebar-dropdown list-unstyled collapse ${agricultureOpen ? 'show' : ''}`}
@@ -80,8 +79,8 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                         </ul>
                     </li>
                     <li className="sidebar-item">
-                        <a
-                            href="#"
+                        <Link
+                            
                             className={`sidebar-link ${betailOpen ? '' : 'collapsed'}`}
                             onClick={() => setBetailOpen(!betailOpen)}
                             aria-expanded={betailOpen ? 'true' : 'false'}
@@ -89,7 +88,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             data-bs-target="#betails-collapse"
                         >
                             <span className="icon"><GiCow/></span>Bétail
-                        </a>
+                        </Link>
                         <ul
                             id="betails-collapse"
                             className={`sidebar-dropdown list-unstyled collapse ${betailOpen ? 'show' : ''}`}
@@ -105,8 +104,8 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                         </ul>
                     </li>
                     <li className="sidebar-item">
-                        <a
-                            href="#"
+                        <Link
+                          
                             className={`sidebar-link ${agriculteursOpen ? '' : 'collapsed'}`}
                             onClick={() => setAgriculteursOpen(!agriculteursOpen)}
                             aria-expanded={agriculteursOpen ? 'true' : 'false'}
@@ -114,7 +113,7 @@ const Sidebar = ({ isSidebarCollapsed, page }) => {
                             data-bs-target="#agriculteurs-collapse"
                         >
                             <span className="icon"><GiFarmer/></span>Agriculteurs
-                        </a>
+                        </Link>
                         <ul
                             id="agriculteurs-collapse"
                             className={`sidebar-dropdown list-unstyled collapse ${agriculteursOpen ? 'show' : ''}`}

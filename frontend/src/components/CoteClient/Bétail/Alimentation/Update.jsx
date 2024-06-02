@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Btn from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -78,7 +78,7 @@ const [aliments, setAliments] = useState(aliment.aliments); // Assurez-vous que 
           
             <Form.Group className="mb-3" controlId="aliments">
               <Form.Label>Aliments</Form.Label>
-              <Form.Control as="select" defaultValue={aliments} onChange={(e) =>{setAliments(e.target.value) ; if(e.target.value=='Balles de foins'){setUnite('Balles')} } }>
+              <Form.Control as="select" defaultValue={aliments} onChange={(e) =>{setAliments(e.target.value) ; if(e.target.value==='Balles de foins'){setUnite('Balles')} } }>
                 <option value="">Sélectionnez un aliment</option>
                 <option value="Balles de foins">Balles de foins</option>
                 <option value="Fourrage">Fourrage</option>
@@ -86,14 +86,14 @@ const [aliments, setAliments] = useState(aliment.aliments); // Assurez-vous que 
               </Form.Control>
             </Form.Group>
 {
-   ( ((aliments=="Fourrage") || (aliments=="Grain") ) || (aliments=="") )  && (
+   ( ((aliments==="Fourrage") || (aliments==="Grain") ) || (aliments==="") )  && (
             <Form.Group className="mb-3" controlId="aliments">
-              <Form.Label> {aliments==""? " Il faut choisir un aliment " : aliments=="Balles de foins"? " Quantite de balles" :"Quantite Par Nombre de Sac ou par KG"}</Form.Label>
+              <Form.Label> {aliments===""? " Il faut choisir un aliment " : aliments==="Balles de foins"? " Quantite de balles" :"Quantite Par Nombre de Sac ou par KG"}</Form.Label>
               <Form.Control as="select" defaultValue={unite} onChange={(e) => setUnite(e.target.value)}>
                 <option value="0">Choisir</option>
                 
-                        <option value="Sac" disabled={aliments=="Balles de foins"|| aliments=="" }>Sac</option>
-                         <option value="Kg"disabled={aliments=="Balles de foins"|| aliments==""}>Kg</option>
+                        <option value="Sac" disabled={aliments==="Balles de foins"|| aliments==="" }>Sac</option>
+                         <option value="Kg"disabled={aliments==="Balles de foins"|| aliments===""}>Kg</option>
                 
               </Form.Control>
             </Form.Group>
@@ -101,7 +101,7 @@ const [aliments, setAliments] = useState(aliment.aliments); // Assurez-vous que 
 }
             
 {
-    unite=="Sac" && (
+    unite==="Sac" && (
 
 <Form.Group className="mb-3" controlId="quantite">
               <FloatingLabel controlId="floatingTextarea2" label="Nombre de sac">
@@ -117,7 +117,7 @@ const [aliments, setAliments] = useState(aliment.aliments); // Assurez-vous que 
 }
             
 {
-    (unite=="Kg" || aliments=="Balles de foins") && (
+    (unite==="Kg" || aliments==="Balles de foins") && (
             <Form.Group className="mb-3" controlId="quantite">
               <FloatingLabel controlId="floatingTextarea2" label="Quantite">
                 <Form.Control

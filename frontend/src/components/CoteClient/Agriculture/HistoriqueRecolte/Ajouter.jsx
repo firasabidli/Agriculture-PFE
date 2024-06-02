@@ -8,7 +8,7 @@ const AjouterRecolte = ({ onCreate }) => {
     const [date, setDate] = useState(new Date(now).toISOString().split("T")[0]);
     const [balles, setBalles] = useState([{ nombreBalles: 0, prixTotalBalle:  0, prixVenteParBalle: 0 }]);
     const [quantites, setQuantites] = useState([{ quantite: 0, unite: '', prixTotalVente: 0,prix:0 }]);
-    const [revenuTotal, setRevenuTotal] = useState(0);
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,7 +55,7 @@ const AjouterRecolte = ({ onCreate }) => {
             setDate(new Date(now).toISOString().split("T")[0]);
             setBalles([{ nombreBalles: 0, prixTotalBalle:  0, prixVenteParBalle: 0 }]);
             setQuantites([{ quantite: 0, unite: ' ', prixTotalVente: 0,prix:0 }]);
-            setRevenuTotal(0);
+            
             onCreate();
             console.log("Réponse du serveur :", response.data);
         } catch (error) {

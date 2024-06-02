@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import './PageProductionLaitiere.css';
 import Form from 'react-bootstrap/Form';
-import { Chart as ChartJS, defaults } from "chart.js/auto";
+import {  defaults } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { Table } from "react-bootstrap";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
@@ -35,29 +35,10 @@ const PageProductionLaitiere = () => {
     const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1).getDay();
     const weekDays = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
     const daysOfWeek = weekDays.slice(firstDayOfMonth).concat(weekDays.slice(0, firstDayOfMonth));
-    const [prixTotal, setPrixTotal] = useState(0);
     const user = localStorage.getItem("user");
     const idAgriculteur = user ? JSON.parse(user)._id : null;
     const { id } = useParams();
     const authToken = localStorage.getItem("authToken");
-
-    useEffect(() => {
-        if (idAgriculteur) {
-            fetchProduction();
-        }
-    }, [selectedDate, idAgriculteur]);
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-
-    const handleLinkRClick = (idAgriculteur,id,year,month) => {
-        return `/Betail/FactureLaitiere/${idAgriculteur}/${id}/${month}/${year}`;
-      };
-
-      const handleLinkRClickRapport = (idAgriculteur,id,year,month) => {
-        return `/Betail/RapportProductivite/${idAgriculteur}/${id}/${month}/${year}`;
-      };
 
     const fetchProduction = async () => {
         try {            
@@ -75,6 +56,25 @@ const PageProductionLaitiere = () => {
             console.error('Error fetching daily data:', error);
         }
     };
+    useEffect(() => {
+        if (idAgriculteur) {
+            fetchProduction();
+        }
+    }, );
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
+    const handleLinkRClick = (idAgriculteur,id,year,month) => {
+        return `/Betail/FactureLaitiere/${idAgriculteur}/${id}/${month}/${year}`;
+      };
+
+      const handleLinkRClickRapport = (idAgriculteur,id,year,month) => {
+        return `/Betail/RapportProductivite/${idAgriculteur}/${id}/${month}/${year}`;
+      };
+
+  
 
     const fetchStatistique = async () => {
         try {            

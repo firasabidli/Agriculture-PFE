@@ -28,7 +28,7 @@ const PageAliment = () => {
 
     useEffect(() => {
         fetchAliments();
-    }, [id]);
+    }, );
 
     const calculateTotalPrice = () => {
         return alimentsData.reduce((total, item) => total + item.total, 0);

@@ -9,7 +9,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
     const [date, setDate] = useState("");
     const [balles, setBalles] = useState([]);
     const [quantites, setQuantites] = useState([]);
-    const [revenuTotal, setRevenuTotal] = useState("");
+    
 
     useEffect(() => {
         const fetchRecolte = async () => {
@@ -20,7 +20,7 @@ const UpdateRecolte = ({ onUpdate, recolteId }) => {
                 setDate(formattedDate);
                 setBalles(recolteData.balles);
                 setQuantites(recolteData.quantites);
-                setRevenuTotal(recolteData.revenuTotal);
+               
             } catch (error) {
                 console.error('Error fetching recolte:', error);
             }

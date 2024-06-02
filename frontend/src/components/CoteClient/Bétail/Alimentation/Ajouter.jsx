@@ -9,7 +9,6 @@ const AjouterAliment = ({ onCreate, AnimalId }) => {
     const [dateAchat, setDateAchat] = useState('');
     const [quantite, setQuantite] = useState(0);
     const [prix, setPrix] = useState(0);
-    const [total, setTotal] = useState(0);
     const [unite, setUnite] = useState('');
     const [aliments, setAliments] = useState('');
     const user = localStorage.getItem("user");
@@ -35,7 +34,7 @@ const AjouterAliment = ({ onCreate, AnimalId }) => {
                 setAliments('');
                 setQuantite(0);
                 setPrix(0);
-                setTotal(0);
+               
                 onCreate();
             }
         } catch (error) {

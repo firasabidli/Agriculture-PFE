@@ -9,11 +9,9 @@ import UpdateAgriculture from './Update.jsx';
 import Details from './Details.jsx';
 import { Link } from 'react-router-dom';
 import AgricultureStats from '../AgricultureStats.js';
-import PrévisionFinancière from '../Prévision/PrévisionFinanciére.jsx';
 import {useUser} from '../../../UserContext.js';
 const ListAgriculture = () => {
   const [culture, setCulture] = useState([]);
-  const [filteredCulture, setFilteredCulture] = useState([]);
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   const [selectedCultureId, setSelectedCultureId] = useState(null);
   const [selecteddetailsId, setSelecteddetailsId] = useState(null);
@@ -42,7 +40,7 @@ const ListAgriculture = () => {
   useEffect(() => {
     fetchAgricultureByAgriculteur();
     checkHarvestData(); // Vérification des données de récolte
-  }, []);
+  }, );
 
   const fetchAgricultureByAgriculteur = async () => {
     try {
@@ -53,7 +51,7 @@ const ListAgriculture = () => {
         },
       });
       setCulture(response.data);
-      setFilteredCulture(response.data);
+      
     } catch (error) {
       console.error('Erreur lors de la récupération des agricultures de l\'agriculteur:', error);
     }
@@ -78,7 +76,7 @@ const ListAgriculture = () => {
 
       const updatedData = culture.filter(item => item._id !== id);
       setCulture(updatedData);
-      setFilteredCulture(updatedData);
+      
       await axios.delete(`http://localhost:3001/ListeAgriculture/${id}`);
       fetchAgricultureByAgriculteur();
     } catch (error) {

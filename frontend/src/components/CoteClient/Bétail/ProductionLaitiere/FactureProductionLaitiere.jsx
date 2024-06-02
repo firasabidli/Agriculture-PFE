@@ -9,8 +9,7 @@ import html2canvas from 'html2canvas';
 import { FiPrinter } from "react-icons/fi";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
-import { FcLeft } from "react-icons/fc";
-import { Table } from "react-bootstrap";
+
 
 const FactureProductionLaitiere = () => {
     const { user } = useUser();
@@ -43,7 +42,7 @@ const FactureProductionLaitiere = () => {
         if (idAgriculteur) {
             fetchProduction();
         }
-    }, [idAgriculteur, id, year, month]);
+    },);
 
     const exportPDF = () => {
         const input = document.getElementById('invoice');

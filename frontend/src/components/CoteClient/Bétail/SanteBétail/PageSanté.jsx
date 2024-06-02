@@ -28,9 +28,8 @@ const PageSanté=()=> {
   
     useEffect(() => {
       fetchSanteByAgriculteur();
-      console.log('Component mounted');
-  scheduleNextCheck();
-    }, []);
+      scheduleNextCheck();
+    }, );
   
     const handleDelete = async (id) => {
       try {

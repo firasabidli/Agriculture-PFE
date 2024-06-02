@@ -9,7 +9,7 @@ const AjouterEquipement = ({ onCreate }) => {
     const [nom, setNom] = useState("");
     const [prixParHeure, setPrixParHeure] = useState("");
     const [nombreHeures, setNombreHeures] = useState("");
-    const [prixTotalEq, setPrixTotalEq] = useState(0);
+  
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,7 +55,7 @@ const AjouterEquipement = ({ onCreate }) => {
             setNom("");
             setPrixParHeure("");
             setNombreHeures("");
-            setPrixTotalEq(0);
+            
             onCreate();
             console.log("Réponse du serveur :", response.data);
         } catch (error) {

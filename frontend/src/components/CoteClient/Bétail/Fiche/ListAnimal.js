@@ -9,14 +9,12 @@ import axios from 'axios';
 import Add from './Add';
 import Update from './Update.jsx';
 import { Link } from 'react-router-dom';
-import HistoriqueProduction from './HistoriqueProduction/HistoriqueProduction.jsx';
-//import $ from 'jquery';
+
 const ListAnimal = () => {
 
   const [animaux, setAnimaux] = useState([]);
   const [filteredAnimals, setFilteredAnimals] = useState([]);
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedAnimalId, setSelectedAnimalId] = useState(null);
   const handleUpdateClick = (animalId) => {
     setSelectedAnimalId(animalId);
@@ -47,7 +45,7 @@ const ListAnimal = () => {
 
   // Fonction pour mettre à jour les animaux filtrés en fonction de la catégorie sélectionnée
   const handleCategoryFilter = (category, subcategory) => {
-    setSelectedCategory(category);
+    
   
     if (category !== '') {
       let filtered = animaux.filter((animal) => animal.categorieBetail === category);

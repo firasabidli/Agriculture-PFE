@@ -19,7 +19,7 @@ const CarouselAgriculture = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-       <img style={{height: "180mm",width:"455mm"}}  src="https://fierbourg.com/wp-content/uploads/Culture-maraichere-bio.jpg"/>
+       <img style={{height: "180mm",width:"455mm"}} alt="carousel" src="https://fierbourg.com/wp-content/uploads/Culture-maraichere-bio.jpg"/>
         <Carousel.Caption>
           {/* <h3>Third slide label</h3>
           <p>

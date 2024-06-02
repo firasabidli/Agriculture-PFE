@@ -67,7 +67,7 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
     fetchStocks();
     fetchMedicaments();
  
-}, []);
+},);
 
   const handleMaterialChange = (e, materialId) => {
     const isChecked = e.target.checked;

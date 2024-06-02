@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import './InfoBetail.css';
 import Navbar from '../Navbar.js';
 
@@ -8,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const InfoBetail = () => {
-  const [modalShow, setModalShow] = React.useState(false);
   const [betailData, setBetailData] = useState(null);
   const { betailId } = useParams();
   useEffect(() => {

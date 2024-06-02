@@ -24,7 +24,7 @@ function ViewDetails({ Agriculteur }) {
         <Modal.Body>
           <div>
             <div className='text-center'>
-            <img src={Agriculteur.image} alt="Image profil" className="img-fluid mb-3 text-center w-25" />
+            <img src={Agriculteur.image} alt="profil" className="img-fluid mb-3 text-center w-25" />
             </div>
             
             <p><strong>CIN:</strong> {Agriculteur.cin}</p>

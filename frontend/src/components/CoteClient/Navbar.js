@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-//import { Navbar as BootstrapNavbar } from 'react-bootstrap';
-import { GiCow } from 'react-icons/gi';
 import { SiHappycow } from "react-icons/si";
 import { TiWeatherPartlySunny } from "react-icons/ti";
-import { Nav, Modal } from 'react-bootstrap';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaSearch, FaShoppingBag, FaHome, FaLeaf, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
+import { Nav } from 'react-bootstrap';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaHome, FaLeaf, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import '../../assets/CoteClient/lib/animate/animate.min.css';
 import '../../assets/CoteClient/lib/owlcarousel/assets/owl.carousel.min.css';
@@ -14,7 +12,6 @@ import logo from "../../assets/images/logo1.png";
 import axios from 'axios';
 import { useUser } from '../UserContext';
 const MyNavbar = ({ textColor }) => {
-  const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
   const [displayedDataCategorieBetail, setDisplayedDataCategorieBetail] = useState([]);
@@ -35,9 +32,6 @@ const MyNavbar = ({ textColor }) => {
   const { user } = useUser();
   const userName = user?.nom;
   const userImage = user?.image;
-  //const { user } = useUser();
-  const handleModalShow = () => setShowModal(true);
-  const handleModalClose = () => setShowModal(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -359,15 +353,7 @@ const handleCategorieBetailClick =()=>{
           </div>
         </nav>
 
-        {/* Search Modal */}
-        <Modal show={showModal} onHide={handleModalClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Search</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {/* Add your search form or content here */}
-          </Modal.Body>
-        </Modal>
+        
       </div>
     </div>
   );

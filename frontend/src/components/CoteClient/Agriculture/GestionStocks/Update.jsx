@@ -46,23 +46,24 @@ console.log("ss",stockData)
     let day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-  const calculateQuantiteGenerale = () => {
-    let totalEntree = 0;
-    let totalSortie = 0;
-  
-    formData.entrées.forEach((entrée) => {
-      totalEntree += parseFloat(entrée.quantitéEntrée);
-    });
-  
-    formData.sortie.forEach((sortie) => {
-      totalSortie += parseFloat(sortie.quantitéSortie);
-    });
-  
-    const quantiteGenerale = totalEntree - totalSortie;
-    console.log("qq",quantiteGenerale)
-    return quantiteGenerale;
-  };
   useEffect(() => {
+    const calculateQuantiteGenerale = () => {
+      let totalEntree = 0;
+      let totalSortie = 0;
+    
+      formData.entrées.forEach((entrée) => {
+        totalEntree += parseFloat(entrée.quantitéEntrée);
+      });
+    
+      formData.sortie.forEach((sortie) => {
+        totalSortie += parseFloat(sortie.quantitéSortie);
+      });
+    
+      const quantiteGenerale = totalEntree - totalSortie;
+      console.log("qq",quantiteGenerale)
+      return quantiteGenerale;
+    };
+  
     const newQuantiteGenerale = calculateQuantiteGenerale();
     setFormData((prevFormData) => ({
       ...prevFormData,

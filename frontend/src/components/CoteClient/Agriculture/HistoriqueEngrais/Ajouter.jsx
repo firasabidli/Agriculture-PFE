@@ -11,7 +11,7 @@ const AjouterEngrais = ({ onCreate }) => {
     const [type,setType]=useState("");
     const [quantite,setQuantite]=useState("");
     const [prix,setprix]=useState("");
-    const [prixTotalPro,setTotalPro]=useState(0);
+   
     
 
     const handleSubmit = async (e) => {
@@ -62,7 +62,6 @@ const AjouterEngrais = ({ onCreate }) => {
             setNom("");
             setType("")
             setQuantite("");
-            setTotalPro(0);
             setprix("");
             onCreate();
             console.log("Réponse du serveur :", response.data);

@@ -2,19 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../../../Sidebar';
 import Header from '../../../Header';
-import { FaEye } from "react-icons/fa";
 import './ActiverCompte.css'
 import Accepter from './Accepter';
 import Refuser from './Refuser';
 import ViewDetails from './viewDetails';
 const ActiverCompte = () => {
-    const [data, setData] = useState([]);
+  
    
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 	const [page] = useState('ActiverCompte');
 	const [isActive] = useState(true);
-	const [query, setQuery] = useState('');
-    //const [results, setResults] = useState([]);
 	const [displayedData, setDisplayedData] = useState([]);
 
   
@@ -24,7 +21,7 @@ const ActiverCompte = () => {
 		try {
 			const response = await axios.get('http://localhost:3001/ActiverCompte/');
 			if (Array.isArray(response.data)) {
-				setData(response.data.data);
+				
 				setDisplayedData(response.data); // Afficher les données complètes initialement
 			} else {
 				console.error('La réponse de l\'API ne contient pas de tableau de données:', response.data);

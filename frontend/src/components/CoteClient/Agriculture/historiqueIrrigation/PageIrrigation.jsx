@@ -11,7 +11,7 @@ const PageIrrigation = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [typeFilter, setTypeFilter] = useState("");
+    const [typeFilter] = useState("");
 
     const fetchIrrigation = async () => {
         try {
@@ -25,7 +25,7 @@ const PageIrrigation = () => {
 
     useEffect(() => {
         fetchIrrigation();
-    }, []);
+    }, );
 
     const handleDelete = async (id) => {
         try {
