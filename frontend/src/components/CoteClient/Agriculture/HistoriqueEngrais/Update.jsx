@@ -14,7 +14,7 @@ const Update = ({ onUpdate, engraisId }) => {
     });
     const [dateApplication, setDateApplication] = useState('');
     const [prix, setPrix] = useState('');
-    const [prixTotalPro, setPrixTotalPro] = useState('');
+  
 
     useEffect(() => {
         const fetchEngrais = async () => {
@@ -32,7 +32,7 @@ const Update = ({ onUpdate, engraisId }) => {
         setDateApplication(formattedDate);
                 console.log(engraisData.dateApplication)
                 setPrix(engraisData.prix);
-                setPrixTotalPro(engraisData.prixTotalPro);
+            
             } catch (error) {
                 console.error('Error fetching engrais:', error);
             }
@@ -57,9 +57,8 @@ const Update = ({ onUpdate, engraisId }) => {
 
     const handlePrixChange = (e) => {
         setPrix(e.target.value);
-        // Calculer le prix total lorsqu'il y a un changement de prix
-        const newPrixTotalPro = parseFloat(e.target.value) * parseFloat(engraisData.quantite);
-        setPrixTotalPro(newPrixTotalPro.toFixed(2));
+        
+        
     };
 
     const handleSubmit = async () => {

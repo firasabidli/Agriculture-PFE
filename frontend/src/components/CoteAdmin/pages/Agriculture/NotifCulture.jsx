@@ -9,7 +9,6 @@ const NotifCulture = () => {
     const [showRemarques, setShowRemarques] = useState(false);
     const [selectedAgriculteur, setSelectedAgriculteur] = useState(null);
     const [nouvelleReponse, setNouvelleReponse] = useState('');
-  const [afficherTextarea, setAfficherTextarea] = useState(false);
   const [envoiReponseEnCours, setEnvoiReponseEnCours] = useState(false);
   const [showReplyFormForComment, setShowReplyFormForComment] = useState({});
   const { user } = useUser();
@@ -40,7 +39,7 @@ const NotifCulture = () => {
     } finally {
       setEnvoiReponseEnCours(false);
       setNouvelleReponse('');
-      setAfficherTextarea(false);
+      
     }
   };
 

@@ -9,7 +9,7 @@ import html2canvas from 'html2canvas';
 import { FiPrinter } from "react-icons/fi";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
-import { FcLeft } from "react-icons/fc";
+
 const FactureRecolte = () => {
     const { user } = useUser();
     const userName = user?.nom;

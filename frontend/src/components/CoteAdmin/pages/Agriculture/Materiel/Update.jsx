@@ -25,7 +25,7 @@ function Update({ materielId, onUpdate, imageM }) {
     if (show) {
       fetchMateriel();
     }
-  }, [show]);
+  }, );
 
   const fetchMateriel = async () => {
     try {

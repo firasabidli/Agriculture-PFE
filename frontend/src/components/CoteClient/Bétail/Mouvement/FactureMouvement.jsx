@@ -3,10 +3,8 @@ import Btn from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import { FaRegFilePdf } from "react-icons/fa";
-import { FaPrint } from "react-icons/fa";
 import logo from "../../../../assets/images/logo1.png";
-// import jsPDF from 'jspdf';
-// import html2canvas from 'html2canvas';
+
 import html2pdf from 'html2pdf.js';
 const FactureMouvement =({venteData,animalId,agriculteurId})=>{
     const [show, setShow] = useState(false);
@@ -29,7 +27,7 @@ const FactureMouvement =({venteData,animalId,agriculteurId})=>{
     if (agriculteurId) {
       fetchAgriculteurDetails();
     }
-  }, [agriculteurId]);
+  }, );
   useEffect(() => {
     const fetchAnimalData = async () => {
       try {

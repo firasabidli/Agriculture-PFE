@@ -40,13 +40,8 @@ function Add({ onCreate }) {
     event.preventDefault();
 
     const authToken = localStorage.getItem('authToken');
-    const isValidrace = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(Race);
-    const isValidid = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(IdantifiantsAnimal);
+  
 
-  // if (!isValidid|| !isValidrace) {
-  //   alert('Le champ text ne doit contenir que des lettres, des chiffres et des espaces.');
-  //   return;
-  // }
     const formData = {
       IdantifiantsAnimal,
       Race,

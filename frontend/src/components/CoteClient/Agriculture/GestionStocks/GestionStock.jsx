@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ListAnimal.css'
-import { Dropdown, Button } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import Navbar from '../../Navbar';
 import Carousel from './Carousel.jsx';
 import Details from './Details.jsx';
@@ -10,11 +10,10 @@ import { Link } from 'react-router-dom';
 import UpdateAgriculture from './Update.jsx';
 const GestionStock = () => {
     const [culture, setCulture] = useState([]);
-    const [filteredCulture, setFilteredCulture] = useState([]);
+    
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const [selectedCultureId, setSelectedCultureId] = useState(null);
     const [selecteddetailsId, setSelecteddetailsId] = useState(null);
-    //const [showDetailsModal, setShowDetailsModal] = useState(false); // État pour contrôler l'affichage du modèle de détails
 
     const handleDetailsClick = (Id) => {
         console.log("cultur",Id)
@@ -47,7 +46,7 @@ const GestionStock = () => {
             });
             setCulture(response.data);
             console.log("bb",response.data);
-            setFilteredCulture(response.data);
+            
         } catch (error) {
             console.error('Erreur lors de la récupération des agricultures de l\'agriculteur:', error);
         }
@@ -62,7 +61,7 @@ const GestionStock = () => {
 
             const updatedData = culture.filter(item => item._id !== id);
             setCulture(updatedData);
-            setFilteredCulture(updatedData);
+           
             await axios.delete(`http://localhost:3001/GestionStocks/${id}`);
             fetchStockByAgriculteur();
         } catch (error) {

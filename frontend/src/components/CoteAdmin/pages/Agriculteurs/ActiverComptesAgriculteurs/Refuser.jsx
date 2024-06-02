@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
-import { FcFullTrash } from "react-icons/fc";
 import { TiDelete } from "react-icons/ti";
 function Refuser({ userId, onrefuse  }) {
   const [show, setShow] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Chart as ChartJS, defaults  } from "chart.js/auto";
+import {  defaults  } from "chart.js/auto";
 import { Bar, Doughnut, Pie } from "react-chartjs-2";
 import Chart from "react-apexcharts";
 import "./Chart.css";

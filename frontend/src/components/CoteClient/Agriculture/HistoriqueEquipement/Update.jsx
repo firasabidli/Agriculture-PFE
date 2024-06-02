@@ -10,7 +10,7 @@ const Update = ({ onUpdate, equipementId }) => {
     const [prixParHeure, setPrixParHeure] = useState("");
     const [nombreHeures, setNombreHeures] = useState("");
     const [date, setDateAcquisition] = useState("");
-    const [prixTotalEq,setprixTotalEq]=useState("");
+   
     useEffect(() => {
         const fetchEquipement = async () => {
             try {
@@ -21,7 +21,7 @@ const Update = ({ onUpdate, equipementId }) => {
                 setNombreHeures(equipementData.nombreHeures);
                 const formattedDate = new Date(equipementData.date).toISOString().split('T')[0];
                setDateAcquisition(formattedDate);
-               setprixTotalEq(equipementData.prixTotalEq);
+               
                 //console.log(equipementData.date)
             } catch (error) {
                 console.error('Error fetching equipement:', error);

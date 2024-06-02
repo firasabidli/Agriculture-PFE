@@ -9,7 +9,7 @@ const AjouterIrrigation = ({ onCreate }) => {
     const [duree, setDuree] = useState("");
     const [typeIrrigation, setTypeIrrigation] = useState("");
     const [prixParHeure, setPrixParHeure] = useState("");
-    const [coutTotal, setCoutTotal] = useState(0);
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ const AjouterIrrigation = ({ onCreate }) => {
             }
 
             const authToken = localStorage.getItem("authToken");
-            const userId = localStorage.getItem("user")._id;
+            
             const formData = {
                 idCulture: id,
                 date: date,
@@ -46,7 +46,7 @@ const AjouterIrrigation = ({ onCreate }) => {
             setDuree("");
             setTypeIrrigation("");
             setPrixParHeure("");
-            setCoutTotal(0);
+            
             onCreate();
             console.log("Réponse du serveur :", response.data);
         } catch (error) {

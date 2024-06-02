@@ -1,5 +1,5 @@
 import './Profile.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Header from '../../Header.jsx';
 import Sidebar from '../../Sidebar.jsx';
 import { BsFillCameraFill } from 'react-icons/bs';

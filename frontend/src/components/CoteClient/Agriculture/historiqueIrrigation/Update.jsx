@@ -10,7 +10,7 @@ const UpdateIrrigation = ({ onUpdate, irrigationId }) => {
     const [duree, setDuree] = useState("");
     const [typeIrrigation, setTypeIrrigation] = useState("");
     const [prixParHeure, setPrixParHeure] = useState("");
-    const [coutTotal, setCoutTotal] = useState("");
+  
 
     useEffect(() => {
         const fetchIrrigation = async () => {
@@ -22,7 +22,7 @@ const UpdateIrrigation = ({ onUpdate, irrigationId }) => {
                 setDuree(irrigationData.duree);
                 setTypeIrrigation(irrigationData.type);
                 setPrixParHeure(irrigationData.prixParHeure);
-                setCoutTotal(irrigationData.coutTotal);
+                
             } catch (error) {
                 console.error('Error fetching irrigation:', error);
             }
@@ -43,9 +43,7 @@ const UpdateIrrigation = ({ onUpdate, irrigationId }) => {
             setTypeIrrigation(value);
         } else if (name === "prixParHeure") {
             setPrixParHeure(value);
-        } else if (name === "coutTotal") {
-            setCoutTotal(value);
-        }
+        } 
     };
 
     const handleSubmit = async () => {

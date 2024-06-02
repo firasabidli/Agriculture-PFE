@@ -14,7 +14,7 @@ const HistoriqueProduction = () => {
     const { id } = useParams();
     useEffect(() => {
         fetchProduction();
-    }, []);
+    }, );
 
     const fetchProduction = async () => {
         try {            

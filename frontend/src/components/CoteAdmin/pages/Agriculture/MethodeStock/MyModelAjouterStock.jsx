@@ -141,7 +141,7 @@ function MyModelAjouterStock(props) {
       {errors.description && <div className="text-danger">{errors.description}</div>}
             </Form.Group>
 
-            {image_MethodStock && <img src={image_MethodStock} alt="Image MéthodeStockage" className="current-image mb-3" />} 
+            {image_MethodStock && <img src={image_MethodStock} alt="MéthodeStockage" className="current-image mb-3" />} 
 
             <Form.Group className="mb-3" controlId="image">
               <FloatingLabel controlId="floatingTextarea2" label="Image :">

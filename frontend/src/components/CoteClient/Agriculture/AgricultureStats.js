@@ -145,7 +145,7 @@ const StatistiquesAgricoles = () => {
     if (!selectedYear) {
       setSelectedYear(lastYearValue);
     }
-  }, [lastYearValue]);
+  }, [selectedYear, lastYearValue]);
 
   return (
     <div style={{ marginTop: "10%" }}>

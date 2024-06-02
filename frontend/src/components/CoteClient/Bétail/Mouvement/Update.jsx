@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Btn from 'react-bootstrap/Button';
 const Update = ({ onUpdate, mouvementId }) => {
@@ -26,8 +25,8 @@ const Update = ({ onUpdate, mouvementId }) => {
                 setDestination(mouvementData.destination);
                 setPrixAchat(mouvementData.priceAchat);
                 setPrixVente(mouvementData.priceVente);
-                setDisplayPriceAchat(mouvementData.movementType=="achat");
-                setDisplayPriceVente(mouvementData.movementType=="vente");
+                setDisplayPriceAchat(mouvementData.movementType==="achat");
+                setDisplayPriceVente(mouvementData.movementType==="vente");
             } catch (error) {
                 console.error('Error fetching mouvement:', error);
             }
@@ -48,7 +47,7 @@ const Update = ({ onUpdate, mouvementId }) => {
         };
 
         try {
-            const response = await axios.put(`http://localhost:3001/MouvementsBetail/${mouvementId}`, formData);
+            await axios.put(`http://localhost:3001/MouvementsBetail/${mouvementId}`, formData);
             onUpdate(); // Appeler la fonction de rafraîchissement après la mise à jour
             handleClose();
         } catch (error) {

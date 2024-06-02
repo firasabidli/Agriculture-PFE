@@ -123,15 +123,15 @@ function Add({ onCreate }) {
     if (methode_irrigation==='') {
       newErrors.methodeIrrigation = "Il faut choisir une méthode d'irrigation";
     }else{
-    if (methode_irrigation!="irrigation gravitaire"){
-      if (quantite_eau_irrigation==""){
+    if (methode_irrigation!=="irrigation gravitaire"){
+      if (quantite_eau_irrigation===""){
         newErrors.quantite_eau_irrigation = "la quantité d'eau d'irrigation est requise";
       }
       if (frequence_surveillance===""){
         newErrors.frequence_surveillance = "il faut choisir le nombre des jours d'irrigation par semaine";
       }
 
-      if(date_derniere_surveillance==""){
+      if(date_derniere_surveillance===""){
         newErrors.date_derniere_surveillance = "il faut choisir une date correcte";
       }
       if(date_recolte<date_derniere_surveillance )

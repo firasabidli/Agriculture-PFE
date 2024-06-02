@@ -21,8 +21,6 @@ const ProfileAgriculteur = () => {
   const userDateNaissance = user?.dateNaissance;
   const userImage = user?.image;
   const [imageProfile, setImageProfile] = useState(null)
-  
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -31,10 +29,7 @@ const ProfileAgriculteur = () => {
 
 
   
-  // Fonction pour basculer la barre latérale
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
+ 
 
   // Fonction pour basculer le formulaire de mot de passe
   const togglePasswordForm = () => {

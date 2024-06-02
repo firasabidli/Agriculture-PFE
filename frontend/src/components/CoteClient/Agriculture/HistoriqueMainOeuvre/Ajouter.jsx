@@ -10,7 +10,7 @@ const AjouterMainOeuvre = ({ onCreate }) => {
     const [typeTravail, setTypeTravail] = useState("");
     const [nombreHeures, setNombreHeures] = useState("");
     const [prixParHeure, setPrixParHeure] = useState("");
-    const [prixTotal, setPrixTotal] = useState(0);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -52,7 +52,7 @@ const AjouterMainOeuvre = ({ onCreate }) => {
             alert('Main d\'œuvre ajoutée avec succès !');
             setDateTravail(new Date(now).toISOString().split("T")[0]);
             setNom("");
-            setPrixTotal(0);
+            
             setTypeTravail("");
             setNombreHeures("");
             setPrixParHeure("");

@@ -10,7 +10,7 @@ import './Header.css'
 import { Link } from 'react-router-dom';
 function Header({ toggleSidebar }) {
   const { user } = useUser();
-  const userName = user ?.nom ;
+  const userName = user?.nom ;
   const userImage = user?.image;
   //const userName  = useUser().user.nom;
   // const userImage=useUser().user.image;

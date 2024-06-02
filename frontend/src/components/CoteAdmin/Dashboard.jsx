@@ -7,7 +7,7 @@ import Sidebar from './Sidebar.jsx';
 import Main from './pages/Main.jsx';
 function Dashboard() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [page, setPage] = useState('Home');
+  const [page] = useState('Home');
 	
     const toggleSidebar = () => {
         setIsSidebarCollapsed(!isSidebarCollapsed);

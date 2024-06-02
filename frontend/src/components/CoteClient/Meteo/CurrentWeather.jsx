@@ -31,7 +31,7 @@ import Alerts from './Alerts.jsx';
 const CurrentWeather = ({ weatherData, city }) => {
   const { current } = weatherData;
   const { humidity, pressure, sunrise, sunset, wind_speed, weather, temp } = current;
-  const { description, icon } = weather[0];
+  const {  icon } = weather[0];
   const [currentDateTime, setCurrentDateTime] = useState('');
   const { daily } = weatherData;
   const [showAdvice, setShowAdvice] = useState(false);
@@ -171,15 +171,15 @@ const CurrentWeather = ({ weatherData, city }) => {
         <table className='tableRotate text-center colorCurrent' >
     <thead className='fs-5'>
       <tr  >
-        <td scope='col' ><span><TbSunset2 /></span> <br />Coucher de soleil </td>
-        <td scope='col' ><span><WiSunrise /></span> <br />Lever de soleil </td>
-        <td scope='col' ><span><WiHumidity /></span> <br />Humidité </td>
-        <td scope='col' ><span><WiStrongWind /></span><br />État du vent </td>
-        <td scope='col' ><span><IoIosCloud /></span><br />Couverture nuageuse </td>
-        <td scope='col' ><span><MdTimeline /></span><br />Pression </td>
-        <td scope='col'><span></span><br />Indice UV </td>
-        <td scope='col' ><span><MdVisibility /></span><br />Visibilité </td>
-        <td scope='col' ><span><GiMultiDirections /></span><br />Direction du vent </td>
+        <th scope='col' ><span><TbSunset2 /></span> <br />Coucher de soleil </th>
+        <th scope='col' ><span><WiSunrise /></span> <br />Lever de soleil </th>
+        <th scope='col' ><span><WiHumidity /></span> <br />Humidité </th>
+        <th scope='col' ><span><WiStrongWind /></span><br />État du vent </th>
+        <th scope='col' ><span><IoIosCloud /></span><br />Couverture nuageuse </th>
+        <th scope='col' ><span><MdTimeline /></span><br />Pression </th>
+        <th scope='col'><span></span><br />Indice UV </th>
+        <th scope='col' ><span><MdVisibility /></span><br />Visibilité </th>
+        <th scope='col' ><span><GiMultiDirections /></span><br />Direction du vent </th>
       </tr>
     </thead>
     <tbody className='fs-5'>

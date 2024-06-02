@@ -77,7 +77,7 @@ function Update({ onUpdate, betailId }) {
       fetchBetail();
       fetchCategories();
       
-  }, []);
+  }, );
 
 
   
