@@ -27,7 +27,7 @@ function Edit({ idProduction, idJour, quantite, prix, onUpdate }) {
       }
     } catch (error) {
       console.error('Erreur lors de la modification de  production:', error);
-     
+      // Gérez les erreurs
     }
   };
   
@@ -62,11 +62,11 @@ function Edit({ idProduction, idJour, quantite, prix, onUpdate }) {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
+            <Button variant="secondary" className="bg-secondary eviteHover" onClick={handleClose}>
+              Fermer
             </Button>
-            <Button variant="primary" onClick={handleSaveChanges}>
-              Save Changes
+            <Button variant="success" onClick={handleSaveChanges}>
+             Modifier
             </Button>
           </Modal.Footer>
         </Form>
