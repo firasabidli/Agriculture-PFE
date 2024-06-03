@@ -40,6 +40,25 @@ const PageProductionLaitiere = () => {
     const { id } = useParams();
     const authToken = localStorage.getItem("authToken");
 
+    useEffect(() => {
+        if (idAgriculteur) {
+            fetchProduction();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedDate, idAgriculteur]);
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
+    const handleLinkRClick = (idAgriculteur,id,year,month) => {
+        return `/Betail/FactureLaitiere/${idAgriculteur}/${id}/${month}/${year}`;
+      };
+
+      const handleLinkRClickRapport = (idAgriculteur,id,year,month) => {
+        return `/Betail/RapportProductivite/${idAgriculteur}/${id}/${month}/${year}`;
+      };
+
     const fetchProduction = async () => {
         try {            
             const response = await axios.get(`http://localhost:3001/ProductionBetail/${idAgriculteur}/${id}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`);            
@@ -56,25 +75,6 @@ const PageProductionLaitiere = () => {
             console.error('Error fetching daily data:', error);
         }
     };
-    useEffect(() => {
-        if (idAgriculteur) {
-            fetchProduction();
-        }
-    }, );
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-
-    const handleLinkRClick = (idAgriculteur,id,year,month) => {
-        return `/Betail/FactureLaitiere/${idAgriculteur}/${id}/${month}/${year}`;
-      };
-
-      const handleLinkRClickRapport = (idAgriculteur,id,year,month) => {
-        return `/Betail/RapportProductivite/${idAgriculteur}/${id}/${month}/${year}`;
-      };
-
-  
 
     const fetchStatistique = async () => {
         try {            
