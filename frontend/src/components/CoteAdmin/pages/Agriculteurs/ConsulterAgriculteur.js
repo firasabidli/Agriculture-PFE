@@ -16,6 +16,7 @@ const ConsulterAgriculteur = () => {
     const [selectedAgriculteurs, setSelectedAgriculteurs] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [message, setMessage] = useState('');
+    const [objet, setObjet] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false); // État pour contrôler l'ouverture du modèle
 
     const toggleSidebar = () => {
@@ -91,7 +92,10 @@ const ConsulterAgriculteur = () => {
             console.error("Aucun agriculteur sélectionné pour l'envoi du message.");
             return;
         }
-
+        if(!objet.trim()){
+            console.error("L'objet est vide.");
+            return;
+        }
         if (!message.trim()) {
             console.error("Le message est vide.");
             return;
@@ -101,7 +105,8 @@ const ConsulterAgriculteur = () => {
             // Envoyer un message à chaque agriculteur sélectionné
             const response = await axios.post('http://localhost:3001/Agriculteur/', {
                 selectedAgriculteursIds: selectedAgriculteurs.map(agriculteur => agriculteur._id),
-                message: message
+                message: message,
+                objet: objet
             });
 
             console.log("Message envoyé avec succès aux agriculteurs sélectionnés :", response.data);
@@ -212,6 +217,14 @@ const ConsulterAgriculteur = () => {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4 }}>
+                            <h2 id="modal-modal-title">Objet</h2>
+                            <TextField
+                                placeholder="Entrez votre objet ici..."
+                                multiline
+                                fullWidth
+                                value={objet}
+                                onChange={(event) => setObjet(event.target.value)}
+                            />
                             <h2 id="modal-modal-title">Envoyer un message</h2>
                             <TextField
                                 placeholder="Entrez votre message ici..."

@@ -31,7 +31,7 @@ exports.getAgriculteur = async (req, res) => {
     try {
       const selectedAgriculteursIds = req.body.selectedAgriculteursIds;
       const message = req.body.message;
-  
+      const objet= req.body.objet;
       // Récupérer les détails des agriculteurs sélectionnés depuis la base de données
       const selectedAgriculteurs = await Utilisateur.find({ _id: { $in: selectedAgriculteursIds } });
   
@@ -41,7 +41,7 @@ exports.getAgriculteur = async (req, res) => {
         const mailOptions = {
           from: process.env.SMTP_MAIL,
           to: agriculteur.email,
-          subject: 'Activation de compte',
+          subject: `${objet}`,
           html: `
             <html>
               <body>
