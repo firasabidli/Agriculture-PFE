@@ -167,6 +167,7 @@ const CurrentWeather = ({ weatherData, city }) => {
           </div>
         </div>
         {/*  */}
+        <marquee>
         <div className="table-responsive tableRotate" style={{ overflowX: "auto" }}>
         <table className='tableRotate text-center colorCurrent' >
     <thead className='fs-5'>
@@ -197,37 +198,8 @@ const CurrentWeather = ({ weatherData, city }) => {
     </tbody>
   </table>
 </div>
-
-        {/* <div className="table-responsive" >
-          <table className='table text-black text-center table-hovered border-dark' >
-            <thead className='fs-5'>
-              <tr style={{backgroundColor:"blue"}}>
-                <td scope='col'><span><TbSunset2 /></span> <br />Coucher de soleil </td>
-                <td scope='col'><span><WiSunrise /></span> <br />Lever de soleil </td>
-                <td scope='col'><span><WiHumidity /></span> <br />Humidité </td>
-                <td scope='col'><span><WiStrongWind /></span><br />État du vent </td>
-                <td scope='col'><span><IoIosCloud /></span><br />Couverture nuageuse </td>
-                <td scope='col'><span><MdTimeline /></span><br />Pression </td>
-                <td scope='col'><span></span><br />Indice UV </td>
-                <td scope='col'><span><MdVisibility /></span><br />Visibilité </td>
-                <td scope='col'><span><GiMultiDirections /></span><br />Direction du vent </td>
-              </tr>
-            </thead>
-            <tbody className='fs-5'>
-              <tr>
-                <td>{new Date(sunset * 1000).toLocaleTimeString()}</td>
-                <td>{new Date(sunrise * 1000).toLocaleTimeString()}</td>
-                <td>{humidity}%</td>
-                <td>{wind_speed} km/h</td>
-                <td>{current.clouds}%</td>
-                <td>{pressure} hPa</td>
-                <td>{current.uvi}</td>
-                <td>{current.visibility} mètres</td>
-                <td>{current.wind_deg}°</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> */}
+</marquee>
+      
         <div ref={alertsRef}></div>
         {showAdvice && (
           <Alerts weatherData={weatherData} />
