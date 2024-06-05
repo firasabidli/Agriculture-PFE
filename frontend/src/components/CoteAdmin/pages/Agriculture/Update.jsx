@@ -36,11 +36,11 @@ function Update({ onUpdate, agricultureId }) {
       console.log("agri",data);
       setAgriculture(data);
       setMethodeIrrigation(data.methode_irrigation);
+      setFrequenceSurveillance(data.frequence_surveillance);
+      setQuantiteEauIrrigation(data.quantite_eau_irrigation);
+      setDateDerniereSurveillance(data.date_derniere_surveillance)
       setShowQuantity(data.methode_irrigation !== 'irrigation gravitaire');
       setShowFrequency(data.methode_irrigation !== 'irrigation gravitaire');
-      setFrequenceSurveillance(data.frequence_surveillance)
-      setQuantiteEauIrrigation(data.quantite_eau_irrigation)
-      setDateDerniereSurveillance(data.date_derniere_surveillance)
       fetchEquipStockEngraisByCategorie(agriculture.categorie)
       setSelectedSaison(data.saison._id);
       await fetchEquipStockEngraisByCategorie(data.categorie._id);
@@ -79,8 +79,8 @@ function Update({ onUpdate, agricultureId }) {
       fetchSaisons();
       fetchCategories();
       
-   
-  }, );
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
  
   
@@ -106,7 +106,7 @@ function Update({ onUpdate, agricultureId }) {
       }
     });
   };
-// select engrais
+
   const handleMedicamentChange = (e, medicamentId) => {
     const isChecked = e.target.checked;
     setSelectedMedicaments(prevSelectedMedicaments => {
@@ -117,8 +117,8 @@ function Update({ onUpdate, agricultureId }) {
       }
     });
   };
-// validation 
-  const validateFormUpdate = () => {
+
+  const validateForm = () => {
     const newErrors = {};
 
     if (!agriculture.nom_agriculture.trim()) {
@@ -151,10 +151,10 @@ function Update({ onUpdate, agricultureId }) {
     }else{
     if (methode_irrigation!=="irrigation gravitaire"){
       if (quantite_eau_irrigation===""){
-        newErrors.quantite_eau_irrigation = "la quantité d'eau d'irrigation est requise kkkkkkkkkk";
+        newErrors.quantite_eau_irrigation = "la quantité d'eau d'irrigation est requise";
       }
       if (frequence_surveillance===""){
-        newErrors.frequence_surveillance = "il faut choisir le nombre des jours d'irrigation par semaine kkkkkkkkkkk";
+        newErrors.frequence_surveillance = "il faut choisir le nombre des jours d'irrigation par semaine";
       }
 
       if(date_derniere_surveillance===""){
@@ -162,7 +162,7 @@ function Update({ onUpdate, agricultureId }) {
       }
       if(agriculture.date_recolte<date_derniere_surveillance )
   {
-    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre avant la date de recolte jjjjjjjjjj ";
+    newErrors.date_derniere_surveillance = "la date dernier d'irrigation  doit etre avant la date de recolte ";
   }
   if(date_derniere_surveillance<agriculture.date_plantation )
   {
@@ -205,11 +205,9 @@ function Update({ onUpdate, agricultureId }) {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
-  // function submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateFormUpdate()) {
+    if (!validateForm()) {
       return;
     }
     try {
@@ -317,7 +315,7 @@ function Update({ onUpdate, agricultureId }) {
                     type="text"
                     placeholder="Nom Culture"
                     defaultValue={agriculture.nom_agriculture}
-                    name="nom_culture"
+                    name="nom_agriculture"
                   />
                 </FloatingLabel>
                 {errors.nom_agriculture && <div className="text-danger">{errors.nom_agriculture}</div>}
@@ -390,7 +388,7 @@ function Update({ onUpdate, agricultureId }) {
                   <Form.Control
                     type='Number'
                     placeholder="quantite_eau_irrigation"
-                    defaultValue={agriculture.quantite_eau_irrigation}
+                    defaultValue={methode_irrigation===agriculture.methode_irrigation? quantite_eau_irrigation : ''}
                     onChange={(e) => setQuantiteEauIrrigation(e.target.value)}
                   />
                 </FloatingLabel>
@@ -402,15 +400,15 @@ function Update({ onUpdate, agricultureId }) {
               <>
                <Form.Group controlId="frequence_surveillance" className="mb-3">
               <Form.Label>Fréquence d'irrigation par semaine</Form.Label>
-              <Form.Select defaultValue={agriculture.frequence_surveillance}  onChange={(e) => setFrequenceSurveillance(e.target.value)}>
-                <option  disabled value="">Choisir nombre des jours</option>
-                <option selected={agriculture.frequence_surveillance==="1 Jours"} value="1 Jours">1 Jour</option>
-                <option selected={agriculture.frequence_surveillance==="2 Jours"} value="2 Jours">2 Jours</option>
-                <option selected={agriculture.frequence_surveillance==="3 Jours"} value="3 Jours">3 Jours </option>
-                <option selected={agriculture.frequence_surveillance==="4 Jours"} value="4 Jours">4 Jours</option>
-                <option selected={agriculture.frequence_surveillance==="5 Jours"} value="5 Jours">5 Jours</option>
-                <option  selected={agriculture.frequence_surveillance==="6 Jours"}value="6 Jours">6 Jours</option>
-                <option  selected={agriculture.frequence_surveillance==="Toutes les jours"}value="Toutes les jours">Toutes les jours</option>
+              <Form.Select defaultValue={methode_irrigation===agriculture.methode_irrigation? frequence_surveillance :''}  onChange={(e) => setFrequenceSurveillance(e.target.value)}>
+                <option value="">Choisir nombre des jours</option>
+                <option value="1 Jours">1 Jour</option>
+                <option value="2 Jours">2 Jours</option>
+                <option value="3 Jours">3 Jours </option>
+                <option value="4 Jours">4 Jours</option>
+                <option value="5 Jours">5 Jours</option>
+                <option value="6 Jours">6 Jours</option>
+                <option value="Toutes les jours">Toutes les jours</option>
               </Form.Select>
               {errors.frequence_surveillance && <div className="text-danger">{errors.frequence_surveillance}</div>}
             </Form.Group>
@@ -421,7 +419,7 @@ function Update({ onUpdate, agricultureId }) {
                 <Form.Control
                   type='date'
                   placeholder="Date Derniere d'irrigation"
-                  defaultValue={agriculture.date_derniere_surveillance}
+                  defaultValue={methode_irrigation===agriculture.methode_irrigation? date_derniere_surveillance :''}
                   onChange={(e) => setDateDerniereSurveillance(e.target.value)}
                 />
               </FloatingLabel>

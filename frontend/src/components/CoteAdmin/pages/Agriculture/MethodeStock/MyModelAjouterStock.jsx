@@ -14,12 +14,11 @@ function MyModelAjouterStock(props) {
     const [image_MethodStock, setImage] = useState(null);
     const [newImage, setNewImage] = useState(null);
     const [errors, setErrors] = useState({});
-
     // Effet pour préremplir les champs lors de la modification
     useEffect(() => {
         // Vérifie si des données de formulaire ont été passées en tant que props
         if (props.formData) {
-            
+            // Préremplit les champs avec les données existantes
             setTitle(props.formData.title || '');
             setDescription(props.formData.description || '');
             setImage(props.formData.image_MethodStock || '');

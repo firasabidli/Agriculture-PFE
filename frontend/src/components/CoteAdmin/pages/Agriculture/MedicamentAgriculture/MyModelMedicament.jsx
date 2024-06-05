@@ -66,6 +66,8 @@ function MyModelMedicament(props) {
             formData.append('image', newImage || image);
             if (props.formData) {
                 // Modifier
+                console.log(formData)
+                // await axios.put(`http://localhost:3001/MedicamentCulture/UpdateMedicament/${props.formData._id}`, { nomMedicament, description, image });
                      await axios.put(`http://localhost:3001/MedicamentCulture/UpdateMedicament/${props.formData._id}`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                   });

@@ -11,7 +11,8 @@ import { SiDatabricks } from "react-icons/si";
 import { FaBuildingWheat } from "react-icons/fa6";
 import { MdAgriculture } from "react-icons/md";
 import { SiHappycow } from "react-icons/si";
-import logo from '../../assets/images/logo.jpg';
+
+import logo from '../../assets/images/logo1.png';
 import engrais from '../../assets/images/Engrais.png';
 const Sidebar = ({ isSidebarCollapsed, page }) => {
     const [agricultureOpen, setAgricultureOpen] = useState(false);
