@@ -25,7 +25,8 @@ function Update({ materielId, onUpdate, imageM }) {
     if (show) {
       fetchMateriel();
     }
-  }, );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show]);
 
   const fetchMateriel = async () => {
     try {

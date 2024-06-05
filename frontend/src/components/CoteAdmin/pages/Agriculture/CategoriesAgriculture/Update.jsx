@@ -66,8 +66,8 @@ function Update({ categorieId, nomCategorie, Description, onUpdate }) {
     fetchMaterials();
     fetchStocks();
     fetchMedicaments();
- 
-},);
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   const handleMaterialChange = (e, materialId) => {
     const isChecked = e.target.checked;
