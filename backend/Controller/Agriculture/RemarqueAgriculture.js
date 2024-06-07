@@ -121,7 +121,7 @@ exports.getByDate = async (req, res) => {
             .sort({ date_enregistrement:-1 })
             .populate('Agriculteur');
             for (let remarque of remarques) {
-                const agriculteurId = remarque.Agriculteur._id;
+                const agriculteurId = remarque.Agriculteur;
                 const agriculteur = await Utilisateur.findById(agriculteurId);
                 remarque.Agriculteur = agriculteur;
             }
