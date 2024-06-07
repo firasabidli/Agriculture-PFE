@@ -74,7 +74,8 @@ function MyModelMedicament(props) {
             } else {
                 // Ajouter
                 await axios.post('http://localhost:3001/MedicamentCulture/AjouterMedicament', formData);
-                alert('Engrais agricole ajouté avec succès');
+
+                alert('Engrais ajouté avec succès');
             }
 
             setNomMedicament('');
