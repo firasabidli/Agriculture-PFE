@@ -438,6 +438,7 @@ function Add({ onCreate }) {
                 <Form.Control
                   type="file"
                   onChange={onInputChange}
+                  accept="image/*"
                 />
               </FloatingLabel>
               {errors.image_agriculture && <div className="text-danger">{errors.image_agriculture}</div>}

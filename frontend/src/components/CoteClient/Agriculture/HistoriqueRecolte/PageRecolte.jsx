@@ -13,7 +13,7 @@ const PageRecolte = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [typeFilter] = useState("");
+    const [typeFilter, setTypeFilter] = useState("");
 
     const fetchRecolte = async () => {
         try {
@@ -27,7 +27,7 @@ const PageRecolte = () => {
 
     useEffect(() => {
         fetchRecolte();
-    }, );
+    }, []);
 
     const handleDelete = async (id) => {
         try {
@@ -54,7 +54,6 @@ const PageRecolte = () => {
             setFilteredData(filtered);
         }
     }, [typeFilter, data]);
-    
     const handleLinkRClick = (id) => {
         return `/agriculture/FactureRecolte/${id}`;
       };
@@ -65,6 +64,8 @@ const PageRecolte = () => {
                 <div className="row">
                     <div className="col-md-8">
                         <h4>Liste de suivi des Récoltes</h4>
+                        {filteredData.length < 1 ? 
+                            <div className='text-center p-5'><b>Auccune données disponible</b></div> :
                         <div style={{ marginTop: "5%" }}>
                             <Table responsive>
                                 <thead className="thead-light">
@@ -113,6 +114,7 @@ const PageRecolte = () => {
                             </Table>
                             {/* <FactureRecolte/> */}
                         </div>
+}
                     </div>
                     <div className="col-md-4 mt-3">
                         <AjouterRecolte onCreate={fetchRecolte} />

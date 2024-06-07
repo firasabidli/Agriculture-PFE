@@ -1,21 +1,26 @@
-
 .colorCurrent {
   background-color: #1976D2;
-  color:white;
+  color: white;
 }
-/* CSS */
-@keyframes tableRotate {
+
+/* CSS for scrolling animation */
+@keyframes scrollHorizontal {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(100%);
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(-100%);
   }
+}
+
+.scrolling-table-container {
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .tableRotate {
-
-  transition: tableRolate 1s ease-out;
+  display: inline-block;
+  animation: scrollHorizontal 20s linear infinite;
 }
 
 .bg-img {
@@ -44,8 +49,7 @@
 }
 
 .table {
-  width: 100%;
-  max-width: 100%;
+  
   margin-bottom: 1rem;
   background-color: transparent;
 }

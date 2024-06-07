@@ -8,7 +8,9 @@ import FactureMouvement from "./FactureMouvement";
 const PageMouvement = () => {
   const { id } = useParams();
   const [movementData, setMovementData] = useState([]);
-
+  const [displayPriceAchat, setDisplayPriceAchat] = useState(false);
+  const [displayPriceVente, setDisplayPriceVente] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchMovementsByFarmer = async () => {
     try {
@@ -22,7 +24,7 @@ const PageMouvement = () => {
 
   useEffect(() => {
     fetchMovementsByFarmer();
-  },);
+  }, []);
 
   const handleDelete = async (id) => {
     try {
@@ -46,7 +48,9 @@ const PageMouvement = () => {
     return formattedDate;
   };
 
-
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   return(
     <div>

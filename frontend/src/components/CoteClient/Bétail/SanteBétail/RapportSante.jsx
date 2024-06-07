@@ -88,7 +88,7 @@ const RapportSante = () => {
   if (healthData.length === 0) {
     return (
       <>
-        <Navbar textColor="black" />
+        <Navbar className="no-print" textColor="black" />
         <div className="rapport-sante-container">
           <h2>Rapport de Santé du Bétail</h2>
           <p>Aucune donnée de santé disponible pour cet animal.</p>
@@ -101,7 +101,7 @@ const RapportSante = () => {
 
   return (
     <>
-      <Navbar textColor="black" />
+      <Navbar className="no-print" textColor="black" />
       <div className="rapport-sante-container" id="rapportSante">
         <h2>Rapport de Santé du Bétail</h2>
         <div className="d-flex" style={{ float: 'right', marginBottom: '20px' }}>
@@ -152,10 +152,7 @@ const RapportSante = () => {
       <style>
         {`
           @media print {
-            body {
-              margin: 10px 10px 10px;
-            }
-            .hidden {
+            .no-print {
               display: none !important;
             }
           }

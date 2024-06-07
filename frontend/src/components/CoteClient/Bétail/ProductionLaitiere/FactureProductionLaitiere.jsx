@@ -10,7 +10,6 @@ import { FiPrinter } from "react-icons/fi";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
 
-
 const FactureProductionLaitiere = () => {
     const { user } = useUser();
     const userName = user?.nom;
@@ -42,7 +41,7 @@ const FactureProductionLaitiere = () => {
         if (idAgriculteur) {
             fetchProduction();
         }
-    },);
+    },[idAgriculteur, id, year, month]);
 
     const exportPDF = () => {
         const input = document.getElementById('invoice');
@@ -158,7 +157,7 @@ const FactureProductionLaitiere = () => {
                                                         const dayData = production[index];
                                                         const quantite = dayData ? dayData['quantite'] : '';
                                                         const prix = dayData ? dayData['prix'] : '';
-                                                        const total = dayData['prix'] || dayData['quantite'] ? quantite * prix : '';
+                                                        const total = quantite && prix ? quantite * prix : '';
                                                         return (
                                                             <td key={jourIndex} style={{ border: 'solid 0.5px white', color: 'grey' }}>
                                                                 {jourIndex % 3 === 2 ? total : jourIndex % 3 === 0 ? quantite : prix}

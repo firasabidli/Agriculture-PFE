@@ -44,11 +44,14 @@ const PageProductionLaitiere = () => {
         if (idAgriculteur) {
             fetchProduction();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, [selectedDate, idAgriculteur]);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+       
+       
+        console.log('prodMonth: ',selectedDate.getMonth()+1, 'production',production);
     };
 
     const handleLinkRClick = (idAgriculteur,id,year,month) => {
@@ -60,8 +63,9 @@ const PageProductionLaitiere = () => {
       };
 
     const fetchProduction = async () => {
-        try {            
+        try {               
             const response = await axios.get(`http://localhost:3001/ProductionBetail/${idAgriculteur}/${id}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`);            
+        
             if (response.data != null) {
                 setProduction(response.data.data);
                 setIdProduction(response.data._id);
@@ -70,6 +74,10 @@ const PageProductionLaitiere = () => {
                 setDataYear(response.data.year);
                 setProdTotal(response.data.productionTotal);
                 fetchStatistique();
+
+            }
+            else{
+                setProduction([])
             }
         } catch (error) {
             console.error('Error fetching daily data:', error);
@@ -126,7 +134,8 @@ const PageProductionLaitiere = () => {
 
     const handleChange = (event, index) => {
         if (!(dataYear === selectedDate.getFullYear() && dataMonth === selectedDate.getMonth() + 1)) {
-            fetchProduction();
+            fetchProduction(selectedDate.getFullYear(), selectedDate.getMonth() + 1);
+            console.log('prodMonth: ',selectedDate.getMonth() + 1,' Prod: ',production);
             const updatedProduction = [...production];
             const updatedIndex = Math.floor(index / 2);
             const updatedValue = event.target.value;
@@ -146,6 +155,7 @@ const PageProductionLaitiere = () => {
             setProduction(updatedProduction);
         } else {
             setProduction([]);
+            console.log(production);
             const updatedProduction = [...production];
             const updatedIndex = Math.floor(index / 2);
             const updatedValue = event.target.value;

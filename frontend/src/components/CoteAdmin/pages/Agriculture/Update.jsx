@@ -432,7 +432,7 @@ function Update({ onUpdate, agricultureId }) {
 
               <Form.Group className="mb-3" controlId="image_culture">
                 <Form.Label>Image Agriculture:</Form.Label>
-                <Form.Control type="file" onChange={handleImageChange} />
+                <Form.Control type="file"  accept="image/*" onChange={handleImageChange} />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="remarques">

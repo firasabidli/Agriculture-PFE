@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import Navbar from '../../Navbar';
-import AjouterEquipement from "./Ajouter"; 
+import AjouterEquipement from "./Ajouter"; // Assurez-vous d'avoir le bon composant d'ajout d'équipement
 import { FcDeleteRow } from "react-icons/fc";
-import UpdateEquipement from "./Update"; 
+import UpdateEquipement from "./Update"; // Assurez-vous d'avoir le bon composant de mise à jour d'équipement
 import { Table } from "react-bootstrap";
 const PageEquipement = () => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const { id } = useParams();
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [typeFilter] = useState("");
+    const [typeFilter, setTypeFilter] = useState("");
 
     const fetchEquipement = async () => {
         try {
@@ -25,7 +25,7 @@ const PageEquipement = () => {
 
     useEffect(() => {
         fetchEquipement();
-    }, );
+    }, []);
 
     const handleDelete = async (id) => {
         try {
@@ -60,8 +60,14 @@ const PageEquipement = () => {
                 <div className="row">
                     <div className="col-md-8">
                         <h4>Liste de suivi des Equipements</h4>
+                        {filteredData.length < 1 ? 
+                            <div className='text-center p-5'><b>Auccune données disponible</b></div> :
                         <div style={{ marginTop: "5%"}}>
-
+                            {/* <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+                                   <option value="">Filtre par Types</option>
+                                   <option value="Pesticide">Pesticide</option>
+                                   <option value="Engrais">Engrais</option>
+                            </select> */}
                             <Table responsive>
                                 <thead className="thead-light">
                                     <tr style={{ fontWeight: "bold" }}>
@@ -98,7 +104,9 @@ const PageEquipement = () => {
                                 </tbody>
                             </Table>
                         </div>
+                            }
                     </div>
+                                
                     <div className="col-md-4 mt-3">
                         <AjouterEquipement onCreate={fetchEquipement} />
                     </div>

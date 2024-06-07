@@ -145,7 +145,7 @@ function Update({ materielId, onUpdate, imageM }) {
                                                                    
                 <Form.Group className="mb-3" controlId="image_Equipement">
                   <Form.Label>Image Equipement:</Form.Label>
-                  <Form.Control type="file" onChange={handleImageChange} />
+                  <Form.Control type="file"  accept="image/*" onChange={handleImageChange} />
                  
                 </Form.Group>
                 <Button variant="primary" type="submit">

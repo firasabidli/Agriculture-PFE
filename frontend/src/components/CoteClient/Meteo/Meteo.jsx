@@ -19,7 +19,7 @@ function Meteo() {
 
   const getWeatherData = () => {
     if (latitude && longitude) {
-    fetch(` https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`)
+    fetch(` https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}&units=metric`)
       .then(res => res.json())
       .then(data => {
         setWeatherData(data);

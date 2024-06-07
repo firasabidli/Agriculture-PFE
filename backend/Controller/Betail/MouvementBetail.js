@@ -62,10 +62,11 @@ exports.update = async (req, res) => {
 
     res.status(200).json(updatedMouvementData);
   } catch (error) {
-    console.error("Erreur lors de la mise à jour des données de santé :", error);
-    res.status(500).json({ message: "Erreur lors de la mise à jour des données de santé" });
+    console.error("Erreur lors de la mise à jour des données de mouvement :", error);
+    res.status(500).json({ message: "Erreur lors de la mise à jour des données de mouvement" });
   }
 }
+
 // afficher mouvement selon id
 exports.getMouvementById = async (req, res) => {
   try {

@@ -77,7 +77,7 @@ function Update({ onUpdate, betailId }) {
       fetchBetail();
       fetchCategories();
       
-  }, );
+  }, []);
 
 
   
@@ -316,6 +316,7 @@ function Update({ onUpdate, betailId }) {
                 <Form.Control
                   type="file"
                   onChange={handleImageChange}
+                  accept="image/*"
                 />
               </FloatingLabel>
             </Form.Group>

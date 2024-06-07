@@ -11,7 +11,7 @@ const PageIrrigation = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [typeFilter] = useState("");
+    const [typeFilter, setTypeFilter] = useState("");
 
     const fetchIrrigation = async () => {
         try {
@@ -25,7 +25,7 @@ const PageIrrigation = () => {
 
     useEffect(() => {
         fetchIrrigation();
-    }, );
+    }, []);
 
     const handleDelete = async (id) => {
         try {
@@ -60,6 +60,8 @@ const PageIrrigation = () => {
                 <div className="row">
                     <div className="col-md-8">
                         <h4>Liste de suivi des Irrigations</h4>
+                        {filteredData.length < 1 ? 
+                            <div className='text-center p-5'><b>Auccune données disponible</b></div> :
                         <div style={{ marginTop: "5%"}}>
                             <Table responsive >
                                 <thead className="thead-light">
@@ -97,6 +99,7 @@ const PageIrrigation = () => {
                                 </tbody>
                             </Table>
                         </div>
+}
                     </div>
                     <div className="col-md-4 mt-3">
                         <AjouterIrrigation onCreate={fetchIrrigation} />

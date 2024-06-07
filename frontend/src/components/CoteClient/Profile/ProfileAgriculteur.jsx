@@ -163,7 +163,7 @@ const ProfileAgriculteur = () => {
                                 <div className="upload">
                                   <img src={ selectedImage || (userImage && userImage.startsWith('http') ? userImage : `http://localhost:3001/images/Utilisateur/Agriculteur/${userImage}`) } className='im' alt="Profil"/>
                                   <div className="round">
-                                    <input type="file" onChange={handleImageChange} />
+                                    <input type="file"  accept="image/*" onChange={handleImageChange} />
                                     <BsFillCameraFill className="fs-4 padding" />
                                   </div>
                                 </div>

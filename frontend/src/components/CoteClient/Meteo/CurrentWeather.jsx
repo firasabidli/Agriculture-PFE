@@ -145,8 +145,8 @@ const CurrentWeather = ({ weatherData, city }) => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="temperature">
-                    <span>{temp} °C</span>
+                  <div className="temperature fs-2">
+                    <span>{temp } °C</span>
                   </div>
                 </div>
                 <div className="m-4">
@@ -167,8 +167,8 @@ const CurrentWeather = ({ weatherData, city }) => {
           </div>
         </div>
         {/*  */}
-        <marquee>
-        <div className="table-responsive tableRotate" style={{ overflowX: "auto" }}>
+        <div className="scrolling-table-container "style={{ overflowX: "auto" }}>
+        
         <table className='tableRotate text-center colorCurrent' >
     <thead className='fs-5'>
       <tr  >
@@ -198,14 +198,14 @@ const CurrentWeather = ({ weatherData, city }) => {
     </tbody>
   </table>
 </div>
-</marquee>
+</div>
       
         <div ref={alertsRef}></div>
         {showAdvice && (
           <Alerts weatherData={weatherData} />
         )}
       </div>
-    </div>
+   
   );
 };
 
