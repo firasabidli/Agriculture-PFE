@@ -44,9 +44,7 @@ function MyModelMedicament(props) {
         if (description.length<6) {
           newErrors.description = 'La taille du la description doit etre superieur ou égale à 6';
         }
-        if (/\d/.test(description))  {
-          newErrors.description = 'La description ne doit pas contenir de chiffres';
-        }
+       
        
        
     

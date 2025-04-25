@@ -124,8 +124,8 @@ function Update({ onUpdate, agricultureId }) {
     if (!agriculture.nom_agriculture.trim()) {
       newErrors.nom_agriculture = "Le nom de l'agriculture est requis";
     }
-    if (agriculture.nom_agriculture.length<4) {
-      newErrors.nom_agriculture = 'La taille du nom de la catégorie doit etre superieur ou égale à 4';
+    if (agriculture.nom_agriculture.length<3) {
+      newErrors.nom_agriculture = 'La taille du nom de la catégorie doit etre superieur ou égale à 3';
     }
     if (/\d/.test(agriculture.nom_agriculture))  {
       newErrors.nom_agriculture = 'Le nom de la catégorie ne doit pas contenir de chiffres';

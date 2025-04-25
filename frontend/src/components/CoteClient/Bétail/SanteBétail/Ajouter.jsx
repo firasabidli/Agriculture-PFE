@@ -64,14 +64,14 @@ const AjouterSanté = ({ onCreate }) => {
         return;
       }
   
-      const isValidMaladiesSymptomes = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(healthData.maladiesSymptomes);
-      if (!isValidMaladiesSymptomes) {
-        alert('Le champ Maladies ou symptômes ne doit contenir que des lettres et des espaces.');
+      const maladiesSymptomes = healthData.maladiesSymptomes.trim();
+      if (maladiesSymptomes.length > 0 && maladiesSymptomes.length < 6) {
+        alert('Le champ Maladies ou symptômes doit contenir au moins 6 caractères.');
         return;
       }
-      const isValidobservationsGenerales=/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(healthData.observationsGenerales);
-      if (!isValidobservationsGenerales) {
-        alert('Le champ Maladies ou symptômes ne doit contenir que des lettres et des espaces.');
+      const observationsGenerales = healthData.observationsGenerales.trim();
+      if (observationsGenerales.length > 0 && observationsGenerales.length < 6) {
+        alert("L'observations Generales doit contenir au moins 6 caractères.");
         return;
       }
     

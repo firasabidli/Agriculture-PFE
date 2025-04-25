@@ -121,7 +121,7 @@ const FactureProductionLaitiere = () => {
                                         <div className="text-grey-m2">
                                             <div className="mt-1 mb-2 text-secondary-m1 text-600 text-125">Facture</div>
                                             <div className="my-2"><i className="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span className="text-600 text-90">ID:</span> #111-222</div>
-                                            <div className="my-2"><i className="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span className="text-600 text-90">Date:</span> Date</div>
+                                            <div className="my-2"><i className="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span className="text-600 text-90">Date:</span> {new Date().toLocaleDateString('fr-FR')}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -160,8 +160,9 @@ const FactureProductionLaitiere = () => {
                                                         const total = quantite && prix ? quantite * prix : '';
                                                         return (
                                                             <td key={jourIndex} style={{ border: 'solid 0.5px white', color: 'grey' }}>
-                                                                {jourIndex % 3 === 2 ? total : jourIndex % 3 === 0 ? quantite : prix}
-                                                            </td>
+                                                            {jourIndex % 3 === 2 ? (total !== '' ? total.toFixed(2) : '') : jourIndex % 3 === 0 ? quantite : (prix !== '' ? prix.toFixed(2) : '')}
+                                                        </td>
+                                                    
                                                         );
                                                     })}
                                                 </tr>
